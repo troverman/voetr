@@ -17,7 +17,7 @@ angular.module( 'voetr.blog-post', [
 })
 
 .controller( 'BlogPostCtrl', function BlogPostController( $scope, titleService, $stateParams, $http) {
-	titleService.setTitle('Blog - NOVO'); 
+	titleService.setTitle('Blog - voetr'); 
 
 	$scope.post_title = 'post title';
 	$scope.post_content = 'post content';

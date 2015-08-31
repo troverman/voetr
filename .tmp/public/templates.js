@@ -139,6 +139,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "    <div id=\"home-content\">\n" +
     "\n" +
+    "    	<img src=\"/images/crowd.jpg\"/>\n" +
+    "    	<img src=\"/images/crowd1.jpg\"/>\n" +
+    "\n" +
     "    	<p>the internet's voice</p>\n" +
     "    	<p>popular voice, bylaw creation</p>\n" +
     "    	<p>crowd-sourced government</p>\n" +

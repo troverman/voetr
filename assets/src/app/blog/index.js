@@ -21,7 +21,7 @@ angular.module( 'voetr.blog', [
 })
 
 .controller( 'BlogCtrl', function BlogController( $scope, $sailsSocket, lodash, titleService, config, PostModel, posts) {
-	titleService.setTitle('Blog - NOVO');
+	titleService.setTitle('Blog - voetr');
 	$scope.newPost = {};
     $scope.posts = posts;
     $scope.currentUser = config.currentUser;

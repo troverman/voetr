@@ -14,7 +14,7 @@ angular.module( 'voetr.home', [
 })
 
 .controller( 'HomeCtrl', function HomeController( $scope, titleService, config ) {
-	titleService.setTitle('NOVO');
+	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 
 });

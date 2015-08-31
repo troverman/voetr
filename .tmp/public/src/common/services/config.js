@@ -5,7 +5,7 @@ angular.module( 'services.config', ['lodash'])
 	// private vars here if needed
 
 	return {
-		siteName: 'NOVO',
+		siteName: 'voetr',
 		// no trailing slash!
 		siteUrl: '/',
 		apiUrl: '/api',

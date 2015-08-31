@@ -14,6 +14,6 @@ angular.module( 'voetr.member', [
 })
 
 .controller( 'MemberCtrl', function MemberController( $scope, titleService, uiGmapGoogleMapApi ) {
-	titleService.setTitle('Member');
+	titleService.setTitle('Member - voetr');
 
 });

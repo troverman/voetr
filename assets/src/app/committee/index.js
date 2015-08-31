@@ -32,7 +32,18 @@ angular.module( 'voetr.committee', [
 	        "title": "United States of America",
 	        "post_content": "",
 	        "url_title": "united-states-of-america"
+    	},
+    	"voetr": {
+	        "title": "North Carolina",
+	        "post_content": "",
+	        "url_title": "north-carolina"
+    	},
+    	"voetr": {
+	        "title": "Illinois",
+	        "post_content": "",
+	        "url_title": "illinois"
     	}
+
     };
 
 
