@@ -1,0 +1,39 @@
+<!--old content, need to cre8 functionality... that error tho-->
+
+<!--if logged in-->
+<div ng-show="currentUser">
+
+  <form role="form" ng-submit="createPost(newPost)">
+    <div class="form-group">
+    <label for="PostTitle">PostTitle</label>
+    <label for="PostContent">PostContent</label>
+      <input type="text" ng-model="newPost.title" class="form-control" id="postTitle">
+      <input type="text" ng-model="newPost.post_content" class="form-control" id="postContent">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <div id="post-container" class="col-md-6">
+    <ul>
+      <li ng-repeat="post in posts">
+        {{post.title}}
+      </li>
+    </ul>
+  </div>
+
+</div>
+<!--/if logged in-->
+
+
+
+<div id="post-list-container" ng-repeat="post in test_posts">
+  <br><br>
+  <div id="post-container">
+    <h1 class="title"><a href="/blog/{{post.url_title}}">{{post.title}}</a></h1>
+    <p class="lead">{{post.post_content}}</p>
+  </div>
+  <br><br>
+</div>
+
+
+<div style="height:100px;"></div>

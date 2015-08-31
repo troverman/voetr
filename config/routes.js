@@ -48,13 +48,13 @@ module.exports.routes = {
   'get /member/:id': 'HomeController.index',
 
 
-
   'get /login': 'AuthController.login',
   'get /logout': 'AuthController.logout',
   'get /register': 'AuthController.register',
 
   'post /auth/local': 'AuthController.callback',
   'post /auth/local/:action': 'AuthController.callback',
+
 
   /**
    * User routes
@@ -70,6 +70,14 @@ module.exports.routes = {
   'get /api/post/:id': 'PostController.getOne',
   'post /api/post': 'PostController.create',
   'delete /api/post/:id': 'PostController.destroy',
+
+  /**
+   * Committee routes
+   */
+  'get /api/committee': 'CommitteeController.getAll',
+  'get /api/committee/:id': 'CommitteeController.getOne',
+  'post /api/committee': 'CommitteeController.create',
+  'delete /api/committee/:id': 'CommitteeController.destroy',
 
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
