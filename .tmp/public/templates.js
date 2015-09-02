@@ -118,13 +118,22 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "  <br><br>\n" +
     "  <div id=\"post-container\">\n" +
     "    <h1 class=\"title\"><a href=\"/blog/{{post.url_title}}\">{{post.title}}</a></h1>\n" +
+    "\n" +
+    "    <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
+    "    <br>\n" +
+    "    <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
+    "    <br>Vote: {{vote}}\n" +
+    "\n" +
     "    <p>upvote</p>\n" +
     "    <p>downvote</p>\n" +
+    "\n" +
+    "\n" +
     "    <p class=\"lead\">{{post.post_content}}</p>\n" +
     "\n" +
-    "\n" +
     "  </div>\n" +
+    "\n" +
     "  <br><br>\n" +
+    "\n" +
     "</div>\n" +
     "\n" +
     "\n" +
@@ -139,7 +148,15 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "    <div id=\"home-content\">\n" +
     "\n" +
-    "    	<img src=\"/images/crowd.jpg\"/>\n" +
+    "        <img src=\"/images/capitol.jpg\"/>\n" +
+    "\n" +
+    "        <div>\n" +
+    "    	   <img src=\"/images/crowd.jpg\"/>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div style=\"height:500px;background-color:purple\"></div>\n" +
+    "\n" +
+    "\n" +
     "    	<img src=\"/images/crowd1.jpg\"/>\n" +
     "\n" +
     "    	<p>the internet's voice</p>\n" +
@@ -158,7 +175,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
 angular.module("intro/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("intro/index.tpl.html",
     "<div class=\"intro-container\">\n" +
-    "    <svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920px\" height=\"1080px\" preserveAspectRatio=\"xMidYMid slice\">\n" +
+    "    <!--<svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920px\" height=\"1080px\" preserveAspectRatio=\"xMidYMid slice\">\n" +
     "        <defs>\n" +
     "            <mask class=\"intro-mask\" id=\"intro-mask\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\">\n" +
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
@@ -195,13 +212,13 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                </g>\n" +
     "            </svg>\n" +
     "        </a>\n" +
-    "    </svg>\n" +
+    "    </svg>-->\n" +
     "\n" +
     "\n" +
-    "    <video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
+    "    <!--<video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
     "        <source src=\"/videos/washington.mp4\" type=\"video/webm\">\n" +
-    "    </video>\n" +
-    "    <img class=\"intro-img\" id=\"image\" src=\"/images/capitol.jpg\">\n" +
+    "    </video>-->\n" +
+    "    <img src=\"/images/capitol.jpg\">\n" +
     "</div>");
 }]);
 
@@ -229,7 +246,9 @@ angular.module("sidebar/index.tpl.html", []).run(["$templateCache", function($te
     "            <a href=\"/\">\n" +
     "                <div class=\"list-item\">\n" +
     "                    <div class=\"nav-small-list\">\n" +
-    "                        <img style=\"max-width: 50%;\" src=\"/images/tri.png\"/>\n" +
+    "                        <!--<img style=\"max-width: 50%;\" src=\"/images/tri.png\"/>-->\n" +
+    "                        <div class=\"nav-small-list\"><i style=\"color:#fff\" class=\"fa fa-check\"></i></div>\n" +
+    "\n" +
     "                    </div>\n" +
     "                    <div class=\"nav-large-list\">voetr</div>\n" +
     "                </div>\n" +
@@ -254,8 +273,16 @@ angular.module("sidebar/index.tpl.html", []).run(["$templateCache", function($te
     "        <div class=\"item-container\">\n" +
     "            <a href=\"/committee/\">\n" +
     "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-th\"></i></div>\n" +
+    "                    <div class=\"nav-small-list\"><i class=\"fa fa-users\"></i></div>\n" +
     "                    <div class=\"nav-large-list\">committee</div>\n" +
+    "                </div>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "        <div class=\"item-container\">\n" +
+    "            <a href=\"/register/\">\n" +
+    "                <div class=\"list-item\">\n" +
+    "                    <div class=\"nav-small-list\"><i class=\"fa fa-hand-peace-o\"></i></div>\n" +
+    "                    <div class=\"nav-large-list\">register</div>\n" +
     "                </div>\n" +
     "            </a>\n" +
     "        </div>\n" +

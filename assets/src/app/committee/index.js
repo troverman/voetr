@@ -28,17 +28,17 @@ angular.module( 'voetr.committee', [
     $scope.currentUser = config.currentUser;
 
    	$scope.test_posts = {
-   		"voetr": {
+   		"united-states-of-america": {
 	        "title": "United States of America",
 	        "post_content": "",
 	        "url_title": "united-states-of-america"
     	},
-    	"voetr": {
+    	"north-carolina": {
 	        "title": "North Carolina",
 	        "post_content": "",
 	        "url_title": "north-carolina"
     	},
-    	"voetr": {
+    	"illinois": {
 	        "title": "Illinois",
 	        "post_content": "",
 	        "url_title": "illinois"
@@ -74,6 +74,24 @@ angular.module( 'voetr.committee', [
         });
         console.log(newPost);
     };
+
+
+
+
+	$scope.changeVote = function(vote, flag){
+		$scope.vote = vote==flag?'None':flag;
+	};
+
+    $scope.upVote = function () {
+        $scope.vote++;
+    }
+
+    $scope.downVote = function () {
+        $scope.vote--;
+    }
+
+    $scope.vote = 0;
+
 
 });
 

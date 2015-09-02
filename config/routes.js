@@ -79,6 +79,14 @@ module.exports.routes = {
   'post /api/committee': 'CommitteeController.create',
   'delete /api/committee/:id': 'CommitteeController.destroy',
 
+  /**
+   * CommitteeVote routes
+   */
+  'get /api/committeevote': 'CommitteeVoteController.getAll',
+  'get /api/committeevote/:id': 'CommitteeVoteController.getOne',
+  'post /api/committeevote': 'CommitteeVoteController.create',
+  'delete /api/committeevote/:id': 'CommitteeVoteController.destroy',
+
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options

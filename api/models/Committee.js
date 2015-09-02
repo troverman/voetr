@@ -21,14 +21,14 @@ module.exports = {
     },
 
     getAll: function() {
-        return Post.find()
+        return Committee.find()
         .then(function (models) {
             return [models];
         });
     },
 
     getOne: function(id) {
-        return Post.findOne(id)
+        return Committee.findOne(id)
         .then(function (model) {
             return [model];
         });

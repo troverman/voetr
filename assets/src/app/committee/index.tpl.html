@@ -30,13 +30,22 @@
   <br><br>
   <div id="post-container">
     <h1 class="title"><a href="/blog/{{post.url_title}}">{{post.title}}</a></h1>
+
+    <i ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
+    <br>
+    <i ng-click="changeVote(vote, 'down')" class="fa fa-arrow-circle-down fa-2x"  ng-class="{true:'down', false:''}[vote=='down']"></i>
+    <br>Vote: {{vote}}
+
     <p>upvote</p>
     <p>downvote</p>
+
+
     <p class="lead">{{post.post_content}}</p>
 
-
   </div>
+
   <br><br>
+
 </div>
 
 
