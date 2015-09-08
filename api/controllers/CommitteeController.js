@@ -1,9 +1,8 @@
 /**
- * PostController
+ * CommitteeController
  *
- * @description :: Server-side logic for managing posts
- * @help        :: See http://links.sailsjs.org/docs/controllers
  */
+
 var _ = require('lodash');
 
 module.exports = {
@@ -25,6 +24,18 @@ module.exports = {
 		Committee.getOne(req.param('id'))
 		.spread(function(model) {
 			Committee.subscribe(req, model);
+			res.json(model);
+		})
+		.fail(function(err) {
+			res.send(404);
+		});
+	},
+
+	getByUrlTitle: function(req, res) {
+		Committee.find()
+		.where({url_title: req.param('path')})
+		.spread(function(model) {
+			Post.subscribe(req, model);
 			res.json(model);
 		})
 		.fail(function(err) {

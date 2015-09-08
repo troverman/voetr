@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'blog-post/index.tpl.html', 'blog/index.tpl.html', 'committee/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'committee/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -17,71 +17,6 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "	</div>\n" +
     "\n" +
     "</div>");
-}]);
-
-angular.module("blog-post/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("blog-post/index.tpl.html",
-    "<div ng-controller=\"BlogPostCtrl\">\n" +
-    "\n" +
-    "	<div style=\"height:100px;\"></div>\n" +
-    "	<div id=\"post-title-container\">\n" +
-    "		<h1>{{post_title}}</h1>\n" +
-    "	</div>\n" +
-    "\n" +
-    "	<hr>\n" +
-    "\n" +
-    "	<div id=\"post-content-container\">\n" +
-    "		<p>{{post_content}}</p>\n" +
-    "	</div>\n" +
-    "\n" +
-    "	<!--<div ng-repeat=\"post in posts\">\n" +
-    "		{{post}}<br><br>\n" +
-    "	</div>--> \n" +
-    "\n" +
-    "</div>");
-}]);
-
-angular.module("blog/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("blog/index.tpl.html",
-    "<!--old content, need to cre8 functionality... that error tho-->\n" +
-    "\n" +
-    "<!--if logged in-->\n" +
-    "<div ng-show=\"currentUser\">\n" +
-    "\n" +
-    "  <form role=\"form\" ng-submit=\"createPost(newPost)\">\n" +
-    "    <div class=\"form-group\">\n" +
-    "    <label for=\"PostTitle\">PostTitle</label>\n" +
-    "    <label for=\"PostContent\">PostContent</label>\n" +
-    "      <input type=\"text\" ng-model=\"newPost.title\" class=\"form-control\" id=\"postTitle\">\n" +
-    "      <input type=\"text\" ng-model=\"newPost.post_content\" class=\"form-control\" id=\"postContent\">\n" +
-    "    </div>\n" +
-    "    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "  </form>\n" +
-    "\n" +
-    "  <div id=\"post-container\" class=\"col-md-6\">\n" +
-    "    <ul>\n" +
-    "      <li ng-repeat=\"post in posts\">\n" +
-    "        {{post.title}}\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
-    "\n" +
-    "</div>\n" +
-    "<!--/if logged in-->\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "<div id=\"post-list-container\" ng-repeat=\"post in test_posts\">\n" +
-    "  <br><br>\n" +
-    "  <div id=\"post-container\">\n" +
-    "    <h1 class=\"title\"><a href=\"/blog/{{post.url_title}}\">{{post.title}}</a></h1>\n" +
-    "    <p class=\"lead\">{{post.post_content}}</p>\n" +
-    "  </div>\n" +
-    "  <br><br>\n" +
-    "</div>\n" +
-    "\n" +
-    "\n" +
-    "<div style=\"height:100px;\"></div>");
 }]);
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -117,7 +52,7 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "<div id=\"post-list-container\" ng-repeat=\"post in test_posts\">\n" +
     "  <br><br>\n" +
     "  <div id=\"post-container\">\n" +
-    "    <h1 class=\"title\"><a href=\"/blog/{{post.url_title}}\">{{post.title}}</a></h1>\n" +
+    "    <h1 class=\"title\"><a href=\"/committee/{{post.url_title}}\">{{post.title}}</a></h1>\n" +
     "\n" +
     "    <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
     "    <br>\n" +
@@ -162,6 +97,12 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    	<p>the internet's voice</p>\n" +
     "    	<p>popular voice, bylaw creation</p>\n" +
     "    	<p>crowd-sourced government</p>\n" +
+    "\n" +
+    "        <br><br>\n" +
+    "\n" +
+    "        <p>numbers and stats infographic</p>\n" +
+    "        <p>local counties / self governing committees / total members / search / political info</p>\n" +
+    "\n" +
     "\n" +
     "    </div>\n" +
     "    <!--/if not logged in-->\n" +
@@ -226,14 +167,31 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
   $templateCache.put("member/index.tpl.html",
     "<h1>member name</h1>\n" +
     "\n" +
+    "\n" +
+    "<img style=\"height:260px;\" src=\"/images/obama.jpg\"/>\n" +
+    "\n" +
     "<div>\n" +
-    "	following / followers\n" +
+    "	following\n" +
+    "</div>\n" +
+    "\n" +
+    "<div>\n" +
+    "	followers\n" +
+    "</div>\n" +
+    "\n" +
     "<div>\n" +
     "	committees\n" +
     "</div>\n" +
     "\n" +
     "<div>\n" +
     "	activity list\n" +
+    "</div>\n" +
+    "\n" +
+    "<div>\n" +
+    "	votes\n" +
+    "</div>\n" +
+    "\n" +
+    "<div>\n" +
+    "	posts\n" +
     "</div>");
 }]);
 
@@ -259,14 +217,6 @@ angular.module("sidebar/index.tpl.html", []).run(["$templateCache", function($te
     "                <div class=\"list-item\">\n" +
     "                    <div class=\"nav-small-list\"><i class=\"fa fa-info\"></i></div>\n" +
     "                    <div class=\"nav-large-list\">about</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/blog/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-newspaper-o\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">blog</div>\n" +
     "                </div>\n" +
     "            </a>\n" +
     "        </div>\n" +

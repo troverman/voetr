@@ -29,7 +29,7 @@
 <div id="post-list-container" ng-repeat="post in test_posts">
   <br><br>
   <div id="post-container">
-    <h1 class="title"><a href="/blog/{{post.url_title}}">{{post.title}}</a></h1>
+    <h1 class="title"><a href="/committee/{{post.url_title}}">{{post.title}}</a></h1>
 
     <i ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
     <br>

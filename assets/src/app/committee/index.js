@@ -42,7 +42,12 @@ angular.module( 'voetr.committee', [
 	        "title": "Illinois",
 	        "post_content": "",
 	        "url_title": "illinois"
-    	}
+    	},
+        "tennessee": {
+            "title": "Tennessee",
+            "post_content": "",
+            "url_title": "tennessee"
+        }
 
     };
 

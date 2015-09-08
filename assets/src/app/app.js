@@ -13,10 +13,8 @@ angular.module( 'voetr', [
     'voetr.home',
     'voetr.about',
     'voetr.committee',
-    'voetr.blog',
     'voetr.member',
-    'voetr.intro',
-    'voetr.blog-post'
+    'voetr.intro'
 
 ])
 
