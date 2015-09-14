@@ -1,17 +1,18 @@
 /**
- * CommitteeController
+ * CommitteeBillController
  *
+ * @description :: Server-side logic for managing posts
+ * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-
 var _ = require('lodash');
 
 module.exports = {
 
 	getAll: function(req, res) {
-		Committee.getAll()
+		CommitteeBill.getAll()
 		.spread(function(models) {
-			Committee.watch(req);
-			Committee.subscribe(req, models);
+			CommitteeBill.watch(req);
+			CommitteeBill.subscribe(req, models);
 
 			res.json(models);
 		})
@@ -21,21 +22,9 @@ module.exports = {
 	},
 
 	getOne: function(req, res) {
-		Committee.getOne(req.param('id'))
+		CommitteeBill.getOne(req.param('id'))
 		.spread(function(model) {
-			Committee.subscribe(req, model);
-			res.json(model);
-		})
-		.fail(function(err) {
-			res.send(404);
-		});
-	},
-
-	getByUrlTitle: function(req, res) {
-		Committee.find()
-		.where({url_title: req.param('path')})
-		.spread(function(model) {
-			Post.subscribe(req, model);
+			CommitteeBill.subscribe(req, model);
 			res.json(model);
 		})
 		.fail(function(err) {
@@ -44,25 +33,26 @@ module.exports = {
 	},
 
 	create: function (req, res) {
-		//var userId = req.param('user');
-		var parent = req.param('parent');
+		var bill_content = req.param('bill_content');
+		var committee = req.param('committee');
 		var title = req.param('title');
-		var url_title = req.param('url_title');
+		var user = req.param('user');
 
 		var model = {
-			parent: parent,
+			bill_content: bill_content,
+			committee: committee,
 			title: title,
-			url_title: url_title
+			user: user
 		};
 
-		Committee.create(model)
-		.exec(function(err, committee) {
+		CommitteeBill.create(model)
+		.exec(function(err, committee_bill) {
 			if (err) {
 				return console.log(err);
 			}
 			else {
-				Committee.publishCreate(committee);
-				res.json(committee);
+				CommitteeBill.publishCreate(committee_bill);
+				res.json(committee_bill);
 			}
 		});
 	},
@@ -74,7 +64,7 @@ module.exports = {
 		}
 
 		// Otherwise, find and destroy the model in question
-		Committee.findOne(id).exec(function(err, model) {
+		CommitteeBill.findOne(id).exec(function(err, model) {
 			if (err) {
 				return res.serverError(err);
 			}
@@ -82,12 +72,12 @@ module.exports = {
 				return res.notFound();
 			}
 
-			Committee.destroy(id, function(err) {
+			CommitteeBill.destroy(id, function(err) {
 				if (err) {
 					return res.serverError(err);
 				}
 
-				Committee.publishDestroy(model.id);
+				CommitteeBill.publishDestroy(model.id);
 				return res.json(model);
 			});
 		});

@@ -13,6 +13,7 @@ angular.module( 'voetr', [
     'voetr.home',
     'voetr.about',
     'voetr.committee',
+    'voetr.committees',
     'voetr.member',
     'voetr.intro'
 

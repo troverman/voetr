@@ -1,0 +1,421 @@
+{
+  "data": {
+    "committee": [
+      {
+        "parent": null,
+        "title": "OK",
+        "url_title": "OK",
+        "createdAt": "2015-09-11T22:00:00.735Z",
+        "updatedAt": "2015-09-11T22:00:00.735Z",
+        "id": 1
+      },
+      {
+        "parent": 213112312312,
+        "title": "123123",
+        "url_title": "123123123",
+        "createdAt": "2015-09-11T22:00:51.502Z",
+        "updatedAt": "2015-09-11T22:00:51.502Z",
+        "id": 2
+      },
+      {
+        "parent": 111,
+        "title": "111",
+        "url_title": "1111",
+        "createdAt": "2015-09-11T22:01:00.475Z",
+        "updatedAt": "2015-09-11T22:01:00.475Z",
+        "id": 3
+      },
+      {
+        "parent": 234234234,
+        "title": "234234",
+        "url_title": "234234",
+        "createdAt": "2015-09-11T22:01:56.513Z",
+        "updatedAt": "2015-09-11T22:01:56.513Z",
+        "id": 4
+      },
+      {
+        "parent": null,
+        "title": "United States of America",
+        "url_title": "united-states-of-America",
+        "createdAt": "2015-09-11T22:06:46.209Z",
+        "updatedAt": "2015-09-11T22:06:46.209Z",
+        "id": 5
+      },
+      {
+        "parent": null,
+        "title": "Tennessee",
+        "url_title": "tennessee",
+        "createdAt": "2015-09-11T22:07:13.444Z",
+        "updatedAt": "2015-09-11T22:07:13.444Z",
+        "id": 6
+      },
+      {
+        "parent": null,
+        "title": "North Carolina",
+        "url_title": "north-carolina",
+        "createdAt": "2015-09-11T22:07:33.339Z",
+        "updatedAt": "2015-09-11T22:07:33.339Z",
+        "id": 7
+      },
+      {
+        "parent": null,
+        "title": "Illinois",
+        "url_title": "illinois",
+        "createdAt": "2015-09-11T22:08:25.499Z",
+        "updatedAt": "2015-09-11T22:08:25.499Z",
+        "id": 8
+      },
+      {
+        "parent": null,
+        "title": "Orange County",
+        "url_title": "orange-county",
+        "createdAt": "2015-09-11T22:09:24.601Z",
+        "updatedAt": "2015-09-11T22:09:24.601Z",
+        "id": 9
+      },
+      {
+        "parent": null,
+        "title": "Knox County",
+        "url_title": "knox-county",
+        "createdAt": "2015-09-11T22:09:39.611Z",
+        "updatedAt": "2015-09-11T22:09:39.611Z",
+        "id": 10
+      },
+      {
+        "parent": null,
+        "title": "Canada",
+        "url_title": "canada",
+        "createdAt": "2015-09-11T22:24:21.148Z",
+        "updatedAt": "2015-09-11T22:24:21.148Z",
+        "id": 11
+      }
+    ],
+    "committeebill": [
+      {
+        "bill_content": "bill content",
+        "committee": null,
+        "title": "bill title",
+        "user": 1,
+        "createdAt": "2015-09-12T02:37:56.206Z",
+        "updatedAt": "2015-09-12T02:37:56.206Z",
+        "id": 1
+      },
+      {
+        "bill_content": "bill content",
+        "committee": null,
+        "title": "bill title",
+        "user": 1,
+        "createdAt": "2015-09-12T02:39:51.962Z",
+        "updatedAt": "2015-09-12T02:39:51.962Z",
+        "id": 2
+      },
+      {
+        "bill_content": "bill content",
+        "committee": null,
+        "title": "bill title",
+        "user": 1,
+        "createdAt": "2015-09-12T02:40:50.712Z",
+        "updatedAt": "2015-09-12T02:40:50.712Z",
+        "id": 3
+      },
+      {
+        "bill_content": "88",
+        "committee": null,
+        "title": "1234",
+        "user": 1,
+        "createdAt": "2015-09-12T02:47:04.225Z",
+        "updatedAt": "2015-09-12T02:47:04.225Z",
+        "id": 4
+      },
+      {
+        "bill_content": "311331",
+        "committee": null,
+        "title": "1313",
+        "user": 1,
+        "createdAt": "2015-09-12T02:47:28.671Z",
+        "updatedAt": "2015-09-12T02:47:28.671Z",
+        "id": 5
+      },
+      {
+        "bill_content": "14124",
+        "committee": null,
+        "title": "123",
+        "user": 1,
+        "createdAt": "2015-09-12T02:49:22.358Z",
+        "updatedAt": "2015-09-12T02:49:22.358Z",
+        "id": 6
+      },
+      {
+        "bill_content": "1234",
+        "committee": null,
+        "title": "123",
+        "user": 1,
+        "createdAt": "2015-09-12T02:50:01.419Z",
+        "updatedAt": "2015-09-12T02:50:01.419Z",
+        "id": 7
+      },
+      {
+        "bill_content": "1313",
+        "committee": null,
+        "title": "1313",
+        "user": 1,
+        "createdAt": "2015-09-12T02:50:43.473Z",
+        "updatedAt": "2015-09-12T02:50:43.473Z",
+        "id": 8
+      },
+      {
+        "bill_content": "1313",
+        "committee": null,
+        "title": "1313",
+        "user": 1,
+        "createdAt": "2015-09-12T02:53:23.619Z",
+        "updatedAt": "2015-09-12T02:53:23.619Z",
+        "id": 9
+      },
+      {
+        "bill_content": "qwe",
+        "committee": null,
+        "title": "wqe",
+        "user": 1,
+        "createdAt": "2015-09-12T02:58:21.807Z",
+        "updatedAt": "2015-09-12T02:58:21.807Z",
+        "id": 10
+      },
+      {
+        "bill_content": "wqewqqweqweqwe",
+        "committee": null,
+        "title": "qweqwewq",
+        "user": 1,
+        "createdAt": "2015-09-12T02:58:24.476Z",
+        "updatedAt": "2015-09-12T02:58:24.476Z",
+        "id": 11
+      }
+    ],
+    "committeevote": [],
+    "passport": [
+      {
+        "protocol": "local",
+        "password": "$2a$10$hMWrWksFL504grWgqLzbKuw/nU9n2DRsFIPGCcBrthqrajSsU.G5G",
+        "user": 1,
+        "createdAt": "2015-09-11T21:59:53.134Z",
+        "updatedAt": "2015-09-11T21:59:53.134Z",
+        "id": 1
+      }
+    ],
+    "post": [],
+    "user": [
+      {
+        "username": "troverman",
+        "email": "troverman@gmail.com",
+        "first_name": "Trevor",
+        "createdAt": "2015-09-11T21:59:52.899Z",
+        "updatedAt": "2015-09-11T21:59:52.899Z",
+        "id": 1
+      }
+    ]
+  },
+  "schema": {
+    "committee": {
+      "title": {
+        "type": "string",
+        "unique": true
+      },
+      "url_title": {
+        "type": "string",
+        "unique": true
+      },
+      "parent": {
+        "type": "integer",
+        "model": "committee",
+        "foreignKey": true,
+        "alias": "parent"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "committeebill": {
+      "title": {
+        "type": "string"
+      },
+      "bill_content": {
+        "type": "string"
+      },
+      "committee": {
+        "type": "integer",
+        "model": "committee",
+        "foreignKey": true,
+        "alias": "committee"
+      },
+      "user": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "user"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "committeevote": {
+      "vote": {
+        "type": "string"
+      },
+      "committee": {
+        "type": "integer",
+        "model": "committee",
+        "foreignKey": true,
+        "alias": "committee"
+      },
+      "user": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "user"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "passport": {
+      "protocol": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      },
+      "provider": {
+        "type": "string"
+      },
+      "identifier": {
+        "type": "string"
+      },
+      "tokens": {
+        "type": "json"
+      },
+      "user": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "user"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "post": {
+      "title": {
+        "type": "string",
+        "unique": true
+      },
+      "post_content": {
+        "type": "string"
+      },
+      "other": {
+        "type": "string"
+      },
+      "url_title": {
+        "type": "string",
+        "unique": true
+      },
+      "user": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "user"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "user": {
+      "username": {
+        "type": "string",
+        "unique": true
+      },
+      "email": {
+        "type": "string",
+        "unique": true
+      },
+      "first_name": {
+        "type": "string"
+      },
+      "message_count": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "committee": {
+      "id": 11
+    },
+    "committeebill": {
+      "id": 11
+    },
+    "committeevote": {},
+    "passport": {
+      "id": 1
+    },
+    "post": {},
+    "user": {
+      "id": 1
+    }
+  }
+}

@@ -41,7 +41,7 @@ module.exports.routes = {
   'get /blog': 'HomeController.index',
   'get /blog/:id': 'HomeController.index',
 
-  'get /committee': 'HomeController.index',
+  'get /committees': 'HomeController.index',
   'get /committee/:id': 'HomeController.index',
 
   'get /member': 'HomeController.index',
@@ -70,6 +70,14 @@ module.exports.routes = {
   'get /api/post/:id': 'PostController.getOne',
   'post /api/post': 'PostController.create',
   'delete /api/post/:id': 'PostController.destroy',
+
+  /**
+   * Bill routes
+   */
+  'get /api/bill': 'CommitteeBillController.getAll',
+  'get /api/bill/:id': 'CommitteeBillController.getOne',
+  'post /api/bill': 'CommitteeBillController.create',
+  'delete /api/bill/:id': 'CommitteeBillController.destroy',
 
   /**
    * Committee routes

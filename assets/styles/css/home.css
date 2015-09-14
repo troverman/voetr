@@ -513,23 +513,6 @@ input:focus {
 	height:0;
 }
 
-input {
-	line-height:80px;
-	width:100%;
-	font-size:24px;
-	padding:0 20px;
-	border:none;
-	cursor:pointer;
-	color:black;
-	position:relative;
-	z-index:10;
-	background:transparent;
-	color:transparent;
-	font-weight:300;
-	-webkit-transition:.3s all ease;
-	transition:.3s all ease;
-}
-
 input.full {
 	pointer-events:none!important;
 	width:0;
@@ -565,21 +548,9 @@ input.full {
 }
 
 input:focus {
-	color:#fff;
+	color:rgb(0,0,0,);
 }
 
-input:focus + .indicator {
-	height:100%;
-}
-
-input.full:focus + .indicator {
-	height:5px;
-	color:#2AB996;
-}
-
-input:focus + .indicator:after {
-	color:#2AB996;
-}
 
 .contact-section .ctr {
     display:block;

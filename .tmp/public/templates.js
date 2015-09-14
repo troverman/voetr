@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'committee/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -6,14 +6,16 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "\n" +
     "\n" +
     "	<div>\n" +
+    "		<p>real time voting</p>\n" +
+    "		<p>bylaw generation</p>\n" +
+    "		<p>view all politicians</p>\n" +
+    "		<p>political social network\n" +
+    "		<p>have your voice be heard</p>\n" +
+    "		<p>collective decision making</p>\n" +
     "\n" +
-    "		real time voting\n" +
-    "		bylaw generation\n" +
-    "		view all politicians\n" +
-    "		political social network\n" +
-    "		have your voice be heard\n" +
-    "		collective decision making\n" +
-    "\n" +
+    "		<p>we believe in a free and open internet</p>\n" +
+    "		<p>we believe in direct democracy</p>\n" +
+    "	\n" +
     "	</div>\n" +
     "\n" +
     "</div>");
@@ -21,54 +23,86 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committee/index.tpl.html",
-    "<!--old content, need to cre8 functionality... that error tho-->\n" +
+    "<h1>{{committee}}</h1>\n" +
     "\n" +
-    "<!--if logged in-->\n" +
+    "<p>committee heirarchy</p>\n" +
+    "<p>bylaws</p>\n" +
+    "<p>submitted bills</p>\n" +
+    "<p>polls</p>\n" +
+    "\n" +
+    "\n" +
+    "<br><br><br>\n" +
+    "\n" +
+    "<a>edit committee</a>\n" +
+    "\n" +
+    "<br><br><br>\n" +
+    "\n" +
+    "<a>delete committee</a>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "submit bill\n" +
+    "<br><br><br>\n" +
     "<div ng-show=\"currentUser\">\n" +
     "\n" +
-    "  <form role=\"form\" ng-submit=\"createPost(newPost)\">\n" +
-    "    <div class=\"form-group\">\n" +
-    "    <label for=\"PostTitle\">PostTitle</label>\n" +
-    "    <label for=\"PostContent\">PostContent</label>\n" +
-    "      <input type=\"text\" ng-model=\"newPost.title\" class=\"form-control\" id=\"postTitle\">\n" +
-    "      <input type=\"text\" ng-model=\"newPost.post_content\" class=\"form-control\" id=\"postContent\">\n" +
-    "    </div>\n" +
-    "    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "  </form>\n" +
+    "  <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
+    "      <div class=\"form-group\">\n" +
+    "        <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
+    "        <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.bill_content\" class=\"form-control\">\n" +
+    "      </div>\n" +
+    "      <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "    </form>\n" +
+    "  </div>\n" +
     "\n" +
-    "  <div id=\"post-container\" class=\"col-md-6\">\n" +
-    "    <ul>\n" +
-    "      <li ng-repeat=\"post in posts\">\n" +
-    "        {{post.title}}\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"bill-list-container\">\n" +
+    "  <br><br>\n" +
+    "  <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-createdAt'\">\n" +
+    "    <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{bill.title}}</a></h1>\n" +
+    "    <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
+    "    <br>\n" +
+    "    <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
+    "    <br>Vote: {{vote}}\n" +
+    "\n" +
+    "  </div>\n" +
+    "  <br><br>\n" +
+    "</div>");
+}]);
+
+angular.module("committees/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committees/index.tpl.html",
+    "<!--if logged in-->\n" +
+    "<div style=\"height:100px;\"></div>\n" +
+    "<div ng-show=\"currentUser\">\n" +
+    "\n" +
+    "  <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
+    "      <div class=\"form-group\">\n" +
+    "        <input type=\"text\" placeholder= \"committee title\" ng-model=\"newCommittee.title\" class=\"form-control\" id=\"postTitle\">\n" +
+    "        <input type=\"text\" placeholder= \"committee url\" ng-model=\"newCommittee.url_title\" class=\"form-control\" id=\"postTitle\">\n" +
+    "        <input type=\"text\" placeholder= \"committee parent\" ng-model=\"newCommittee.parent\" class=\"form-control\" id=\"postTitle\">\n" +
+    "      </div>\n" +
+    "      <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "    </form>\n" +
     "  </div>\n" +
     "\n" +
     "</div>\n" +
     "<!--/if logged in-->\n" +
     "\n" +
-    "\n" +
-    "\n" +
-    "<div id=\"post-list-container\" ng-repeat=\"post in test_posts\">\n" +
+    "<div class=\"committee-list-container\">\n" +
     "  <br><br>\n" +
-    "  <div id=\"post-container\">\n" +
-    "    <h1 class=\"title\"><a href=\"/committee/{{post.url_title}}\">{{post.title}}</a></h1>\n" +
+    "  <div class=\"committee-container\" ng-repeat=\"committee in committees | orderBy:'-createdAt'\">\n" +
+    "    <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{committee.title}}</a></h1>\n" +
     "\n" +
     "    <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
     "    <br>\n" +
     "    <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
     "    <br>Vote: {{vote}}\n" +
     "\n" +
-    "    <p>upvote</p>\n" +
-    "    <p>downvote</p>\n" +
-    "\n" +
-    "\n" +
-    "    <p class=\"lead\">{{post.post_content}}</p>\n" +
-    "\n" +
     "  </div>\n" +
-    "\n" +
     "  <br><br>\n" +
-    "\n" +
     "</div>\n" +
     "\n" +
     "\n" +
@@ -83,13 +117,11 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "    <div id=\"home-content\">\n" +
     "\n" +
-    "        <img src=\"/images/capitol.jpg\"/>\n" +
-    "\n" +
     "        <div>\n" +
     "    	   <img src=\"/images/crowd.jpg\"/>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div style=\"height:500px;background-color:purple\"></div>\n" +
+    "        <div style=\"height:500px;background-color:rgb(170,245,223)\"></div>\n" +
     "\n" +
     "\n" +
     "    	<img src=\"/images/crowd1.jpg\"/>\n" +
@@ -154,7 +186,6 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "            </svg>\n" +
     "        </a>\n" +
     "    </svg>-->\n" +
-    "\n" +
     "\n" +
     "    <!--<video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
     "        <source src=\"/videos/washington.mp4\" type=\"video/webm\">\n" +
@@ -221,10 +252,10 @@ angular.module("sidebar/index.tpl.html", []).run(["$templateCache", function($te
     "            </a>\n" +
     "        </div>\n" +
     "        <div class=\"item-container\">\n" +
-    "            <a href=\"/committee/\">\n" +
+    "            <a href=\"/committees/\">\n" +
     "                <div class=\"list-item\">\n" +
     "                    <div class=\"nav-small-list\"><i class=\"fa fa-users\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">committee</div>\n" +
+    "                    <div class=\"nav-large-list\">committees</div>\n" +
     "                </div>\n" +
     "            </a>\n" +
     "        </div>\n" +

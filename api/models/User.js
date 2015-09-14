@@ -22,6 +22,12 @@ module.exports = {
             collection: 'post',
             via: 'user'
         },
+
+        committees: {
+            collection: 'committeemember',
+            via: 'user'
+        },
+
         passports : { collection: 'Passport', via: 'user' }
     },
 

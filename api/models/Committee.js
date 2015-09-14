@@ -16,6 +16,9 @@ module.exports = {
             required: true,
             unique: true
         },
+        parent: {
+            model: 'committee'
+        }
     },
 
     getAll: function() {

@@ -3,7 +3,7 @@ angular.module( 'voetr.committee', [
 
 .config(function config( $stateProvider, $urlRouterProvider ) {
 	$stateProvider.state( 'committee', {
-		url: '/committee',
+		url: '/committee/:path',
 		views: {
 			"main": {
 				controller: 'CommitteeCtrl',
@@ -11,74 +11,43 @@ angular.module( 'voetr.committee', [
 			}
 		},
 		resolve: {
-			posts: function(PostModel) {
-            	return PostModel.getAll().then(function(models) {
-                	return models;
-            	});
-        	}
-		}
+            bills: function(BillModel) {
+                return BillModel.getAll().then(function(models) {
+                    return models;
+                });
+            }
+        }
 	});
-	$urlRouterProvider.when('/committee/', '/committee');
 })
 
-.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, lodash, titleService, config, PostModel, posts) {
-	titleService.setTitle('committee - voetr');
-	$scope.newPost = {};
-    $scope.posts = posts;
+.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, lodash, titleService, config, $stateParams, BillModel, bills) {
+
+    $scope.committee = $stateParams.path;
+	titleService.setTitle($stateParams.path + ' - voetr');
     $scope.currentUser = config.currentUser;
+    $scope.bills = bills;
+    $scope.newBill = {};
 
-   	$scope.test_posts = {
-   		"united-states-of-america": {
-	        "title": "United States of America",
-	        "post_content": "",
-	        "url_title": "united-states-of-america"
-    	},
-    	"north-carolina": {
-	        "title": "North Carolina",
-	        "post_content": "",
-	        "url_title": "north-carolina"
-    	},
-    	"illinois": {
-	        "title": "Illinois",
-	        "post_content": "",
-	        "url_title": "illinois"
-    	},
-        "tennessee": {
-            "title": "Tennessee",
-            "post_content": "",
-            "url_title": "tennessee"
-        }
-
-    };
-
-
-    $sailsSocket.subscribe('post', function (envelope) {
+    $sailsSocket.subscribe('committeebill', function (envelope) {
+    	console.log('ok');
 	    switch(envelope.verb) {
 	        case 'created':
-	            $scope.posts.unshift(envelope.data);
+	            $scope.bills.unshift(envelope.data);
 	            break;
 	        case 'destroyed':
-	            lodash.remove($scope.posts, {id: envelope.id});
+	            lodash.remove($scope.bills, {id: envelope.id});
 	            break;
 	    }
     });
 
-    $scope.destroyMessage = function(post) {
-        // check here if this post belongs to the currentUser
-        if (post.user.id === config.currentUser.id) {
-            PostModel.delete(post).then(function(model) {
-                // post has been deleted, and removed from $scope.messages
-            });
-        }
+    $scope.createBill = function(newBill) {
+        newBill.user = config.currentUser.id;
+        BillModel.create(newBill).then(function(model) {
+            $scope.newBill = {};
+        });
     };
 
-	$scope.createPost = function(newPost) {
-        //newPost.user = config.currentUser.id;
-        PostModel.create(newPost).then(function(model) {
-            $scope.newPost = {};
-        });
-        console.log(newPost);
-    };
+
 
 
 
