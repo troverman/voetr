@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'auth/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -19,6 +19,76 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "	</div>\n" +
     "\n" +
     "</div>");
+}]);
+
+angular.module("auth/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("auth/index.tpl.html",
+    "<!--register-->\n" +
+    "<div class=\"row\">\n" +
+    "    <div class=\"col-md-6\">\n" +
+    "        <h3>Create an Account</h3>\n" +
+    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"username\" placeholder=\"Username\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
+    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--login-->\n" +
+    "<div class=\"row\">\n" +
+    "    <div class=\"col-md-6\">\n" +
+    "        <h3>Please Login</h3>\n" +
+    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
+    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "\n" +
+    "");
 }]);
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {

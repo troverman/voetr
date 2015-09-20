@@ -43,6 +43,8 @@ module.exports.routes = {
 
   'get /committees': 'HomeController.index',
   'get /committee/:id': 'HomeController.index',
+  'get /committee/:id/bill/:billId': 'HomeController.index',
+
 
   'get /member': 'HomeController.index',
   'get /member/:id': 'HomeController.index',
