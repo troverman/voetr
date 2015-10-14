@@ -14,7 +14,10 @@ angular.module( 'voetr', [
     'voetr.about',
     'voetr.committee',
     'voetr.committees',
+    'voetr.login',
     'voetr.member',
+    'voetr.search',
+    'voetr.register',
     'voetr.intro'
 
 ])

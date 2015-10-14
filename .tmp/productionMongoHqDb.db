@@ -189,6 +189,24 @@
         "createdAt": "2015-09-12T02:58:24.476Z",
         "updatedAt": "2015-09-12T02:58:24.476Z",
         "id": 11
+      },
+      {
+        "bill_content": "As of 09/26/2015 text has not been received for H.R.3619 - To redesignate Rock Creek Park in the District of Columbia as Rock Creek National Park.",
+        "committee": null,
+        "title": "H.R.3619 - To redesignate Rock Creek Park in the District of Columbia as Rock Creek National Park.",
+        "user": 1,
+        "createdAt": "2015-09-26T22:47:30.935Z",
+        "updatedAt": "2015-09-26T22:47:30.935Z",
+        "id": 12
+      },
+      {
+        "bill_content": "As of 09/26/2015 text has not been received for H.R.3618 - To clarify the exclusion of orphan drug sales from the calculation of the annual fee on branded prescription pharmaceutical manufacturers and importers, and for other purposes.",
+        "committee": null,
+        "title": "H.R.3618 - To clarify the exclusion of orphan drug sales from the calculation of the annual fee on branded prescription pharmaceutical manufacturers and importers, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-09-26T22:48:22.510Z",
+        "updatedAt": "2015-09-26T22:48:22.510Z",
+        "id": 13
       }
     ],
     "committeevote": [],
@@ -200,6 +218,14 @@
         "createdAt": "2015-09-11T21:59:53.134Z",
         "updatedAt": "2015-09-11T21:59:53.134Z",
         "id": 1
+      },
+      {
+        "protocol": "local",
+        "password": "$2a$10$NakAO8vO2PlCcVkQ04kkSuwt2nbSnWrMY2FevWPK5pPTxkgXqlOEe",
+        "user": 2,
+        "createdAt": "2015-09-26T18:29:10.677Z",
+        "updatedAt": "2015-09-26T18:29:10.677Z",
+        "id": 2
       }
     ],
     "post": [],
@@ -211,8 +237,17 @@
         "createdAt": "2015-09-11T21:59:52.899Z",
         "updatedAt": "2015-09-11T21:59:52.899Z",
         "id": 1
+      },
+      {
+        "username": "troverman123",
+        "email": "troverman123@gmail.com",
+        "first_name": "12312312312132123123123",
+        "createdAt": "2015-09-26T18:29:10.428Z",
+        "updatedAt": "2015-09-26T18:29:10.428Z",
+        "id": 2
       }
-    ]
+    ],
+    "committeemember": []
   },
   "schema": {
     "committee": {
@@ -400,6 +435,35 @@
       "updatedAt": {
         "type": "datetime"
       }
+    },
+    "committeemember": {
+      "title": {
+        "type": "string"
+      },
+      "committee": {
+        "type": "integer",
+        "model": "committee",
+        "foreignKey": true,
+        "alias": "committee"
+      },
+      "user": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "user"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
     }
   },
   "counters": {
@@ -407,15 +471,16 @@
       "id": 11
     },
     "committeebill": {
-      "id": 11
+      "id": 13
     },
     "committeevote": {},
     "passport": {
-      "id": 1
+      "id": 2
     },
     "post": {},
     "user": {
-      "id": 1
-    }
+      "id": 2
+    },
+    "committeemember": {}
   }
 }

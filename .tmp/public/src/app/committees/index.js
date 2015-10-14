@@ -45,23 +45,6 @@ angular.module( 'voetr.committees', [
         });
     };
 
-
-
-	$scope.changeVote = function(vote, flag){
-		$scope.vote = vote==flag?'None':flag;
-	};
-
-    $scope.upVote = function () {
-        $scope.vote++;
-    }
-
-    $scope.downVote = function () {
-        $scope.vote--;
-    }
-
-    $scope.vote = 0;
-
-
 });
 
 

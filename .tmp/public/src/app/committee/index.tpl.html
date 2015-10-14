@@ -1,47 +1,74 @@
+<style>
+#fixed-sidebar {
+     position: fixed;
+     width: 200px;
+     height: 400px;
+ }
+ .content {
+     margin-left: 200px;
+     width: auto;
+     position: relative;
+     z-index: 1;
+ }
 
-<h1>{{committee}}</h1>
+</style>
 
-<p>committee heirarchy</p>
-<p>bylaws</p>
-<p>submitted bills</p>
-<p>polls</p>
-
-
-<br><br><br>
-
-<a>edit committee</a>
-
-<br><br><br>
-
-<a>delete committee</a>
-
-
-
-submit bill
-<br><br><br>
-<div ng-show="currentUser">
-
-  <div style="margin-left:20%;margin-right:20%;">
-    <form class="committee-input" role="form" ng-submit="createBill(newBill)">
-      <div class="form-group">
-        <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
-        <input type="text" placeholder= "bill content" ng-model="newBill.bill_content" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-
+<div id="fixed-sidebar">
+  <i style="font-size:32px" class="fa fa-bars"></i>
+  <p>bylaws</p>
+  <p>committee heirarchy</p>
+  <p>submitted bills</p>
+  <p>discussion</p>
+  <p>elections</p>
+  <p>polls</p>
+  <p>members</p>
 </div>
 
-<div class="bill-list-container">
-  <br><br>
-  <div class="bill-container" ng-repeat="bill in bills | orderBy:'-createdAt'">
-    <h1 class="title"><a href="/committee/{{committee.url_title}}">{{bill.title}}</a></h1>
-    <i ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
-    <br>
-    <i ng-click="changeVote(vote, 'down')" class="fa fa-arrow-circle-down fa-2x"  ng-class="{true:'down', false:''}[vote=='down']"></i>
-    <br>Vote: {{vote}}
+
+
+<div class="content">
+
+
+  <h1>{{committee}}</h1>
+
+    <div class="bill-container" ng-repeat="bill in bill1.results">
+      <p>bill</p>
+    </div>
+    
+  {{bill1.results[0].context}}
+
+  <br>
+  <a>edit committee</a>
+  <br>
+  <a>delete committee</a>
+  submit bill
+  <br>
+
+  <div ng-show="currentUser">
+
+    <div style="margin-left:20%;margin-right:20%;">
+      <form class="committee-input" role="form" ng-submit="createBill(newBill)">
+        <div class="form-group">
+          <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
+          <input type="text" placeholder= "bill content" ng-model="newBill.bill_content" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
 
   </div>
-  <br><br>
+
+  <div class="bill-list-container">
+    <br><br>
+    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-createdAt'">
+      <h1 class="title"><a href="/committee/{{committee.url_title}}">{{bill.title}}</a></h1>
+      <i ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
+      <br>
+      <i ng-click="changeVote(vote, 'down')" class="fa fa-arrow-circle-down fa-2x"  ng-class="{true:'down', false:''}[vote=='down']"></i>
+      <br>Vote: {{vote}}
+
+    </div>
+    <br><br>
+  </div>
+
 </div>

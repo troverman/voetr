@@ -32,11 +32,9 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /': {
-    controller: 'HomeController',
-    action: 'index'
-  },
 
+
+  'get /': 'HomeController.index',
   'get /about': 'HomeController.index',
   'get /blog': 'HomeController.index',
   'get /blog/:id': 'HomeController.index',
@@ -45,33 +43,20 @@ module.exports.routes = {
   'get /committee/:id': 'HomeController.index',
   'get /committee/:id/bill/:billId': 'HomeController.index',
 
-
   'get /member': 'HomeController.index',
   'get /member/:id': 'HomeController.index',
 
+  'get /search': 'HomeController.index',
+  'get /search/:path': 'HomeController.index',
 
-  'get /login': 'AuthController.login',
+  'get /login': 'HomeController.index',
+  'get /register': 'HomeController.index',
   'get /logout': 'AuthController.logout',
-  'get /register': 'AuthController.register',
 
   'post /auth/local': 'AuthController.callback',
   'post /auth/local/:action': 'AuthController.callback',
 
 
-  /**
-   * User routes
-   */
-  'get /api/user': 'UserController.getAll',
-  'get /api/user/:id': 'UserController.getOne',
-  'post /api/user': 'UserController.create',
-
-  /**
-   * Post routes
-   */
-  'get /api/post': 'PostController.getAll',
-  'get /api/post/:id': 'PostController.getOne',
-  'post /api/post': 'PostController.create',
-  'delete /api/post/:id': 'PostController.destroy',
 
   /**
    * Bill routes
@@ -96,6 +81,21 @@ module.exports.routes = {
   'get /api/committeevote/:id': 'CommitteeVoteController.getOne',
   'post /api/committeevote': 'CommitteeVoteController.create',
   'delete /api/committeevote/:id': 'CommitteeVoteController.destroy',
+
+  /**
+   * Post routes
+   */
+  'get /api/post': 'PostController.getAll',
+  'get /api/post/:id': 'PostController.getOne',
+  'post /api/post': 'PostController.create',
+  'delete /api/post/:id': 'PostController.destroy',
+
+  /**
+   * User routes
+   */
+  'get /api/user': 'UserController.getAll',
+  'get /api/user/:id': 'UserController.getOne',
+  'post /api/user': 'UserController.create',
 
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 

@@ -15,18 +15,42 @@ angular.module( 'voetr.committee', [
                 return BillModel.getAll().then(function(models) {
                     return models;
                 });
+            },
+
+            bills_api: function($http){
+
+
+               /* 
+
+               var url = 'http://congress.api.sunlightfoundation.com/upcoming_bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
+
+                return $http.get(url).
+                    success(function(data, status, headers, config) {
+                      return data;
+                    }).
+                    error(function(data, status, headers, config) {
+                });
+
+                */ 
+
+                return null;         
+
+
             }
         }
 	});
 })
 
-.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, lodash, titleService, config, $stateParams, BillModel, bills) {
+.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, lodash, titleService, config, $stateParams, BillModel, bills, bills_api) {
 
     $scope.committee = $stateParams.path;
 	titleService.setTitle($stateParams.path + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;
+    $scope.bills1 = bills_api;
+
     $scope.newBill = {};
+    //$scope.bills1 = {};
 
     $sailsSocket.subscribe('committeebill', function (envelope) {
     	console.log('ok');
@@ -46,10 +70,6 @@ angular.module( 'voetr.committee', [
             $scope.newBill = {};
         });
     };
-
-
-
-
 
 
 	$scope.changeVote = function(vote, flag){

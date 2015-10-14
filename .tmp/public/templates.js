@@ -1,11 +1,29 @@
-angular.module('templates-app', ['about/index.tpl.html', 'auth/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'member/index.tpl.html', 'sidebar/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
-    "<div class=\"surface-container home-pad\">\n" +
+    "<style>\n" +
+    "\n" +
+    ".about-container{\n" +
+    "\n" +
+    "	margin-left:15%;\n" +
+    "	margin-right:15%;\n" +
+    "	margin-top:5%;\n" +
+    "\n" +
+    "}\n" +
+    "\n" +
+    "</style>\n" +
+    "\n" +
+    "\n" +
+    "<div class=\"about-container\">\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "\n" +
     "	<div>\n" +
+    "		\n" +
+    "		<h2>the voice of the internet</h2>\n" +
+    "\n" +
     "		<p>real time voting</p>\n" +
     "		<p>bylaw generation</p>\n" +
     "		<p>view all politicians</p>\n" +
@@ -21,132 +39,89 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "</div>");
 }]);
 
-angular.module("auth/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("auth/index.tpl.html",
-    "<!--register-->\n" +
-    "<div class=\"row\">\n" +
-    "    <div class=\"col-md-6\">\n" +
-    "        <h3>Create an Account</h3>\n" +
-    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"username\" placeholder=\"Username\" value=\"\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
-    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<!--login-->\n" +
-    "<div class=\"row\">\n" +
-    "    <div class=\"col-md-6\">\n" +
-    "        <h3>Please Login</h3>\n" +
-    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
-    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "\n" +
-    "");
-}]);
-
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committee/index.tpl.html",
-    "<h1>{{committee}}</h1>\n" +
+    "<style>\n" +
+    "#fixed-sidebar {\n" +
+    "     position: fixed;\n" +
+    "     width: 200px;\n" +
+    "     height: 400px;\n" +
+    " }\n" +
+    " .content {\n" +
+    "     margin-left: 200px;\n" +
+    "     width: auto;\n" +
+    "     position: relative;\n" +
+    "     z-index: 1;\n" +
+    " }\n" +
     "\n" +
-    "<p>committee heirarchy</p>\n" +
-    "<p>bylaws</p>\n" +
-    "<p>submitted bills</p>\n" +
-    "<p>polls</p>\n" +
+    "</style>\n" +
+    "\n" +
+    "<div id=\"fixed-sidebar\">\n" +
+    "  <i style=\"font-size:32px\" class=\"fa fa-bars\"></i>\n" +
+    "  <p>bylaws</p>\n" +
+    "  <p>committee heirarchy</p>\n" +
+    "  <p>submitted bills</p>\n" +
+    "  <p>discussion</p>\n" +
+    "  <p>elections</p>\n" +
+    "  <p>polls</p>\n" +
+    "  <p>members</p>\n" +
+    "</div>\n" +
     "\n" +
     "\n" +
-    "<br><br><br>\n" +
     "\n" +
-    "<a>edit committee</a>\n" +
-    "\n" +
-    "<br><br><br>\n" +
-    "\n" +
-    "<a>delete committee</a>\n" +
+    "<div class=\"content\">\n" +
     "\n" +
     "\n" +
+    "  <h1>{{committee}}</h1>\n" +
     "\n" +
-    "submit bill\n" +
-    "<br><br><br>\n" +
-    "<div ng-show=\"currentUser\">\n" +
+    "    <div class=\"bill-container\" ng-repeat=\"bill in bill1.results\">\n" +
+    "      <p>bill</p>\n" +
+    "    </div>\n" +
+    "    \n" +
+    "  {{bill1.results[0].context}}\n" +
     "\n" +
-    "  <div style=\"margin-left:20%;margin-right:20%;\">\n" +
-    "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
-    "      <div class=\"form-group\">\n" +
-    "        <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
-    "        <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.bill_content\" class=\"form-control\">\n" +
-    "      </div>\n" +
-    "      <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "    </form>\n" +
+    "  <br>\n" +
+    "  <a>edit committee</a>\n" +
+    "  <br>\n" +
+    "  <a>delete committee</a>\n" +
+    "  submit bill\n" +
+    "  <br>\n" +
+    "\n" +
+    "  <div ng-show=\"currentUser\">\n" +
+    "\n" +
+    "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
+    "        <div class=\"form-group\">\n" +
+    "          <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
+    "          <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.bill_content\" class=\"form-control\">\n" +
+    "        </div>\n" +
+    "        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "      </form>\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"bill-list-container\">\n" +
+    "    <br><br>\n" +
+    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-createdAt'\">\n" +
+    "      <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{bill.title}}</a></h1>\n" +
+    "      <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
+    "      <br>\n" +
+    "      <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
+    "      <br>Vote: {{vote}}\n" +
+    "\n" +
+    "    </div>\n" +
+    "    <br><br>\n" +
     "  </div>\n" +
     "\n" +
     "</div>\n" +
-    "\n" +
-    "<div class=\"bill-list-container\">\n" +
-    "  <br><br>\n" +
-    "  <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-createdAt'\">\n" +
-    "    <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{bill.title}}</a></h1>\n" +
-    "    <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
-    "    <br>\n" +
-    "    <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
-    "    <br>Vote: {{vote}}\n" +
-    "\n" +
-    "  </div>\n" +
-    "  <br><br>\n" +
-    "</div>");
+    "");
 }]);
 
 angular.module("committees/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committees/index.tpl.html",
     "<!--if logged in-->\n" +
-    "<div style=\"height:100px;\"></div>\n" +
     "<div ng-show=\"currentUser\">\n" +
-    "\n" +
     "  <div style=\"margin-left:20%;margin-right:20%;\">\n" +
     "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
     "      <div class=\"form-group\">\n" +
@@ -157,7 +132,6 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "      <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
     "    </form>\n" +
     "  </div>\n" +
-    "\n" +
     "</div>\n" +
     "<!--/if logged in-->\n" +
     "\n" +
@@ -165,12 +139,6 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "  <br><br>\n" +
     "  <div class=\"committee-container\" ng-repeat=\"committee in committees | orderBy:'-createdAt'\">\n" +
     "    <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{committee.title}}</a></h1>\n" +
-    "\n" +
-    "    <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
-    "    <br>\n" +
-    "    <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
-    "    <br>Vote: {{vote}}\n" +
-    "\n" +
     "  </div>\n" +
     "  <br><br>\n" +
     "</div>\n" +
@@ -179,9 +147,84 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "<div style=\"height:100px;\"></div>");
 }]);
 
+angular.module("header/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("header/index.tpl.html",
+    "<!--<div ng-controller=\"SidebarCtrl\">\n" +
+    "    <div class=\"page-nav-zone\">\n" +
+    "        <div class=\"flex-item-top\"></div>\n" +
+    "        <div class=\"item-container\">\n" +
+    "            <a href=\"/\">\n" +
+    "                <div class=\"list-item\">\n" +
+    "                    <div class=\"nav-small-list\">\n" +
+    "                        <div class=\"nav-small-list\"><i style=\"color:#fff\" class=\"fa fa-check\"></i></div>\n" +
+    "\n" +
+    "                    </div>\n" +
+    "                    <div class=\"nav-large-list\">voetr</div>\n" +
+    "                </div>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "        <div class=\"item-container\">\n" +
+    "            <a href=\"/about/\">\n" +
+    "                <div class=\"list-item\">\n" +
+    "                    <div class=\"nav-small-list\"><i class=\"fa fa-info\"></i></div>\n" +
+    "                    <div class=\"nav-large-list\">about</div>\n" +
+    "                </div>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "        <div class=\"item-container\">\n" +
+    "            <a href=\"/committees/\">\n" +
+    "                <div class=\"list-item\">\n" +
+    "                    <div class=\"nav-small-list\"><i class=\"fa fa-users\"></i></div>\n" +
+    "                    <div class=\"nav-large-list\">committees</div>\n" +
+    "                </div>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "        <div class=\"item-container\">\n" +
+    "            <a href=\"/register/\">\n" +
+    "                <div class=\"list-item\">\n" +
+    "                    <div class=\"nav-small-list\"><i class=\"fa fa-hand-peace-o\"></i></div>\n" +
+    "                    <div class=\"nav-large-list\">register</div>\n" +
+    "                </div>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "        <div class=\"flex-item-bottom\"></div>\n" +
+    "    </div>\n" +
+    "</div>-->\n" +
+    "\n" +
+    "<div ng-controller=\"HeaderCtrl\">\n" +
+    "    <div class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
+    "      <div class=\"container\">\n" +
+    "        <div class=\"navbar-header\">\n" +
+    "          <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
+    "            <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "            <span class=\"icon-bar\"></span>\n" +
+    "            <span class=\"icon-bar\"></span>\n" +
+    "            <span class=\"icon-bar\"></span>\n" +
+    "          </button>\n" +
+    "          <a class=\"navbar-brand\" href=\"/\"><i style=\"color:#fff\" class=\"fa fa-check\"></i>oetr</a>\n" +
+    "        </div>\n" +
+    "        <div class=\"collapse navbar-collapse\">\n" +
+    "          <ul class=\"nav navbar-nav\">\n" +
+    "            <li><a href=\"/about\">about</a></li>\n" +
+    "            <li><a href=\"/committees\">committees</a></li>\n" +
+    "            <li><a href=\"/search\">search</a></li>\n" +
+    "            <li><a href=\"/register\">register</a></li>\n" +
+    "            <li><a href=\"/login\">login</a></li>\n" +
+    "          </ul>\n" +
+    "        </div><!--/.nav-collapse -->\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "");
+}]);
+
 angular.module("home/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("home/index.tpl.html",
     "<div class=\"surface-container-home\">\n" +
+    "\n" +
+    "    <!--if logged in-->\n" +
+    "    <!--/if logged in-->\n" +
     "\n" +
     "	<!--if not logged in-->\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
@@ -191,16 +234,31 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    	   <img src=\"/images/crowd.jpg\"/>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div style=\"height:500px;background-color:rgb(170,245,223)\"></div>\n" +
+    "        <div style=\"height:500px;background-color:rgb(220,245,223)\">\n" +
+    "            <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
+    "        </div>\n" +
     "\n" +
     "\n" +
     "    	<img src=\"/images/crowd1.jpg\"/>\n" +
     "\n" +
+    "        <div>\n" +
+    "\n" +
+    "            enter your zipcode\n" +
+    "\n" +
+    "        <div>\n" +
+    "\n" +
     "    	<p>the internet's voice</p>\n" +
-    "    	<p>popular voice, bylaw creation</p>\n" +
-    "    	<p>crowd-sourced government</p>\n" +
+    "        <p>a decision making cloud</p>\n" +
+    "        <p>be part of the movement</p>\n" +
+    "    	<p>bylaw creation, crowd-sourced government</p>\n" +
     "\n" +
     "        <br><br>\n" +
+    "\n" +
+    "        <div style=\"height:500px;background-color:rgb(220,245,223)\">\n" +
+    "\n" +
+    "            <h1>trending</h1>\n" +
+    "\n" +
+    "        </div>\n" +
     "\n" +
     "        <p>numbers and stats infographic</p>\n" +
     "        <p>local counties / self governing committees / total members / search / political info</p>\n" +
@@ -257,11 +315,45 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "        </a>\n" +
     "    </svg>-->\n" +
     "\n" +
-    "    <!--<video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
-    "        <source src=\"/videos/washington.mp4\" type=\"video/webm\">\n" +
-    "    </video>-->\n" +
-    "    <img src=\"/images/capitol.jpg\">\n" +
+    "    <video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
+    "        <source src=\"/videos/voting.mp4\" type=\"video/webm\">\n" +
+    "    </video>\n" +
+    "    <!--<img src=\"/images/capitol.jpg\">-->\n" +
     "</div>");
+}]);
+
+angular.module("login/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("login/index.tpl.html",
+    "<!--login-->\n" +
+    "<div class=\"row\">\n" +
+    "    <div class=\"col-md-6\">\n" +
+    "        <h3>Please Login</h3>\n" +
+    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
+    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<a href=\"/register\">register?</a>\n" +
+    "\n" +
+    "\n" +
+    "");
 }]);
 
 angular.module("member/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -284,62 +376,84 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "</div>\n" +
     "\n" +
     "<div>\n" +
-    "	activity list\n" +
-    "</div>\n" +
-    "\n" +
-    "<div>\n" +
     "	votes\n" +
     "</div>\n" +
     "\n" +
     "<div>\n" +
     "	posts\n" +
-    "</div>");
-}]);
-
-angular.module("sidebar/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("sidebar/index.tpl.html",
-    "<div ng-controller=\"SidebarCtrl\">\n" +
-    "    <div class=\"page-nav-zone\">\n" +
-    "        <div class=\"flex-item-top\"></div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\">\n" +
-    "                        <!--<img style=\"max-width: 50%;\" src=\"/images/tri.png\"/>-->\n" +
-    "                        <div class=\"nav-small-list\"><i style=\"color:#fff\" class=\"fa fa-check\"></i></div>\n" +
+    "</div>\n" +
     "\n" +
-    "                    </div>\n" +
-    "                    <div class=\"nav-large-list\">voetr</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/about/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-info\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">about</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/committees/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-users\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">committees</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/register/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-hand-peace-o\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">register</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"flex-item-bottom\"></div>\n" +
-    "    </div>\n" +
+    "<div>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "	<p>activity</p>\n" +
+    "\n" +
     "</div>\n" +
     "\n" +
     "");
+}]);
+
+angular.module("register/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("register/index.tpl.html",
+    "<!--register-->\n" +
+    "<div class=\"row\">\n" +
+    "    <div class=\"col-md-6\">\n" +
+    "        <h3>Create an Account</h3>\n" +
+    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"username\" placeholder=\"Username\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
+    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<a href=\"/login\">already have an account?</a>");
+}]);
+
+angular.module("search/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("search/index.tpl.html",
+    "<div class=\"surface-container home-pad\">\n" +
+    "\n" +
+    "\n" +
+    "	<div>\n" +
+    "		<p>search result</p>\n" +
+    "	\n" +
+    "	</div>\n" +
+    "\n" +
+    "</div>");
 }]);

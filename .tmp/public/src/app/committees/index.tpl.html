@@ -1,7 +1,5 @@
 <!--if logged in-->
-<div style="height:100px;"></div>
 <div ng-show="currentUser">
-
   <div style="margin-left:20%;margin-right:20%;">
     <form class="committee-input" role="form" ng-submit="createCommittee(newCommittee)">
       <div class="form-group">
@@ -12,7 +10,6 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-
 </div>
 <!--/if logged in-->
 
@@ -20,12 +17,6 @@
   <br><br>
   <div class="committee-container" ng-repeat="committee in committees | orderBy:'-createdAt'">
     <h1 class="title"><a href="/committee/{{committee.url_title}}">{{committee.title}}</a></h1>
-
-    <i ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
-    <br>
-    <i ng-click="changeVote(vote, 'down')" class="fa fa-arrow-circle-down fa-2x"  ng-class="{true:'down', false:''}[vote=='down']"></i>
-    <br>Vote: {{vote}}
-
   </div>
   <br><br>
 </div>
