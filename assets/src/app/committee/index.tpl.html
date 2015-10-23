@@ -1,41 +1,130 @@
 <style>
-#fixed-sidebar {
-     position: fixed;
-     width: 200px;
-     height: 400px;
- }
- .content {
-     margin-left: 200px;
-     width: auto;
-     position: relative;
-     z-index: 1;
- }
+#main-container{margin-left:250px;padding-left:15px;}
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #34393d;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
+/* Sidebar Styles */
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: #4b5359;
+    //background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
 </style>
 
-<div id="fixed-sidebar">
-  <i style="font-size:32px" class="fa fa-bars"></i>
-  <p>bylaws</p>
-  <p>committee heirarchy</p>
-  <p>submitted bills</p>
-  <p>discussion</p>
-  <p>elections</p>
-  <p>polls</p>
-  <p>members</p>
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <br>
+    <li>
+        <a href="/">committee</a>
+    </li>
+    <hr>
+    <li>
+        <a href="#">bylaws</a>
+    </li>
+    <li>
+        <a href="#">committees</a>
+    </li>
+    <li>
+        <a href="#">bills</a>
+    </li>
+    <li>
+        <a href="#">discussion</a>
+    </li>
+    <li>
+        <a href="#">elections</a>
+    </li>
+    <li>
+        <a href="#">polls</a>
+    </li>
+    <li>
+        <a href="#">members</a>
+    </li>
+  </ul>
 </div>
 
-
-
-<div class="content">
-
-
+<div id="main-container">
   <h1>{{committee}}</h1>
-
-    <div class="bill-container" ng-repeat="bill in bill1.results">
-      <p>bill</p>
-    </div>
-    
-  {{bill1.results[0].context}}
+  <div ng-repeat="bill in bills1">
+    <a href="{{bill.url}}">{{bill.description}}</a>
+  </div>
 
   <br>
   <a>edit committee</a>
@@ -45,7 +134,6 @@
   <br>
 
   <div ng-show="currentUser">
-
     <div style="margin-left:20%;margin-right:20%;">
       <form class="committee-input" role="form" ng-submit="createBill(newBill)">
         <div class="form-group">
@@ -55,7 +143,6 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
-
   </div>
 
   <div class="bill-list-container">

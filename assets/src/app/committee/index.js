@@ -19,9 +19,6 @@ angular.module( 'voetr.committee', [
 
             bills_api: function($http){
 
-
-               /* 
-
                var url = 'http://congress.api.sunlightfoundation.com/upcoming_bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
 
                 return $http.get(url).
@@ -30,11 +27,6 @@ angular.module( 'voetr.committee', [
                     }).
                     error(function(data, status, headers, config) {
                 });
-
-                */ 
-
-                return null;         
-
 
             }
         }
@@ -47,10 +39,11 @@ angular.module( 'voetr.committee', [
 	titleService.setTitle($stateParams.path + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;
-    $scope.bills1 = bills_api;
+
+    $scope.bills1 = bills_api.data.results;
+
 
     $scope.newBill = {};
-    //$scope.bills1 = {};
 
     $sailsSocket.subscribe('committeebill', function (envelope) {
     	console.log('ok');

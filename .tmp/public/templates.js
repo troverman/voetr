@@ -5,80 +5,269 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "<style>\n" +
     "\n" +
     ".about-container{\n" +
-    "\n" +
     "	margin-left:15%;\n" +
     "	margin-right:15%;\n" +
     "	margin-top:5%;\n" +
+    "}\n" +
     "\n" +
+    ".img-fill {\n" +
+    "  width: 100%;\n" +
+    "  display: block;\n" +
+    "  overflow: hidden;\n" +
+    "  position: relative;\n" +
+    "  text-align: center\n" +
+    "}\n" +
+    "\n" +
+    ".img-fill img {\n" +
+    "  height: 100%;\n" +
+    "  min-width: 100%;\n" +
+    "  position: relative;\n" +
+    "  display: inline-block;\n" +
+    "  max-width: none\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container{\n" +
+    "  position:relative;\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container .img-fill {\n" +
+    "  height: 100vh;\n" +
+    "  background:#000;\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container .img-fill:before {\n" +
+    "  content: '';\n" +
+    "  display: block;\n" +
+    "  width:100%;\n" +
+    "  height:100%;\n" +
+    "  top:0px;\n" +
+    "  left:0px;\n" +
+    "  z-index:2;\n" +
+    "  background:rgba(0,0,0,.50);\n" +
+    "  position: absolute;\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container .img-fill img{\n" +
+    "	-webkit-filter: blur(3px);\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container .img-fill .info {\n" +
+    "  position: absolute;\n" +
+    "  top: 0px;\n" +
+    "  left: 0px;\n" +
+    "  width: 100%;\n" +
+    "  z-index:3;\n" +
+    "  top:30%;\n" +
+    "  padding:0 20px;\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container .img-fill h3{\n" +
+    "  font-family:Jura;\n" +
+    "  color:#FFF;\n" +
+    "  margin:auto;\n" +
+    "  white-space:nowrap;\n" +
+    "  //text-align:center;\n" +
+    "  text-overflow:ellipsis;\n" +
+    "  overflow:hidden;\n" +
+    "}\n" +
+    "\n" +
+    ".heading-container .img-fill p{\n" +
+    "  max-width:650px;\n" +
+    "  //margin:auto;\n" +
+    "  margin-top:15px;\n" +
+    "  font-family:Jura;\n" +
+    "  color:#FFF;\n" +
+    "  text-align:justify;\n" +
+    "  overflow:hidden;\n" +
     "}\n" +
     "\n" +
     "</style>\n" +
-    "\n" +
+    "<div class=\"heading-container\">\n" +
+    "	<div class=\"img-fill\">\n" +
+    "		<img src=\"/images/congress.jpg\" alt=\"\">\n" +
+    "		<div class=\"info\">\n" +
+    "			<h3>Empowering the internet</h3>\n" +
+    "			<p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "</div>  \n" +
+    "<div class=\"heading-container\">\n" +
+    "	<div class=\"img-fill\">\n" +
+    "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
+    "		<div class=\"info\">\n" +
+    "			<h3>Seeing past partisan politics</h3>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "</div>   \n" +
+    "<div class=\"heading-container\">\n" +
+    "	<div class=\"img-fill\">\n" +
+    "		<img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
+    "		<div class=\"info\">\n" +
+    "			<h3>Elect, Vote, Create</h3>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "</div>  \n" +
+    "<div class=\"heading-container\">\n" +
+    "	<div class=\"img-fill\">\n" +
+    "		<img src=\"/images/crowd.jpg\" alt=\"\">\n" +
+    "		<div class=\"info\">\n" +
+    "			<h3>Direct Democracy</h3>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "</div>  \n" +
     "\n" +
     "<div class=\"about-container\">\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "	<div>\n" +
-    "		\n" +
     "		<h2>the voice of the internet</h2>\n" +
+    "		<p>direct input on policy</p>\n" +
+    "		<!-- my voice is filtered though 'representatives' that have a skewed agenda - money -->\n" +
     "\n" +
     "		<p>real time voting</p>\n" +
     "		<p>bylaw generation</p>\n" +
-    "		<p>view all politicians</p>\n" +
-    "		<p>political social network\n" +
-    "		<p>have your voice be heard</p>\n" +
-    "		<p>collective decision making</p>\n" +
+    "		<p>a political social network\n" +
+    "		<p>have your voice be heard through collective decision making</p>\n" +
     "\n" +
     "		<p>we believe in a free and open internet</p>\n" +
     "		<p>we believe in direct democracy</p>\n" +
+    "		<!-- mandatory voting -->\n" +
     "	\n" +
     "	</div>\n" +
+    "</div>\n" +
+    "<div style=\"height:300px;\"></div>\n" +
     "\n" +
-    "</div>");
+    "\n" +
+    "");
 }]);
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committee/index.tpl.html",
     "<style>\n" +
-    "#fixed-sidebar {\n" +
-    "     position: fixed;\n" +
-    "     width: 200px;\n" +
-    "     height: 400px;\n" +
-    " }\n" +
-    " .content {\n" +
-    "     margin-left: 200px;\n" +
-    "     width: auto;\n" +
-    "     position: relative;\n" +
-    "     z-index: 1;\n" +
-    " }\n" +
+    "#main-container{margin-left:250px;padding-left:15px;}\n" +
+    "#sidebar-wrapper {\n" +
+    "    z-index: 1000;\n" +
+    "    position: fixed;\n" +
+    "    left: 250px;\n" +
+    "    width: 0;\n" +
+    "    height: 100%;\n" +
+    "    margin-left: -250px;\n" +
+    "    overflow-y: auto;\n" +
+    "    background: #34393d;\n" +
+    "    -webkit-transition: all 0.5s ease;\n" +
+    "    -moz-transition: all 0.5s ease;\n" +
+    "    -o-transition: all 0.5s ease;\n" +
+    "    transition: all 0.5s ease;\n" +
+    "}\n" +
     "\n" +
+    "/* Sidebar Styles */\n" +
+    ".sidebar-nav {\n" +
+    "    position: absolute;\n" +
+    "    top: 0;\n" +
+    "    width: 250px;\n" +
+    "    margin: 0;\n" +
+    "    padding: 0;\n" +
+    "    list-style: none;\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav li {\n" +
+    "    text-indent: 20px;\n" +
+    "    line-height: 40px;\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav li a {\n" +
+    "    display: block;\n" +
+    "    text-decoration: none;\n" +
+    "    color: #999;\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav li a:hover {\n" +
+    "    text-decoration: none;\n" +
+    "    color: #fff;\n" +
+    "    background: #4b5359;\n" +
+    "    //background: rgba(255,255,255,0.2);\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav li a:active,\n" +
+    ".sidebar-nav li a:focus {\n" +
+    "    text-decoration: none;\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav > .sidebar-brand {\n" +
+    "    height: 65px;\n" +
+    "    font-size: 18px;\n" +
+    "    line-height: 60px;\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav > .sidebar-brand a {\n" +
+    "    color: #999999;\n" +
+    "}\n" +
+    "\n" +
+    ".sidebar-nav > .sidebar-brand a:hover {\n" +
+    "    color: #fff;\n" +
+    "    background: none;\n" +
+    "}\n" +
+    "\n" +
+    "@media(min-width:768px) {\n" +
+    "\n" +
+    "    #wrapper.toggled {\n" +
+    "        padding-left: 0;\n" +
+    "    }\n" +
+    "\n" +
+    "    #sidebar-wrapper {\n" +
+    "        width: 250px;\n" +
+    "    }\n" +
+    "\n" +
+    "    #wrapper.toggled #sidebar-wrapper {\n" +
+    "        width: 0;\n" +
+    "    }\n" +
+    "\n" +
+    "    #page-content-wrapper {\n" +
+    "        padding: 20px;\n" +
+    "        position: relative;\n" +
+    "    }\n" +
+    "\n" +
+    "    #wrapper.toggled #page-content-wrapper {\n" +
+    "        position: relative;\n" +
+    "        margin-right: 0;\n" +
+    "    }\n" +
+    "}\n" +
     "</style>\n" +
     "\n" +
-    "<div id=\"fixed-sidebar\">\n" +
-    "  <i style=\"font-size:32px\" class=\"fa fa-bars\"></i>\n" +
-    "  <p>bylaws</p>\n" +
-    "  <p>committee heirarchy</p>\n" +
-    "  <p>submitted bills</p>\n" +
-    "  <p>discussion</p>\n" +
-    "  <p>elections</p>\n" +
-    "  <p>polls</p>\n" +
-    "  <p>members</p>\n" +
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li>\n" +
+    "        <a href=\"/\">committee</a>\n" +
+    "    </li>\n" +
+    "    <hr>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">bylaws</a>\n" +
+    "    </li>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">committees</a>\n" +
+    "    </li>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">bills</a>\n" +
+    "    </li>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">discussion</a>\n" +
+    "    </li>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">elections</a>\n" +
+    "    </li>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">polls</a>\n" +
+    "    </li>\n" +
+    "    <li>\n" +
+    "        <a href=\"#\">members</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
     "</div>\n" +
     "\n" +
-    "\n" +
-    "\n" +
-    "<div class=\"content\">\n" +
-    "\n" +
-    "\n" +
+    "<div id=\"main-container\">\n" +
     "  <h1>{{committee}}</h1>\n" +
-    "\n" +
-    "    <div class=\"bill-container\" ng-repeat=\"bill in bill1.results\">\n" +
-    "      <p>bill</p>\n" +
-    "    </div>\n" +
-    "    \n" +
-    "  {{bill1.results[0].context}}\n" +
+    "  <div ng-repeat=\"bill in bills1\">\n" +
+    "    <a href=\"{{bill.url}}\">{{bill.description}}</a>\n" +
+    "  </div>\n" +
     "\n" +
     "  <br>\n" +
     "  <a>edit committee</a>\n" +
@@ -88,7 +277,6 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "  <br>\n" +
     "\n" +
     "  <div ng-show=\"currentUser\">\n" +
-    "\n" +
     "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
     "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
     "        <div class=\"form-group\">\n" +
@@ -98,7 +286,6 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
     "      </form>\n" +
     "    </div>\n" +
-    "\n" +
     "  </div>\n" +
     "\n" +
     "  <div class=\"bill-list-container\">\n" +
@@ -149,47 +336,11 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
 
 angular.module("header/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("header/index.tpl.html",
-    "<!--<div ng-controller=\"SidebarCtrl\">\n" +
-    "    <div class=\"page-nav-zone\">\n" +
-    "        <div class=\"flex-item-top\"></div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\">\n" +
-    "                        <div class=\"nav-small-list\"><i style=\"color:#fff\" class=\"fa fa-check\"></i></div>\n" +
+    "<style>\n" +
     "\n" +
-    "                    </div>\n" +
-    "                    <div class=\"nav-large-list\">voetr</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/about/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-info\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">about</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/committees/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-users\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">committees</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"item-container\">\n" +
-    "            <a href=\"/register/\">\n" +
-    "                <div class=\"list-item\">\n" +
-    "                    <div class=\"nav-small-list\"><i class=\"fa fa-hand-peace-o\"></i></div>\n" +
-    "                    <div class=\"nav-large-list\">register</div>\n" +
-    "                </div>\n" +
-    "            </a>\n" +
-    "        </div>\n" +
-    "        <div class=\"flex-item-bottom\"></div>\n" +
-    "    </div>\n" +
-    "</div>-->\n" +
+    ".navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
+    "\n" +
+    "</style>\n" +
     "\n" +
     "<div ng-controller=\"HeaderCtrl\">\n" +
     "    <div class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
@@ -227,42 +378,119 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    <!--/if logged in-->\n" +
     "\n" +
     "	<!--if not logged in-->\n" +
+    "    <style>\n" +
+    "        .img-fill {\n" +
+    "          width: 100%;\n" +
+    "          display: block;\n" +
+    "          overflow: hidden;\n" +
+    "          position: relative;\n" +
+    "          text-align: center\n" +
+    "        }\n" +
+    "\n" +
+    "        .img-fill img {\n" +
+    "          height: 100%;\n" +
+    "          min-width: 100%;\n" +
+    "          position: relative;\n" +
+    "          display: inline-block;\n" +
+    "          max-width: none\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container{\n" +
+    "          position:relative;\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container .img-fill {\n" +
+    "          height: 100vh;\n" +
+    "          background:#000;\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container .img-fill:before {\n" +
+    "          content: '';\n" +
+    "          display: block;\n" +
+    "          width:100%;\n" +
+    "          height:100%;\n" +
+    "          top:0px;\n" +
+    "          left:0px;\n" +
+    "          z-index:2;\n" +
+    "          background:rgba(0,0,0,.50);\n" +
+    "          position: absolute;\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container .img-fill img{\n" +
+    "            -webkit-filter: blur(3px);\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container .img-fill .info {\n" +
+    "          position: absolute;\n" +
+    "          top: 0px;\n" +
+    "          left: 0px;\n" +
+    "          width: 100%;\n" +
+    "          z-index:3;\n" +
+    "          top:30%;\n" +
+    "          padding:0 20px;\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container .img-fill h3{\n" +
+    "          font-family:Jura;\n" +
+    "          color:#FFF;\n" +
+    "          margin:auto;\n" +
+    "          white-space:nowrap;\n" +
+    "          //text-align:center;\n" +
+    "          text-overflow:ellipsis;\n" +
+    "          overflow:hidden;\n" +
+    "        }\n" +
+    "\n" +
+    "        .heading-container .img-fill p{\n" +
+    "          max-width:650px;\n" +
+    "          //margin:auto;\n" +
+    "          margin-top:15px;\n" +
+    "          font-family:Jura;\n" +
+    "          color:#FFF;\n" +
+    "          text-align:justify;\n" +
+    "          overflow:hidden;\n" +
+    "        }\n" +
+    "\n" +
+    "    </style>\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
+    "    <div class=\"heading-container\">\n" +
+    "        <div class=\"img-fill\">\n" +
+    "            <img src=\"/images/congress.jpg\" alt=\"\">\n" +
+    "            <div class=\"info\">\n" +
+    "                <h3>Empowering the internet</h3>\n" +
+    "                <p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>  \n" +
     "    <div id=\"home-content\">\n" +
     "\n" +
-    "        <div>\n" +
-    "    	   <img src=\"/images/crowd.jpg\"/>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <div style=\"height:500px;background-color:rgb(220,245,223)\">\n" +
+    "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
     "            <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
+    "            <p>the internet's voice</p>\n" +
+    "            <p>a decision making cloud</p>\n" +
+    "            <p>be part of the movement</p>\n" +
+    "            <p>bylaw creation, crowd-sourced government</p>\n" +
     "        </div>\n" +
     "\n" +
-    "\n" +
-    "    	<img src=\"/images/crowd1.jpg\"/>\n" +
-    "\n" +
     "        <div>\n" +
-    "\n" +
+    "            <img src=\"/images/crowd1.jpg\"/>\n" +
     "            enter your zipcode\n" +
-    "\n" +
     "        <div>\n" +
     "\n" +
-    "    	<p>the internet's voice</p>\n" +
-    "        <p>a decision making cloud</p>\n" +
-    "        <p>be part of the movement</p>\n" +
-    "    	<p>bylaw creation, crowd-sourced government</p>\n" +
-    "\n" +
-    "        <br><br>\n" +
-    "\n" +
-    "        <div style=\"height:500px;background-color:rgb(220,245,223)\">\n" +
-    "\n" +
+    "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
     "            <h1>trending</h1>\n" +
-    "\n" +
+    "            <div>\n" +
+    "                <a href=\"/committee/united-states\">united states</a>\n" +
+    "                <a href=\"/committee/tennessee\">tennessee</a>\n" +
+    "                <a href=\"/committee/republican\">Republican National Committee</a>\n" +
+    "                <a href=\"/committee/democratic\">Democratic National Committee</a>\n" +
+    "                <a href=\"/committee/united-states/member/troverman\">troverman</a>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <p>numbers and stats infographic</p>\n" +
-    "        <p>local counties / self governing committees / total members / search / political info</p>\n" +
-    "\n" +
+    "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
+    "            <p>numbers and stats infographic</p>\n" +
+    "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
+    "        </div>\n" +
     "\n" +
     "    </div>\n" +
     "    <!--/if not logged in-->\n" +
@@ -358,32 +586,184 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("member/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("member/index.tpl.html",
-    "<h1>member name</h1>\n" +
+    "<style>\n" +
+    "	@import url(http://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);\n" +
+    "\n" +
+    "	.content-profile-page {\n" +
+    "	  margin: 1em auto;\n" +
+    "	  width: 44.23em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.card {\n" +
+    "	  background: #fff;\n" +
+    "	  border-radius: 0.3rem;\n" +
+    "	  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);\n" +
+    "	  border: .1em solid rgba(0, 0, 0, 0.2);\n" +
+    "	  margin-bottom: 1em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .img-user-profile {\n" +
+    "	  margin: 0 auto;\n" +
+    "	  text-align: center;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .img-user-profile .profile-bgHome {\n" +
+    "	  border-bottom: .2em solid #f5f5f5;\n" +
+    "	  width: 44.23em;\n" +
+    "	  height: 16em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .img-user-profile .avatar {\n" +
+    "	  margin: 0 auto;\n" +
+    "	  background: #fff;\n" +
+    "	  width: 7em;\n" +
+    "	  height: 7em;\n" +
+    "	  padding: 0.25em;\n" +
+    "	  border-radius: .4em;\n" +
+    "	  margin-top: -10em;\n" +
+    "	  box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .user-profile-data,\n" +
+    "	.profile-user-page .description-profile {\n" +
+    "	  text-align: center;\n" +
+    "	  padding: 0 1.5em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .user-profile-data h1 {\n" +
+    "	  font-family: \"Lato\", sans-serif;\n" +
+    "	  margin-top: 0.35em;\n" +
+    "	  color: #292f33;\n" +
+    "	  margin-bottom: 0;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .user-profile-data p {\n" +
+    "	  font-family: \"Lato\", sans-serif;\n" +
+    "	  color: #8899a6;\n" +
+    "	  font-size: 1.1em;\n" +
+    "	  margin-top: 0;\n" +
+    "	  margin-bottom: 0.5em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .description-profile {\n" +
+    "	  color: #75787b;\n" +
+    "	  font-size: 0.98em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user {\n" +
+    "	  font-family: \"Quicksand\", sans-serif;\n" +
+    "	  margin-bottom: 0;\n" +
+    "	  cursor: pointer;\n" +
+    "	  padding: 0;\n" +
+    "	  list-style: none;\n" +
+    "	  display: table;\n" +
+    "	  width: 100.15%;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li {\n" +
+    "	  margin: 0;\n" +
+    "	  padding: 0;\n" +
+    "	  width: 33.33334%;\n" +
+    "	  display: table-cell;\n" +
+    "	  text-align: center;\n" +
+    "	  border-left: 0.1em solid transparent;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li:first-child {\n" +
+    "	  border-left: 0;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li:first-child a {\n" +
+    "	  border-bottom-left-radius: 0.3rem;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li:last-child a {\n" +
+    "	  border-bottom-right-radius: 0.3rem;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a,\n" +
+    "	.profile-user-page .data-user li strong {\n" +
+    "	  display: block;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a {\n" +
+    "	  background-color: #f7f7f7;\n" +
+    "	  border-top: 1px solid rgba(242, 242, 242, 0.5);\n" +
+    "	  border-bottom: .2em solid #f7f7f7;\n" +
+    "	  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(255, 255, 255, 0.4);\n" +
+    "	  padding: .93em 0;\n" +
+    "	  color: #46494c;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a strong,\n" +
+    "	.profile-user-page .data-user li a span {\n" +
+    "	  font-weight: 600;\n" +
+    "	  line-height: 1;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a strong {\n" +
+    "	  font-size: 2em;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a span {\n" +
+    "	  color: #717a7e;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a:hover {\n" +
+    "	  background: rgba(0, 0, 0, 0.05);\n" +
+    "	  border-bottom: .2em solid #3498db;\n" +
+    "	  color: #3498db;\n" +
+    "	}\n" +
+    "\n" +
+    "	.profile-user-page .data-user li a:hover span {\n" +
+    "	  color: #3498db;\n" +
+    "	}\n" +
+    "\n" +
+    "	footer h4 {\n" +
+    "	  display: block;\n" +
+    "	  text-align: center;\n" +
+    "	  clear: both;\n" +
+    "	  font-family: \"Coda\", sans-serif;\n" +
+    "	  color: #566965;\n" +
+    "	  line-height: 6;\n" +
+    "	  font-size: 1em;\n" +
+    "	}\n" +
+    "	#profile-activity{text-align:center;}\n" +
+    "</style>\n" +
     "\n" +
     "\n" +
-    "<img style=\"height:260px;\" src=\"/images/obama.jpg\"/>\n" +
-    "\n" +
-    "<div>\n" +
-    "	following\n" +
+    "<div class=\"content-profile-page\">\n" +
+    "  <div class=\"profile-user-page card\">\n" +
+    "    <div class=\"img-user-profile\">\n" +
+    "      <img class=\"profile-bgHome\" src=\"/images/crowd1.jpg\" />\n" +
+    "      <img class=\"avatar\" src=\"/images/trevor.jpg\"/>\n" +
+    "    </div>\n" +
+    "    <div class=\"user-profile-data\">\n" +
+    "      <h1>Trevor Overman</h1>\n" +
+    "    </div>\n" +
+    "    <ul class=\"data-user\">\n" +
+    "   	  <li><a><strong>888</strong><span>Committees</span></a></li>\n" +
+    "      <li><a><strong>888</strong><span>Votes</span></a></li>\n" +
+    "      <li><a><strong>888</strong><span>Posts</span></a></li>\n" +
+    "      <!--<li><a><strong>888</strong><span>Bills</span></a></li>-->\n" +
+    "      <li><a><strong>888</strong><span>Followers</span></a></li>\n" +
+    "      <li><a><strong>888</strong><span>Following</span></a></li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div>\n" +
-    "	followers\n" +
-    "</div>\n" +
+    "<div id=\"profile-activity\">\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "	<p>Trevor submitted <a>hr-888</a> to the <a>united states senate</a></p>\n" +
+    "	<p>Trevor suggested an edit to <a>hr-888</a> - <a>united states senate</a></p>\n" +
     "\n" +
-    "<div>\n" +
-    "	committees\n" +
-    "</div>\n" +
     "\n" +
-    "<div>\n" +
-    "	votes\n" +
-    "</div>\n" +
-    "\n" +
-    "<div>\n" +
-    "	posts\n" +
-    "</div>\n" +
-    "\n" +
-    "<div>\n" +
     "	<p>activity</p>\n" +
     "	<p>activity</p>\n" +
     "	<p>activity</p>\n" +

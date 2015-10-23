@@ -1,35 +1,134 @@
 <style>
 
 .about-container{
-
 	margin-left:15%;
 	margin-right:15%;
 	margin-top:5%;
+}
 
+.img-fill {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  text-align: center
+}
+
+.img-fill img {
+  height: 100%;
+  min-width: 100%;
+  position: relative;
+  display: inline-block;
+  max-width: none
+}
+
+.heading-container{
+  position:relative;
+}
+
+.heading-container .img-fill {
+  height: 100vh;
+  background:#000;
+}
+
+.heading-container .img-fill:before {
+  content: '';
+  display: block;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:2;
+  background:rgba(0,0,0,.50);
+  position: absolute;
+}
+
+.heading-container .img-fill img{
+	-webkit-filter: blur(3px);
+}
+
+.heading-container .img-fill .info {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index:3;
+  top:30%;
+  padding:0 20px;
+}
+
+.heading-container .img-fill h3{
+  font-family:Jura;
+  color:#FFF;
+  margin:auto;
+  white-space:nowrap;
+  //text-align:center;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+
+.heading-container .img-fill p{
+  max-width:650px;
+  //margin:auto;
+  margin-top:15px;
+  font-family:Jura;
+  color:#FFF;
+  text-align:justify;
+  overflow:hidden;
 }
 
 </style>
-
+<div class="heading-container">
+	<div class="img-fill">
+		<img src="/images/congress.jpg" alt="">
+		<div class="info">
+			<h3>Empowering the internet</h3>
+			<p>vote and have your voice heard, come together with the collective power of the internet</p>
+		</div>
+	</div>
+</div>  
+<div class="heading-container">
+	<div class="img-fill">
+		<img src="/images/capitol.jpg" alt="">
+		<div class="info">
+			<h3>Seeing past partisan politics</h3>
+		</div>
+	</div>
+</div>   
+<div class="heading-container">
+	<div class="img-fill">
+		<img src="/images/crowd1.jpg" alt="">
+		<div class="info">
+			<h3>Elect, Vote, Create</h3>
+		</div>
+	</div>
+</div>  
+<div class="heading-container">
+	<div class="img-fill">
+		<img src="/images/crowd.jpg" alt="">
+		<div class="info">
+			<h3>Direct Democracy</h3>
+		</div>
+	</div>
+</div>  
 
 <div class="about-container">
-
-
-
-
 	<div>
-		
 		<h2>the voice of the internet</h2>
+		<p>direct input on policy</p>
+		<!-- my voice is filtered though 'representatives' that have a skewed agenda - money -->
 
 		<p>real time voting</p>
 		<p>bylaw generation</p>
-		<p>view all politicians</p>
-		<p>political social network
-		<p>have your voice be heard</p>
-		<p>collective decision making</p>
+		<p>a political social network
+		<p>have your voice be heard through collective decision making</p>
 
 		<p>we believe in a free and open internet</p>
 		<p>we believe in direct democracy</p>
+		<!-- mandatory voting -->
 	
 	</div>
-
 </div>
+<div style="height:300px;"></div>
+
+
