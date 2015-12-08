@@ -35,13 +35,15 @@ module.exports.routes = {
 
 
   'get /': 'HomeController.index',
+  'get /account': 'HomeController.index',
   'get /about': 'HomeController.index',
   'get /blog': 'HomeController.index',
   'get /blog/:id': 'HomeController.index',
 
   'get /committees': 'HomeController.index',
-  'get /committee/:id': 'HomeController.index',
-  'get /committee/:id/bill/:billId': 'HomeController.index',
+  'get /committee/:path': 'HomeController.index',
+  'get /bill/:id': 'HomeController.index',
+  'get /bill/:id/:path': 'HomeController.index',
 
   'get /member': 'HomeController.index',
   'get /member/:id': 'HomeController.index',
@@ -61,16 +63,17 @@ module.exports.routes = {
   /**
    * Bill routes
    */
-  'get /api/bill': 'CommitteeBillController.getAll',
-  'get /api/bill/:id': 'CommitteeBillController.getOne',
-  'post /api/bill': 'CommitteeBillController.create',
-  'delete /api/bill/:id': 'CommitteeBillController.destroy',
+  'get /api/bill': 'BillController.getAll',
+  'get /api/bill/:id': 'BillController.getOne',
+  'post /api/bill': 'BillController.create',
+  'delete /api/bill/:id': 'BillController.destroy',
 
   /**
    * Committee routes
    */
   'get /api/committee': 'CommitteeController.getAll',
   'get /api/committee/:id': 'CommitteeController.getOne',
+  'get /api/committee/url/:path': 'CommitteeController.getByUrl',
   'post /api/committee': 'CommitteeController.create',
   'delete /api/committee/:id': 'CommitteeController.destroy',
 

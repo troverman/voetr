@@ -11,7 +11,7 @@ module.exports = {
             required: true,
             unique: true
         },
-        url_title: {
+        urlTitle: {
             type: 'string',
             required: true,
             unique: true

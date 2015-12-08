@@ -6,6 +6,11 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getByUrl = function(model) {
+        var url = utils.prepareUrl('committee/url/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.create = function(newModel) {
         var url = utils.prepareUrl('committee');
         return $sailsSocket.post(url, newModel).then(success, error);

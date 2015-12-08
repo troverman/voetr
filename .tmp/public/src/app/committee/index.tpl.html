@@ -1,99 +1,8 @@
-<style>
-#main-container{margin-left:250px;padding-left:15px;}
-#sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 0;
-    height: 100%;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #34393d;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-/* Sidebar Styles */
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
-}
-
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #999;
-}
-
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: #4b5359;
-    //background: rgba(255,255,255,0.2);
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-    color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
-
-@media(min-width:768px) {
-
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
-}
-</style>
-
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <br>
     <li>
-        <a href="/">committee</a>
+        <a href="/">{{committee.title}}</a>
     </li>
     <hr>
     <li>
@@ -121,41 +30,58 @@
 </div>
 
 <div id="main-container">
-  <h1>{{committee}}</h1>
-  <div ng-repeat="bill in bills1">
-    <a href="{{bill.url}}">{{bill.description}}</a>
-  </div>
-
-  <br>
-  <a>edit committee</a>
-  <br>
-  <a>delete committee</a>
-  submit bill
-  <br>
+  <h1>{{committee.title}}</h1>
 
   <div ng-show="currentUser">
+    <br>
+    <a>edit committee</a>
+    <br>
+    <a>delete committee</a>
+    <br>
+    <a>submit bill</a>
+    <br>
     <div style="margin-left:20%;margin-right:20%;">
       <form class="committee-input" role="form" ng-submit="createBill(newBill)">
         <div class="form-group">
           <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
-          <input type="text" placeholder= "bill content" ng-model="newBill.bill_content" class="form-control">
+          <input type="text" placeholder= "bill content" ng-model="newBill.billContent" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
 
+
+  <!--
+  <div ng-repeat="bill in bills1">
+    <h3><a href="{{bill.urls.congress}}">{{bill.official_title}}</a></h3>
+  </div>
+  -->
+
+
+
+
   <div class="bill-list-container">
     <br><br>
     <div class="bill-container" ng-repeat="bill in bills | orderBy:'-createdAt'">
-      <h1 class="title"><a href="/committee/{{committee.url_title}}">{{bill.title}}</a></h1>
-      <i ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
-      <br>
-      <i ng-click="changeVote(vote, 'down')" class="fa fa-arrow-circle-down fa-2x"  ng-class="{true:'down', false:''}[vote=='down']"></i>
-      <br>Vote: {{vote}}
+      <div>
+        <i class="fa fa-arrow-circle-up fa-2x"></i>
+        <br>
+        <i class="fa fa-arrow-circle-down fa-2x"></i>
+      </div>
 
+      <div>
+        <h1 class="title">
+          <a href="/billl/{{bill.title}}">{{bill.title}}</a>
+        </h1>
+      </div>
+
+      <div>
+        <a href="/bill/{{bill.title}}">comment</a>
+      </div>
     </div>
     <br><br>
   </div>
 
+ 
 </div>

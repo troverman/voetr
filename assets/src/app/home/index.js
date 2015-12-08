@@ -13,8 +13,34 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController( $scope, titleService, config ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
+	$scope.Time = 0;
+
+	$scope.posts = [
+    	{ title: 'post-1', time: 0},
+    	{ title: 'post-2', time: 0},
+    	{ title: 'post-3', time: 0}
+
+	];
+
+	$scope.mouseDown = function(post) {
+		$scope.post = post;
+		promise = $interval(function () { 
+        	$scope.Time = $scope.Time + 1; 
+			console.log($scope.Time);
+			post.Time = $scope.Time;
+        }, 100);
+		console.log('mouse-down');
+	};
+
+	$scope.mouseUp = function (post) {
+		$scope.post = post;
+		if (promise){$interval.cancel(promise);}
+		$scope.Time = 0; 
+		console.log('mouse-up');
+		console.log($scope.post);
+	};
 
 });

@@ -31,9 +31,10 @@ module.exports = {
 		});
 	},
 
-	getByUrlTitle: function(req, res) {
+	getByUrl: function(req, res) {
+		console.log(req.param('path'));
 		Committee.find()
-		.where({url_title: req.param('path')})
+		.where({urlTitle: req.param('path')})
 		.spread(function(model) {
 			Post.subscribe(req, model);
 			res.json(model);
@@ -47,12 +48,12 @@ module.exports = {
 		//var userId = req.param('user');
 		var parent = req.param('parent');
 		var title = req.param('title');
-		var url_title = req.param('url_title');
+		var urlTitle = req.param('urlTitle');
 
 		var model = {
 			parent: parent,
 			title: title,
-			url_title: url_title
+			urlTitle: urlTitle
 		};
 
 		Committee.create(model)

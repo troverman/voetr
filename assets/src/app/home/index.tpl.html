@@ -1,92 +1,104 @@
 <div class="surface-container-home">
 
-    <!--if logged in-->
-    <!--/if logged in-->
+  <!--if logged in-->
+  <div ng-show="currentUser">
+    <h1>logged in</h1>
+    <div ng-repeat="post in posts">
+      <h4>{{post.title}}</h4>
+      <button class="btn btn-default" ng-mousedown='mouseDown(post.title)' ng-mouseup="mouseUp(post.title)" ng-mouseleave='mouseUp(post.title)'>
+        {{post.time}}
+        <i class="fa fa-caret-up"></i>
+      </button>
+    </div>
+  </div>
+  <!--/if logged in-->
 
 	<!--if not logged in-->
+  <div ng-show="!currentUser">
     <style>
-        .img-fill {
-          width: 100%;
-          display: block;
-          overflow: hidden;
-          position: relative;
-          text-align: center
-        }
+      .img-fill {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        text-align: center
+      }
 
-        .img-fill img {
-          height: 100%;
-          min-width: 100%;
-          position: relative;
-          display: inline-block;
-          max-width: none
-        }
+      .img-fill img {
+        height: 100%;
+        min-width: 100%;
+        position: relative;
+        display: inline-block;
+        max-width: none
+      }
 
-        .heading-container{
-          position:relative;
-        }
+      .heading-container{
+        position:relative;
+      }
 
-        .heading-container .img-fill {
-          height: 100vh;
-          background:#000;
-        }
+      .heading-container .img-fill {
+        height: 100vh;
+        background:#000;
+      }
 
-        .heading-container .img-fill:before {
-          content: '';
-          display: block;
-          width:100%;
-          height:100%;
-          top:0px;
-          left:0px;
-          z-index:2;
-          background:rgba(0,0,0,.50);
-          position: absolute;
-        }
+      .heading-container .img-fill:before {
+        content: '';
+        display: block;
+        width:100%;
+        height:100%;
+        top:0px;
+        left:0px;
+        z-index:2;
+        background:rgba(0,0,0,.50);
+        position: absolute;
+      }
 
-        .heading-container .img-fill img{
-            -webkit-filter: blur(3px);
-        }
+      .heading-container .img-fill img{
+          -webkit-filter: blur(3px);
+      }
 
-        .heading-container .img-fill .info {
-          position: absolute;
-          top: 0px;
-          left: 0px;
-          width: 100%;
-          z-index:3;
-          top:30%;
-          padding:0 20px;
-        }
+      .heading-container .img-fill .info {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        z-index:3;
+        top:30%;
+        padding:0 20px;
+      }
 
-        .heading-container .img-fill h3{
-          font-family:Jura;
-          color:#FFF;
-          margin:auto;
-          white-space:nowrap;
-          //text-align:center;
-          text-overflow:ellipsis;
-          overflow:hidden;
-        }
+      .heading-container .img-fill h3{
+        font-family:Jura;
+        color:#FFF;
+        margin:auto;
+        white-space:nowrap;
+        //text-align:center;
+        text-overflow:ellipsis;
+        overflow:hidden;
+      }
 
-        .heading-container .img-fill p{
-          max-width:650px;
-          //margin:auto;
-          margin-top:15px;
-          font-family:Jura;
-          color:#FFF;
-          text-align:justify;
-          overflow:hidden;
-        }
-
+      .heading-container .img-fill p{
+        max-width:650px;
+        //margin:auto;
+        margin-top:15px;
+        font-family:Jura;
+        color:#FFF;
+        text-align:justify;
+        overflow:hidden;
+      }
     </style>
     <div ng-include="'intro/index.tpl.html'"></div>
+
     <div class="heading-container">
         <div class="img-fill">
-            <img src="/images/congress.jpg" alt="">
+            <img src="/images/crowd1.jpg" alt="">
             <div class="info">
                 <h3>Empowering the internet</h3>
                 <p>vote and have your voice heard, come together with the collective power of the internet</p>
             </div>
         </div>
     </div>  
+
     <div id="home-content">
 
         <div style="height:500px;background-color:#f1f0ed;text-align:center">
@@ -98,28 +110,178 @@
         </div>
 
         <div>
-            <img src="/images/crowd1.jpg"/>
             enter your zipcode
         <div>
 
         <div style="height:500px;background-color:#fff;text-align:center">
             <h1>trending</h1>
             <div>
-                <a href="/committee/united-states">united states</a>
-                <a href="/committee/tennessee">tennessee</a>
-                <a href="/committee/republican">Republican National Committee</a>
-                <a href="/committee/democratic">Democratic National Committee</a>
-                <a href="/committee/united-states/member/troverman">troverman</a>
+                <a href="/committee/united-states">united states</a><br>
+                <a href="/committee/tennessee">tennessee</a><br>
+                <a href="/committee/republican">Republican National Committee</a><br>
+                <a href="/committee/democratic">Democratic National Committee</a><br>
+                <a href="/committee/member/troverman">troverman</a><br>
             </div>
         </div>
 
+
+
+        <div style="height:500px;background-color:#fff;text-align:center">
+
+
+
+          <style>
+              #container {
+                margin: 10em auto 1em;
+                max-width: 22em;
+                position: relative;
+                border-radius: 4px;
+              }
+              p {
+                margin: 0 2em 1em;
+              }
+              .fa-lock {
+                position: absolute;
+                color: #71ba51;
+                right: 2.3em;
+                top: 1.2em;
+                border: 1px solid;
+                width: 1.5em;
+                height: 1.5em;
+                text-align: center;
+                line-height: 1.5em;
+                border-radius: 100%;
+              }
+              h1 {
+                color: rgba(255,255,255,0.7);
+                color: #71ba51;
+                margin: 0;
+                padding: 1.2em 1.86em 1em;
+                background: rgba(0,0,0,0.6);
+                font-weight: normal;
+                line-height: 1;
+                font-size: 1.2em;
+                letter-spacing: 0.06em;
+                font-family: 'Montserrat';
+                text-transform: uppercase;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+              }
+              form {
+                border-left: 2px solid rgba(0,0,0,0.3);
+                border-right: 2px solid rgba(0,0,0,0.3);
+                padding-top: 1em;
+                margin: 0;
+                border-bottom-right-radius: 4px;
+                border-bottom-left-radius: 4px;
+              }
+              label {
+                color: rgba(0,0,0,0.6);
+                margin-bottom: 0em;
+                display: block;
+                padding: 0.3em;
+                width: 100%;
+                font-size: 0.8em;
+              }
+              input {
+                display: block;
+                border-radius: 4px;
+                border: 1px solid rgba(0,0,0,0.05);
+                padding: 0.8em 1em;
+                background: rgba(0,0,0,0.1);
+                width: 100%;
+                color: rgba(0,0,0,0.8);
+                box-sizing: border-box;
+              }
+              input:focus {
+                outline: none;
+                border: 1px solid rgba(0,0,0,0.6);
+                background: rgba(255,255,255,0.3);
+              }
+              input[type="submit"] {
+                width: 100%;
+                background: transparent;
+                border-color: #71ba51;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                border: none;
+                border-top: 1px solid rgba(0,0,0,0.3);
+                border-bottom: 2px solid rgba(0,0,0,0.3);
+                padding: 2em 0.8em;
+                color: rgba(0,0,0,0.6);
+                margin-top: 2em;
+                margin-bottom: 0;
+                border-radius: 3px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                font-weight: bold;
+              }
+              input[type="submit"]:hover {
+                background: rgba(0,0,0,0.6);
+                color: #71ba51;
+              }
+              ::-webkit-input-placeholder {
+                color: rgba(0,0,0,0.4);
+                font-style: italic;
+              }
+              :-moz-placeholder {
+              /* Firefox 18- */
+                color: rgba(0,0,0,0.4);
+                font-style: italic;
+              }
+              ::-moz-placeholder {
+              /* Firefox 19+ */
+                color: rgba(0,0,0,0.4);
+                font-style: italic;
+              }
+              :-ms-input-placeholder {
+                color: rgba(0,0,0,0.4);
+                font-style: italic;
+              }
+          </style>
+
+          <div id="container">
+            <h1>Sign Up</h1>
+            <form>
+              <p>
+                <label>Username</label>
+                <input type="text" placeholder="piper"/>
+              </p>
+              <p>
+                <label>Email Address</label>
+                <input type="text" placeholder="name@example.com"/>
+              </p>
+              <p>
+                <label>Password</label>
+                <input type="password" placeholder="Not your pet's name"/>
+              </p>
+              <input type="submit" value="Create Account"/>
+            </form>
+          </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
         <div style="height:500px;background-color:#f1f0ed;text-align:center">
+
+
             <p>numbers and stats infographic</p>
             <p>local counties / self governing committees / total members / search / political info</p>
+
         </div>
 
     </div>
-    <!--/if not logged in-->
+  </div>
+  <!--/if not logged in-->
 
 </div>
 

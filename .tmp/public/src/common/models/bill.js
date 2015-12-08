@@ -6,6 +6,17 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getByOne = function(model) {
+        var url = utils.prepareUrl('bill/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+
+    this.getByUrl = function(model) {
+        var url = utils.prepareUrl('bill/url/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.create = function(newModel) {
         var url = utils.prepareUrl('bill');
         return $sailsSocket.post(url, newModel).then(success, error);

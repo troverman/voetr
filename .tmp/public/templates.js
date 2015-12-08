@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -84,18 +84,11 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "</style>\n" +
     "<div class=\"heading-container\">\n" +
     "	<div class=\"img-fill\">\n" +
-    "		<img src=\"/images/congress.jpg\" alt=\"\">\n" +
-    "		<div class=\"info\">\n" +
-    "			<h3>Empowering the internet</h3>\n" +
-    "			<p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
-    "		</div>\n" +
-    "	</div>\n" +
-    "</div>  \n" +
-    "<div class=\"heading-container\">\n" +
-    "	<div class=\"img-fill\">\n" +
     "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
-    "			<h3>Seeing past partisan politics</h3>\n" +
+    "      <h3>Empowering the internet</h3>\n" +
+    "      <h3>Seeing past partisan politics</h3>\n" +
+    "      <p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
     "		</div>\n" +
     "	</div>\n" +
     "</div>   \n" +
@@ -139,104 +132,209 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "");
 }]);
 
-angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("committee/index.tpl.html",
+angular.module("account/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("account/index.tpl.html",
+    "<!--login-->\n" +
+    "<!--<div class=\"row\">\n" +
+    "    <div class=\"col-md-6\">\n" +
+    "        <h3>Login</h3>\n" +
+    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                <div class=\"col-sm-10\">\n" +
+    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
+    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "</div>-->\n" +
+    "\n" +
     "<style>\n" +
-    "#main-container{margin-left:250px;padding-left:15px;}\n" +
-    "#sidebar-wrapper {\n" +
-    "    z-index: 1000;\n" +
-    "    position: fixed;\n" +
-    "    left: 250px;\n" +
-    "    width: 0;\n" +
-    "    height: 100%;\n" +
-    "    margin-left: -250px;\n" +
-    "    overflow-y: auto;\n" +
-    "    background: #34393d;\n" +
-    "    -webkit-transition: all 0.5s ease;\n" +
-    "    -moz-transition: all 0.5s ease;\n" +
-    "    -o-transition: all 0.5s ease;\n" +
-    "    transition: all 0.5s ease;\n" +
+    "input {\n" +
+    "  outline: none;\n" +
     "}\n" +
     "\n" +
-    "/* Sidebar Styles */\n" +
-    ".sidebar-nav {\n" +
-    "    position: absolute;\n" +
-    "    top: 0;\n" +
-    "    width: 250px;\n" +
-    "    margin: 0;\n" +
-    "    padding: 0;\n" +
-    "    list-style: none;\n" +
+    "#wrapper {\n" +
+    "  width: 100%;\n" +
+    "  height: 100%;\n" +
+    "  margin: 0 auto;\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav li {\n" +
-    "    text-indent: 20px;\n" +
-    "    line-height: 40px;\n" +
+    "#box {\n" +
+    "  width: 345px;\n" +
+    "  height: 450px;\n" +
+    "  background-color: #fff;\n" +
+    "  margin: 0 auto;\n" +
+    "  -webkit-border-radius: 4px;\n" +
+    "  -o-border-radius: 4px;\n" +
+    "  -moz-border-radius: 4px;\n" +
+    "  border-radius: 3px;\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav li a {\n" +
-    "    display: block;\n" +
-    "    text-decoration: none;\n" +
-    "    color: #999;\n" +
+    "#top_header {\n" +
+    "  width: 100%;\n" +
+    "  margin: 0;\n" +
+    "  padding-top: 45px;\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav li a:hover {\n" +
-    "    text-decoration: none;\n" +
-    "    color: #fff;\n" +
-    "    background: #4b5359;\n" +
-    "    //background: rgba(255,255,255,0.2);\n" +
+    "#top_header > h3 {\n" +
+    "  text-align: center;\n" +
+    "  font-family: 'Lato', sans-serif;\n" +
+    "  font-size: 32px;\n" +
+    "  font-weight: 800;\n" +
+    "  color: #378DE5;\n" +
+    "  -webkit-text-stroke: 0.5px;\n" +
+    "  margin: 0;\n" +
+    "\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav li a:active,\n" +
-    ".sidebar-nav li a:focus {\n" +
-    "    text-decoration: none;\n" +
+    "#top_header > h5 {\n" +
+    "  text-align: center;\n" +
+    "  font-family: 'Roboto', sans-serif;\n" +
+    "  font-size: 15px;\n" +
+    "  font-weight: 300;\n" +
+    "  color: #378DE5;\n" +
+    "  line-height: 1.6;\n" +
+    "  margin: 0;\n" +
+    "  padding: 15px 0;\n" +
+    "  color: #555;\n" +
+    "  -webkit-text-stroke: 0.2px;\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav > .sidebar-brand {\n" +
-    "    height: 65px;\n" +
-    "    font-size: 18px;\n" +
-    "    line-height: 60px;\n" +
+    "#inputs {\n" +
+    "  width: 100%;\n" +
+    "  height: 100%;\n" +
+    "  margin: 0 auto;\n" +
+    "  position: relative;\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav > .sidebar-brand a {\n" +
-    "    color: #999999;\n" +
+    "input[type=text], input[type=password], input[type=submit] {\n" +
+    "  width: 300px;\n" +
+    "  height: 55px;\n" +
+    "  position: relative;\n" +
+    "  margin: 0 auto;\n" +
+    "  display: block;\n" +
+    "  margin-bottom: -10px;\n" +
+    "  padding: 15px;\n" +
+    "  box-sizing: border-box;\n" +
+    "  -webkit-text-stroke: 0.1px;\n" +
     "}\n" +
     "\n" +
-    ".sidebar-nav > .sidebar-brand a:hover {\n" +
-    "    color: #fff;\n" +
-    "    background: none;\n" +
+    "input[type=text], input[type=password] {\n" +
+    "  font-family: 'Lato', sans-serif;\n" +
+    "  font-weight: 300;\n" +
+    "  font-size:16px; \n" +
+    "  border: thin solid #ccc;\n" +
+    "  border-radius: 5px;\n" +
+    "  color: #378DE5;\n" +
     "}\n" +
     "\n" +
-    "@media(min-width:768px) {\n" +
+    "input[type=text]:focus, input[type=password]:focus {\n" +
+    "  border: thin solid #378DE5;\n" +
+    "  -webkit-transition: all .4s ease;\n" +
+    "  -moz-transition: all .4s ease;\n" +
+    "  -o-transition: all .4s ease;\n" +
+    "  transition: all .4s ease;\n" +
+    "}\n" +
     "\n" +
-    "    #wrapper.toggled {\n" +
-    "        padding-left: 0;\n" +
-    "    }\n" +
+    "input[type=text]:focus, input[type=password]:focus {\n" +
+    "  border-left: thin solid #378DE5;\n" +
+    "}\n" +
     "\n" +
-    "    #sidebar-wrapper {\n" +
-    "        width: 250px;\n" +
-    "    }\n" +
     "\n" +
-    "    #wrapper.toggled #sidebar-wrapper {\n" +
-    "        width: 0;\n" +
-    "    }\n" +
+    "input[type=submit] {\n" +
+    "  color: #378DE5;\n" +
+    "  background-color: #fff;\n" +
+    "  border: 1px solid #378DE5;\n" +
+    "  border-radius: 5px;\n" +
+    "  font-family: 'Roboto', sans-serif;\n" +
+    "  font-weight: 300;\n" +
+    "  font-size: 16px;\n" +
+    "  transition: all .3s ease;\n" +
+    "  margin-top: 0px;\n" +
+    "  cursor: pointer;\n" +
+    "}\n" +
     "\n" +
-    "    #page-content-wrapper {\n" +
-    "        padding: 20px;\n" +
-    "        position: relative;\n" +
-    "    }\n" +
+    "input[type=submit]:hover {\n" +
+    "  background-color: #378DE5;\n" +
+    "  color: #fff;\n" +
+    "}\n" +
     "\n" +
-    "    #wrapper.toggled #page-content-wrapper {\n" +
-    "        position: relative;\n" +
-    "        margin-right: 0;\n" +
-    "    }\n" +
+    "#bottom {\n" +
+    "  width: 300px;\n" +
+    "  margin: 0 auto;\n" +
+    "  margin-top: 15px;\n" +
+    "}\n" +
+    "\n" +
+    "a {\n" +
+    "  text-decoration: none;\n" +
+    "  color: #282828;\n" +
+    "  font-size: 13px;\n" +
+    "  font-family: 'Roboto', sans-serif;\n" +
+    "  font-weight: 300;\n" +
+    "  transition: color .3s ease;\n" +
+    "  outline: none;\n" +
+    "}\n" +
+    "\n" +
+    "a:hover {\n" +
+    "  color: #1eb056;\n" +
+    "}\n" +
+    "\n" +
+    ".right_a {\n" +
+    "  float: right;\n" +
     "}\n" +
     "</style>\n" +
+    "<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>\n" +
+    "<link href='http://fonts.googleapis.com/css?family=Gafata|Nobile:400,700' rel='stylesheet' type='text/css'>\n" +
+    "<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>\n" +
     "\n" +
+    "<div id=\"wrapper\">\n" +
+    "    <div id=\"box\">\n" +
+    "        <div id=\"top_header\">\n" +
+    "            <h3>Login</h3>\n" +
+    "        </div>\n" +
+    "    \n" +
+    "        <div id=\"inputs\">\n" +
+    "            <form id='login' action=\"/auth/local\" method=\"post\">\n" +
+    "                <input type='text' name='identifier' id='username' value='' maxlength=\"50\" size=\"30\" placeholder=\"Username\">\n" +
+    "                <br>\n" +
+    "                <input type='password' name='password' id='password' maxlength=\"50\" size=\"30\" placeholder=\"Password\">\n" +
+    "                <br>\n" +
+    "                <input type='submit' name='Submit' value='Login'>\n" +
+    "            </form>\n" +
+    "\n" +
+    "            <div id=\"bottom\">\n" +
+    "              <a href=\"/register\">Create an account</a>\n" +
+    "              <a class=\"right_a\" href=\"#\">Forgot password</a>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
+angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("bill/index.tpl.html",
+    "<p>bill</p>");
+}]);
+
+angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/index.tpl.html",
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
     "    <li>\n" +
-    "        <a href=\"/\">committee</a>\n" +
+    "        <a href=\"/\">{{committee.title}}</a>\n" +
     "    </li>\n" +
     "    <hr>\n" +
     "    <li>\n" +
@@ -264,43 +362,60 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "</div>\n" +
     "\n" +
     "<div id=\"main-container\">\n" +
-    "  <h1>{{committee}}</h1>\n" +
-    "  <div ng-repeat=\"bill in bills1\">\n" +
-    "    <a href=\"{{bill.url}}\">{{bill.description}}</a>\n" +
-    "  </div>\n" +
-    "\n" +
-    "  <br>\n" +
-    "  <a>edit committee</a>\n" +
-    "  <br>\n" +
-    "  <a>delete committee</a>\n" +
-    "  submit bill\n" +
-    "  <br>\n" +
+    "  <h1>{{committee.title}}</h1>\n" +
     "\n" +
     "  <div ng-show=\"currentUser\">\n" +
+    "    <br>\n" +
+    "    <a>edit committee</a>\n" +
+    "    <br>\n" +
+    "    <a>delete committee</a>\n" +
+    "    <br>\n" +
+    "    <a>submit bill</a>\n" +
+    "    <br>\n" +
     "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
     "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
     "        <div class=\"form-group\">\n" +
     "          <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
-    "          <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.bill_content\" class=\"form-control\">\n" +
+    "          <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
     "        </div>\n" +
     "        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
     "      </form>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "\n" +
+    "\n" +
+    "  <!--\n" +
+    "  <div ng-repeat=\"bill in bills1\">\n" +
+    "    <h3><a href=\"{{bill.urls.congress}}\">{{bill.official_title}}</a></h3>\n" +
+    "  </div>\n" +
+    "  -->\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "  <div class=\"bill-list-container\">\n" +
     "    <br><br>\n" +
     "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-createdAt'\">\n" +
-    "      <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{bill.title}}</a></h1>\n" +
-    "      <i ng-click=\"changeVote(vote, 'up')\" class=\"fa fa-arrow-circle-up fa-2x\" ng-class=\"{true:'up', false:''}[vote=='up']\"></i>\n" +
-    "      <br>\n" +
-    "      <i ng-click=\"changeVote(vote, 'down')\" class=\"fa fa-arrow-circle-down fa-2x\"  ng-class=\"{true:'down', false:''}[vote=='down']\"></i>\n" +
-    "      <br>Vote: {{vote}}\n" +
+    "      <div>\n" +
+    "        <i class=\"fa fa-arrow-circle-up fa-2x\"></i>\n" +
+    "        <br>\n" +
+    "        <i class=\"fa fa-arrow-circle-down fa-2x\"></i>\n" +
+    "      </div>\n" +
     "\n" +
+    "      <div>\n" +
+    "        <h1 class=\"title\">\n" +
+    "          <a href=\"/billl/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "        </h1>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <div>\n" +
+    "        <a href=\"/bill/{{bill.title}}\">comment</a>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "    <br><br>\n" +
     "  </div>\n" +
     "\n" +
+    " \n" +
     "</div>\n" +
     "");
 }]);
@@ -325,7 +440,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "<div class=\"committee-list-container\">\n" +
     "  <br><br>\n" +
     "  <div class=\"committee-container\" ng-repeat=\"committee in committees | orderBy:'-createdAt'\">\n" +
-    "    <h1 class=\"title\"><a href=\"/committee/{{committee.url_title}}\">{{committee.title}}</a></h1>\n" +
+    "    <h1 class=\"title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h1>\n" +
     "  </div>\n" +
     "  <br><br>\n" +
     "</div>\n" +
@@ -359,6 +474,7 @@ angular.module("header/index.tpl.html", []).run(["$templateCache", function($tem
     "            <li><a href=\"/about\">about</a></li>\n" +
     "            <li><a href=\"/committees\">committees</a></li>\n" +
     "            <li><a href=\"/search\">search</a></li>\n" +
+    "            \n" +
     "            <li><a href=\"/register\">register</a></li>\n" +
     "            <li><a href=\"/login\">login</a></li>\n" +
     "          </ul>\n" +
@@ -374,93 +490,105 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
   $templateCache.put("home/index.tpl.html",
     "<div class=\"surface-container-home\">\n" +
     "\n" +
-    "    <!--if logged in-->\n" +
-    "    <!--/if logged in-->\n" +
+    "  <!--if logged in-->\n" +
+    "  <div ng-show=\"currentUser\">\n" +
+    "    <h1>logged in</h1>\n" +
+    "    <div ng-repeat=\"post in posts\">\n" +
+    "      <h4>{{post.title}}</h4>\n" +
+    "      <button class=\"btn btn-default\" ng-mousedown='mouseDown(post.title)' ng-mouseup=\"mouseUp(post.title)\" ng-mouseleave='mouseUp(post.title)'>\n" +
+    "        {{post.time}}\n" +
+    "        <i class=\"fa fa-caret-up\"></i>\n" +
+    "      </button>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <!--/if logged in-->\n" +
     "\n" +
     "	<!--if not logged in-->\n" +
+    "  <div ng-show=\"!currentUser\">\n" +
     "    <style>\n" +
-    "        .img-fill {\n" +
-    "          width: 100%;\n" +
-    "          display: block;\n" +
-    "          overflow: hidden;\n" +
-    "          position: relative;\n" +
-    "          text-align: center\n" +
-    "        }\n" +
+    "      .img-fill {\n" +
+    "        width: 100%;\n" +
+    "        display: block;\n" +
+    "        overflow: hidden;\n" +
+    "        position: relative;\n" +
+    "        text-align: center\n" +
+    "      }\n" +
     "\n" +
-    "        .img-fill img {\n" +
-    "          height: 100%;\n" +
-    "          min-width: 100%;\n" +
-    "          position: relative;\n" +
-    "          display: inline-block;\n" +
-    "          max-width: none\n" +
-    "        }\n" +
+    "      .img-fill img {\n" +
+    "        height: 100%;\n" +
+    "        min-width: 100%;\n" +
+    "        position: relative;\n" +
+    "        display: inline-block;\n" +
+    "        max-width: none\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container{\n" +
-    "          position:relative;\n" +
-    "        }\n" +
+    "      .heading-container{\n" +
+    "        position:relative;\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container .img-fill {\n" +
-    "          height: 100vh;\n" +
-    "          background:#000;\n" +
-    "        }\n" +
+    "      .heading-container .img-fill {\n" +
+    "        height: 100vh;\n" +
+    "        background:#000;\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container .img-fill:before {\n" +
-    "          content: '';\n" +
-    "          display: block;\n" +
-    "          width:100%;\n" +
-    "          height:100%;\n" +
-    "          top:0px;\n" +
-    "          left:0px;\n" +
-    "          z-index:2;\n" +
-    "          background:rgba(0,0,0,.50);\n" +
-    "          position: absolute;\n" +
-    "        }\n" +
+    "      .heading-container .img-fill:before {\n" +
+    "        content: '';\n" +
+    "        display: block;\n" +
+    "        width:100%;\n" +
+    "        height:100%;\n" +
+    "        top:0px;\n" +
+    "        left:0px;\n" +
+    "        z-index:2;\n" +
+    "        background:rgba(0,0,0,.50);\n" +
+    "        position: absolute;\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container .img-fill img{\n" +
-    "            -webkit-filter: blur(3px);\n" +
-    "        }\n" +
+    "      .heading-container .img-fill img{\n" +
+    "          -webkit-filter: blur(3px);\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container .img-fill .info {\n" +
-    "          position: absolute;\n" +
-    "          top: 0px;\n" +
-    "          left: 0px;\n" +
-    "          width: 100%;\n" +
-    "          z-index:3;\n" +
-    "          top:30%;\n" +
-    "          padding:0 20px;\n" +
-    "        }\n" +
+    "      .heading-container .img-fill .info {\n" +
+    "        position: absolute;\n" +
+    "        top: 0px;\n" +
+    "        left: 0px;\n" +
+    "        width: 100%;\n" +
+    "        z-index:3;\n" +
+    "        top:30%;\n" +
+    "        padding:0 20px;\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container .img-fill h3{\n" +
-    "          font-family:Jura;\n" +
-    "          color:#FFF;\n" +
-    "          margin:auto;\n" +
-    "          white-space:nowrap;\n" +
-    "          //text-align:center;\n" +
-    "          text-overflow:ellipsis;\n" +
-    "          overflow:hidden;\n" +
-    "        }\n" +
+    "      .heading-container .img-fill h3{\n" +
+    "        font-family:Jura;\n" +
+    "        color:#FFF;\n" +
+    "        margin:auto;\n" +
+    "        white-space:nowrap;\n" +
+    "        //text-align:center;\n" +
+    "        text-overflow:ellipsis;\n" +
+    "        overflow:hidden;\n" +
+    "      }\n" +
     "\n" +
-    "        .heading-container .img-fill p{\n" +
-    "          max-width:650px;\n" +
-    "          //margin:auto;\n" +
-    "          margin-top:15px;\n" +
-    "          font-family:Jura;\n" +
-    "          color:#FFF;\n" +
-    "          text-align:justify;\n" +
-    "          overflow:hidden;\n" +
-    "        }\n" +
-    "\n" +
+    "      .heading-container .img-fill p{\n" +
+    "        max-width:650px;\n" +
+    "        //margin:auto;\n" +
+    "        margin-top:15px;\n" +
+    "        font-family:Jura;\n" +
+    "        color:#FFF;\n" +
+    "        text-align:justify;\n" +
+    "        overflow:hidden;\n" +
+    "      }\n" +
     "    </style>\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
+    "\n" +
     "    <div class=\"heading-container\">\n" +
     "        <div class=\"img-fill\">\n" +
-    "            <img src=\"/images/congress.jpg\" alt=\"\">\n" +
+    "            <img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
     "            <div class=\"info\">\n" +
     "                <h3>Empowering the internet</h3>\n" +
     "                <p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>  \n" +
+    "\n" +
     "    <div id=\"home-content\">\n" +
     "\n" +
     "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
@@ -472,28 +600,178 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        </div>\n" +
     "\n" +
     "        <div>\n" +
-    "            <img src=\"/images/crowd1.jpg\"/>\n" +
     "            enter your zipcode\n" +
     "        <div>\n" +
     "\n" +
     "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
     "            <h1>trending</h1>\n" +
     "            <div>\n" +
-    "                <a href=\"/committee/united-states\">united states</a>\n" +
-    "                <a href=\"/committee/tennessee\">tennessee</a>\n" +
-    "                <a href=\"/committee/republican\">Republican National Committee</a>\n" +
-    "                <a href=\"/committee/democratic\">Democratic National Committee</a>\n" +
-    "                <a href=\"/committee/united-states/member/troverman\">troverman</a>\n" +
+    "                <a href=\"/committee/united-states\">united states</a><br>\n" +
+    "                <a href=\"/committee/tennessee\">tennessee</a><br>\n" +
+    "                <a href=\"/committee/republican\">Republican National Committee</a><br>\n" +
+    "                <a href=\"/committee/democratic\">Democratic National Committee</a><br>\n" +
+    "                <a href=\"/committee/member/troverman\">troverman</a><br>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
+    "\n" +
+    "\n" +
+    "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "          <style>\n" +
+    "              #container {\n" +
+    "                margin: 10em auto 1em;\n" +
+    "                max-width: 22em;\n" +
+    "                position: relative;\n" +
+    "                border-radius: 4px;\n" +
+    "              }\n" +
+    "              p {\n" +
+    "                margin: 0 2em 1em;\n" +
+    "              }\n" +
+    "              .fa-lock {\n" +
+    "                position: absolute;\n" +
+    "                color: #71ba51;\n" +
+    "                right: 2.3em;\n" +
+    "                top: 1.2em;\n" +
+    "                border: 1px solid;\n" +
+    "                width: 1.5em;\n" +
+    "                height: 1.5em;\n" +
+    "                text-align: center;\n" +
+    "                line-height: 1.5em;\n" +
+    "                border-radius: 100%;\n" +
+    "              }\n" +
+    "              h1 {\n" +
+    "                color: rgba(255,255,255,0.7);\n" +
+    "                color: #71ba51;\n" +
+    "                margin: 0;\n" +
+    "                padding: 1.2em 1.86em 1em;\n" +
+    "                background: rgba(0,0,0,0.6);\n" +
+    "                font-weight: normal;\n" +
+    "                line-height: 1;\n" +
+    "                font-size: 1.2em;\n" +
+    "                letter-spacing: 0.06em;\n" +
+    "                font-family: 'Montserrat';\n" +
+    "                text-transform: uppercase;\n" +
+    "                border-top-left-radius: 4px;\n" +
+    "                border-top-right-radius: 4px;\n" +
+    "              }\n" +
+    "              form {\n" +
+    "                border-left: 2px solid rgba(0,0,0,0.3);\n" +
+    "                border-right: 2px solid rgba(0,0,0,0.3);\n" +
+    "                padding-top: 1em;\n" +
+    "                margin: 0;\n" +
+    "                border-bottom-right-radius: 4px;\n" +
+    "                border-bottom-left-radius: 4px;\n" +
+    "              }\n" +
+    "              label {\n" +
+    "                color: rgba(0,0,0,0.6);\n" +
+    "                margin-bottom: 0em;\n" +
+    "                display: block;\n" +
+    "                padding: 0.3em;\n" +
+    "                width: 100%;\n" +
+    "                font-size: 0.8em;\n" +
+    "              }\n" +
+    "              input {\n" +
+    "                display: block;\n" +
+    "                border-radius: 4px;\n" +
+    "                border: 1px solid rgba(0,0,0,0.05);\n" +
+    "                padding: 0.8em 1em;\n" +
+    "                background: rgba(0,0,0,0.1);\n" +
+    "                width: 100%;\n" +
+    "                color: rgba(0,0,0,0.8);\n" +
+    "                box-sizing: border-box;\n" +
+    "              }\n" +
+    "              input:focus {\n" +
+    "                outline: none;\n" +
+    "                border: 1px solid rgba(0,0,0,0.6);\n" +
+    "                background: rgba(255,255,255,0.3);\n" +
+    "              }\n" +
+    "              input[type=\"submit\"] {\n" +
+    "                width: 100%;\n" +
+    "                background: transparent;\n" +
+    "                border-color: #71ba51;\n" +
+    "                text-transform: uppercase;\n" +
+    "                letter-spacing: 0.03em;\n" +
+    "                border: none;\n" +
+    "                border-top: 1px solid rgba(0,0,0,0.3);\n" +
+    "                border-bottom: 2px solid rgba(0,0,0,0.3);\n" +
+    "                padding: 2em 0.8em;\n" +
+    "                color: rgba(0,0,0,0.6);\n" +
+    "                margin-top: 2em;\n" +
+    "                margin-bottom: 0;\n" +
+    "                border-radius: 3px;\n" +
+    "                border-top-left-radius: 0;\n" +
+    "                border-top-right-radius: 0;\n" +
+    "                font-weight: bold;\n" +
+    "              }\n" +
+    "              input[type=\"submit\"]:hover {\n" +
+    "                background: rgba(0,0,0,0.6);\n" +
+    "                color: #71ba51;\n" +
+    "              }\n" +
+    "              ::-webkit-input-placeholder {\n" +
+    "                color: rgba(0,0,0,0.4);\n" +
+    "                font-style: italic;\n" +
+    "              }\n" +
+    "              :-moz-placeholder {\n" +
+    "              /* Firefox 18- */\n" +
+    "                color: rgba(0,0,0,0.4);\n" +
+    "                font-style: italic;\n" +
+    "              }\n" +
+    "              ::-moz-placeholder {\n" +
+    "              /* Firefox 19+ */\n" +
+    "                color: rgba(0,0,0,0.4);\n" +
+    "                font-style: italic;\n" +
+    "              }\n" +
+    "              :-ms-input-placeholder {\n" +
+    "                color: rgba(0,0,0,0.4);\n" +
+    "                font-style: italic;\n" +
+    "              }\n" +
+    "          </style>\n" +
+    "\n" +
+    "          <div id=\"container\">\n" +
+    "            <h1>Sign Up</h1>\n" +
+    "            <form>\n" +
+    "              <p>\n" +
+    "                <label>Username</label>\n" +
+    "                <input type=\"text\" placeholder=\"piper\"/>\n" +
+    "              </p>\n" +
+    "              <p>\n" +
+    "                <label>Email Address</label>\n" +
+    "                <input type=\"text\" placeholder=\"name@example.com\"/>\n" +
+    "              </p>\n" +
+    "              <p>\n" +
+    "                <label>Password</label>\n" +
+    "                <input type=\"password\" placeholder=\"Not your pet's name\"/>\n" +
+    "              </p>\n" +
+    "              <input type=\"submit\" value=\"Create Account\"/>\n" +
+    "            </form>\n" +
+    "          </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "        </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
+    "\n" +
+    "\n" +
     "            <p>numbers and stats infographic</p>\n" +
     "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
+    "\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
-    "    <!--/if not logged in-->\n" +
+    "  </div>\n" +
+    "  <!--/if not logged in-->\n" +
     "\n" +
     "</div>\n" +
     "\n" +
@@ -555,7 +833,7 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
     "<!--login-->\n" +
     "<div class=\"row\">\n" +
     "    <div class=\"col-md-6\">\n" +
-    "        <h3>Please Login</h3>\n" +
+    "        <h3>Login</h3>\n" +
     "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
     "            <div class=\"form-group\">\n" +
     "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
@@ -576,12 +854,7 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
     "            </div>\n" +
     "        </form>\n" +
     "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<a href=\"/register\">register?</a>\n" +
-    "\n" +
-    "\n" +
-    "");
+    "</div>");
 }]);
 
 angular.module("member/index.tpl.html", []).run(["$templateCache", function($templateCache) {

@@ -11,6 +11,13 @@ angular.module( 'voetr.committee', [
 			}
 		},
 		resolve: {
+
+            committee: function(CommitteeModel, $stateParams) {
+                return CommitteeModel.getByUrl($stateParams.path).then(function(models) {
+                    return models;
+                });
+            },
+
             bills: function(BillModel) {
                 return BillModel.getAll().then(function(models) {
                     return models;
@@ -19,7 +26,7 @@ angular.module( 'voetr.committee', [
 
             bills_api: function($http){
 
-               var url = 'http://congress.api.sunlightfoundation.com/upcoming_bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
+               var url = 'http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
 
                 return $http.get(url).
                     success(function(data, status, headers, config) {
@@ -33,19 +40,22 @@ angular.module( 'voetr.committee', [
 	});
 })
 
-.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, lodash, titleService, config, $stateParams, BillModel, bills, bills_api) {
+.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, bills_api) {
 
-    $scope.committee = $stateParams.path;
-	titleService.setTitle($stateParams.path + ' - voetr');
+    $scope.committee = committee;
+    if (committee == undefined){
+        $location.url('committees');
+    };
+
+    titleService.setTitle(committee.title + ' - voetr');
     $scope.currentUser = config.currentUser;
+
     $scope.bills = bills;
-
     $scope.bills1 = bills_api.data.results;
-
 
     $scope.newBill = {};
 
-    $sailsSocket.subscribe('committeebill', function (envelope) {
+    $sailsSocket.subscribe('bill', function (envelope) {
     	console.log('ok');
 	    switch(envelope.verb) {
 	        case 'created':
