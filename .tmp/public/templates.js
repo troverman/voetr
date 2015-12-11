@@ -330,6 +330,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committee/index.tpl.html",
+    "<div ui-view=\"committee\">\n" +
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
@@ -415,7 +416,7 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "    <br><br>\n" +
     "  </div>\n" +
     "\n" +
-    " \n" +
+    "</div>\n" +
     "</div>\n" +
     "");
 }]);
@@ -1100,13 +1101,12 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
 
 angular.module("search/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/index.tpl.html",
-    "<div class=\"surface-container home-pad\">\n" +
-    "\n" +
-    "\n" +
+    "<div ui-view=\"search\">\n" +
     "	<div>\n" +
-    "		<p>search result</p>\n" +
-    "	\n" +
+    "		SEARCH\n" +
+    "		<div ng-repeat=\"searchResult in searchResults\">\n" +
+    "			<h2><a href=\"/committee/{{searchResult.urlTitle}}\">{{searchResult.title}}</a></h2>\n" +
+    "		</div>\n" +
     "	</div>\n" +
-    "\n" +
     "</div>");
 }]);

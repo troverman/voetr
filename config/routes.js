@@ -49,7 +49,7 @@ module.exports.routes = {
   'get /member/:id': 'HomeController.index',
 
   'get /search': 'HomeController.index',
-  'get /search/:path': 'HomeController.index',
+  'get /search/:searchQuery': 'HomeController.index',
 
   'get /login': 'HomeController.index',
   'get /register': 'HomeController.index',
@@ -92,6 +92,12 @@ module.exports.routes = {
   'get /api/post/:id': 'PostController.getOne',
   'post /api/post': 'PostController.create',
   'delete /api/post/:id': 'PostController.destroy',
+
+  /**
+   * Search routes
+   */
+  'get /api/search/:searchQuery': 'SearchController.search',
+
 
   /**
    * User routes

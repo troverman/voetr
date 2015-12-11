@@ -1,43 +1,48 @@
 angular.module( 'voetr.committee', [
 ])
 
-.config(function config( $stateProvider, $urlRouterProvider ) {
+.config(function config( $stateProvider ) {
 	$stateProvider.state( 'committee', {
+        abstract: true,
 		url: '/committee/:path',
 		views: {
 			"main": {
-				controller: 'CommitteeCtrl',
+				//controller: 'CommitteeCtrl',
 				templateUrl: 'committee/index.tpl.html'
 			}
 		},
 		resolve: {
-
             committee: function(CommitteeModel, $stateParams) {
                 return CommitteeModel.getByUrl($stateParams.path).then(function(models) {
                     return models;
                 });
             },
-
-            bills: function(BillModel) {
-                return BillModel.getAll().then(function(models) {
-                    return models;
-                });
-            },
-
             bills_api: function($http){
-
-               var url = 'http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
-
+                var url = 'http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
                 return $http.get(url).
                     success(function(data, status, headers, config) {
                       return data;
                     }).
                     error(function(data, status, headers, config) {
                 });
-
             }
         }
-	});
+	})
+    .state( 'committee.index', {
+        url: '',
+        views: {
+            "committee": {
+                controller: 'CommitteeCtrl',
+                templateUrl: 'committee/index.tpl.html'
+            }
+        },
+        resolve: {
+            bills: function(BillModel) {
+                return BillModel.getAll();
+            }
+         }
+    });
+
 })
 
 .controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, bills_api) {
