@@ -1,1 +1,36 @@
-<p>bill</p>
+<div ui-view="bill">
+
+	<h2>{{bill.title}}</h2>
+	<p>{{bill.createdAt}}</p>
+	<p><a href="">{{bill.committee}}</a></p>
+	<p>{{bill.billContent}}</p>
+
+	<button ng-click="createVote('upvote')">upvote</button>
+	<button ng-click="createVote('downvote')">downvote</button>
+
+	<!--if logged in-->
+	<div style="height:100px;"></div>
+	<div ng-show="currentUser">
+		<div>
+		  <form class="blog-input" role="form" ng-submit="createComment(newComment)">
+		    <div class="form-group">
+		      <input type="text" placeholder= "post title" ng-model="newComment.comment" class="form-control" id="postTitle">
+		    </div>
+		    <button type="submit" class="btn btn-primary">Submit</button>
+		  </form>
+		</div>
+	</div>
+	<!--/if logged in-->
+
+	<div class="post-list-container">
+	  <br><br>
+	  <div class="post-container" ng-repeat="comment in comments | orderBy:'-createdAt'">
+	    <a href="/comment/{{comment.id}}">{{comment.id}}</a>
+	   	<a href="/member/{{comment.user.username}}">{{comment.user.username}}</a>
+
+	    <p>{{comment.comment}}</p>
+	  </div>
+	  <br><br>
+	</div>
+	<div style="height:100px;"></div>
+</div>

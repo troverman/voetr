@@ -21,7 +21,7 @@ angular.module( 'voetr.search', [
         },
         resolve: {
             searchResults: function(SearchModel) {
-                return SearchModel.search(null);
+                return SearchModel.search('');
             }
         }
     })
@@ -41,8 +41,15 @@ angular.module( 'voetr.search', [
     });
 })
 
-.controller( 'SearchController', function SearchController( $scope, lodash, config, titleService, searchResults, SearchModel ) {
+.controller( 'SearchController', function SearchController( $scope, $stateParams, lodash, config, titleService, searchResults, SearchModel ) {
     titleService.setTitle('Search');
+    $scope.searchQuery = $stateParams.searchQuery;
     $scope.searchResults = searchResults;
-    console.log("searchin");
+
+    $scope.keyPress = function(searchValue){
+        SearchModel.search(searchValue).then(function(models){
+            $scope.searchResults = models;
+        });
+    }
+
 });

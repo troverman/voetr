@@ -325,7 +325,42 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
 
 angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("bill/index.tpl.html",
-    "<p>bill</p>");
+    "<div ui-view=\"bill\">\n" +
+    "\n" +
+    "	<h2>{{bill.title}}</h2>\n" +
+    "	<p>{{bill.createdAt}}</p>\n" +
+    "	<p><a href=\"\">{{bill.committee}}</a></p>\n" +
+    "	<p>{{bill.billContent}}</p>\n" +
+    "\n" +
+    "	<button ng-click=\"createVote('upvote')\">upvote</button>\n" +
+    "	<button ng-click=\"createVote('downvote')\">downvote</button>\n" +
+    "\n" +
+    "	<!--if logged in-->\n" +
+    "	<div style=\"height:100px;\"></div>\n" +
+    "	<div ng-show=\"currentUser\">\n" +
+    "		<div>\n" +
+    "		  <form class=\"blog-input\" role=\"form\" ng-submit=\"createComment(newComment)\">\n" +
+    "		    <div class=\"form-group\">\n" +
+    "		      <input type=\"text\" placeholder= \"post title\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\">\n" +
+    "		    </div>\n" +
+    "		    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "		  </form>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "	<!--/if logged in-->\n" +
+    "\n" +
+    "	<div class=\"post-list-container\">\n" +
+    "	  <br><br>\n" +
+    "	  <div class=\"post-container\" ng-repeat=\"comment in comments | orderBy:'-createdAt'\">\n" +
+    "	    <a href=\"/comment/{{comment.id}}\">{{comment.id}}</a>\n" +
+    "	   	<a href=\"/member/{{comment.user.username}}\">{{comment.user.username}}</a>\n" +
+    "\n" +
+    "	    <p>{{comment.comment}}</p>\n" +
+    "	  </div>\n" +
+    "	  <br><br>\n" +
+    "	</div>\n" +
+    "	<div style=\"height:100px;\"></div>\n" +
+    "</div>");
 }]);
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -367,11 +402,10 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "\n" +
     "  <div ng-show=\"currentUser\">\n" +
     "    <br>\n" +
-    "    <a>edit committee</a>\n" +
+    "    <button class=\"btn btn-primary\">edit committee</button>\n" +
     "    <br>\n" +
-    "    <a>delete committee</a>\n" +
     "    <br>\n" +
-    "    <a>submit bill</a>\n" +
+    "    <button class=\"btn btn-primary\">+ bill</button>\n" +
     "    <br>\n" +
     "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
     "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
@@ -385,33 +419,24 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "  </div>\n" +
     "\n" +
     "\n" +
-    "  <!--\n" +
-    "  <div ng-repeat=\"bill in bills1\">\n" +
-    "    <h3><a href=\"{{bill.urls.congress}}\">{{bill.official_title}}</a></h3>\n" +
-    "  </div>\n" +
-    "  -->\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "  <div class=\"bill-list-container\">\n" +
     "    <br><br>\n" +
     "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-createdAt'\">\n" +
-    "      <div>\n" +
+    "\n" +
+    "      <!--<div>\n" +
     "        <i class=\"fa fa-arrow-circle-up fa-2x\"></i>\n" +
     "        <br>\n" +
     "        <i class=\"fa fa-arrow-circle-down fa-2x\"></i>\n" +
-    "      </div>\n" +
-    "\n" +
+    "      </div>-->\n" +
     "      <div>\n" +
-    "        <h1 class=\"title\">\n" +
-    "          <a href=\"/billl/{{bill.title}}\">{{bill.title}}</a>\n" +
-    "        </h1>\n" +
+    "        <h3>\n" +
+    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "        </h3>\n" +
     "      </div>\n" +
-    "\n" +
     "      <div>\n" +
     "        <a href=\"/bill/{{bill.title}}\">comment</a>\n" +
     "      </div>\n" +
+    "\n" +
     "    </div>\n" +
     "    <br><br>\n" +
     "  </div>\n" +
@@ -429,7 +454,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
     "      <div class=\"form-group\">\n" +
     "        <input type=\"text\" placeholder= \"committee title\" ng-model=\"newCommittee.title\" class=\"form-control\" id=\"postTitle\">\n" +
-    "        <input type=\"text\" placeholder= \"committee url\" ng-model=\"newCommittee.url_title\" class=\"form-control\" id=\"postTitle\">\n" +
+    "        <input type=\"text\" placeholder= \"committee url\" ng-model=\"newCommittee.urlTitle\" class=\"form-control\" id=\"postTitle\">\n" +
     "        <input type=\"text\" placeholder= \"committee parent\" ng-model=\"newCommittee.parent\" class=\"form-control\" id=\"postTitle\">\n" +
     "      </div>\n" +
     "      <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
@@ -1103,7 +1128,17 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
   $templateCache.put("search/index.tpl.html",
     "<div ui-view=\"search\">\n" +
     "	<div>\n" +
-    "		SEARCH\n" +
+    "		<div>\n" +
+    "			<h1>{{searchQuery}}</h1>\n" +
+    "		</div>\n" +
+    "\n" +
+    "		<!--<input ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\">\n" +
+    "		<div ng-repeat=\"searchResult in searchResults\">\n" +
+    "			<a href=\"/project/{{searchResult.urlTitle}}\">{{searchResult.title}}</a>\n" +
+    "		</div>\n" +
+    "		<div style=\"height:100px\"></div>-->\n" +
+    "\n" +
+    "\n" +
     "		<div ng-repeat=\"searchResult in searchResults\">\n" +
     "			<h2><a href=\"/committee/{{searchResult.urlTitle}}\">{{searchResult.title}}</a></h2>\n" +
     "		</div>\n" +

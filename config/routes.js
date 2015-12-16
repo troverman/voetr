@@ -68,6 +68,17 @@ module.exports.routes = {
   'post /api/bill': 'BillController.create',
   'delete /api/bill/:id': 'BillController.destroy',
 
+
+  /**
+   * Comment routes
+   */
+  'get /api/comment': 'Comment.getAll',
+  'get /api/comment/:id': 'Comment.getOne',
+  'get /api/comment/bill/:id': 'Comment.getByBill',
+  'post /api/comment': 'Comment.create',
+  'delete /api/comment/:id': 'Comment.destroy',
+
+
   /**
    * Committee routes
    */

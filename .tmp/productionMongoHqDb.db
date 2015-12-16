@@ -2,22 +2,184 @@
   "data": {
     "bill": [
       {
-        "billContent": "1",
-        "committee": null,
-        "title": "1",
+        "billContent": "hconres101-114",
+        "committee": 1,
+        "title": "Supporting the Association of American Veterinary Medical Colleges (AAVMC) and recognizing 50 years of organized academic veterinary medicine in the United States.",
         "user": 1,
-        "createdAt": "2015-12-08T07:08:27.614Z",
-        "updatedAt": "2015-12-08T07:08:27.614Z",
-        "id": 1
+        "createdAt": "2015-12-14T23:47:53.516Z",
+        "updatedAt": "2015-12-14T23:47:53.516Z",
+        "id": 144
       },
       {
-        "billContent": "2",
-        "committee": null,
-        "title": "2",
+        "billContent": "hr4245-114",
+        "committee": 1,
+        "title": "To exempt importation and exportation of sea urchins and sea cucumbers from licensing requirements under the Endangered Species Act of 1973.",
         "user": 1,
-        "createdAt": "2015-12-08T07:08:46.020Z",
-        "updatedAt": "2015-12-08T07:08:46.020Z",
-        "id": 2
+        "createdAt": "2015-12-14T23:47:53.682Z",
+        "updatedAt": "2015-12-14T23:47:53.682Z",
+        "id": 145
+      },
+      {
+        "billContent": "hr4244-114",
+        "committee": 1,
+        "title": "To prohibit the admission of certain aliens as refugees until the costs of admission and resettlement of such refugees have been addressed, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:53.909Z",
+        "updatedAt": "2015-12-14T23:47:53.909Z",
+        "id": 146
+      },
+      {
+        "billContent": "hr4243-114",
+        "committee": 1,
+        "title": "To improve Federal disaster relief and emergency assistance, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.061Z",
+        "updatedAt": "2015-12-14T23:47:54.061Z",
+        "id": 147
+      },
+      {
+        "billContent": "hr4242-114",
+        "committee": 1,
+        "title": "To strengthen the Federal statutes designed to deter money laundering and terrorism financing, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.199Z",
+        "updatedAt": "2015-12-14T23:47:54.199Z",
+        "id": 148
+      },
+      {
+        "billContent": "hr4241-114",
+        "committee": 1,
+        "title": "To establish the United States Copyright Office as an agency in the legislative branch, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.336Z",
+        "updatedAt": "2015-12-14T23:47:54.336Z",
+        "id": 149
+      },
+      {
+        "billContent": "hr4240-114",
+        "committee": 1,
+        "title": "To require an independent review of the operation and administration of the Terrorist Screening Database (TSDB) maintained by the Federal Bureau of Investigation and subsets of the TSDB, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.470Z",
+        "updatedAt": "2015-12-14T23:47:54.470Z",
+        "id": 150
+      },
+      {
+        "billContent": "hr4239-114",
+        "committee": 1,
+        "title": "To require intelligence community reporting on foreign fighter flows to and from terrorist safe havens abroad, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.601Z",
+        "updatedAt": "2015-12-14T23:47:54.601Z",
+        "id": 151
+      },
+      {
+        "billContent": "hr4238-114",
+        "committee": 1,
+        "title": "To amend the Department of Energy Organization Act and the Local Public Works Capital Development and Investment Act of 1976 to modernize terms relating to minorities.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.816Z",
+        "updatedAt": "2015-12-14T23:47:54.816Z",
+        "id": 152
+      },
+      {
+        "billContent": "hr4237-114",
+        "committee": 1,
+        "title": "To increase public safety by permitting the Attorney General to deny the transfer of firearms or the issuance of explosives licenses to known or suspected terrorists, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:54.957Z",
+        "updatedAt": "2015-12-14T23:47:54.957Z",
+        "id": 153
+      },
+      {
+        "billContent": "hres564-114",
+        "committee": 1,
+        "title": "Expressing the sense of the House of Representatives that the symbols and traditions of Christmas should be protected for use by those who celebrate Christmas.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:55.123Z",
+        "updatedAt": "2015-12-14T23:47:55.123Z",
+        "id": 154
+      },
+      {
+        "billContent": "hr4236-114",
+        "committee": 1,
+        "title": "To promote savings by providing a tax credit for eligible taxpayers who contribute to savings products and to facilitate taxpayers receiving this credit and open a designated savings product when they file their Federal income tax returns.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:55.258Z",
+        "updatedAt": "2015-12-14T23:47:55.258Z",
+        "id": 155
+      },
+      {
+        "billContent": "hr4235-114",
+        "committee": 1,
+        "title": "To amend the Employee Retirement Income Security Act of 1974 to provide for greater spousal protection under defined contribution plans, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:55.384Z",
+        "updatedAt": "2015-12-14T23:47:55.384Z",
+        "id": 156
+      },
+      {
+        "billContent": "hr4234-114",
+        "committee": 1,
+        "title": "To establish a demonstration program to facilitate physician reentry into clinical practice to provide primary health services.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:55.514Z",
+        "updatedAt": "2015-12-14T23:47:55.514Z",
+        "id": 157
+      },
+      {
+        "billContent": "hr4233-114",
+        "committee": 1,
+        "title": "To eliminate an unused lighthouse reservation, provide management consistency by incorporating the rocks and small islands along the coast of Orange County, California, into the California Coastal National Monument managed by the Bureau of Land Management, and meet the original Congressional intent of preserving Orange County's rocks and small islands, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:55.647Z",
+        "updatedAt": "2015-12-14T23:47:55.647Z",
+        "id": 158
+      },
+      {
+        "billContent": "hr4232-114",
+        "committee": 1,
+        "title": "To amend the Public Utility Regulatory Policies Act of 1978 to provide for the consideration by State regulatory authorities and nonregulated electric utilities of whether subsidies should be provided for the deployment, construction, maintenance, or operation of a customer-side technology.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:55.848Z",
+        "updatedAt": "2015-12-14T23:47:55.848Z",
+        "id": 159
+      },
+      {
+        "billContent": "hr4231-114",
+        "committee": 1,
+        "title": "To direct the Librarian of Congress to obtain a stained glass panel depicting the seal of the District of Columbia and install the panel among the stained glass panels depicting the seals of States which overlook the Main Reading Room of the Library of Congress Thomas Jefferson Building.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:56.007Z",
+        "updatedAt": "2015-12-14T23:47:56.007Z",
+        "id": 160
+      },
+      {
+        "billContent": "hr4230-114",
+        "committee": 1,
+        "title": "To authorize the establishment of the Stonewall National Historic Site in the State of New York as a unit of the National Park System, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:56.137Z",
+        "updatedAt": "2015-12-14T23:47:56.137Z",
+        "id": 161
+      },
+      {
+        "billContent": "hr4229-114",
+        "committee": 1,
+        "title": "To address the continued threat posed by dangerous synthetic drugs by amending the Controlled Substances Act relating to controlled substance analogues.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:56.289Z",
+        "updatedAt": "2015-12-14T23:47:56.289Z",
+        "id": 162
+      },
+      {
+        "billContent": "hr4228-114",
+        "committee": 1,
+        "title": "To amend title 23, United States Code, to establish additional requirements for certain transportation projects with estimated costs of $2,500,000,000 or more, and for other purposes.",
+        "user": 1,
+        "createdAt": "2015-12-14T23:47:56.427Z",
+        "updatedAt": "2015-12-14T23:47:56.427Z",
+        "id": 163
       }
     ],
     "committee": [
@@ -81654,6 +81816,14 @@
         "createdAt": "2015-11-30T22:37:46.959Z",
         "updatedAt": "2015-11-30T22:37:46.959Z",
         "id": 11662
+      },
+      {
+        "parent": 0,
+        "title": "United States",
+        "urlTitle": "united-states",
+        "createdAt": "2015-12-15T23:13:46.453Z",
+        "updatedAt": "2015-12-15T23:13:46.453Z",
+        "id": 11663
       }
     ],
     "committeeelection": [],
@@ -81678,6 +81848,136 @@
         "createdAt": "2015-12-08T07:06:53.102Z",
         "updatedAt": "2015-12-08T07:06:53.102Z",
         "id": 1
+      }
+    ],
+    "comment": [
+      {
+        "comment": "To authorize the establishment of the Stonewall National Historic Site in the State of New York as a unit of the National Park System, and for other purposes.",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:30:00.633Z",
+        "updatedAt": "2015-12-15T22:30:00.633Z",
+        "id": 1
+      },
+      {
+        "comment": "comments",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:30:32.369Z",
+        "updatedAt": "2015-12-15T22:30:32.369Z",
+        "id": 2
+      },
+      {
+        "comment": "fsfs",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:35:51.143Z",
+        "updatedAt": "2015-12-15T22:35:51.143Z",
+        "id": 3
+      },
+      {
+        "comment": "dfd",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:36:39.843Z",
+        "updatedAt": "2015-12-15T22:36:39.843Z",
+        "id": 4
+      },
+      {
+        "comment": "ok",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:41:29.523Z",
+        "updatedAt": "2015-12-15T22:41:29.523Z",
+        "id": 5
+      },
+      {
+        "comment": "yee",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:43:01.628Z",
+        "updatedAt": "2015-12-15T22:43:01.628Z",
+        "id": 6
+      },
+      {
+        "comment": "ok",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:43:23.628Z",
+        "updatedAt": "2015-12-15T22:43:23.628Z",
+        "id": 7
+      },
+      {
+        "comment": "ok",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:43:59.086Z",
+        "updatedAt": "2015-12-15T22:43:59.086Z",
+        "id": 8
+      },
+      {
+        "comment": "this is the most inspirational bill i have ever read",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:44:20.920Z",
+        "updatedAt": "2015-12-15T22:44:20.920Z",
+        "id": 9
+      },
+      {
+        "comment": "awww yeeee",
+        "bill": 161,
+        "user": 1,
+        "createdAt": "2015-12-15T22:59:52.462Z",
+        "updatedAt": "2015-12-15T22:59:52.462Z",
+        "id": 10
+      },
+      {
+        "comment": "fss",
+        "bill": 163,
+        "user": 1,
+        "createdAt": "2015-12-15T23:18:33.416Z",
+        "updatedAt": "2015-12-15T23:18:33.416Z",
+        "id": 11
+      },
+      {
+        "comment": "88888",
+        "bill": 162,
+        "user": 1,
+        "createdAt": "2015-12-15T23:18:40.553Z",
+        "updatedAt": "2015-12-15T23:18:40.553Z",
+        "id": 12
+      },
+      {
+        "comment": "coooO!",
+        "bill": 159,
+        "user": 1,
+        "createdAt": "2015-12-15T23:18:47.744Z",
+        "updatedAt": "2015-12-15T23:18:47.744Z",
+        "id": 13
+      },
+      {
+        "comment": "12345678",
+        "bill": 157,
+        "user": 1,
+        "createdAt": "2015-12-15T23:18:56.603Z",
+        "updatedAt": "2015-12-15T23:18:56.603Z",
+        "id": 14
+      },
+      {
+        "comment": "111222333444",
+        "bill": 153,
+        "user": 1,
+        "createdAt": "2015-12-15T23:19:08.091Z",
+        "updatedAt": "2015-12-15T23:19:08.091Z",
+        "id": 15
+      },
+      {
+        "comment": "1414141",
+        "bill": 148,
+        "user": 1,
+        "createdAt": "2015-12-15T23:19:15.330Z",
+        "updatedAt": "2015-12-15T23:19:15.330Z",
+        "id": 16
       }
     ]
   },
@@ -81925,14 +82225,43 @@
       "updatedAt": {
         "type": "datetime"
       }
+    },
+    "comment": {
+      "comment": {
+        "type": "string"
+      },
+      "bill": {
+        "type": "integer",
+        "model": "bill",
+        "foreignKey": true,
+        "alias": "bill"
+      },
+      "user": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "user"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
     }
   },
   "counters": {
     "bill": {
-      "id": 2
+      "id": 163
     },
     "committee": {
-      "id": 11662
+      "id": 11663
     },
     "committeeelection": {},
     "committeemember": {},
@@ -81943,6 +82272,9 @@
     "post": {},
     "user": {
       "id": 1
+    },
+    "comment": {
+      "id": 16
     }
   }
 }

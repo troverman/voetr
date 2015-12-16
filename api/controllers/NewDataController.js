@@ -82,12 +82,33 @@ module.exports = {
 						var urls = billData[key].urls;
 
 
-						console.log(billId);
+						/*console.log(billId);
 						console.log(official_title);
 						console.log(last_action_at);
 						console.log(urls);
-						console.log(sponsor);
+						console.log(sponsor);*/
 
+						var title = billData[key].official_title;
+						var billContent = billData[key].bill_id; + ' : ' + billData[key].official_title + ' : ' + billData[key].sponsor + ' : ' + billData[key].introduced_on
+
+						var model = {
+							billContent: billContent,
+							committee: 1,
+							title: title,
+							user: 1
+						};
+
+						//console.log(model);
+						Bill.create(model)
+						.exec(function(err, bill) {
+							if (err) {
+								return console.log(err);
+							}
+							else {
+								Bill.publishCreate(bill);
+								res.json(bill);
+							}
+						});
 
 
 					}

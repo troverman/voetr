@@ -7,7 +7,6 @@ angular.module( 'voetr.committee', [
 		url: '/committee/:path',
 		views: {
 			"main": {
-				//controller: 'CommitteeCtrl',
 				templateUrl: 'committee/index.tpl.html'
 			}
 		},
@@ -57,6 +56,7 @@ angular.module( 'voetr.committee', [
 
     $scope.bills = bills;
     $scope.bills1 = bills_api.data.results;
+    console.log($scope.bills1);
 
     $scope.newBill = {};
 
