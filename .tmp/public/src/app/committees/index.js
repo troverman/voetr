@@ -12,7 +12,9 @@ angular.module( 'voetr.committees', [
 		},
 		resolve: {
             committees: function(CommitteeModel) {
-				return CommitteeModel.getSome(10,0);
+				//return CommitteeModel.getSome(10,0);
+				return CommitteeModel.getAll();
+
             }
         }
 	});
@@ -37,15 +39,15 @@ angular.module( 'voetr.committees', [
 	    }
     });
 
-    $scope.loadMore = function() {
+    /*$scope.loadMore = function() {
 		$scope.skip = $scope.skip + 10;
 		CommitteeModel.getSome(10,$scope.skip).then(function(committees) {
 			Array.prototype.push.apply($scope.committees, committees);
 		});
-	};
+	};*/
 
 	$scope.createCommittee = function(newCommittee) {
-        //newPost.user = config.currentUser.id;
+        //newCommittee.user = config.currentUser.id;
         CommitteeModel.create(newCommittee).then(function(model) {
             $scope.newCommittee = {};
         });
