@@ -15,15 +15,6 @@ angular.module( 'voetr.committee', [
                 return CommitteeModel.getByUrl($stateParams.path).then(function(models) {
                     return models;
                 });
-            },
-            bills_api: function($http){
-                var url = 'http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70'
-                return $http.get(url).
-                    success(function(data, status, headers, config) {
-                      return data;
-                    }).
-                    error(function(data, status, headers, config) {
-                });
             }
         }
 	})
@@ -36,16 +27,22 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: function(BillModel) {
+            bills: function(BillModel, VoteModel) {
+                //var votes = VoteModel.getAll();
                 return BillModel.getAll();
+                //return BillModel.getByCommittee();
+                /*BillModel.getAll().then(function(bills){
+                    VoteModel.getByBill().then(function(votes){
+                        bill.votes = votes
+                    });
+                });*/
             }
          }
     });
 
 })
 
-.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, bills_api) {
-
+.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteModel) {
     $scope.committee = committee;
     if (committee == undefined){
         $location.url('committees');
@@ -53,24 +50,9 @@ angular.module( 'voetr.committee', [
 
     titleService.setTitle(committee.title + ' - voetr');
     $scope.currentUser = config.currentUser;
-
     $scope.bills = bills;
-    $scope.bills1 = bills_api.data.results;
-    console.log($scope.bills1);
-
     $scope.newBill = {};
-
-    $sailsSocket.subscribe('bill', function (envelope) {
-    	console.log('ok');
-	    switch(envelope.verb) {
-	        case 'created':
-	            $scope.bills.unshift(envelope.data);
-	            break;
-	        case 'destroyed':
-	            lodash.remove($scope.bills, {id: envelope.id});
-	            break;
-	    }
-    });
+    $scope.newVote = {};
 
     $scope.createBill = function(newBill) {
         newBill.user = config.currentUser.id;
@@ -79,21 +61,54 @@ angular.module( 'voetr.committee', [
         });
     };
 
+    $scope.createVote = function(newVote, bill) {
+        if ($scope.currentUser == undefined){
+            return null;
+        }
+        $scope.newVote.bill = bill;
+        $scope.newVote.user = config.currentUser.id;
+        $scope.newVote.vote = newVote;
+        VoteModel.create($scope.newVote).then(function(model) {
+            $scope.newVote = {};
+        });
+    };
 
 	$scope.changeVote = function(vote, flag){
 		$scope.vote = vote==flag?'None':flag;
 	};
 
-    $scope.upVote = function () {
-        $scope.vote++;
+    $scope.calculateVoteSum = function() {
+        for (i in $scope.bills){
+            $scope.bills[i].voteSum = 0
+            for (j in $scope.bills[i].votes) { 
+                $scope.bills[i].voteSum += $scope.bills[i].votes[j].vote
+            }
+        }
     }
+    $scope.calculateVoteSum();
 
-    $scope.downVote = function () {
-        $scope.vote--;
-    }
+    $sailsSocket.subscribe('bill', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                $scope.bills.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.bills, {id: envelope.id});
+                break;
+        }
+    });
 
-    $scope.vote = 0;
-
+    $sailsSocket.subscribe('vote', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                BillModel.getAll().then(function(bills){
+                    $scope.bills = bills;
+                    $scope.calculateVoteSum();
+                });
+                console.log($scope.bills);
+                break;
+        }
+    });
 
 });
 

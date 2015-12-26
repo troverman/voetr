@@ -4,5 +4,6 @@ angular.module('models', [
 	'models.committee',
 	'models.post',
 	'models.search',
-	'models.user'
+	'models.user',
+	'models.vote'
 ]);

@@ -54,20 +54,18 @@
 
   <div class="bill-list-container">
     <br><br>
-    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-createdAt'">
+    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteSum'">
 
-      <!--<div>
-        <i class="fa fa-arrow-circle-up fa-2x"></i>
-        <br>
-        <i class="fa fa-arrow-circle-down fa-2x"></i>
-      </div>-->
       <div>
         <h3>
+          {{bill.voteSum}}
+          <button ng-click="createVote(1, bill)">upvote</button>
+          <button ng-click="createVote(-1, bill)">downvote</button>
           <a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a>
         </h3>
       </div>
       <div>
-        <a href="/bill/{{bill.title}}">comment</a>
+        <a href="/bill/{{bill.id}}/{{bill.title}}">comment</a>
       </div>
 
     </div>

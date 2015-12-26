@@ -1,5 +1,5 @@
 /**
- * PostController
+ * VoteController
  *
  * @description :: Server-side logic for managing posts
  * @help        :: See http://links.sailsjs.org/docs/controllers
@@ -9,11 +9,10 @@ var _ = require('lodash');
 module.exports = {
 
 	getAll: function(req, res) {
-		CommitteeVote.getAll()
+		Vote.getAll()
 		.spread(function(models) {
-			CommitteeVote.watch(req);
-			CommitteeVote.subscribe(req, models);
-
+			Vote.watch(req);
+			Vote.subscribe(req, models);
 			res.json(models);
 		})
 		.fail(function(err) {
@@ -21,10 +20,34 @@ module.exports = {
 		});
 	},
 
+	getByBill: function(req, res) {
+		Vote.getByBill(req.param('id'))
+		.then(function(model) {
+			Vote.watch(req);
+			Vote.subscribe(req, model);
+			res.json(model);
+		})
+		.fail(function(err) {
+			res.send(404);
+		});
+	},
+
+	getByUser: function(req, res) {
+		Vote.getByUser(req.param('id'))
+		.then(function(model) {
+			Vote.watch(req);
+			Vote.subscribe(req, model);
+			res.json(model);
+		})
+		.fail(function(err) {
+			res.send(404);
+		});
+	},
+
 	getOne: function(req, res) {
-		CommitteeVote.getOne(req.param('id'))
+		Vote.getOne(req.param('id'))
 		.spread(function(model) {
-			CommitteeVote.subscribe(req, model);
+			Vote.subscribe(req, model);
 			res.json(model);
 		})
 		.fail(function(err) {
@@ -33,20 +56,21 @@ module.exports = {
 	},
 
 	create: function (req, res) {
-		var userId = req.param('user');
 		var model = {
-			title: req.param('title'),
-			user: userId
+			vote: req.param('vote'),
+			bill: req.param('bill'),
+			user: req.param('user')
 		};
 
-		CommitteeVote.create(model)
-		.exec(function(err, CommitteeVote) {
+		Vote.create(model)
+		.exec(function(err, vote) {
 			if (err) {
 				return console.log(err);
 			}
 			else {
-				CommitteeVote.publishCreate(CommitteeVote);
-				res.json(post);
+				Vote.watch(req);
+				Vote.publishCreate(vote);
+				res.json(vote);
 			}
 		});
 	},
@@ -58,7 +82,7 @@ module.exports = {
 		}
 
 		// Otherwise, find and destroy the model in question
-		CommitteeVote.findOne(id).exec(function(err, model) {
+		Vote.findOne(id).exec(function(err, model) {
 			if (err) {
 				return res.serverError(err);
 			}
@@ -66,12 +90,12 @@ module.exports = {
 				return res.notFound();
 			}
 
-			CommitteeVote.destroy(id, function(err) {
+			Vote.destroy(id, function(err) {
 				if (err) {
 					return res.serverError(err);
 				}
 
-				CommitteeVote.publishDestroy(model.id);
+				Vote.publishDestroy(model.id);
 				return res.json(model);
 			});
 		});

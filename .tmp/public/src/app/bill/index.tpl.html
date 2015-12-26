@@ -5,8 +5,10 @@
 	<p><a href="">{{bill.committee}}</a></p>
 	<p>{{bill.billContent}}</p>
 
-	<button ng-click="createVote('upvote')">upvote</button>
-	<button ng-click="createVote('downvote')">downvote</button>
+	<button ng-click="createVote(1)">upvote</button>
+	<button ng-click="createVote(-1)">downvote</button>
+
+	{{voteSum}}
 
 	<!--if logged in-->
 	<div style="height:100px;"></div>
@@ -14,7 +16,7 @@
 		<div>
 		  <form class="blog-input" role="form" ng-submit="createComment(newComment)">
 		    <div class="form-group">
-		      <input type="text" placeholder= "post title" ng-model="newComment.comment" class="form-control" id="postTitle">
+		      <input type="text" placeholder="comment..." ng-model="newComment.comment" class="form-control" id="postTitle">
 		    </div>
 		    <button type="submit" class="btn btn-primary">Submit</button>
 		  </form>

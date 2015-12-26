@@ -9,13 +9,19 @@ angular.module( 'voetr.home', [
 				controller: 'HomeCtrl',
 				templateUrl: 'home/index.tpl.html'
 			}
+		},
+		resolve:{
+			committees: function(CommitteeModel) {
+				return CommitteeModel.getSome(10,0);
+            }
 		}
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config, committees ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
+	$scope.committees = committees;
 	$scope.Time = 0;
 
 	$scope.posts = [

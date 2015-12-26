@@ -70,6 +70,18 @@ module.exports.routes = {
 
 
   /**
+   * (bill) Vote routes
+   */
+  'get /api/vote': 'Vote.getAll',
+  'get /api/vote/:id': 'Vote.getOne',
+  'get /api/vote/bill/:id': 'Vote.getByBill',
+  'get /api/vote/user/:id': 'Vote.getByUser',
+  'post /api/vote': 'Vote.create',
+  'delete /api/vote/:id': 'Vote.destroy',
+
+
+
+  /**
    * Comment routes
    */
   'get /api/comment': 'Comment.getAll',
@@ -85,6 +97,7 @@ module.exports.routes = {
   'get /api/committee': 'CommitteeController.getAll',
   'get /api/committee/:id': 'CommitteeController.getOne',
   'get /api/committee/url/:path': 'CommitteeController.getByUrl',
+  'get /api/committee/filter/:limit/:skip': 'CommitteeController.getSome',
   'post /api/committee': 'CommitteeController.create',
   'delete /api/committee/:id': 'CommitteeController.destroy',
 
@@ -115,6 +128,8 @@ module.exports.routes = {
    */
   'get /api/user': 'UserController.getAll',
   'get /api/user/:id': 'UserController.getOne',
+  'get /api/user/username/:path': 'UserController.getByUsername',
+
   'post /api/user': 'UserController.create',
 
 

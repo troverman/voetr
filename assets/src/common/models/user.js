@@ -12,6 +12,11 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         return deferred.promise;
     };
 
+    this.getByUsername = function(model) {
+        var url = utils.prepareUrl('user/username/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getOne = function(id) {
         var deferred = $q.defer();
         var url = utils.prepareUrl('user/' + id);
@@ -32,5 +37,13 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         });
 
         return deferred.promise;
+    };
+
+    var success = function(response) {
+        return response.data;
+    };
+
+    var error = function(error) {
+        console.log(error);
     };
 });

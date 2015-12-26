@@ -23,11 +23,16 @@ module.exports = {
         user: {
             model: 'user',
             required: true
+        },
+        votes: {
+            collection: 'vote',
+            via: 'bill'
         }
     },
 
     getAll: function() {
         return Bill.find()
+        .populate('votes')
         .then(function (models) {
             return [models];
         });

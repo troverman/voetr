@@ -332,8 +332,10 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "	<p><a href=\"\">{{bill.committee}}</a></p>\n" +
     "	<p>{{bill.billContent}}</p>\n" +
     "\n" +
-    "	<button ng-click=\"createVote('upvote')\">upvote</button>\n" +
-    "	<button ng-click=\"createVote('downvote')\">downvote</button>\n" +
+    "	<button ng-click=\"createVote(1)\">upvote</button>\n" +
+    "	<button ng-click=\"createVote(-1)\">downvote</button>\n" +
+    "\n" +
+    "	{{voteSum}}\n" +
     "\n" +
     "	<!--if logged in-->\n" +
     "	<div style=\"height:100px;\"></div>\n" +
@@ -341,7 +343,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "		<div>\n" +
     "		  <form class=\"blog-input\" role=\"form\" ng-submit=\"createComment(newComment)\">\n" +
     "		    <div class=\"form-group\">\n" +
-    "		      <input type=\"text\" placeholder= \"post title\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\">\n" +
+    "		      <input type=\"text\" placeholder=\"comment...\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\">\n" +
     "		    </div>\n" +
     "		    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
     "		  </form>\n" +
@@ -421,20 +423,18 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "\n" +
     "  <div class=\"bill-list-container\">\n" +
     "    <br><br>\n" +
-    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-createdAt'\">\n" +
+    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteSum'\">\n" +
     "\n" +
-    "      <!--<div>\n" +
-    "        <i class=\"fa fa-arrow-circle-up fa-2x\"></i>\n" +
-    "        <br>\n" +
-    "        <i class=\"fa fa-arrow-circle-down fa-2x\"></i>\n" +
-    "      </div>-->\n" +
     "      <div>\n" +
     "        <h3>\n" +
+    "          {{bill.voteSum}}\n" +
+    "          <button ng-click=\"createVote(1, bill)\">upvote</button>\n" +
+    "          <button ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
     "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
     "        </h3>\n" +
     "      </div>\n" +
     "      <div>\n" +
-    "        <a href=\"/bill/{{bill.title}}\">comment</a>\n" +
+    "        <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
     "      </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -462,13 +462,15 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "  </div>\n" +
     "</div>\n" +
     "<!--/if logged in-->\n" +
-    "\n" +
-    "<div class=\"committee-list-container\">\n" +
-    "  <br><br>\n" +
-    "  <div class=\"committee-container\" ng-repeat=\"committee in committees | orderBy:'-createdAt'\">\n" +
-    "    <h1 class=\"title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h1>\n" +
+    "<div class=\"product-list-container\" id=\"committeeScrolling\" style=\"height:100%;width:100%;overflow-y:auto;position:absolute\">\n" +
+    "  <div class=\"committee-list-container\" infinite-scroll='loadMore()' infinite-scroll-container=\"'#committeeScrolling'\" infinite-scroll-distance='2' infinite-scroll-parent>\n" +
+    "      <br><br>\n" +
+    "      <div class=\"committee-container\" ng-repeat=\"committee in committees | orderBy:'-createdAt'\">\n" +
+    "        <h1 class=\"title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h1>\n" +
+    "      </div>\n" +
+    "      <br><br>\n" +
+    "    </div>\n" +
     "  </div>\n" +
-    "  <br><br>\n" +
     "</div>\n" +
     "\n" +
     "\n" +
@@ -531,78 +533,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "	<!--if not logged in-->\n" +
     "  <div ng-show=\"!currentUser\">\n" +
-    "    <style>\n" +
-    "      .img-fill {\n" +
-    "        width: 100%;\n" +
-    "        display: block;\n" +
-    "        overflow: hidden;\n" +
-    "        position: relative;\n" +
-    "        text-align: center\n" +
-    "      }\n" +
-    "\n" +
-    "      .img-fill img {\n" +
-    "        height: 100%;\n" +
-    "        min-width: 100%;\n" +
-    "        position: relative;\n" +
-    "        display: inline-block;\n" +
-    "        max-width: none\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container{\n" +
-    "        position:relative;\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container .img-fill {\n" +
-    "        height: 100vh;\n" +
-    "        background:#000;\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container .img-fill:before {\n" +
-    "        content: '';\n" +
-    "        display: block;\n" +
-    "        width:100%;\n" +
-    "        height:100%;\n" +
-    "        top:0px;\n" +
-    "        left:0px;\n" +
-    "        z-index:2;\n" +
-    "        background:rgba(0,0,0,.50);\n" +
-    "        position: absolute;\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container .img-fill img{\n" +
-    "          -webkit-filter: blur(3px);\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container .img-fill .info {\n" +
-    "        position: absolute;\n" +
-    "        top: 0px;\n" +
-    "        left: 0px;\n" +
-    "        width: 100%;\n" +
-    "        z-index:3;\n" +
-    "        top:30%;\n" +
-    "        padding:0 20px;\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container .img-fill h3{\n" +
-    "        font-family:Jura;\n" +
-    "        color:#FFF;\n" +
-    "        margin:auto;\n" +
-    "        white-space:nowrap;\n" +
-    "        //text-align:center;\n" +
-    "        text-overflow:ellipsis;\n" +
-    "        overflow:hidden;\n" +
-    "      }\n" +
-    "\n" +
-    "      .heading-container .img-fill p{\n" +
-    "        max-width:650px;\n" +
-    "        //margin:auto;\n" +
-    "        margin-top:15px;\n" +
-    "        font-family:Jura;\n" +
-    "        color:#FFF;\n" +
-    "        text-align:justify;\n" +
-    "        overflow:hidden;\n" +
-    "      }\n" +
-    "    </style>\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "\n" +
     "    <div class=\"heading-container\">\n" +
@@ -631,174 +561,20 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
     "            <h1>trending</h1>\n" +
-    "            <div>\n" +
-    "                <a href=\"/committee/united-states\">united states</a><br>\n" +
-    "                <a href=\"/committee/tennessee\">tennessee</a><br>\n" +
-    "                <a href=\"/committee/republican\">Republican National Committee</a><br>\n" +
-    "                <a href=\"/committee/democratic\">Democratic National Committee</a><br>\n" +
-    "                <a href=\"/committee/member/troverman\">troverman</a><br>\n" +
+    "            <div ng-repeat=\"committee in committees\">\n" +
+    "              <a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "          <style>\n" +
-    "              #container {\n" +
-    "                margin: 10em auto 1em;\n" +
-    "                max-width: 22em;\n" +
-    "                position: relative;\n" +
-    "                border-radius: 4px;\n" +
-    "              }\n" +
-    "              p {\n" +
-    "                margin: 0 2em 1em;\n" +
-    "              }\n" +
-    "              .fa-lock {\n" +
-    "                position: absolute;\n" +
-    "                color: #71ba51;\n" +
-    "                right: 2.3em;\n" +
-    "                top: 1.2em;\n" +
-    "                border: 1px solid;\n" +
-    "                width: 1.5em;\n" +
-    "                height: 1.5em;\n" +
-    "                text-align: center;\n" +
-    "                line-height: 1.5em;\n" +
-    "                border-radius: 100%;\n" +
-    "              }\n" +
-    "              h1 {\n" +
-    "                color: rgba(255,255,255,0.7);\n" +
-    "                color: #71ba51;\n" +
-    "                margin: 0;\n" +
-    "                padding: 1.2em 1.86em 1em;\n" +
-    "                background: rgba(0,0,0,0.6);\n" +
-    "                font-weight: normal;\n" +
-    "                line-height: 1;\n" +
-    "                font-size: 1.2em;\n" +
-    "                letter-spacing: 0.06em;\n" +
-    "                font-family: 'Montserrat';\n" +
-    "                text-transform: uppercase;\n" +
-    "                border-top-left-radius: 4px;\n" +
-    "                border-top-right-radius: 4px;\n" +
-    "              }\n" +
-    "              form {\n" +
-    "                border-left: 2px solid rgba(0,0,0,0.3);\n" +
-    "                border-right: 2px solid rgba(0,0,0,0.3);\n" +
-    "                padding-top: 1em;\n" +
-    "                margin: 0;\n" +
-    "                border-bottom-right-radius: 4px;\n" +
-    "                border-bottom-left-radius: 4px;\n" +
-    "              }\n" +
-    "              label {\n" +
-    "                color: rgba(0,0,0,0.6);\n" +
-    "                margin-bottom: 0em;\n" +
-    "                display: block;\n" +
-    "                padding: 0.3em;\n" +
-    "                width: 100%;\n" +
-    "                font-size: 0.8em;\n" +
-    "              }\n" +
-    "              input {\n" +
-    "                display: block;\n" +
-    "                border-radius: 4px;\n" +
-    "                border: 1px solid rgba(0,0,0,0.05);\n" +
-    "                padding: 0.8em 1em;\n" +
-    "                background: rgba(0,0,0,0.1);\n" +
-    "                width: 100%;\n" +
-    "                color: rgba(0,0,0,0.8);\n" +
-    "                box-sizing: border-box;\n" +
-    "              }\n" +
-    "              input:focus {\n" +
-    "                outline: none;\n" +
-    "                border: 1px solid rgba(0,0,0,0.6);\n" +
-    "                background: rgba(255,255,255,0.3);\n" +
-    "              }\n" +
-    "              input[type=\"submit\"] {\n" +
-    "                width: 100%;\n" +
-    "                background: transparent;\n" +
-    "                border-color: #71ba51;\n" +
-    "                text-transform: uppercase;\n" +
-    "                letter-spacing: 0.03em;\n" +
-    "                border: none;\n" +
-    "                border-top: 1px solid rgba(0,0,0,0.3);\n" +
-    "                border-bottom: 2px solid rgba(0,0,0,0.3);\n" +
-    "                padding: 2em 0.8em;\n" +
-    "                color: rgba(0,0,0,0.6);\n" +
-    "                margin-top: 2em;\n" +
-    "                margin-bottom: 0;\n" +
-    "                border-radius: 3px;\n" +
-    "                border-top-left-radius: 0;\n" +
-    "                border-top-right-radius: 0;\n" +
-    "                font-weight: bold;\n" +
-    "              }\n" +
-    "              input[type=\"submit\"]:hover {\n" +
-    "                background: rgba(0,0,0,0.6);\n" +
-    "                color: #71ba51;\n" +
-    "              }\n" +
-    "              ::-webkit-input-placeholder {\n" +
-    "                color: rgba(0,0,0,0.4);\n" +
-    "                font-style: italic;\n" +
-    "              }\n" +
-    "              :-moz-placeholder {\n" +
-    "              /* Firefox 18- */\n" +
-    "                color: rgba(0,0,0,0.4);\n" +
-    "                font-style: italic;\n" +
-    "              }\n" +
-    "              ::-moz-placeholder {\n" +
-    "              /* Firefox 19+ */\n" +
-    "                color: rgba(0,0,0,0.4);\n" +
-    "                font-style: italic;\n" +
-    "              }\n" +
-    "              :-ms-input-placeholder {\n" +
-    "                color: rgba(0,0,0,0.4);\n" +
-    "                font-style: italic;\n" +
-    "              }\n" +
-    "          </style>\n" +
-    "\n" +
-    "          <div id=\"container\">\n" +
-    "            <h1>Sign Up</h1>\n" +
-    "            <form>\n" +
-    "              <p>\n" +
-    "                <label>Username</label>\n" +
-    "                <input type=\"text\" placeholder=\"piper\"/>\n" +
-    "              </p>\n" +
-    "              <p>\n" +
-    "                <label>Email Address</label>\n" +
-    "                <input type=\"text\" placeholder=\"name@example.com\"/>\n" +
-    "              </p>\n" +
-    "              <p>\n" +
-    "                <label>Password</label>\n" +
-    "                <input type=\"password\" placeholder=\"Not your pet's name\"/>\n" +
-    "              </p>\n" +
-    "              <input type=\"submit\" value=\"Create Account\"/>\n" +
-    "            </form>\n" +
-    "          </div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
+    "          <div ng-include=\"'register/index.tpl.html'\"></div>\n" +
     "        </div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
-    "\n" +
-    "\n" +
     "            <p>numbers and stats infographic</p>\n" +
     "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
-    "\n" +
     "        </div>\n" +
-    "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
-    "\n" +
     "</div>\n" +
     "\n" +
     "\n" +
@@ -885,200 +661,60 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("member/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("member/index.tpl.html",
-    "<style>\n" +
-    "	@import url(http://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);\n" +
+    "<div ui-view=\"member\">\n" +
+    "	<div class=\"content-profile-page\">\n" +
+    "	  <div class=\"profile-user-page card\">\n" +
+    "	    <div class=\"img-user-profile\">\n" +
+    "	      <img class=\"profile-bgHome\" src=\"/images/crowd1.jpg\" />\n" +
+    "	      <img class=\"avatar\" src=\"/images/trevor.jpg\"/>\n" +
+    "	    </div>\n" +
+    "	    <div class=\"user-profile-data\">\n" +
+    "	      <h1>{{member.username}}</h1>\n" +
+    "	    </div>\n" +
+    "	    <ul class=\"data-user\">\n" +
+    "	   	  <li><a><strong>888</strong><span>Committees</span></a></li>\n" +
+    "	      <li><a><strong>888</strong><span>Votes</span></a></li>\n" +
+    "	      <li><a><strong>888</strong><span>Posts</span></a></li>\n" +
+    "	      <!--<li><a><strong>888</strong><span>Bills</span></a></li>-->\n" +
+    "	      <li><a><strong>888</strong><span>Followers</span></a></li>\n" +
+    "	      <li><a><strong>888</strong><span>Following</span></a></li>\n" +
+    "	    </ul>\n" +
+    "	  </div>\n" +
+    "	</div>\n" +
     "\n" +
-    "	.content-profile-page {\n" +
-    "	  margin: 1em auto;\n" +
-    "	  width: 44.23em;\n" +
-    "	}\n" +
+    "	<div id=\"profile-activity\">\n" +
     "\n" +
-    "	.card {\n" +
-    "	  background: #fff;\n" +
-    "	  border-radius: 0.3rem;\n" +
-    "	  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);\n" +
-    "	  border: .1em solid rgba(0, 0, 0, 0.2);\n" +
-    "	  margin-bottom: 1em;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .img-user-profile {\n" +
-    "	  margin: 0 auto;\n" +
-    "	  text-align: center;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .img-user-profile .profile-bgHome {\n" +
-    "	  border-bottom: .2em solid #f5f5f5;\n" +
-    "	  width: 44.23em;\n" +
-    "	  height: 16em;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .img-user-profile .avatar {\n" +
-    "	  margin: 0 auto;\n" +
-    "	  background: #fff;\n" +
-    "	  width: 7em;\n" +
-    "	  height: 7em;\n" +
-    "	  padding: 0.25em;\n" +
-    "	  border-radius: .4em;\n" +
-    "	  margin-top: -10em;\n" +
-    "	  box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .user-profile-data,\n" +
-    "	.profile-user-page .description-profile {\n" +
-    "	  text-align: center;\n" +
-    "	  padding: 0 1.5em;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .user-profile-data h1 {\n" +
-    "	  font-family: \"Lato\", sans-serif;\n" +
-    "	  margin-top: 0.35em;\n" +
-    "	  color: #292f33;\n" +
-    "	  margin-bottom: 0;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .user-profile-data p {\n" +
-    "	  font-family: \"Lato\", sans-serif;\n" +
-    "	  color: #8899a6;\n" +
-    "	  font-size: 1.1em;\n" +
-    "	  margin-top: 0;\n" +
-    "	  margin-bottom: 0.5em;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .description-profile {\n" +
-    "	  color: #75787b;\n" +
-    "	  font-size: 0.98em;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user {\n" +
-    "	  font-family: \"Quicksand\", sans-serif;\n" +
-    "	  margin-bottom: 0;\n" +
-    "	  cursor: pointer;\n" +
-    "	  padding: 0;\n" +
-    "	  list-style: none;\n" +
-    "	  display: table;\n" +
-    "	  width: 100.15%;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li {\n" +
-    "	  margin: 0;\n" +
-    "	  padding: 0;\n" +
-    "	  width: 33.33334%;\n" +
-    "	  display: table-cell;\n" +
-    "	  text-align: center;\n" +
-    "	  border-left: 0.1em solid transparent;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li:first-child {\n" +
-    "	  border-left: 0;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li:first-child a {\n" +
-    "	  border-bottom-left-radius: 0.3rem;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li:last-child a {\n" +
-    "	  border-bottom-right-radius: 0.3rem;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a,\n" +
-    "	.profile-user-page .data-user li strong {\n" +
-    "	  display: block;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a {\n" +
-    "	  background-color: #f7f7f7;\n" +
-    "	  border-top: 1px solid rgba(242, 242, 242, 0.5);\n" +
-    "	  border-bottom: .2em solid #f7f7f7;\n" +
-    "	  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(255, 255, 255, 0.4);\n" +
-    "	  padding: .93em 0;\n" +
-    "	  color: #46494c;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a strong,\n" +
-    "	.profile-user-page .data-user li a span {\n" +
-    "	  font-weight: 600;\n" +
-    "	  line-height: 1;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a strong {\n" +
-    "	  font-size: 2em;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a span {\n" +
-    "	  color: #717a7e;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a:hover {\n" +
-    "	  background: rgba(0, 0, 0, 0.05);\n" +
-    "	  border-bottom: .2em solid #3498db;\n" +
-    "	  color: #3498db;\n" +
-    "	}\n" +
-    "\n" +
-    "	.profile-user-page .data-user li a:hover span {\n" +
-    "	  color: #3498db;\n" +
-    "	}\n" +
-    "\n" +
-    "	footer h4 {\n" +
-    "	  display: block;\n" +
-    "	  text-align: center;\n" +
-    "	  clear: both;\n" +
-    "	  font-family: \"Coda\", sans-serif;\n" +
-    "	  color: #566965;\n" +
-    "	  line-height: 6;\n" +
-    "	  font-size: 1em;\n" +
-    "	}\n" +
-    "	#profile-activity{text-align:center;}\n" +
-    "</style>\n" +
+    "		<div ng-repeat=\"vote in votes\">\n" +
+    "			<p>{{member.username}} voted {{vote.vote}} on <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a></p>\n" +
+    "		</div>\n" +
     "\n" +
     "\n" +
-    "<div class=\"content-profile-page\">\n" +
-    "  <div class=\"profile-user-page card\">\n" +
-    "    <div class=\"img-user-profile\">\n" +
-    "      <img class=\"profile-bgHome\" src=\"/images/crowd1.jpg\" />\n" +
-    "      <img class=\"avatar\" src=\"/images/trevor.jpg\"/>\n" +
-    "    </div>\n" +
-    "    <div class=\"user-profile-data\">\n" +
-    "      <h1>Trevor Overman</h1>\n" +
-    "    </div>\n" +
-    "    <ul class=\"data-user\">\n" +
-    "   	  <li><a><strong>888</strong><span>Committees</span></a></li>\n" +
-    "      <li><a><strong>888</strong><span>Votes</span></a></li>\n" +
-    "      <li><a><strong>888</strong><span>Posts</span></a></li>\n" +
-    "      <!--<li><a><strong>888</strong><span>Bills</span></a></li>-->\n" +
-    "      <li><a><strong>888</strong><span>Followers</span></a></li>\n" +
-    "      <li><a><strong>888</strong><span>Following</span></a></li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<div id=\"profile-activity\">\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
-    "	<p>Trevor submitted <a>hr-888</a> to the <a>united states senate</a></p>\n" +
-    "	<p>Trevor suggested an edit to <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<!--<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor voted Yes on <a>hr-888</a> - <a>united states senate</a></p>\n" +
+    "		<p>Trevor submitted <a>hr-888</a> to the <a>united states senate</a></p>\n" +
+    "		<p>Trevor suggested an edit to <a>hr-888</a> - <a>united states senate</a></p>\n" +
     "\n" +
     "\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
-    "	<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>\n" +
+    "		<p>activity</p>00>\n" +
     "\n" +
-    "</div>\n" +
-    "\n" +
-    "");
+    "	</div>\n" +
+    "</div>");
 }]);
 
 angular.module("register/index.tpl.html", []).run(["$templateCache", function($templateCache) {

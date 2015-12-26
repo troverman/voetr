@@ -2,6 +2,7 @@ angular.module( 'voetr', [
     'ui.router',
     'sails.io',
     'angularMoment',
+    'infinite-scroll',
     'duScroll',
     'lodash',
     'ui.bootstrap',

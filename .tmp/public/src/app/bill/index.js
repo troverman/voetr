@@ -29,24 +29,55 @@ angular.module( 'voetr.bill', [
         resolve: {
             comments: function(CommentModel, bill) {
                 return CommentModel.getByBill(bill.id);
+            },
+            votes: function(VoteModel, bill) {
+                return VoteModel.getByBill(bill.id);
             }
          }
     });
 
 })
 
-.controller( 'BillCtrl', function BillController( $scope, config, $sailsSocket, titleService, BillModel, bill, comments, CommentModel ) {
+.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
     $scope.newVote = {};
+    $scope.votes = votes;
     $scope.comments = comments;
     $scope.currentUser = config.currentUser;
 
+    $scope.calculateSum = function() {
+        $scope.voteSum = 0;
+        for (i = 0; i < votes.length; i++) { 
+            $scope.voteSum += votes[i].vote;
+        }
+        return $scope.voteSum;
+    }
+    $scope.calculateSum();
+
+
+    $sailsSocket.subscribe('vote', function (envelope) {
+        console.log('subscribe-vote-billcontroller');
+        switch(envelope.verb) {
+            case 'created':
+                $scope.votes.unshift(envelope.data);
+                $scope.calculateSum();
+                break;
+            case 'destroyed':
+                lodash.remove($scope.votes, {id: envelope.id});
+                break;
+        }
+    });
+
     $scope.createVote = function(newVote) {
-        newVote.user = config.currentUser.id;
-        newVote.bill = bill;
-        VoteModel.create(newVote).then(function(model) {
+        if ($scope.currentUser == undefined){
+            return null;
+        }
+        $scope.newVote.user = config.currentUser.id;
+        $scope.newVote.bill = bill;
+        $scope.newVote.vote = newVote;
+        VoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });
     }

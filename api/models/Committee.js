@@ -28,6 +28,17 @@ module.exports = {
         });
     },
 
+    getSome: function(limiting, skipping, filter) {
+
+        return Committee.find()
+        //.where({boxPrice: filter})
+        .limit(limiting)
+        .skip(skipping)
+        .then(function (models) {
+            return models;
+        });
+    },
+
     getOne: function(id) {
         return Committee.findOne(id)
         .then(function (model) {

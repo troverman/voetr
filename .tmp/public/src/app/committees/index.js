@@ -12,9 +12,7 @@ angular.module( 'voetr.committees', [
 		},
 		resolve: {
             committees: function(CommitteeModel) {
-                return CommitteeModel.getAll().then(function(models) {
-                    return models;
-                });
+				return CommitteeModel.getSome(10,0);
             }
         }
 	});
@@ -26,6 +24,7 @@ angular.module( 'voetr.committees', [
 	$scope.newPost = {};
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
+    $scope.skip = 0;
 
     $sailsSocket.subscribe('committee', function (envelope) {
 	    switch(envelope.verb) {
@@ -37,6 +36,13 @@ angular.module( 'voetr.committees', [
 	            break;
 	    }
     });
+
+    $scope.loadMore = function() {
+		$scope.skip = $scope.skip + 10;
+		CommitteeModel.getSome(10,$scope.skip).then(function(committees) {
+			Array.prototype.push.apply($scope.committees, committees);
+		});
+	};
 
 	$scope.createCommittee = function(newCommittee) {
         //newPost.user = config.currentUser.id;

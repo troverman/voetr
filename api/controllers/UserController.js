@@ -19,6 +19,19 @@ module.exports = {
 		});
 	},
 
+	getByUsername: function(req, res) {
+		User.find()
+		.where({username: req.param('path')})
+		.spread(function(model) {
+			User.subscribe(req, model);
+			res.json(model);
+		})
+		.fail(function(err) {
+			res.send(404);
+		});
+	},
+
+
 	create: function (req, res) {
 		var model = {
 			username: req.param('username'),

@@ -12,7 +12,23 @@ module.exports = {
 		.spread(function(models) {
 			Committee.watch(req);
 			Committee.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
 
+	getSome: function(req, res) {
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		var filter = req.param('filter');
+
+
+		Committee.getSome(limit,skip, filter)
+		.then(function(models) {
+			Committee.watch(req);
+			Committee.subscribe(req, models);
 			res.json(models);
 		})
 		.fail(function(err) {

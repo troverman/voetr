@@ -16,5 +16,4 @@ angular.module( 'voetr.register', [
 .controller( 'RegisterCtrl', function RegisterController( $scope, titleService, config ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
-
 });
