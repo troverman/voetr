@@ -14,8 +14,26 @@ module.exports = {
             type: 'string',
             required: true
         },
-        message_count: {
-            type: 'number'
+        last_name: {
+            type: 'string',
+        },
+        socialMedia: {
+            type: 'json',
+        },
+        party: {
+            type: 'string',
+        },
+        state: {
+            type: 'json',
+        },
+        term_end: {
+            type: 'string',
+        },
+        term_start: {
+            type: 'string',
+        },
+        phone: {
+            type: 'string',
         },
         // A User can have many messages
         posts: {

@@ -129,8 +129,10 @@ module.exports.routes = {
   'get /api/user': 'UserController.getAll',
   'get /api/user/:id': 'UserController.getOne',
   'get /api/user/username/:path': 'UserController.getByUsername',
-
   'post /api/user': 'UserController.create',
+
+  //'/*'   : 'HomeController.index'
+
 
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 

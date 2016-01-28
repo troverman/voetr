@@ -13,17 +13,21 @@ angular.module( 'voetr.home', [
 		resolve:{
 			committees: function(CommitteeModel) {
 				return CommitteeModel.getSome(10,0);
+            },
+            users: function(UserModel){
+				return UserModel.getAll();
             }
 		}
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config, committees ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config, committees, users ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.committees = committees;
-	$scope.Time = 0;
+	$scope.users = users;
 
+	$scope.Time = 0;
 	$scope.posts = [
     	{ title: 'post-1', time: 0},
     	{ title: 'post-2', time: 0},
@@ -48,5 +52,8 @@ angular.module( 'voetr.home', [
 		console.log('mouse-up');
 		console.log($scope.post);
 	};
+
+
+
 
 });

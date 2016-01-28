@@ -21,6 +21,13 @@
             <li><a href="/about">about</a></li>
             <li><a href="/committees">committees</a></li>
             <li><a href="/search">search</a></li>
+
+            <form class="navbar-form pull-left" role="search" action="/search/" onSubmit=" location.href = 'search/' + document.getElementById('search-link').value; return false;">
+              <div class="form-group">
+                <input ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
+              </div>
+            </form>
+
             
             <li><a href="/register">register</a></li>
             <li><a href="/login">login</a></li>

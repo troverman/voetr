@@ -47,7 +47,6 @@ angular.module( 'voetr.committee', [
     if (committee == undefined){
         $location.url('committees');
     };
-
     titleService.setTitle(committee.title + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;

@@ -28,10 +28,9 @@ module.exports = {
         });
     },
 
-    getSome: function(limiting, skipping, filter) {
+    getSome: function(limiting, skipping) {
 
         return Committee.find()
-        //.where({boxPrice: filter})
         .limit(limiting)
         .skip(skipping)
         .then(function (models) {

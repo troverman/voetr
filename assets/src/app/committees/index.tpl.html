@@ -12,10 +12,10 @@
   </div>
 </div>
 <!--/if logged in-->
-<div class="product-list-container" id="committeeScrolling" style="height:100%;width:100%;overflow-y:auto;position:absolute">
-  <div class="committee-list-container" infinite-scroll='loadMore()' infinite-scroll-container="'#committeeScrolling'" infinite-scroll-distance='2' infinite-scroll-parent>
+<div class="product-list-container" id="committeeScrolling" style="height:50%;width:100%;overflow-y:auto;position:absolute">
+  <div class="committee-list-container" infinite-scroll='loadMore()' infinite-scroll-container="'#committeeScrolling'" infinite-scroll-distance='1' infinite-scroll-parent>
       <br><br>
-      <div class="committee-container" ng-repeat="committee in committees | orderBy:'-createdAt'">
+      <div class="committee-container" ng-repeat="committee in committees">
         <h1 class="title"><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h1>
       </div>
       <br><br>

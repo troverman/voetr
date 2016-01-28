@@ -22,10 +22,8 @@ module.exports = {
 	getSome: function(req, res) {
 		var limit = req.param('limit');
 		var skip = req.param('skip');
-		var filter = req.param('filter');
 
-
-		Committee.getSome(limit,skip, filter)
+		Committee.getSome(limit, skip)
 		.then(function(models) {
 			Committee.watch(req);
 			Committee.subscribe(req, models);

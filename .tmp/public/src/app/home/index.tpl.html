@@ -53,7 +53,16 @@
         <div style="height:500px;background-color:#f1f0ed;text-align:center">
             <p>numbers and stats infographic</p>
             <p>local counties / self governing committees / total members / search / political info</p>
+
+            <p>{{users.length}} voetrs</p>
+            <div ng-repeat="user in users">
+              <a href="/member/{{user.username}}">{{user.username}}</a>
+            </div>
+
+
+
         </div>
+
     </div>
   </div>
   <!--/if not logged in-->
