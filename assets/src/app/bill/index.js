@@ -54,15 +54,14 @@ angular.module( 'voetr.bill', [
         }
         return $scope.voteSum;
     }
-    $scope.calculateSum();
+    //$scope.calculateSum();
 
 
     $sailsSocket.subscribe('vote', function (envelope) {
-        console.log('subscribe-vote-billcontroller');
         switch(envelope.verb) {
             case 'created':
                 $scope.votes.unshift(envelope.data);
-                $scope.calculateSum();
+                //$scope.calculateSum();
                 break;
             case 'destroyed':
                 lodash.remove($scope.votes, {id: envelope.id});

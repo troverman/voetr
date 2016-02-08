@@ -21,7 +21,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config, committees, users ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $interval, titleService, config, committees, users, VoteModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.committees = committees;
@@ -52,6 +52,11 @@ angular.module( 'voetr.home', [
 		console.log('mouse-up');
 		console.log($scope.post);
 	};
+	if ($scope.currentUser){
+		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
+			$scope.votes = votes;
+		});
+	}
 
 
 

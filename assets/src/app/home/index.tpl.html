@@ -2,7 +2,10 @@
 
   <!--if logged in-->
   <div ng-show="currentUser">
-    <h1>logged in</h1>
+
+    <div ng-repeat="vote in votes">
+      {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}{{">{{vote.bill.title}}</a>
+    </div>
     <div ng-repeat="post in posts">
       <h4>{{post.title}}</h4>
       <button class="btn btn-default" ng-mousedown='mouseDown(post.title)' ng-mouseup="mouseUp(post.title)" ng-mouseleave='mouseUp(post.title)'>

@@ -61,18 +61,31 @@ module.exports = {
 			bill: req.param('bill'),
 			user: req.param('user')
 		};
+		console.log(req.param('bill'));
 
 		Vote.create(model)
-		.exec(function(err, vote) {
+		.exec(function(err, model) {
 			if (err) {
 				return console.log(err);
 			}
 			else {
+				//this is total not up plus down
+				Vote.count()
+				.where({bill: req.param('bill')})
+				.exec(function(err, voteCount) {
+					console.log(voteCount)
+					Bill.update({id: req.param('bill')}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+					  if (err) {
+					    return;
+					  }
+					});
+				});
 				Vote.watch(req);
-				Vote.publishCreate(vote);
-				res.json(vote);
+				Vote.publishCreate(model.toJSON());
+				res.json(model);
 			}
 		});
+
 	},
 
 	destroy: function (req, res) {

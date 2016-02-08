@@ -134,193 +134,8 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("account/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/index.tpl.html",
-    "<!--login-->\n" +
-    "<!--<div class=\"row\">\n" +
-    "    <div class=\"col-md-6\">\n" +
-    "        <h3>Login</h3>\n" +
-    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
-    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
-    "    </div>\n" +
-    "</div>-->\n" +
-    "\n" +
-    "<style>\n" +
-    "input {\n" +
-    "  outline: none;\n" +
-    "}\n" +
-    "\n" +
-    "#wrapper {\n" +
-    "  width: 100%;\n" +
-    "  height: 100%;\n" +
-    "  margin: 0 auto;\n" +
-    "}\n" +
-    "\n" +
-    "#box {\n" +
-    "  width: 345px;\n" +
-    "  height: 450px;\n" +
-    "  background-color: #fff;\n" +
-    "  margin: 0 auto;\n" +
-    "  -webkit-border-radius: 4px;\n" +
-    "  -o-border-radius: 4px;\n" +
-    "  -moz-border-radius: 4px;\n" +
-    "  border-radius: 3px;\n" +
-    "}\n" +
-    "\n" +
-    "#top_header {\n" +
-    "  width: 100%;\n" +
-    "  margin: 0;\n" +
-    "  padding-top: 45px;\n" +
-    "}\n" +
-    "\n" +
-    "#top_header > h3 {\n" +
-    "  text-align: center;\n" +
-    "  font-family: 'Lato', sans-serif;\n" +
-    "  font-size: 32px;\n" +
-    "  font-weight: 800;\n" +
-    "  color: #378DE5;\n" +
-    "  -webkit-text-stroke: 0.5px;\n" +
-    "  margin: 0;\n" +
-    "\n" +
-    "}\n" +
-    "\n" +
-    "#top_header > h5 {\n" +
-    "  text-align: center;\n" +
-    "  font-family: 'Roboto', sans-serif;\n" +
-    "  font-size: 15px;\n" +
-    "  font-weight: 300;\n" +
-    "  color: #378DE5;\n" +
-    "  line-height: 1.6;\n" +
-    "  margin: 0;\n" +
-    "  padding: 15px 0;\n" +
-    "  color: #555;\n" +
-    "  -webkit-text-stroke: 0.2px;\n" +
-    "}\n" +
-    "\n" +
-    "#inputs {\n" +
-    "  width: 100%;\n" +
-    "  height: 100%;\n" +
-    "  margin: 0 auto;\n" +
-    "  position: relative;\n" +
-    "}\n" +
-    "\n" +
-    "input[type=text], input[type=password], input[type=submit] {\n" +
-    "  width: 300px;\n" +
-    "  height: 55px;\n" +
-    "  position: relative;\n" +
-    "  margin: 0 auto;\n" +
-    "  display: block;\n" +
-    "  margin-bottom: -10px;\n" +
-    "  padding: 15px;\n" +
-    "  box-sizing: border-box;\n" +
-    "  -webkit-text-stroke: 0.1px;\n" +
-    "}\n" +
-    "\n" +
-    "input[type=text], input[type=password] {\n" +
-    "  font-family: 'Lato', sans-serif;\n" +
-    "  font-weight: 300;\n" +
-    "  font-size:16px; \n" +
-    "  border: thin solid #ccc;\n" +
-    "  border-radius: 5px;\n" +
-    "  color: #378DE5;\n" +
-    "}\n" +
-    "\n" +
-    "input[type=text]:focus, input[type=password]:focus {\n" +
-    "  border: thin solid #378DE5;\n" +
-    "  -webkit-transition: all .4s ease;\n" +
-    "  -moz-transition: all .4s ease;\n" +
-    "  -o-transition: all .4s ease;\n" +
-    "  transition: all .4s ease;\n" +
-    "}\n" +
-    "\n" +
-    "input[type=text]:focus, input[type=password]:focus {\n" +
-    "  border-left: thin solid #378DE5;\n" +
-    "}\n" +
-    "\n" +
-    "\n" +
-    "input[type=submit] {\n" +
-    "  color: #378DE5;\n" +
-    "  background-color: #fff;\n" +
-    "  border: 1px solid #378DE5;\n" +
-    "  border-radius: 5px;\n" +
-    "  font-family: 'Roboto', sans-serif;\n" +
-    "  font-weight: 300;\n" +
-    "  font-size: 16px;\n" +
-    "  transition: all .3s ease;\n" +
-    "  margin-top: 0px;\n" +
-    "  cursor: pointer;\n" +
-    "}\n" +
-    "\n" +
-    "input[type=submit]:hover {\n" +
-    "  background-color: #378DE5;\n" +
-    "  color: #fff;\n" +
-    "}\n" +
-    "\n" +
-    "#bottom {\n" +
-    "  width: 300px;\n" +
-    "  margin: 0 auto;\n" +
-    "  margin-top: 15px;\n" +
-    "}\n" +
-    "\n" +
-    "a {\n" +
-    "  text-decoration: none;\n" +
-    "  color: #282828;\n" +
-    "  font-size: 13px;\n" +
-    "  font-family: 'Roboto', sans-serif;\n" +
-    "  font-weight: 300;\n" +
-    "  transition: color .3s ease;\n" +
-    "  outline: none;\n" +
-    "}\n" +
-    "\n" +
-    "a:hover {\n" +
-    "  color: #1eb056;\n" +
-    "}\n" +
-    "\n" +
-    ".right_a {\n" +
-    "  float: right;\n" +
-    "}\n" +
-    "</style>\n" +
-    "<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>\n" +
-    "<link href='http://fonts.googleapis.com/css?family=Gafata|Nobile:400,700' rel='stylesheet' type='text/css'>\n" +
-    "<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>\n" +
-    "\n" +
-    "<div id=\"wrapper\">\n" +
-    "    <div id=\"box\">\n" +
-    "        <div id=\"top_header\">\n" +
-    "            <h3>Login</h3>\n" +
-    "        </div>\n" +
-    "    \n" +
-    "        <div id=\"inputs\">\n" +
-    "            <form id='login' action=\"/auth/local\" method=\"post\">\n" +
-    "                <input type='text' name='identifier' id='username' value='' maxlength=\"50\" size=\"30\" placeholder=\"Username\">\n" +
-    "                <br>\n" +
-    "                <input type='password' name='password' id='password' maxlength=\"50\" size=\"30\" placeholder=\"Password\">\n" +
-    "                <br>\n" +
-    "                <input type='submit' name='Submit' value='Login'>\n" +
-    "            </form>\n" +
-    "\n" +
-    "            <div id=\"bottom\">\n" +
-    "              <a href=\"/register\">Create an account</a>\n" +
-    "              <a class=\"right_a\" href=\"#\">Forgot password</a>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>");
+    "<h1>account</h1>\n" +
+    "{{currentUser}}");
 }]);
 
 angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -342,7 +157,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "		<p class=\"lead\">{{bill.billContent}}</p>\n" +
     "\n" +
-    "		{{voteSum}}\n" +
+    "		{{bill.voteCount}}\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "\n" +
@@ -434,11 +249,11 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "\n" +
     "  <div class=\"bill-list-container\">\n" +
     "    <br><br>\n" +
-    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteSum'\">\n" +
+    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
     "\n" +
     "      <div>\n" +
     "        <h3>\n" +
-    "          {{bill.voteSum}}\n" +
+    "          {{bill.voteCount}}\n" +
     "          <button ng-click=\"createVote(1, bill)\">upvote</button>\n" +
     "          <button ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
     "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
@@ -520,9 +335,10 @@ angular.module("header/index.tpl.html", []).run(["$templateCache", function($tem
     "              </div>\n" +
     "            </form>\n" +
     "\n" +
-    "            \n" +
-    "            <li><a href=\"/register\">register</a></li>\n" +
-    "            <li><a href=\"/login\">login</a></li>\n" +
+    "            <li ng-show=\"currentUser\"><a href=\"/account\">account</a></li>\n" +
+    "            <li ng-show=\"currentUser\"><a href=\"/logout\">signout</a></li>\n" +
+    "            <li ng-show=\"!currentUser\"><a href=\"/register\">register</a></li>\n" +
+    "            <li ng-show=\"!currentUser\"><a href=\"/login\">login</a></li>\n" +
     "          </ul>\n" +
     "        </div><!--/.nav-collapse -->\n" +
     "      </div>\n" +
@@ -538,7 +354,10 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
-    "    <h1>logged in</h1>\n" +
+    "\n" +
+    "    <div ng-repeat=\"vote in votes\">\n" +
+    "      {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}{{\">{{vote.bill.title}}</a>\n" +
+    "    </div>\n" +
     "    <div ng-repeat=\"post in posts\">\n" +
     "      <h4>{{post.title}}</h4>\n" +
     "      <button class=\"btn btn-default\" ng-mousedown='mouseDown(post.title)' ng-mouseup=\"mouseUp(post.title)\" ng-mouseleave='mouseUp(post.title)'>\n" +
@@ -651,7 +470,7 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "    </svg>-->\n" +
     "\n" +
     "    <video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
-    "        <source src=\"/videos/voting.mp4\" type=\"video/webm\">\n" +
+    "        <source src=\"/videos/washington.mp4\" type=\"video/webm\">\n" +
     "    </video>\n" +
     "    <!--<img src=\"/images/capitol.jpg\">-->\n" +
     "</div>");

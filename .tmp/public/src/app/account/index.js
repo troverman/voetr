@@ -7,7 +7,7 @@ angular.module( 'voetr.account', [
 		views: {
 			"main": {
 				controller: 'AccountCtrl',
-				templateUrl: 'login/index.tpl.html'
+				templateUrl: 'account/index.tpl.html'
 			}
 		}
 	});

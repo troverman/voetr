@@ -27,6 +27,9 @@ module.exports = {
         votes: {
             collection: 'vote',
             via: 'bill'
+        },
+        voteCount: {
+            type: 'integer'
         }
     },
 

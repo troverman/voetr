@@ -54,11 +54,11 @@
 
   <div class="bill-list-container">
     <br><br>
-    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteSum'">
+    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
 
       <div>
         <h3>
-          {{bill.voteSum}}
+          {{bill.voteCount}}
           <button ng-click="createVote(1, bill)">upvote</button>
           <button ng-click="createVote(-1, bill)">downvote</button>
           <a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a>

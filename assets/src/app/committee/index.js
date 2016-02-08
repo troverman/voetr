@@ -64,7 +64,7 @@ angular.module( 'voetr.committee', [
         if ($scope.currentUser == undefined){
             return null;
         }
-        $scope.newVote.bill = bill;
+        $scope.newVote.bill = bill.id;
         $scope.newVote.user = config.currentUser.id;
         $scope.newVote.vote = newVote;
         VoteModel.create($scope.newVote).then(function(model) {
@@ -84,7 +84,7 @@ angular.module( 'voetr.committee', [
             }
         }
     }
-    $scope.calculateVoteSum();
+    //$scope.calculateVoteSum();
 
     $sailsSocket.subscribe('bill', function (envelope) {
         switch(envelope.verb) {
@@ -102,7 +102,8 @@ angular.module( 'voetr.committee', [
             case 'created':
                 BillModel.getAll().then(function(bills){
                     $scope.bills = bills;
-                    $scope.calculateVoteSum();
+                    //lol lagg
+                    //$scope.calculateVoteSum();
                 });
                 console.log($scope.bills);
                 break;
