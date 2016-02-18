@@ -28,8 +28,8 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             bills: function(BillModel, VoteModel) {
-                //var votes = VoteModel.getAll();
                 return BillModel.getAll();
+                //var votes = VoteModel.getAll();
                 //return BillModel.getByCommittee();
                 /*BillModel.getAll().then(function(bills){
                     VoteModel.getByBill().then(function(votes){
@@ -38,7 +38,22 @@ angular.module( 'voetr.committee', [
                 });*/
             }
          }
+    })
+    .state( 'committee.members', {
+        url: '/members',
+        views: {
+            "committee": {
+                controller: 'CommitteeMemberCtrl',
+                templateUrl: 'committee/members.tpl.html'
+            }
+        },
+        resolve: {
+            members: function(BillModel, VoteModel) {
+                return null;
+            }
+         }
     });
+
 
 })
 
@@ -110,8 +125,11 @@ angular.module( 'voetr.committee', [
         }
     });
 
-});
+})
 
+.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket) {
+    console.log('CommitteeMemberCtrl');
+});
 
 
 

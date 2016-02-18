@@ -10,6 +10,18 @@ module.exports = {
             required: true,
             unique: true
         },
+        avatarUrl: {
+            type: 'string',
+        },
+        coverUrl: {
+            type: 'string',
+        },
+        following: {
+            type: 'string',
+        },
+        followers: {
+            type: 'string',
+        },
         first_name: {
             type: 'string',
             required: true
@@ -40,12 +52,10 @@ module.exports = {
             collection: 'post',
             via: 'user'
         },
-
         committees: {
             collection: 'committeemember',
             via: 'user'
         },
-
         passports : { collection: 'Passport', via: 'user' }
     },
 

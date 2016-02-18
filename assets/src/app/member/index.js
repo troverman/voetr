@@ -36,5 +36,7 @@ angular.module( 'voetr.member', [
 	titleService.setTitle(member.username + ' - voetr');
 	$scope.member = member;
 	$scope.votes = votes;
+    $scope.following = votes;
+    $scope.followers = votes;
 
 });

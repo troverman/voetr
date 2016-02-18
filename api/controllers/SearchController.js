@@ -20,6 +20,7 @@ module.exports = {
 				//{userId: {contains: searchQuery}}
 			//]
 		})
+		.limit(25)
 		.then(function(models) {
 
 			var CommitteeModels = models;
@@ -34,6 +35,7 @@ module.exports = {
 				{last_name: {contains: searchQuery}}
 			]
 			})
+			.limit(25)
 			.then(function(models) {
 				var combinedModels = CommitteeModels.concat(models);
 
@@ -47,9 +49,9 @@ module.exports = {
 					{billContent: {contains: searchQuery}}
 				]
 				})
+				.limit(25)
 				.then(function(models) {
 					var superCombinedModels = combinedModels.concat(models);
-
 					Bill.watch(req);
 					Bill.subscribe(req, models);
 					res.json(superCombinedModels);

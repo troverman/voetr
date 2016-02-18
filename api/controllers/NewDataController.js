@@ -57,7 +57,6 @@ module.exports = {
 
 			        var billData = body.results;
 
-
 					for (var key in billData) {
 
 						var billId = billData[key].bill_id;
@@ -81,7 +80,6 @@ module.exports = {
 						var sponsor_id = billData[key].sponsor_id;
 						var urls = billData[key].urls;
 
-
 						/*console.log(billId);
 						console.log(official_title);
 						console.log(last_action_at);
@@ -90,7 +88,6 @@ module.exports = {
 
 						var title = billData[key].official_title;
 						var billContent = billData[key].bill_id; + ' : ' + billData[key].official_title + ' : ' + billData[key].sponsor + ' : ' + billData[key].introduced_on
-
 						var model = {
 							billContent: billContent,
 							committee: 1,
@@ -109,19 +106,23 @@ module.exports = {
 								res.json(bill);
 							}
 						});
-
-
 					}
-
-
 			    }
 		});
 
 	},
 
 	votes: function(req, res) {
+		console.log('ok')
+		var govTrack = require('govtrack-node');
+		govTrack.findRole({ current: true }, function(err, res) {
+		  if (!err) {
+		  	console.log(res);
+		  }
+		});
 
-		var url = "http://congress.api.sunlightfoundation.com/votes?apikey=c16a6c623ee54948bac2a010ea6fab70";
+		/*var url = "http://congress.api.sunlightfoundation.com/votes?apikey=c16a6c623ee54948bac2a010ea6fab70";
+		console.log(url);
 
 		request({
 			    url: url,
@@ -131,25 +132,17 @@ module.exports = {
 			    if (!error && response.statusCode === 200) {
 
 			        var voteData = body.results;
-
-
+			        console.log('ok');
+			        console.log(voteData);
 					for (var key in voteData) {
 						var vote = voteData[key];
-
 						var bill_id = vote.bill_id;
 						var question = vote.question;
 						var voters = vote.voters;
-						var voters = vote.voters;
-
-
 						console.log(voters);
-
-
 					}
-
-
 			    }
-		});
+		});*/
 	},
 
 	addCongress: function(req, res) {
@@ -164,7 +157,6 @@ module.exports = {
 			    if (!error && response.statusCode === 200) {
 
 					var congressData = body.results;
-
 
 					for (var key in congressData) {
 

@@ -21,7 +21,6 @@ angular.module( 'voetr.committees', [
 
 .controller( 'CommitteesCtrl', function CommitteesController( $scope, $sailsSocket, lodash, titleService, config, CommitteeModel, committees) {
 	titleService.setTitle('committees - voetr');
-	$scope.newPost = {};
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
     $scope.skip = 0;

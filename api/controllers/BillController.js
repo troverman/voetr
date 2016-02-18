@@ -31,8 +31,6 @@ module.exports = {
 		});
 	},
 
-	
-
 	create: function (req, res) {
 		var billContent = req.param('billContent');
 		var committee = req.param('committee');

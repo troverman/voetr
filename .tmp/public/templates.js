@@ -134,8 +134,10 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("account/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/index.tpl.html",
-    "<h1>account</h1>\n" +
-    "{{currentUser}}");
+    "<h1>Account</h1>\n" +
+    "<p><a href=\"/member/{{currentUser.username}}\">{{currentUser.username}}</a></p>\n" +
+    "<p>{{currentUser.email}}</p>\n" +
+    "<p>{{currentUser.first_name}}</p>");
 }]);
 
 angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -194,80 +196,78 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committee/index.tpl.html",
     "<div ui-view=\"committee\">\n" +
-    "<div id=\"sidebar-wrapper\">\n" +
-    "  <ul class=\"sidebar-nav\">\n" +
-    "    <br>\n" +
-    "    <li>\n" +
-    "        <a href=\"/\">{{committee.title}}</a>\n" +
-    "    </li>\n" +
-    "    <hr>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">bylaws</a>\n" +
-    "    </li>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">committees</a>\n" +
-    "    </li>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">bills</a>\n" +
-    "    </li>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">discussion</a>\n" +
-    "    </li>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">elections</a>\n" +
-    "    </li>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">polls</a>\n" +
-    "    </li>\n" +
-    "    <li>\n" +
-    "        <a href=\"#\">members</a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "</div>\n" +
+    "  <div id=\"sidebar-wrapper\">\n" +
+    "    <ul class=\"sidebar-nav\">\n" +
+    "      <br>\n" +
+    "      <li>\n" +
+    "          <a href=\"/\">{{committee.title}}</a>\n" +
+    "      </li>\n" +
+    "      <hr>\n" +
+    "      <li>\n" +
+    "          <a href=\"#\">bylaws</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "          <a href=\"committee/{{committee.urlTitle}}/committees\">committees</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "          <a href=\"committee/{{committee.urlTitle}}/bills\">bills</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "          <a href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "          <a href=\"#\">elections</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "          <a href=\"committee/{{committee.urlTitle}}/polls\">polls</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "          <a href=\"committee/{{committee.urlTitle}}/members\">members</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "  <div id=\"main-container\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
     "\n" +
-    "<div id=\"main-container\">\n" +
-    "  <h1>{{committee.title}}</h1>\n" +
+    "    <div ng-show=\"currentUser\">\n" +
+    "      <br>\n" +
+    "      <button class=\"btn btn-primary\">edit committee</button>\n" +
+    "      <br>\n" +
+    "      <br>\n" +
+    "      <button class=\"btn btn-primary\">+ bill</button>\n" +
+    "      <br>\n" +
+    "      <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "        <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
+    "          <div class=\"form-group\">\n" +
+    "            <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
+    "            <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
+    "          </div>\n" +
+    "          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "        </form>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
     "\n" +
-    "  <div ng-show=\"currentUser\">\n" +
-    "    <br>\n" +
-    "    <button class=\"btn btn-primary\">edit committee</button>\n" +
-    "    <br>\n" +
-    "    <br>\n" +
-    "    <button class=\"btn btn-primary\">+ bill</button>\n" +
-    "    <br>\n" +
-    "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
-    "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
-    "        <div class=\"form-group\">\n" +
-    "          <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
-    "          <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
+    "\n" +
+    "    <div class=\"bill-list-container\">\n" +
+    "      <br><br>\n" +
+    "      <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "\n" +
+    "        <div>\n" +
+    "          <h3>\n" +
+    "            {{bill.voteCount}}\n" +
+    "            <button ng-click=\"createVote(1, bill)\">upvote</button>\n" +
+    "            <button ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
+    "            <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "          </h3>\n" +
     "        </div>\n" +
-    "        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "      </form>\n" +
+    "        <div>\n" +
+    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
+    "        </div>\n" +
+    "\n" +
+    "      </div>\n" +
+    "      <br><br>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "\n" +
-    "\n" +
-    "  <div class=\"bill-list-container\">\n" +
-    "    <br><br>\n" +
-    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "\n" +
-    "      <div>\n" +
-    "        <h3>\n" +
-    "          {{bill.voteCount}}\n" +
-    "          <button ng-click=\"createVote(1, bill)\">upvote</button>\n" +
-    "          <button ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
-    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
-    "        </h3>\n" +
-    "      </div>\n" +
-    "      <div>\n" +
-    "        <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
-    "      </div>\n" +
-    "\n" +
-    "    </div>\n" +
-    "    <br><br>\n" +
-    "  </div>\n" +
-    "\n" +
-    "</div>\n" +
     "</div>\n" +
     "");
 }]);
@@ -288,16 +288,16 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "  </div>\n" +
     "</div>\n" +
     "<!--/if logged in-->\n" +
-    "<div class=\"product-list-container\" id=\"committeeScrolling\" style=\"height:50%;width:100%;overflow-y:auto;position:absolute\">\n" +
-    "  <div class=\"committee-list-container\" infinite-scroll='loadMore()' infinite-scroll-container=\"'#committeeScrolling'\" infinite-scroll-distance='1' infinite-scroll-parent>\n" +
+    "<!--<div class=\"product-list-container\" id=\"committeeScrolling\" style=\"height:50%;width:100%;overflow-y:auto;position:absolute\">\n" +
+    "  <div class=\"committee-list-container\" infinite-scroll='loadMore()' infinite-scroll-container=\"'#committeeScrolling'\" infinite-scroll-distance='1' infinite-scroll-parent>-->\n" +
     "      <br><br>\n" +
     "      <div class=\"committee-container\" ng-repeat=\"committee in committees\">\n" +
     "        <h1 class=\"title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h1>\n" +
     "      </div>\n" +
     "      <br><br>\n" +
     "    </div>\n" +
-    "  </div>\n" +
-    "</div>\n" +
+    "  <!--</div>\n" +
+    "</div>-->\n" +
     "\n" +
     "\n" +
     "<div style=\"height:100px;\"></div>");
@@ -516,18 +516,16 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    </div>\n" +
     "	    <div class=\"user-profile-data\">\n" +
     "	      <h1>{{member.username}}</h1>\n" +
+    "	      <button class=\"btn\">follow</button>\n" +
+    "\n" +
     "	    </div>\n" +
     "	    <ul class=\"data-user\">\n" +
-    "	   	  <li><a><strong>888</strong><span>Committees</span></a></li>\n" +
-    "	      <li><a><strong>888</strong><span>Votes</span></a></li>\n" +
-    "	      <li><a><strong>888</strong><span>Posts</span></a></li>\n" +
-    "	      <!--<li><a><strong>888</strong><span>Bills</span></a></li>-->\n" +
-    "	      <li><a><strong>888</strong><span>Followers</span></a></li>\n" +
-    "	      <li><a><strong>888</strong><span>Following</span></a></li>\n" +
+    "	      <li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>\n" +
+    "	      <li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
+    "	      <li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
     "	    </ul>\n" +
     "	  </div>\n" +
     "	</div>\n" +
-    "\n" +
     "	<div id=\"profile-activity\">\n" +
     "\n" +
     "		<div ng-repeat=\"vote in votes\">\n" +

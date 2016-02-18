@@ -419,6 +419,186 @@
         "updatedAt": "2016-02-08T02:58:34.933Z",
         "id": 185,
         "voteCount": 1
+      },
+      {
+        "billContent": "sconres31-114",
+        "committee": 1,
+        "title": "A concurrent resolution providing for a conditional adjournment or recess of the Senate and an adjournment of the House of Representatives.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:13.289Z",
+        "updatedAt": "2016-02-17T21:34:13.289Z",
+        "id": 186
+      },
+      {
+        "billContent": "hconres116-114",
+        "committee": 1,
+        "title": "Condemning North Korea's February 6, 2016, long-range rocket launch and North Korea's February 9, 2016, restart of a plutonium reactor.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:13.459Z",
+        "updatedAt": "2016-02-17T21:34:13.459Z",
+        "id": 187
+      },
+      {
+        "billContent": "hr4579-114",
+        "committee": 1,
+        "title": "To withdraw certain Bureau of Land Management land in the State of Utah from all forms of public appropriation, to provide for the shared management of the withdrawn land by the Secretary of the Interior and the Secretary of the Air Force to facilitate enhanced weapons testing and pilot training, enhance public safety, and provide for continued public access to the withdrawn land, to provide for the exchange of certain Federal land and State land, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:13.677Z",
+        "updatedAt": "2016-02-17T21:34:13.677Z",
+        "id": 188
+      },
+      {
+        "billContent": "hr4578-114",
+        "committee": 1,
+        "title": "To amend title 49, United States Code, to provide for minimum safety standards for underground gas storage facilities, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:13.828Z",
+        "updatedAt": "2016-02-17T21:34:13.828Z",
+        "id": 189
+      },
+      {
+        "billContent": "hr4577-114",
+        "committee": 1,
+        "title": "To amend the Internal Revenue Code of 1986 to exclude from gross income compensation received by employees consisting of qualified distributions of employer stock.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:13.969Z",
+        "updatedAt": "2016-02-17T21:34:13.969Z",
+        "id": 190
+      },
+      {
+        "billContent": "hr4576-114",
+        "committee": 1,
+        "title": "To implement the Convention on the Conservation and Management of High Seas Fisheries Resources in the North Pacific Ocean, to implement the Convention on the Conservation and Management of High Seas Fishery Resources in the South Pacific Ocean, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.104Z",
+        "updatedAt": "2016-02-17T21:34:14.104Z",
+        "id": 191
+      },
+      {
+        "billContent": "hr4575-114",
+        "committee": 1,
+        "title": "To amend the Federal Home Loan Bank Act to provide investment authority to support rural infrastructure development, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.239Z",
+        "updatedAt": "2016-02-17T21:34:14.239Z",
+        "id": 192
+      },
+      {
+        "billContent": "hr4574-114",
+        "committee": 1,
+        "title": "To require the Federal Aviation Administration to adopt safety standards regarding fuel systems in newly manufactured helicopters.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.439Z",
+        "updatedAt": "2016-02-17T21:34:14.439Z",
+        "id": 193
+      },
+      {
+        "billContent": "hr4573-114",
+        "committee": 1,
+        "title": "To provide for research on the use of child restraint devices on commercial aircraft.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.575Z",
+        "updatedAt": "2016-02-17T21:34:14.575Z",
+        "id": 194
+      },
+      {
+        "billContent": "hr4572-114",
+        "committee": 1,
+        "title": "To amend the Trade Act of 1974 to authorize a State to reimburse certain costs incurred by the State in providing training to workers after a petition for certification of eligibility for trade adjustment assistance has been filed, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.706Z",
+        "updatedAt": "2016-02-17T21:34:14.706Z",
+        "id": 195
+      },
+      {
+        "billContent": "hr4571-114",
+        "committee": 1,
+        "title": "To amend the Public Health Service Act to improve the health of children and help better understand and enhance awareness about unexpected sudden death in early life.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.832Z",
+        "updatedAt": "2016-02-17T21:34:14.832Z",
+        "id": 196
+      },
+      {
+        "billContent": "hr4570-114",
+        "committee": 1,
+        "title": "To amend the Department of Agriculture program for research and extension grants to increase participation by women and underrepresented minorities in the fields of science, technology, engineering, and mathematics to redesignate the program as the \"Jeannette Rankin Women and Minorities in STEM Fields Program\".",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:14.958Z",
+        "updatedAt": "2016-02-17T21:34:14.958Z",
+        "id": 197
+      },
+      {
+        "billContent": "hr4569-114",
+        "committee": 1,
+        "title": "To amend the Protecting Access to Medicare Act of 2014 (PAMA) to extend and expand the Medicaid community mental health services demonstration program.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.095Z",
+        "updatedAt": "2016-02-17T21:34:15.095Z",
+        "id": 198
+      },
+      {
+        "billContent": "hr4568-114",
+        "committee": 1,
+        "title": "To make funds available to the Department of Energy National Laboratories for the Federal share of cooperative research and development agreements that support maturing Laboratory technology and transferring it to the private sector, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.232Z",
+        "updatedAt": "2016-02-17T21:34:15.232Z",
+        "id": 199
+      },
+      {
+        "billContent": "hr4567-114",
+        "committee": 1,
+        "title": "To increase the number of States that may conduct Medicaid demonstration programs to improve access to community mental health services.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.426Z",
+        "updatedAt": "2016-02-17T21:34:15.426Z",
+        "id": 200
+      },
+      {
+        "billContent": "hr4566-114",
+        "committee": 1,
+        "title": "To withdraw certain lands in Los Angeles County, California, from entry, appropriation, or disposal under the public land laws, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.564Z",
+        "updatedAt": "2016-02-17T21:34:15.564Z",
+        "id": 201
+      },
+      {
+        "billContent": "hr4565-114",
+        "committee": 1,
+        "title": "To amend the Federal Food, Drug, and Cosmetic Act to restrict direct-to-consumer drug advertising.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.693Z",
+        "updatedAt": "2016-02-17T21:34:15.693Z",
+        "id": 202
+      },
+      {
+        "billContent": "hr4564-114",
+        "committee": 1,
+        "title": "To redesignate the small triangular property located in Washington, DC and designated by the National Park Service as reservation 302 as Robert Emmet Park, and for other purposes.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.819Z",
+        "updatedAt": "2016-02-17T21:34:15.819Z",
+        "id": 203
+      },
+      {
+        "billContent": "hr4563-114",
+        "committee": 1,
+        "title": "To amend the Internal Revenue Code of 1986 to provide a credit for research related to the development of a vaccine for the Zika virus.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:15.943Z",
+        "updatedAt": "2016-02-17T21:34:15.943Z",
+        "id": 204
+      },
+      {
+        "billContent": "hr4562-114",
+        "committee": 1,
+        "title": "To amend the Public Health Service Act to reauthorize a program to prevent and control mosquito-borne diseases.",
+        "user": 1,
+        "createdAt": "2016-02-17T21:34:16.154Z",
+        "updatedAt": "2016-02-17T21:34:16.154Z",
+        "id": 205
       }
     ],
     "committee": [
@@ -82063,6 +82243,14 @@
         "createdAt": "2015-12-15T23:13:46.453Z",
         "updatedAt": "2015-12-15T23:13:46.453Z",
         "id": 11663
+      },
+      {
+        "parent": null,
+        "title": "test",
+        "urlTitle": "test",
+        "createdAt": "2016-02-17T23:05:47.364Z",
+        "updatedAt": "2016-02-17T23:05:47.364Z",
+        "id": 11664
       }
     ],
     "committeeelection": [],
@@ -94832,6 +95020,18 @@
         "type": "string",
         "unique": true
       },
+      "avatarUrl": {
+        "type": "string"
+      },
+      "coverUrl": {
+        "type": "string"
+      },
+      "following": {
+        "type": "string"
+      },
+      "followers": {
+        "type": "string"
+      },
       "first_name": {
         "type": "string"
       },
@@ -94930,10 +95130,10 @@
   },
   "counters": {
     "bill": {
-      "id": 185
+      "id": 205
     },
     "committee": {
-      "id": 11663
+      "id": 11664
     },
     "committeeelection": {},
     "committeemember": {},

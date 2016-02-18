@@ -60,7 +60,7 @@ function ticker(){
 						};
 
 
-						Bill.findOrCreate({title:title}, model)
+						Bill.findOrCreate(model, model)
 						.exec(function(err, bill) {
 							if (err) {
 								return console.log(err);
@@ -81,7 +81,7 @@ function ticker(){
 
 module.exports.intervalService = function(){
 	//every 8 hours
-    setInterval(ticker, 28800000);
+    //setInterval(ticker, 10000);
     //setInterval(ticker, 8000);
 
 

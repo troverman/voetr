@@ -7,18 +7,16 @@
 	    </div>
 	    <div class="user-profile-data">
 	      <h1>{{member.username}}</h1>
+	      <button class="btn">follow</button>
+
 	    </div>
 	    <ul class="data-user">
-	   	  <li><a><strong>888</strong><span>Committees</span></a></li>
-	      <li><a><strong>888</strong><span>Votes</span></a></li>
-	      <li><a><strong>888</strong><span>Posts</span></a></li>
-	      <!--<li><a><strong>888</strong><span>Bills</span></a></li>-->
-	      <li><a><strong>888</strong><span>Followers</span></a></li>
-	      <li><a><strong>888</strong><span>Following</span></a></li>
+	      <li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>
+	      <li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>
+	      <li><a><strong>{{following.length}}</strong><span>Following</span></a></li>
 	    </ul>
 	  </div>
 	</div>
-
 	<div id="profile-activity">
 
 		<div ng-repeat="vote in votes">
