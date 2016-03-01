@@ -6,6 +6,11 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getSome = function(limit, skip) {
+        var url = utils.prepareUrl('user/filter/' + limit + '/' + skip);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getByUsername = function(model) {
         var url = utils.prepareUrl('user/username/' + model);
         return $sailsSocket.get(url).then(success, error);

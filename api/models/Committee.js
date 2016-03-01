@@ -29,7 +29,6 @@ module.exports = {
     },
 
     getSome: function(limiting, skipping) {
-
         return Committee.find()
         .limit(limiting)
         .skip(skipping)

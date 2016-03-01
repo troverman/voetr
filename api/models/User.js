@@ -68,6 +68,15 @@ module.exports = {
         });
     },
 
+    getSome: function(limiting, skipping) {
+        return User.find()
+        .limit(limiting)
+        .skip(skipping)
+        .then(function (models) {
+            return models;
+        });
+    },
+
     getOne: function(id) {
         return User.findOne(id)
         .then(function (model) {

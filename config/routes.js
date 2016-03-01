@@ -39,26 +39,20 @@ module.exports.routes = {
   'get /about': 'HomeController.index',
   'get /blog': 'HomeController.index',
   'get /blog/:id': 'HomeController.index',
-
   'get /committees': 'HomeController.index',
   'get /committee/:path': 'HomeController.index',
   'get /bill/:id': 'HomeController.index',
   'get /bill/:id/:path': 'HomeController.index',
-
   'get /member': 'HomeController.index',
   'get /member/:id': 'HomeController.index',
-
   'get /search': 'HomeController.index',
   'get /search/:searchQuery': 'HomeController.index',
-
   'get /login': 'HomeController.index',
   'get /register': 'HomeController.index',
   'get /logout': 'AuthController.logout',
 
   'post /auth/local': 'AuthController.callback',
   'post /auth/local/:action': 'AuthController.callback',
-
-
 
   /**
    * Bill routes
@@ -68,7 +62,6 @@ module.exports.routes = {
   'get /api/bill/filter/:limit/:skip': 'BillController.getSome',
   'post /api/bill': 'BillController.create',
   'delete /api/bill/:id': 'BillController.destroy',
-
 
   /**
    * (bill) Vote routes
@@ -80,8 +73,6 @@ module.exports.routes = {
   'post /api/vote': 'Vote.create',
   'delete /api/vote/:id': 'Vote.destroy',
 
-
-
   /**
    * Comment routes
    */
@@ -90,7 +81,6 @@ module.exports.routes = {
   'get /api/comment/bill/:id': 'Comment.getByBill',
   'post /api/comment': 'Comment.create',
   'delete /api/comment/:id': 'Comment.destroy',
-
 
   /**
    * Committee routes
@@ -123,18 +113,17 @@ module.exports.routes = {
    */
   'get /api/search/:searchQuery': 'SearchController.search',
 
-
   /**
    * User routes
    */
   'get /api/user': 'UserController.getAll',
   'get /api/user/:id': 'UserController.getOne',
+  'get /api/user/filter/:limit/:skip': 'UserController.getSome',
+
   'get /api/user/username/:path': 'UserController.getByUsername',
   'post /api/user': 'UserController.create',
 
   //'/*'   : 'HomeController.index'
-
-
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options

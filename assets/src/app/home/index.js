@@ -15,7 +15,7 @@ angular.module( 'voetr.home', [
 				return CommitteeModel.getSome(10,0);
             },
             users: function(UserModel){
-				return UserModel.getAll();
+				return UserModel.getSome(33,0);
             },
             bills: function(BillModel){
                 return BillModel.getSome(10,0);

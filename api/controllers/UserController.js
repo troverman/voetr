@@ -9,6 +9,20 @@ module.exports = {
 		});
 	},
 
+	getSome: function(req, res) {
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		User.getSome(limit, skip)
+		.then(function(models) {
+			User.watch(req);
+			User.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	getOne: function(req, res) {
 		User.getOne(req.param('id'))
 		.spread(function(model) {
