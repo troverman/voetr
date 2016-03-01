@@ -11,6 +11,11 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getSome = function(limit, skip, sort, filter) {
+        var url = utils.prepareUrl('bill/filter/' + limit + '/' + skip);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getByUrl = function(model) {
         var url = utils.prepareUrl('bill/url/' + model);
         return $sailsSocket.get(url).then(success, error);

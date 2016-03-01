@@ -12,6 +12,9 @@ module.exports = {
             type: 'string',
             required: true
         },
+        displayNumber: {
+            type: 'string',
+        },
         billContent: {
             type: 'string',
             required: true
@@ -29,7 +32,8 @@ module.exports = {
             via: 'bill'
         },
         voteCount: {
-            type: 'integer'
+            type: 'integer',
+            defaultsTo: 0
         }
     },
 
@@ -40,6 +44,19 @@ module.exports = {
             return [models];
         });
     },
+
+    getSome: function(limiting, skipping, sort) {
+
+        return Bill.find()
+        //.sort(sort)
+        .limit(limiting)
+        .skip(skipping)
+        .then(function (models) {
+            return models;
+        });
+
+    },
+
 
     getOne: function(id) {
         return Bill.findOne(id)

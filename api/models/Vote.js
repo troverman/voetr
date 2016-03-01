@@ -12,6 +12,9 @@ module.exports = {
             type: 'integer',
             required: true
         },
+        voteString: {
+            type: 'string',
+        },
         bill: {
             model: 'bill',
             required: true

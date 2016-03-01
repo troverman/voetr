@@ -31,6 +31,21 @@ module.exports = {
 		});
 	},
 
+	getSome: function(req, res) {
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		var sort = req.param('sort');
+		Bill.getSome(limit, skip, sort)
+		.then(function(models) {
+			Bill.watch(req);
+			Bill.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	create: function (req, res) {
 		var billContent = req.param('billContent');
 		var committee = req.param('committee');

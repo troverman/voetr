@@ -28,7 +28,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             bills: function(BillModel, VoteModel) {
-                return BillModel.getAll();
+                return BillModel.getSome(10,0);
                 //var votes = VoteModel.getAll();
                 //return BillModel.getByCommittee();
                 /*BillModel.getAll().then(function(bills){

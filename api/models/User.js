@@ -47,7 +47,6 @@ module.exports = {
         phone: {
             type: 'string',
         },
-        // A User can have many messages
         posts: {
             collection: 'post',
             via: 'user'
@@ -55,6 +54,9 @@ module.exports = {
         committees: {
             collection: 'committeemember',
             via: 'user'
+        },
+        bioguide_id:{
+            type: 'string'
         },
         passports : { collection: 'Passport', via: 'user' }
     },

@@ -2,16 +2,8 @@
 
   <!--if logged in-->
   <div ng-show="currentUser">
-
     <div ng-repeat="vote in votes">
       {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}{{">{{vote.bill.title}}</a>
-    </div>
-    <div ng-repeat="post in posts">
-      <h4>{{post.title}}</h4>
-      <button class="btn btn-default" ng-mousedown='mouseDown(post.title)' ng-mouseup="mouseUp(post.title)" ng-mouseleave='mouseUp(post.title)'>
-        {{post.time}}
-        <i class="fa fa-caret-up"></i>
-      </button>
     </div>
   </div>
   <!--/if logged in-->
@@ -44,11 +36,19 @@
             enter your zipcode
         <div>
 
-        <div style="height:500px;background-color:#fff;text-align:center">
+        <div style="max-height:500px;background-color:#fff;text-align:center;overflow:hidden">
             <h1>trending</h1>
+
+            <div ng-repeat="bill in bills">
+              <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+            </div>
+
+            <hr>
+
             <div ng-repeat="committee in committees">
               <a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a>
             </div>
+
         </div>
         <div style="height:500px;background-color:#fff;text-align:center">
           <div ng-include="'register/index.tpl.html'"></div>

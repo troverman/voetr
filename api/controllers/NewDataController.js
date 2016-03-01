@@ -95,8 +95,10 @@ module.exports = {
 							user: 1
 						};
 
+
+						console.log(billData[key])
 						//console.log(model);
-						Bill.create(model)
+						/*Bill.create(model)
 						.exec(function(err, bill) {
 							if (err) {
 								return console.log(err);
@@ -105,7 +107,7 @@ module.exports = {
 								Bill.publishCreate(bill);
 								res.json(bill);
 							}
-						});
+						});*/
 					}
 			    }
 		});
@@ -115,11 +117,6 @@ module.exports = {
 	votes: function(req, res) {
 		console.log('ok')
 		var govTrack = require('govtrack-node');
-		govTrack.findRole({ current: true }, function(err, res) {
-		  if (!err) {
-		  	console.log(res);
-		  }
-		});
 
 		/*var url = "http://congress.api.sunlightfoundation.com/votes?apikey=c16a6c623ee54948bac2a010ea6fab70";
 		console.log(url);

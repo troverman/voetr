@@ -117,8 +117,10 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "\n" +
     "		<p>real time voting</p>\n" +
     "		<p>bylaw generation</p>\n" +
-    "		<p>a political social network\n" +
+    "		<p>a political social network</p>\n" +
     "		<p>have your voice be heard through collective decision making</p>\n" +
+    "\n" +
+    "    <p>select others to represent your vote at any time</p>\n" +
     "\n" +
     "		<p>we believe in a free and open internet</p>\n" +
     "		<p>we believe in direct democracy</p>\n" +
@@ -160,6 +162,11 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "		<p class=\"lead\">{{bill.billContent}}</p>\n" +
     "\n" +
     "		{{bill.voteCount}}\n" +
+    "\n" +
+    "		<div ng-repeat=\"vote in votes\">\n" +
+    "			<a href=\"/member/{{vote.user.username}}\">{{vote.user.username}}</a>\n" +
+    "\n" +
+    "		</div>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "\n" +
@@ -354,16 +361,8 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
-    "\n" +
     "    <div ng-repeat=\"vote in votes\">\n" +
     "      {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}{{\">{{vote.bill.title}}</a>\n" +
-    "    </div>\n" +
-    "    <div ng-repeat=\"post in posts\">\n" +
-    "      <h4>{{post.title}}</h4>\n" +
-    "      <button class=\"btn btn-default\" ng-mousedown='mouseDown(post.title)' ng-mouseup=\"mouseUp(post.title)\" ng-mouseleave='mouseUp(post.title)'>\n" +
-    "        {{post.time}}\n" +
-    "        <i class=\"fa fa-caret-up\"></i>\n" +
-    "      </button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if logged in-->\n" +
@@ -396,11 +395,19 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "            enter your zipcode\n" +
     "        <div>\n" +
     "\n" +
-    "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
+    "        <div style=\"max-height:500px;background-color:#fff;text-align:center;overflow:hidden\">\n" +
     "            <h1>trending</h1>\n" +
+    "\n" +
+    "            <div ng-repeat=\"bill in bills\">\n" +
+    "              <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <hr>\n" +
+    "\n" +
     "            <div ng-repeat=\"committee in committees\">\n" +
     "              <a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a>\n" +
     "            </div>\n" +
+    "\n" +
     "        </div>\n" +
     "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
     "          <div ng-include=\"'register/index.tpl.html'\"></div>\n" +
@@ -511,18 +518,22 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	<div class=\"content-profile-page\">\n" +
     "	  <div class=\"profile-user-page card\">\n" +
     "	    <div class=\"img-user-profile\">\n" +
-    "	      <img class=\"profile-bgHome\" src=\"/images/crowd1.jpg\" />\n" +
+    "	      <div style=\"height:16em;width: 100%;overflow: hidden;\">\n" +
+    "	      	<img class=\"profile-bgHome\" src=\"/images/crowd1.jpg\" />\n" +
+    "	      </div>\n" +
     "	      <img class=\"avatar\" src=\"/images/trevor.jpg\"/>\n" +
     "	    </div>\n" +
     "	    <div class=\"user-profile-data\">\n" +
     "	      <h1>{{member.username}}</h1>\n" +
-    "	      <button class=\"btn\">follow</button>\n" +
-    "\n" +
+    "	      <button class=\"btn\">follow</button><br>\n" +
+    "	      <button class=\"btn\">represent</button><br>\n" +
     "	    </div>\n" +
     "	    <ul class=\"data-user\">\n" +
-    "	      <li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>\n" +
-    "	      <li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
-    "	      <li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
+    "	   		<li><a><strong>{{following.length}}</strong><span>Representing</span></a></li>\n" +
+    "	    	<li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>\n" +
+    "	   		<li><a><strong>{{votes.length}}</strong><span>Committees</span></a></li>\n" +
+    "	    	<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
+    "	    	<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
     "	    </ul>\n" +
     "	  </div>\n" +
     "	</div>\n" +
