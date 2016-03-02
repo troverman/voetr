@@ -33,6 +33,18 @@ module.exports = {
 		});
 	},
 
+	getCount: function(req, res) {
+		User.count()
+		.exec(function(err, userCount) {
+			if (err) {
+				return console.log(err);
+			}
+			else{
+				res.json({ userCount: userCount });
+			}
+		});
+	},
+
 	getByUsername: function(req, res) {
 		User.find()
 		.where({username: req.param('path')})

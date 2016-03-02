@@ -395,15 +395,17 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "            enter your zipcode\n" +
     "        <div>\n" +
     "\n" +
-    "        <div style=\"max-height:500px;background-color:#fff;text-align:center;overflow:hidden\">\n" +
+    "        <div style=\"max-height:500px;background-color:#fff;text-align:center;overflow:scroll\">\n" +
     "            <h1>trending</h1>\n" +
     "\n" +
+    "\n" +
+    "            <p>{{billCount}} bills</p>\n" +
     "            <div ng-repeat=\"bill in bills\">\n" +
     "              <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
     "            </div>\n" +
     "\n" +
     "            <hr>\n" +
-    "\n" +
+    "            <p>{{committeeCount}} committees</p>\n" +
     "            <div ng-repeat=\"committee in committees\">\n" +
     "              <a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a>\n" +
     "            </div>\n" +
@@ -412,11 +414,11 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
     "          <div ng-include=\"'register/index.tpl.html'\"></div>\n" +
     "        </div>\n" +
-    "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
+    "        <div style=\"max-height:500px;overflow:scroll;background-color:#f1f0ed;text-align:center\">\n" +
     "            <p>numbers and stats infographic</p>\n" +
     "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
     "\n" +
-    "            <p>{{users.length}} voetrs</p>\n" +
+    "            <p>{{userCount}} voetrs</p>\n" +
     "            <div ng-repeat=\"user in users\">\n" +
     "              <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
     "            </div>\n" +
@@ -428,6 +430,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
+    "</div>\n" +
+    "<div class=\"footer\" >\n" +
+    "  2016 VOETR\n" +
     "</div>\n" +
     "\n" +
     "\n" +

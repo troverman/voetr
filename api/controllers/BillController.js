@@ -31,6 +31,18 @@ module.exports = {
 		});
 	},
 
+	getCount: function(req, res) {
+		Bill.count()
+		.exec(function(err, billCount) {
+			if (err) {
+				return console.log(err);
+			}
+			else{
+				res.json({ billCount: billCount });
+			}
+		});
+	},
+
 	getSome: function(req, res) {
 		var limit = req.param('limit');
 		var skip = req.param('skip');

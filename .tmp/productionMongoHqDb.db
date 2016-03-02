@@ -7,9 +7,9 @@
         "committee": 1,
         "title": "To amend the Internal Revenue Code of 1986 to improve and make permanent the credit for carbon dioxide sequestration.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 2,
         "createdAt": "2016-02-27T03:10:02.959Z",
-        "updatedAt": "2016-02-27T03:10:02.959Z",
+        "updatedAt": "2016-03-01T20:18:56.340Z",
         "id": 1021
       },
       {
@@ -18,9 +18,9 @@
         "committee": 1,
         "title": "To amend the Internal Revenue Code of 1986 to exclude from gross income amounts received from a water department for water conservation efficiency measures and water runoff management improvements.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 1,
         "createdAt": "2016-02-27T03:10:03.401Z",
-        "updatedAt": "2016-02-27T03:10:03.401Z",
+        "updatedAt": "2016-03-01T20:36:31.967Z",
         "id": 1022
       },
       {
@@ -11010,6 +11010,14 @@
         "createdAt": "2016-02-22T09:11:02.317Z",
         "updatedAt": "2016-02-22T09:11:02.317Z",
         "id": 1
+      },
+      {
+        "comment": "what do you think?",
+        "bill": 1398,
+        "user": 1622,
+        "createdAt": "2016-03-01T20:39:04.652Z",
+        "updatedAt": "2016-03-01T20:39:04.652Z",
+        "id": 2
       }
     ],
     "committee": [
@@ -101214,6 +101222,14 @@
         "createdAt": "2016-02-22T09:06:08.179Z",
         "updatedAt": "2016-02-22T09:06:08.179Z",
         "id": 1
+      },
+      {
+        "protocol": "local",
+        "password": "$2a$10$uxrGLSALp.ulwup/qFc7KeAxo4G3tFxaq/smcz4WA/X0KeyEwoKMm",
+        "user": 1622,
+        "createdAt": "2016-03-01T20:18:10.596Z",
+        "updatedAt": "2016-03-01T20:18:10.596Z",
+        "id": 2
       }
     ],
     "post": [],
@@ -111472,6 +111488,14 @@
         "createdAt": "2016-02-28T01:29:08.289Z",
         "updatedAt": "2016-02-28T01:29:08.289Z",
         "id": 1621
+      },
+      {
+        "username": "troverman",
+        "email": "troverman@gmail.com",
+        "first_name": "Trevor",
+        "createdAt": "2016-03-01T20:18:10.110Z",
+        "updatedAt": "2016-03-01T20:18:10.110Z",
+        "id": 1622
       }
     ],
     "userinformation": [],
@@ -122275,6 +122299,30 @@
         "createdAt": "2016-02-29T02:06:41.494Z",
         "updatedAt": "2016-02-29T02:06:41.494Z",
         "id": 5610
+      },
+      {
+        "vote": 1,
+        "bill": 1021,
+        "user": 1622,
+        "createdAt": "2016-03-01T20:18:26.820Z",
+        "updatedAt": "2016-03-01T20:18:26.820Z",
+        "id": 5611
+      },
+      {
+        "vote": 1,
+        "bill": 1021,
+        "user": 1622,
+        "createdAt": "2016-03-01T20:18:55.954Z",
+        "updatedAt": "2016-03-01T20:18:55.954Z",
+        "id": 5612
+      },
+      {
+        "vote": 1,
+        "bill": 1022,
+        "user": 1622,
+        "createdAt": "2016-03-01T20:36:31.708Z",
+        "updatedAt": "2016-03-01T20:36:31.708Z",
+        "id": 5613
       }
     ]
   },
@@ -122648,7 +122696,7 @@
       "id": 2020
     },
     "comment": {
-      "id": 1
+      "id": 2
     },
     "committee": {
       "id": 12884
@@ -122657,14 +122705,14 @@
     "committeemember": {},
     "committeevote": {},
     "passport": {
-      "id": 1
+      "id": 2
     },
     "post": {},
     "user": {
-      "id": 1621
+      "id": 1622
     },
     "vote": {
-      "id": 5610
+      "id": 5613
     },
     "userinformation": {}
   }

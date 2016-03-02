@@ -1,0 +1,27 @@
+<!--if logged in-->
+<div ng-show="currentUser">
+  <div style="margin-left:20%;margin-right:20%;">
+    <form class="committee-input" role="form" ng-submit="createCommittee(newCommittee)">
+      <div class="form-group">
+        <input type="text" placeholder= "committee title" ng-model="newCommittee.title" class="form-control" id="postTitle">
+        <input type="text" placeholder= "committee url" ng-model="newCommittee.urlTitle" class="form-control" id="postTitle">
+        <input type="text" placeholder= "committee parent" ng-model="newCommittee.parent" class="form-control" id="postTitle">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<!--/if logged in-->
+<!--<div class="product-list-container" id="committeeScrolling" style="height:50%;width:100%;overflow-y:auto;position:absolute">
+  <div class="committee-list-container" infinite-scroll='loadMore()' infinite-scroll-container="'#committeeScrolling'" infinite-scroll-distance='1' infinite-scroll-parent>-->
+      <br><br>
+      <div class="committee-container" ng-repeat="committee in committees">
+        <h1 class="title"><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h1>
+      </div>
+      <br><br>
+    </div>
+  <!--</div>
+</div>-->
+
+
+<div style="height:100px;"></div>

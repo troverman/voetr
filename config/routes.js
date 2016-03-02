@@ -58,6 +58,7 @@ module.exports.routes = {
    * Bill routes
    */
   'get /api/bill': 'BillController.getAll',
+  'get /api/bill/count': 'BillController.getCount',
   'get /api/bill/:id': 'BillController.getOne',
   'get /api/bill/filter/:limit/:skip': 'BillController.getSome',
   'post /api/bill': 'BillController.create',
@@ -86,6 +87,7 @@ module.exports.routes = {
    * Committee routes
    */
   'get /api/committee': 'CommitteeController.getAll',
+  'get /api/committee/count': 'CommitteeController.getCount',
   'get /api/committee/:id': 'CommitteeController.getOne',
   'get /api/committee/url/:path': 'CommitteeController.getByUrl',
   'get /api/committee/filter/:limit/:skip': 'CommitteeController.getSome',
@@ -117,9 +119,9 @@ module.exports.routes = {
    * User routes
    */
   'get /api/user': 'UserController.getAll',
+  'get /api/user/count': 'UserController.getCount',
   'get /api/user/:id': 'UserController.getOne',
   'get /api/user/filter/:limit/:skip': 'UserController.getSome',
-
   'get /api/user/username/:path': 'UserController.getByUsername',
   'post /api/user': 'UserController.create',
 

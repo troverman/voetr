@@ -45,6 +45,18 @@ module.exports = {
 		});
 	},
 
+	getCount: function(req, res) {
+		Committee.count()
+		.exec(function(err, committeeCount) {
+			if (err) {
+				return console.log(err);
+			}
+			else{
+				res.json({ committeeCount: committeeCount });
+			}
+		});
+	},
+
 	getByUrl: function(req, res) {
 		console.log(req.param('path'));
 		Committee.find()
