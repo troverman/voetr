@@ -1,7 +1,7 @@
 <div ui-view="search">
-	<div>
+	<div style="margin-left:10%;margin-right:10%;margin-top:5%">
 		<div>
-			<h1>{{searchQuery}}</h1>
+			<h1>{{searchQuery}}</h1><hr style="width:100%">
 		</div>
 
 		<!--<input ng-keyup="keyPress(searchValue)" ng-model="searchValue">
@@ -12,10 +12,13 @@
 
 
 		<div ng-repeat="searchResult in searchResults">
-			<h2><a href="/committee/{{searchResult.urlTitle}}">{{searchResult.title}}</a></h2>
+			<h4 ng-show="searchResult.username"><a href="/member/{{searchResult.username}}">{{searchResult.username}}</a></h4>
+			<h4 ng-show="searchResult.billContent"><a href="/bill/{{searchResult.id}}/{{searchResult.title}}">{{searchResult.title}}</a></h4>
+			<h4 ng-show="!searchResult.billContent"><a href="/committee/{{searchResult.urlTitle}}">{{searchResult.title}}</a></h4>
 		</div>
-		<div ng-repeat="searchResult in searchResults">
-			<h2><a href="/member/{{searchResult.username}}">{{searchResult.username}}</a></h2>
-		</div>
+		<br>
+		<!--<div ng-repeat="searchResult in searchResults">
+			<h4><a href="/member/{{searchResult.username}}">{{searchResult.username}}</a></h4>
+		</div>-->
 	</div>
 </div>

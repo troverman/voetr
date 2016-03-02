@@ -126,16 +126,16 @@ body {
     letter-spacing:-0.09em;
 }
 .medium-text {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Jura', sans-serif;
     font-weight: 400;
     font-size: 4em;
     letter-spacing: .05em;
 }
 .small-text {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Jura', sans-serif;
     font-weight: 400;
     font-size: 2.5em;
-    letter-spacing:-0.09em;
+    letter-spacing: 0.05em;
 }
 .learn-more {
   font-size: 25px !important;
@@ -163,7 +163,8 @@ svg mask rect {
 }
 svg > .intro-rect {
     //fill: #2ab996; /* novo green */
-    fill: white;
+    //fill: white;
+    fill:rgba(0,0,0,0.8);
     -webkit-mask: url(#intro-mask);
     mask: url(#intro-mask);
 }

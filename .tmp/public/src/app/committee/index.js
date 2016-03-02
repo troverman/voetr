@@ -42,7 +42,7 @@ angular.module( 'voetr.committee', [
     .state( 'committee.members', {
         url: '/members',
         views: {
-            "committee": {
+            "members": {
                 controller: 'CommitteeMemberCtrl',
                 templateUrl: 'committee/members.tpl.html'
             }
@@ -91,16 +91,6 @@ angular.module( 'voetr.committee', [
 		$scope.vote = vote==flag?'None':flag;
 	};
 
-    $scope.calculateVoteSum = function() {
-        for (i in $scope.bills){
-            $scope.bills[i].voteSum = 0
-            for (j in $scope.bills[i].votes) { 
-                $scope.bills[i].voteSum += $scope.bills[i].votes[j].vote
-            }
-        }
-    }
-    //$scope.calculateVoteSum();
-
     $sailsSocket.subscribe('bill', function (envelope) {
         switch(envelope.verb) {
             case 'created':
@@ -115,20 +105,18 @@ angular.module( 'voetr.committee', [
     $sailsSocket.subscribe('vote', function (envelope) {
         switch(envelope.verb) {
             case 'created':
-                BillModel.getAll().then(function(bills){
+                BillModel.getSome(10,0).then(function(bills){
                     $scope.bills = bills;
-                    //lol lagg
-                    //$scope.calculateVoteSum();
                 });
-                console.log($scope.bills);
                 break;
         }
     });
 
 })
 
-.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket) {
+.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, committee) {
     console.log('CommitteeMemberCtrl');
+    $scope.committee = committee;
 });
 
 

@@ -1,4 +1,4 @@
-#main-container{margin-left:250px;padding-left:15px;}
+#main-container{margin-left:250px;padding-left:30px;}
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -12,6 +12,12 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+
+.committee-title{
+    padding-top:10px;
+    padding-bottom:10px;
+
 }
 
 /* Sidebar Styles */

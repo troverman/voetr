@@ -34,6 +34,7 @@ angular.module( 'voetr.search', [
             }
         },
         resolve: {
+            //restructure to commitee search, bill search, memeber search etccccc
             searchResults: function(SearchModel, $stateParams) {
                 return SearchModel.search($stateParams.searchQuery);
             }

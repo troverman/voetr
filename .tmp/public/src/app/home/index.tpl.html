@@ -12,7 +12,7 @@
   <div ng-show="!currentUser">
     <div ng-include="'intro/index.tpl.html'"></div>
 
-    <div class="heading-container">
+    <!--<div class="heading-container">
         <div class="img-fill">
             <img src="/images/crowd1.jpg" alt="">
             <div class="info">
@@ -20,35 +20,31 @@
                 <p>vote and have your voice heard, come together with the collective power of the internet</p>
             </div>
         </div>
-    </div>  
+    </div>-->
 
     <div id="home-content">
 
-        <div style="height:500px;background-color:#f1f0ed;text-align:center">
+        <div style="height:500px;background-color:#white;text-align:center">
+            <div style="height:88px;"></div>
             <i style="font-size:256px;" class="fa fa-bullhorn"></i>
             <p>the internet's voice</p>
             <p>a decision making cloud</p>
             <p>be part of the movement</p>
             <p>bylaw creation, crowd-sourced government</p>
+            <div style="height:88px;"></div>
         </div>
-
-        <div>
-            enter your zipcode
-        <div>
 
         <div style="max-height:500px;background-color:#fff;text-align:center;overflow:scroll">
             <h1>trending</h1>
-
-
             <p>{{billCount}} bills</p>
             <div ng-repeat="bill in bills">
-              <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+              <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
             </div>
 
             <hr>
             <p>{{committeeCount}} committees</p>
             <div ng-repeat="committee in committees">
-              <a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a>
+              <h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
             </div>
 
         </div>
@@ -63,9 +59,6 @@
             <div ng-repeat="user in users">
               <a href="/member/{{user.username}}">{{user.username}}</a>
             </div>
-
-
-
         </div>
 
     </div>

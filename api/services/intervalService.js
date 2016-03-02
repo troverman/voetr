@@ -142,7 +142,7 @@ function recentBills(){
 						Bill.find()
 						.where({displayNumber: displayNumber})
 						.then(function(billModel){
-							var billModel = billModel
+							var billModel = billModel;
 							if (!err && res.objects.length > 0) {
 								for(x in res.objects){
 									(function(billModel) {
@@ -154,7 +154,7 @@ function recentBills(){
 													.where({bioguide_id: res.objects[x].person.bioguideid})
 													.then(function(userModel) {
 														if(typeof(billModel) != "undefined" && typeof(userModel != "undefined")){
-															console.log('inside:'+x+':'+billModel[0].id)
+															//console.log('inside:'+x+':'+billModel[0].id)
 															//console.log('bill:'+billModel[0].id);
 															//console.log('user:'+userModel[0].id);
 															//console.log('vote:'+res.objects[x].option.value);
@@ -261,6 +261,10 @@ function legislators(){
 						facebook: facebook_id
 					};
 
+					console.log(first_name + last_name + state + fax)
+
+
+					/*
 					console.log(bioguide_id)
 					var model = {
 						username: username,
@@ -285,8 +289,8 @@ function legislators(){
 							User.publishCreate(user);
 						}
 					});
+					*/
 				}
-
 		    }
 	});
 

@@ -206,36 +206,21 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "  <div id=\"sidebar-wrapper\">\n" +
     "    <ul class=\"sidebar-nav\">\n" +
     "      <br>\n" +
-    "      <li>\n" +
-    "          <a href=\"/\">{{committee.title}}</a>\n" +
-    "      </li>\n" +
+    "      <li><a style=\"font-weight:bold\" href=\"/\">{{committee.title}}</a></li>\n" +
     "      <hr>\n" +
-    "      <li>\n" +
-    "          <a href=\"#\">bylaws</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "          <a href=\"committee/{{committee.urlTitle}}/committees\">committees</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "          <a href=\"committee/{{committee.urlTitle}}/bills\">bills</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "          <a href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "          <a href=\"#\">elections</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "          <a href=\"committee/{{committee.urlTitle}}/polls\">polls</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "          <a href=\"committee/{{committee.urlTitle}}/members\">members</a>\n" +
-    "      </li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "      <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
     "  <div id=\"main-container\">\n" +
-    "    <h1>{{committee.title}}</h1>\n" +
-    "\n" +
+    "    <div class=\"committee-title\">\n" +
+    "      <h1>{{committee.title}}</h1>\n" +
+    "    </div>\n" +
     "    <div ng-show=\"currentUser\">\n" +
     "      <br>\n" +
     "      <button class=\"btn btn-primary\">edit committee</button>\n" +
@@ -254,28 +239,27 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "      </div>\n" +
     "    </div>\n" +
     "\n" +
-    "\n" +
     "    <div class=\"bill-list-container\">\n" +
-    "      <br><br>\n" +
     "      <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "\n" +
-    "        <div>\n" +
-    "          <h3>\n" +
-    "            {{bill.voteCount}}\n" +
-    "            <button ng-click=\"createVote(1, bill)\">upvote</button>\n" +
-    "            <button ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
-    "            <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
-    "          </h3>\n" +
+    "        <div class=\"bill-item\">\n" +
+    "          <div>\n" +
+    "            <h4>\n" +
+    "              {{bill.voteCount}}\n" +
+    "              <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\">upvote</button>\n" +
+    "              <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
+    "              <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "            </h4>\n" +
+    "          </div>\n" +
+    "          <div>\n" +
+    "            <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
+    "          </div>\n" +
+    "          <br>\n" +
     "        </div>\n" +
-    "        <div>\n" +
-    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
-    "        </div>\n" +
-    "\n" +
     "      </div>\n" +
-    "      <br><br>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
+    "<!--<div ui-view=\"members\"></div>-->\n" +
     "");
 }]);
 
@@ -283,7 +267,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
   $templateCache.put("committees/index.tpl.html",
     "<!--if logged in-->\n" +
     "<div ng-show=\"currentUser\">\n" +
-    "  <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "  <div style=\"margin-left:20%;margin-right:20%;margin-top:5%\">\n" +
     "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
     "      <div class=\"form-group\">\n" +
     "        <input type=\"text\" placeholder= \"committee title\" ng-model=\"newCommittee.title\" class=\"form-control\" id=\"postTitle\">\n" +
@@ -295,16 +279,14 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "  </div>\n" +
     "</div>\n" +
     "<!--/if logged in-->\n" +
-    "<!--<div class=\"product-list-container\" id=\"committeeScrolling\" style=\"height:50%;width:100%;overflow-y:auto;position:absolute\">\n" +
-    "  <div class=\"committee-list-container\" infinite-scroll='loadMore()' infinite-scroll-container=\"'#committeeScrolling'\" infinite-scroll-distance='1' infinite-scroll-parent>-->\n" +
-    "      <br><br>\n" +
+    "<div class=\"committee-list-parent-container\" id=\"committeeScrolling\">\n" +
+    "  <div class=\"committee-list-container\" infinite-scroll='loadMore()' infinite-scroll-container=\"'#committeeScrolling'\" infinite-scroll-distance='1' infinite-scroll-parent>\n" +
     "      <div class=\"committee-container\" ng-repeat=\"committee in committees\">\n" +
-    "        <h1 class=\"title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h1>\n" +
+    "        <h4 class=\"committees title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
     "      </div>\n" +
-    "      <br><br>\n" +
     "    </div>\n" +
-    "  <!--</div>\n" +
-    "</div>-->\n" +
+    "  </div>\n" +
+    "</div>\n" +
     "\n" +
     "\n" +
     "<div style=\"height:100px;\"></div>");
@@ -371,7 +353,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "  <div ng-show=\"!currentUser\">\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "\n" +
-    "    <div class=\"heading-container\">\n" +
+    "    <!--<div class=\"heading-container\">\n" +
     "        <div class=\"img-fill\">\n" +
     "            <img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
     "            <div class=\"info\">\n" +
@@ -379,35 +361,31 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "                <p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "    </div>  \n" +
+    "    </div>-->\n" +
     "\n" +
     "    <div id=\"home-content\">\n" +
     "\n" +
-    "        <div style=\"height:500px;background-color:#f1f0ed;text-align:center\">\n" +
+    "        <div style=\"height:500px;background-color:white;text-align:center\">\n" +
+    "            <div style=\"height:88px;\"></div>\n" +
     "            <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
     "            <p>the internet's voice</p>\n" +
     "            <p>a decision making cloud</p>\n" +
     "            <p>be part of the movement</p>\n" +
     "            <p>bylaw creation, crowd-sourced government</p>\n" +
+    "            <div style=\"height:88px;\"></div>\n" +
     "        </div>\n" +
-    "\n" +
-    "        <div>\n" +
-    "            enter your zipcode\n" +
-    "        <div>\n" +
     "\n" +
     "        <div style=\"max-height:500px;background-color:#fff;text-align:center;overflow:scroll\">\n" +
     "            <h1>trending</h1>\n" +
-    "\n" +
-    "\n" +
     "            <p>{{billCount}} bills</p>\n" +
     "            <div ng-repeat=\"bill in bills\">\n" +
-    "              <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
+    "              <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
     "            </div>\n" +
     "\n" +
     "            <hr>\n" +
     "            <p>{{committeeCount}} committees</p>\n" +
     "            <div ng-repeat=\"committee in committees\">\n" +
-    "              <a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a>\n" +
+    "              <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
     "            </div>\n" +
     "\n" +
     "        </div>\n" +
@@ -422,9 +400,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "            <div ng-repeat=\"user in users\">\n" +
     "              <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
     "            </div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -442,7 +417,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
 angular.module("intro/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("intro/index.tpl.html",
     "<div class=\"intro-container\">\n" +
-    "    <!--<svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920px\" height=\"1080px\" preserveAspectRatio=\"xMidYMid slice\">\n" +
+    "    <svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920px\" height=\"1080px\" preserveAspectRatio=\"xMidYMid slice\">\n" +
     "        <defs>\n" +
     "            <mask class=\"intro-mask\" id=\"intro-mask\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\">\n" +
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
@@ -479,7 +454,7 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                </g>\n" +
     "            </svg>\n" +
     "        </a>\n" +
-    "    </svg>-->\n" +
+    "    </svg>\n" +
     "\n" +
     "    <video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
     "        <source src=\"/videos/washington.mp4\" type=\"video/webm\">\n" +
@@ -598,9 +573,9 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
 angular.module("search/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/index.tpl.html",
     "<div ui-view=\"search\">\n" +
-    "	<div>\n" +
+    "	<div style=\"margin-left:10%;margin-right:10%;margin-top:5%\">\n" +
     "		<div>\n" +
-    "			<h1>{{searchQuery}}</h1>\n" +
+    "			<h1>{{searchQuery}}</h1><hr style=\"width:100%\">\n" +
     "		</div>\n" +
     "\n" +
     "		<!--<input ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\">\n" +
@@ -611,11 +586,14 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
     "\n" +
     "\n" +
     "		<div ng-repeat=\"searchResult in searchResults\">\n" +
-    "			<h2><a href=\"/committee/{{searchResult.urlTitle}}\">{{searchResult.title}}</a></h2>\n" +
+    "			<h4 ng-show=\"searchResult.username\"><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h4>\n" +
+    "			<h4 ng-show=\"searchResult.billContent\"><a href=\"/bill/{{searchResult.id}}/{{searchResult.title}}\">{{searchResult.title}}</a></h4>\n" +
+    "			<h4 ng-show=\"!searchResult.billContent\"><a href=\"/committee/{{searchResult.urlTitle}}\">{{searchResult.title}}</a></h4>\n" +
     "		</div>\n" +
-    "		<div ng-repeat=\"searchResult in searchResults\">\n" +
-    "			<h2><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h2>\n" +
-    "		</div>\n" +
+    "		<br>\n" +
+    "		<!--<div ng-repeat=\"searchResult in searchResults\">\n" +
+    "			<h4><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h4>\n" +
+    "		</div>-->\n" +
     "	</div>\n" +
     "</div>");
 }]);
