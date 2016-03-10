@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'committee/index.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -164,8 +164,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "		{{bill.voteCount}}\n" +
     "\n" +
     "		<div ng-repeat=\"vote in votes\">\n" +
-    "			<a href=\"/member/{{vote.user.username}}\">{{vote.user.username}}</a>\n" +
-    "\n" +
+    "			{{vote.vote}}<a href=\"/member/{{vote.user.username}}\">{{vote.user.username}}</a>\n" +
     "		</div>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
@@ -200,66 +199,169 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "</div>");
 }]);
 
-angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("committee/index.tpl.html",
-    "<div ui-view=\"committee\">\n" +
-    "  <div id=\"sidebar-wrapper\">\n" +
-    "    <ul class=\"sidebar-nav\">\n" +
-    "      <br>\n" +
-    "      <li><a style=\"font-weight:bold\" href=\"/\">{{committee.title}}</a></li>\n" +
-    "      <hr>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
-    "      <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
-    "    </ul>\n" +
+angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/bills.tpl.html",
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
+    "    <hr>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>-->\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>-->\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>-->\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div id=\"main-container\">\n" +
+    "  <div class=\"committee-title\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
     "  </div>\n" +
-    "  <div id=\"main-container\">\n" +
-    "    <div class=\"committee-title\">\n" +
-    "      <h1>{{committee.title}}</h1>\n" +
-    "    </div>\n" +
-    "    <div ng-show=\"currentUser\">\n" +
-    "      <br>\n" +
-    "      <button class=\"btn btn-primary\">edit committee</button>\n" +
-    "      <br>\n" +
-    "      <br>\n" +
-    "      <button class=\"btn btn-primary\">+ bill</button>\n" +
-    "      <br>\n" +
-    "      <div style=\"margin-left:20%;margin-right:20%;\">\n" +
-    "        <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
-    "          <div class=\"form-group\">\n" +
-    "            <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
-    "            <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
-    "          </div>\n" +
-    "          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "        </form>\n" +
+    "  <h1>bills</h1>\n" +
+    "  <div class=\"bill-list-container\">\n" +
+    "  <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "    <div class=\"bill-item\">\n" +
+    "      <div>\n" +
+    "        <h4>\n" +
+    "          {{bill.voteCount}}\n" +
+    "          <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\">upvote</button>\n" +
+    "          <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
+    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "        </h4>\n" +
     "      </div>\n" +
+    "      <div>\n" +
+    "        <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
+    "      </div>\n" +
+    "      <br>\n" +
     "    </div>\n" +
-    "\n" +
-    "    <div class=\"bill-list-container\">\n" +
-    "      <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "        <div class=\"bill-item\">\n" +
-    "          <div>\n" +
-    "            <h4>\n" +
-    "              {{bill.voteCount}}\n" +
-    "              <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\">upvote</button>\n" +
-    "              <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
-    "              <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
-    "            </h4>\n" +
-    "          </div>\n" +
-    "          <div>\n" +
-    "            <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
-    "          </div>\n" +
-    "          <br>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("committee/discussion.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/discussion.tpl.html",
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
+    "    <hr>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div id=\"main-container\">\n" +
+    "  <div class=\"committee-title\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
+    "  </div>\n" +
+    "  <h1>Discussion</h1>\n" +
+    "  <div ng-repeat=\"post in posts\">\n" +
+    "    <h4>post {{post}}</h4>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("committee/home.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/home.tpl.html",
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"/\">{{committee.title}}</a></li>\n" +
+    "    <hr>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div id=\"main-container\">\n" +
+    "  <div class=\"committee-title\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
+    "  </div>\n" +
+    "  <div ng-show=\"currentUser\">\n" +
+    "    <br>\n" +
+    "    <button class=\"btn btn-primary\">edit committee</button>\n" +
+    "    <br>\n" +
+    "    <br>\n" +
+    "    <button class=\"btn btn-primary\">+ bill</button>\n" +
+    "    <br>\n" +
+    "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
+    "        <div class=\"form-group\">\n" +
+    "          <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
+    "          <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
     "        </div>\n" +
+    "        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "      </form>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"bill-list-container\">\n" +
+    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "      <div class=\"bill-item\">\n" +
+    "        <div>\n" +
+    "          <h4>\n" +
+    "            {{bill.voteCount}}\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\">upvote</button>\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
+    "            <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "          </h4>\n" +
+    "        </div>\n" +
+    "        <div>\n" +
+    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
+    "        </div>\n" +
+    "        <br>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
-    "<!--<div ui-view=\"members\"></div>-->\n" +
+    "");
+}]);
+
+angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/index.tpl.html",
+    "<div ui-view=\"home\"></div>\n" +
+    "<div ui-view=\"bills\"></div>\n" +
+    "<div ui-view=\"discussion\"></div>\n" +
+    "<div ui-view=\"members\"></div>\n" +
+    "\n" +
+    "");
+}]);
+
+angular.module("committee/members.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/members.tpl.html",
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
+    "    <hr>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div id=\"main-container\">\n" +
+    "  <div class=\"committee-title\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
+    "  </div>\n" +
+    "  <h1>members</h1>\n" +
+    "</div>\n" +
     "");
 }]);
 

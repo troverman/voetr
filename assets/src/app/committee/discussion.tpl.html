@@ -1,12 +1,12 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <br>
-    <li><a style="font-weight:bold" href="/">{{committee.title}}</a></li>
+    <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
     <hr>
     <li><a href="committee/{{committee.urlTitle}}">bylaws</a></li>
     <li><a href="committee/{{committee.urlTitle}}/committees">committees</a></li>
     <li><a href="committee/{{committee.urlTitle}}/bills">bills</a></li>
-    <li><a href="committee/{{committee.urlTitle}}">discussion</a></li>
+    <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/discussion">discussion</a></li>
     <li><a href="committee/{{committee.urlTitle}}">elections</a></li>
     <li><a href="committee/{{committee.urlTitle}}">polls</a></li>
     <li><a href="committee/{{committee.urlTitle}}/members">members</a></li>
@@ -16,5 +16,8 @@
   <div class="committee-title">
     <h1>{{committee.title}}</h1>
   </div>
-  <h1>members</h1>
+  <h1>Discussion</h1>
+  <div ng-repeat="post in posts">
+    <h4>post {{post}}</h4>
+  </div>
 </div>

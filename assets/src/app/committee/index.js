@@ -7,35 +7,55 @@ angular.module( 'voetr.committee', [
 		url: '/committee/:path',
 		views: {
 			"main": {
+                controller: 'CommitteeCtrl',
 				templateUrl: 'committee/index.tpl.html'
 			}
 		},
 		resolve: {
             committee: function(CommitteeModel, $stateParams) {
-                return CommitteeModel.getByUrl($stateParams.path).then(function(models) {
-                    return models;
-                });
+                return CommitteeModel.getByUrl($stateParams.path);
             }
         }
 	})
-    .state( 'committee.index', {
+    .state( 'committee.home', {
         url: '',
         views: {
-            "committee": {
-                controller: 'CommitteeCtrl',
-                templateUrl: 'committee/index.tpl.html'
+            "home": {
+                controller: 'CommitteeHomeCtrl',
+                templateUrl: 'committee/home.tpl.html'
             }
         },
         resolve: {
             bills: function(BillModel, VoteModel) {
                 return BillModel.getSome(10,0);
-                //var votes = VoteModel.getAll();
-                //return BillModel.getByCommittee();
-                /*BillModel.getAll().then(function(bills){
-                    VoteModel.getByBill().then(function(votes){
-                        bill.votes = votes
-                    });
-                });*/
+            }
+         }
+    })
+    .state( 'committee.bills', {
+        url: '/bills',
+        views: {
+            "members": {
+                controller: 'CommitteeBillCtrl',
+                templateUrl: 'committee/bills.tpl.html'
+            }
+        },
+        resolve: {
+            bills: function(BillModel, VoteModel) {
+                return BillModel.getSome(10,0);
+            }
+         }
+    })
+    .state( 'committee.discussion', {
+        url: '/discussion',
+        views: {
+            "discussion": {
+                controller: 'CommitteeDiscussionCtrl',
+                templateUrl: 'committee/discussion.tpl.html'
+            }
+        },
+        resolve: {
+            posts: function() {
+                return [1,2,3,4,5,6,7,8];
             }
          }
     })
@@ -57,7 +77,11 @@ angular.module( 'voetr.committee', [
 
 })
 
-.controller( 'CommitteeCtrl', function CommitteeController( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteModel) {
+.controller( 'CommitteeCtrl', function CommitteeCtrl( $scope, committee) {
+    $scope.committee = committee;
+})
+
+.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteModel) {
     $scope.committee = committee;
     if (committee == undefined){
         $location.url('committees');
@@ -114,8 +138,17 @@ angular.module( 'voetr.committee', [
 
 })
 
+.controller( 'CommitteeBillCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, bills) {
+    $scope.committee = committee;
+    $scope.bills = bills;
+})
+
+.controller( 'CommitteeDiscussionCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, committee, posts) {
+    $scope.committee = committee;
+    $scope.posts = posts;
+})
+
 .controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, committee) {
-    console.log('CommitteeMemberCtrl');
     $scope.committee = committee;
 });
 

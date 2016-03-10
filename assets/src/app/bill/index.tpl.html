@@ -18,8 +18,7 @@
 		{{bill.voteCount}}
 
 		<div ng-repeat="vote in votes">
-			<a href="/member/{{vote.user.username}}">{{vote.user.username}}</a>
-
+			{{vote.vote}}<a href="/member/{{vote.user.username}}">{{vote.user.username}}</a>
 		</div>
 		<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i></button>
 		<button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
