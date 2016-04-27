@@ -441,7 +441,7 @@ angular.module("header/index.tpl.html", []).run(["$templateCache", function($tem
 
 angular.module("home/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("home/index.tpl.html",
-    "<div class=\"surface-container-home\">\n" +
+    "<div id=\"wrapper\">\n" +
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
@@ -454,7 +454,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "	<!--if not logged in-->\n" +
     "  <div ng-show=\"!currentUser\">\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
-    "\n" +
     "    <!--<div class=\"heading-container\">\n" +
     "        <div class=\"img-fill\">\n" +
     "            <img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
@@ -503,10 +502,11 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "              <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
+    "\n" +
+    "\n" +
     "</div>\n" +
     "<div class=\"footer\" >\n" +
     "  2016 VOETR\n" +
@@ -526,6 +526,7 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">empowering the internet</text>\n" +
     "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">empowering change</text>\n" +
     "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">seeing past partian politics</text>\n" +
+    "\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
     "                    <svg class=\"tri-before\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +

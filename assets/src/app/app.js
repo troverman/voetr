@@ -10,6 +10,7 @@ angular.module( 'voetr', [
     'templates-app',
     'services',
     'models',
+    'ngMaterial',
     'voetr.sidebar',
     'voetr.about',
     'voetr.account',

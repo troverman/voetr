@@ -82,6 +82,16 @@ function bills(){
 
 };
 
+/*function latestBills(){
+	govTrack.findBill({sort: '-introduced_date', limit:1000}, function(err, res) {
+		if (!err) {
+			for (x in res.objects){
+				console.log(res.objects[x])
+			}
+		}
+	});
+};*/
+
 
 function recentBills(){
 	
@@ -127,7 +137,7 @@ function recentBills(){
 					title: title,
 					user: 1
 				};
-				/*Bill.findOrCreate(model, model)
+				Bill.findOrCreate(model, model)
 				.exec(function(err, bill) {
 					if (err) {
 						return console.log(err);
@@ -136,7 +146,7 @@ function recentBills(){
 						Bill.publishCreate(bill);
 						console.log(bill);
 					}
-				});*/
+				});
 				(function(displayNumber) {
 					govTrack.findVote({related_bill: res.objects[x].id, limit:1000}, function(err, res) {
 						Bill.find()
@@ -149,7 +159,7 @@ function recentBills(){
 										govTrack.findVoteVoter({vote: res.objects[x].id}, function(err, res) {
 											if(!err && res.objects){
 												for(x in res.objects){
-													if(typeof(billModel) != "undefined"){console.log('outside:'+x+':'+billModel[0].id)}
+													//if(typeof(billModel) != "undefined"){console.log('outside:'+x+':'+billModel[0].id)}
 													User.find()
 													.where({bioguide_id: res.objects[x].person.bioguideid})
 													.then(function(userModel) {
@@ -171,7 +181,7 @@ function recentBills(){
 																bill: billModel[0].id,
 																user: userModel[0].id
 															};
-															/*Vote.findOrCreate(model, model)
+															Vote.findOrCreate(model, model)
 															.exec(function(err, vote) {
 																if (err) {
 																	return console.log(err);
@@ -190,7 +200,7 @@ function recentBills(){
 																	Vote.publishCreate(vote);
 																	console.log(vote);
 																}
-															});*/
+															});
 														}
 													});						
 												}
@@ -263,8 +273,6 @@ function legislators(){
 
 					console.log(first_name + last_name + state + fax)
 
-
-					/*
 					console.log(bioguide_id)
 					var model = {
 						username: username,
@@ -289,7 +297,7 @@ function legislators(){
 							User.publishCreate(user);
 						}
 					});
-					*/
+					
 				}
 		    }
 	});
@@ -363,4 +371,6 @@ module.exports.intervalService = function(){
 	//legislators();
 	//govTracker();
     //setInterval(govTracker, 8000);
+    //recentBills(govTracker, 80000);
+
 };

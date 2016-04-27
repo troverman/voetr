@@ -31,7 +31,7 @@ module.exports = {
 
 							console.log(title);
 							Committee.create({title:title, urlTitle:urlTitle}).exec(function createCB(err, created){
-							  console.log('Commitee Created with title: ' + created.title);
+								if(!err){console.log(created);}
 							});
 
 						}

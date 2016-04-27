@@ -12,9 +12,11 @@ angular.module( 'voetr.home', [
 		},
 		resolve:{
 			committees: function(CommitteeModel) {
+				console.log('committees')
 				return CommitteeModel.getSome(10,0);
             },
 			committeeCount: function(CommitteeModel) {
+				console.log('committee count')
 				return CommitteeModel.getCount();
             },
             users: function(UserModel){

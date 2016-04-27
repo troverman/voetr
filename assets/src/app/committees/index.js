@@ -12,7 +12,7 @@ angular.module( 'voetr.committees', [
 		},
 		resolve: {
             committees: function(CommitteeModel) {
-				return CommitteeModel.getSome(100,0);
+				return CommitteeModel.getSome(10,0);
             }
         }
 	});

@@ -1,4 +1,4 @@
-<div class="surface-container-home">
+<div id="wrapper">
 
   <!--if logged in-->
   <div ng-show="currentUser">
@@ -11,7 +11,6 @@
 	<!--if not logged in-->
   <div ng-show="!currentUser">
     <div ng-include="'intro/index.tpl.html'"></div>
-
     <!--<div class="heading-container">
         <div class="img-fill">
             <img src="/images/crowd1.jpg" alt="">
@@ -60,10 +59,11 @@
               <a href="/member/{{user.username}}">{{user.username}}</a>
             </div>
         </div>
-
     </div>
   </div>
   <!--/if not logged in-->
+
+
 </div>
 <div class="footer" >
   2016 VOETR

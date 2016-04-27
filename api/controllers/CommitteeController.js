@@ -23,8 +23,11 @@ module.exports = {
 		var limit = req.param('limit');
 		var skip = req.param('skip');
 
+		console.log('committee')
+
 		Committee.getSome(limit, skip)
 		.then(function(models) {
+			console.log(models)
 			Committee.watch(req);
 			Committee.subscribe(req, models);
 			res.json(models);

@@ -15,9 +15,9 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'styles/**/*.css'
+  'styles/**/*.css',
+  'bower_components/angular-material/angular-material.css'
 ];
-
 
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
@@ -33,6 +33,9 @@ var jsFilesToInject = [
   'bower_components/angular-google-maps/dist/angular-google-maps.js',
   'bower_components/angular-scroll/angular-scroll.js',
   'bower_components/ngInfiniteScroll//build/ng-infinite-scroll.js',
+  'bower_components/angular-animate/angular-animate.min.js',
+  'bower_components/angular-aria/angular-aria.min.js',
+  'bower_components/angular-material/angular-material.js',
 
 
 
