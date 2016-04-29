@@ -15,6 +15,7 @@ angular.module( 'voetr', [
     'voetr.about',
     'voetr.account',
     'voetr.bill',
+    'voetr.bills',
     'voetr.committee',
     'voetr.committees',
     'voetr.home',

@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -197,6 +197,15 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "	</div>\n" +
     "</div>");
+}]);
+
+angular.module("bills/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("bills/index.tpl.html",
+    "<div class=\"committee-container\" ng-repeat=\"bill in bills\">\n" +
+    "  <h4 class=\"committees title\"><a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a></h4>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div style=\"height:100px;\"></div>");
 }]);
 
 angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -490,9 +499,11 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "            </div>\n" +
     "\n" +
     "        </div>\n" +
-    "        <div style=\"height:500px;background-color:#fff;text-align:center\">\n" +
+    "        <div style=\"height:500px;background-color:#D8D8D8;text-align:center\">\n" +
     "          <div ng-include=\"'register/index.tpl.html'\"></div>\n" +
     "        </div>\n" +
+    "\n" +
+    "      \n" +
     "        <div style=\"max-height:500px;overflow:scroll;background-color:#f1f0ed;text-align:center\">\n" +
     "            <p>numbers and stats infographic</p>\n" +
     "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
@@ -633,8 +644,10 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
 angular.module("register/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("register/index.tpl.html",
     "<!--register-->\n" +
+    "        <div class=\"register-form\">\n" +
+    "\n" +
     "<div class=\"row\">\n" +
-    "    <div class=\"col-md-6\">\n" +
+    "    <div class=\"col-md-6 col-md-offset-3\">\n" +
     "        <h3>Create an Account</h3>\n" +
     "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
     "            <div class=\"form-group\">\n" +
@@ -670,7 +683,9 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<a href=\"/login\">already have an account?</a>");
+    "<a href=\"/login\">already have an account?</a>\n" +
+    "\n" +
+    "</div>");
 }]);
 
 angular.module("search/index.tpl.html", []).run(["$templateCache", function($templateCache) {

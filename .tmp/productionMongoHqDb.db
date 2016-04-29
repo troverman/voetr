@@ -112958,6 +112958,14 @@
         "createdAt": "2016-04-25T01:23:02.893Z",
         "updatedAt": "2016-04-25T01:23:02.893Z",
         "id": 1
+      },
+      {
+        "protocol": "local",
+        "password": "$2a$10$LlZooJop3HV34mwMmwMsEOZ/cWXcgPqhdrAqb14vTMXMGDER0BTRK",
+        "user": 542,
+        "createdAt": "2016-04-27T23:02:10.661Z",
+        "updatedAt": "2016-04-27T23:02:10.661Z",
+        "id": 2
       }
     ],
     "post": [],
@@ -123224,6 +123232,14 @@
         "createdAt": "2016-04-25T01:23:02.294Z",
         "updatedAt": "2016-04-25T01:23:02.294Z",
         "id": 541
+      },
+      {
+        "username": "test",
+        "email": "test@test.test",
+        "first_name": "trev",
+        "createdAt": "2016-04-27T23:02:10.136Z",
+        "updatedAt": "2016-04-27T23:02:10.136Z",
+        "id": 542
       }
     ],
     "userinformation": [],
@@ -142318,11 +142334,11 @@
     "committeemember": {},
     "committeevote": {},
     "passport": {
-      "id": 1
+      "id": 2
     },
     "post": {},
     "user": {
-      "id": 541
+      "id": 542
     },
     "userinformation": {},
     "vote": {
