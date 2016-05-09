@@ -30,18 +30,37 @@
             <p>a decision making cloud</p>
             <p>be part of the movement</p>
             <p>bylaw creation, crowd-sourced government</p>
+
+
             <div style="height:88px;"></div>
         </div>
 
-        <div style="max-height:500px;background-color:#fff;text-align:center;overflow:scroll">
-            <h1>trending</h1>
-            <p>{{billCount}} bills</p>
+        <div style="background-color:#fff;text-align:center;">
+            <h2>bills</h2>
+            <p>{{billCount}}</p>
             <div ng-repeat="bill in bills">
+              <!--<md-card>
+                <md-card-title>
+                  <md-card-title-text>
+                    <span class="md-headline">Card with image</span>
+                    <span class="md-subhead">Small</span>
+                  </md-card-title-text>
+                  <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                  </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                  <md-button>yes</md-button>
+                  <md-button>no</md-button>
+                </md-card-actions>
+              </md-card>-->
               <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
             </div>
 
             <hr>
-            <p>{{committeeCount}} committees</p>
+
+            <h2>committees</h2>
+            <p>{{committeeCount}}</p>
             <div ng-repeat="committee in committees">
               <h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
             </div>
@@ -52,7 +71,7 @@
         </div>
 
       
-        <div style="max-height:500px;overflow:scroll;background-color:#f1f0ed;text-align:center">
+        <div style="background-color:#f1f0ed;text-align:center">
             <p>numbers and stats infographic</p>
             <p>local counties / self governing committees / total members / search / political info</p>
 

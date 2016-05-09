@@ -201,11 +201,17 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
 
 angular.module("bills/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("bills/index.tpl.html",
-    "<div class=\"committee-container\" ng-repeat=\"bill in bills\">\n" +
-    "  <h4 class=\"committees title\"><a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a></h4>\n" +
-    "</div>\n" +
-    "\n" +
-    "<div style=\"height:100px;\"></div>");
+    "<md-content>\n" +
+    "	<md-list>\n" +
+    "		<md-subheader class=\"md-no-sticky\">bills</md-subheader>\n" +
+    "		<md-divider ></md-divider>\n" +
+    "		<md-list-item ng-repeat=\"bill in bills\">\n" +
+    "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
+    "				<h4 class=\"committees title\"><a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a></h4>\n" +
+    "			</div>\n" +
+    "		</md-list-item>\n" +
+    "	</md-list>\n" +
+    "</md-content>");
 }]);
 
 angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -482,18 +488,37 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "            <p>a decision making cloud</p>\n" +
     "            <p>be part of the movement</p>\n" +
     "            <p>bylaw creation, crowd-sourced government</p>\n" +
+    "\n" +
+    "\n" +
     "            <div style=\"height:88px;\"></div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div style=\"max-height:500px;background-color:#fff;text-align:center;overflow:scroll\">\n" +
-    "            <h1>trending</h1>\n" +
-    "            <p>{{billCount}} bills</p>\n" +
+    "        <div style=\"background-color:#fff;text-align:center;\">\n" +
+    "            <h2>bills</h2>\n" +
+    "            <p>{{billCount}}</p>\n" +
     "            <div ng-repeat=\"bill in bills\">\n" +
+    "              <!--<md-card>\n" +
+    "                <md-card-title>\n" +
+    "                  <md-card-title-text>\n" +
+    "                    <span class=\"md-headline\">Card with image</span>\n" +
+    "                    <span class=\"md-subhead\">Small</span>\n" +
+    "                  </md-card-title-text>\n" +
+    "                  <md-card-title-media>\n" +
+    "                    <div class=\"md-media-sm card-media\"></div>\n" +
+    "                  </md-card-title-media>\n" +
+    "                </md-card-title>\n" +
+    "                <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
+    "                  <md-button>yes</md-button>\n" +
+    "                  <md-button>no</md-button>\n" +
+    "                </md-card-actions>\n" +
+    "              </md-card>-->\n" +
     "              <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
     "            </div>\n" +
     "\n" +
     "            <hr>\n" +
-    "            <p>{{committeeCount}} committees</p>\n" +
+    "\n" +
+    "            <h2>committees</h2>\n" +
+    "            <p>{{committeeCount}}</p>\n" +
     "            <div ng-repeat=\"committee in committees\">\n" +
     "              <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
     "            </div>\n" +
@@ -504,7 +529,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        </div>\n" +
     "\n" +
     "      \n" +
-    "        <div style=\"max-height:500px;overflow:scroll;background-color:#f1f0ed;text-align:center\">\n" +
+    "        <div style=\"background-color:#f1f0ed;text-align:center\">\n" +
     "            <p>numbers and stats infographic</p>\n" +
     "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
     "\n" +
@@ -573,8 +598,11 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "    <video id=\"video\" autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\">\n" +
     "        <source src=\"/videos/washington.mp4\" type=\"video/webm\">\n" +
     "    </video>\n" +
-    "    <!--<img src=\"/images/capitol.jpg\">-->\n" +
-    "</div>");
+    "</div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "");
 }]);
 
 angular.module("login/index.tpl.html", []).run(["$templateCache", function($templateCache) {

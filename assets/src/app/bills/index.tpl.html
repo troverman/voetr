@@ -1,5 +1,11 @@
-<div class="committee-container" ng-repeat="bill in bills">
-  <h4 class="committees title"><a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a></h4>
-</div>
-
-<div style="height:100px;"></div>
+<md-content>
+	<md-list>
+		<md-subheader class="md-no-sticky">bills</md-subheader>
+		<md-divider ></md-divider>
+		<md-list-item ng-repeat="bill in bills">
+			<div class="md-list-item-text" layout="column">
+				<h4 class="committees title"><a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a></h4>
+			</div>
+		</md-list-item>
+	</md-list>
+</md-content>

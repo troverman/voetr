@@ -16,7 +16,7 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'styles/**/*.css',
-  'bower_components/angular-material/angular-material.css'
+  //'bower_components/angular-material/angular-material.css'
 ];
 
 // Client-side javascript files to inject in order
