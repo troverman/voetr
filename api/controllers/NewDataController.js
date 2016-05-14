@@ -23,13 +23,11 @@ module.exports = {
 						//sails.log(key + " -> " + cityData[key]);
 
 						var cityArray = cityData[key];
-
+						console.log(cityArray.length)
 		        		for (var key in cityArray) {
 
 		        			var title = cityArray[key];
 							var urlTitle = cityArray[key].replace(/ /g,"-").toLowerCase();
-
-							if (urlTitle == 'knoxville'){console.log('knoxville')}
 
 							var model = {
 								title: title,
