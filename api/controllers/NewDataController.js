@@ -29,8 +29,13 @@ module.exports = {
 		        			var title = cityArray[key];
 							var urlTitle = cityArray[key].replace(/ /g,"-").toLowerCase();
 
+							var model = {
+								title: title,
+								urlTitle: urlTitle,
+							};
+
 							console.log(title);
-							Committee.create({title:title, urlTitle:urlTitle}).exec(function createCB(err, created){
+							Committee.findOrCreate(model,model).exec(function createCB(err, created){
 								if(!err){console.log(created);}
 							});
 
