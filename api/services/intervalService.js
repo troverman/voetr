@@ -94,6 +94,8 @@ function bills(){
 
 
 function recentBills(){
+
+	console.log('recentbills')
 	
 	/*
 	Q = require('q');
@@ -143,7 +145,7 @@ function recentBills(){
 						return console.log(err);
 					}
 					else {
-						Bill.publishCreate(bill);
+						//Bill.publishCreate(bill);
 						console.log(bill);
 					}
 				});
@@ -152,6 +154,7 @@ function recentBills(){
 						Bill.find()
 						.where({displayNumber: displayNumber})
 						.then(function(billModel){
+							console.log(billModel)
 							var billModel = billModel;
 							if (!err && res.objects.length > 0) {
 								for(x in res.objects){
