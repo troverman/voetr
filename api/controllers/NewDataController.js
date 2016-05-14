@@ -35,7 +35,7 @@ module.exports = {
 							};
 
 							console.log(title);
-							Committee.findOrCreate(model,model).exec(function createCB(err, created){
+							Committee.findOrCreate({urlTitle: urlTitle},model).exec(function createCB(err, created){
 								if(!err){console.log(created);}
 							});
 
