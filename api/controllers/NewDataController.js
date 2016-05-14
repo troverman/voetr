@@ -187,13 +187,16 @@ module.exports = {
 						var twitter_id = congressData[key].twitter_id;
 						var website = congressData[key].website;
 
-						var username = first_name + '.' + last_name;
-						var email = first_name + '.' + last_name + '@gmail.com';
+						var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
+						var email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
 						var socialMedia = {
 							twitter: twitter_id,
 							facebook: facebook_id
 						};
 
+						console.log(first_name + last_name + state + fax)
+
+						console.log(bioguide_id)
 						var model = {
 							username: username,
 							email: email,
@@ -204,23 +207,9 @@ module.exports = {
 							phone: phone,
 							party: party,
 							term_end: term_end,
-							term_start: term_start
+							term_start: term_start,
+							bioguide_id: bioguide_id
 						};
-
-						var url = "http://congress.api.sunlightfoundation.com/votes?voter_ids." +bioguide_id + "&apikey=c16a6c623ee54948bac2a010ea6fab70";
-
-						request({
-							    url: url,
-							    json: true
-							}, function (error, response, body) {
-			        			var voteData = body.results;
-								console.log(voteData.length)
-
-								//console.log(body);
-
-								//votes?voter_ids.A000055__exists=true
-						});
-
 
 						User.findOrCreate(model, model)
 						.exec(function(err, user) {
@@ -229,11 +218,10 @@ module.exports = {
 							}
 							else {
 								User.publishCreate(user);
-								res.json(user);
 							}
 						});
+						
 					}
-
 			    }
 		});
 
