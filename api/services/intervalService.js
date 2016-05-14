@@ -146,7 +146,7 @@ function recentBills(){
 					}
 					else {
 						//Bill.publishCreate(bill);
-						console.log(bill);
+						//console.log(bill);
 					}
 				});
 				(function(displayNumber) {
@@ -154,7 +154,6 @@ function recentBills(){
 						Bill.find()
 						.where({displayNumber: displayNumber})
 						.then(function(billModel){
-							console.log(billModel)
 							var billModel = billModel;
 							if (!err && res.objects.length > 0) {
 								for(x in res.objects){
@@ -178,6 +177,7 @@ function recentBills(){
 															if(res.objects[x].option.value == 'Nay'){
 																vote = -1;
 															}
+															console.log(billModel)
 															var model = {
 																vote: vote,
 																voteString: res.objects[x].option.value,
