@@ -211,7 +211,7 @@ module.exports = {
 							bioguide_id: bioguide_id
 						};
 
-						User.findOrCreate(model, model)
+						User.findOrCreate({bioguide_id: bioguide_id}, model)
 						.exec(function(err, user) {
 							if (err) {
 								return console.log(err);
