@@ -181,7 +181,7 @@ function recentBills(){
 																bill: billModel[0].id,
 																user: userModel[0].id
 															};
-															Vote.findOrCreate([{bill:bill},{user:user},{vote:vote}], model)
+															Vote.findOrCreate([{bill:bill},{user:user}], model)
 															.exec(function(err, vote) {
 																if (err) {
 																	return console.log(err);
@@ -370,7 +370,7 @@ module.exports.intervalService = function(){
 	recentBills();
 	//legislators();
     setInterval(recentBills, 86400000);
-    setInterval(legislators, 86400000);
+    //setInterval(legislators, 86400000);
 
     //recentBills(govTracker, 80000);
 
