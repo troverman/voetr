@@ -367,7 +367,7 @@ function govTracker(){
 
 
 module.exports.intervalService = function(){
-	//recentBills();
+	recentBills();
 	//legislators();
     setInterval(recentBills, 86400000);
     setInterval(legislators, 86400000);
