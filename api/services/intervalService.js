@@ -137,7 +137,7 @@ function recentBills(){
 					title: title,
 					user: 1
 				};
-				Bill.findOrCreate(model, model)
+				Bill.findOrCreate({displayNumber:displayNumber}, model)
 				.exec(function(err, bill) {
 					if (err) {
 						return console.log(err);
@@ -181,7 +181,7 @@ function recentBills(){
 																bill: billModel[0].id,
 																user: userModel[0].id
 															};
-															Vote.findOrCreate(model, model)
+															Vote.findOrCreate([{bill:bill},{user:user},{vote:vote}], model)
 															.exec(function(err, vote) {
 																if (err) {
 																	return console.log(err);
@@ -288,7 +288,7 @@ function legislators(){
 						bioguide_id: bioguide_id
 					};
 
-					User.findOrCreate(model, model)
+					User.findOrCreate({bioguide_id: bioguide_id}, model)
 					.exec(function(err, user) {
 						if (err) {
 							return console.log(err);
