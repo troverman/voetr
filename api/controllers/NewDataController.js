@@ -222,7 +222,7 @@ module.exports = {
 						});
 
 
-						/*User.findOrCreate(model, model)
+						User.findOrCreate(model, model)
 						.exec(function(err, user) {
 							if (err) {
 								return console.log(err);
@@ -231,7 +231,7 @@ module.exports = {
 								User.publishCreate(user);
 								res.json(user);
 							}
-						});*/
+						});
 					}
 
 			    }
