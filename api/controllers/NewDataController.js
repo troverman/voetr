@@ -29,14 +29,16 @@ module.exports = {
 		        			var title = cityArray[key];
 							var urlTitle = cityArray[key].replace(/ /g,"-").toLowerCase();
 
+							if (urlTitle == 'knoxville'){console.log('knoxville')}
+
 							var model = {
 								title: title,
 								urlTitle: urlTitle,
 							};
 
-							console.log(title);
+							//console.log(title);
 							Committee.findOrCreate({urlTitle: urlTitle},model).exec(function createCB(err, created){
-								if(!err){console.log(created);}
+								//if(!err){console.log(created);}
 							});
 
 						}
