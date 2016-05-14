@@ -184,7 +184,7 @@ function recentBills(){
 																bill: billModel[0].id,
 																user: userModel[0].id
 															};
-															Vote.findOrCreate([{bill:bill},{user:user}], model)
+															Vote.findOrCreate([{bill:billModel[0].id},{user:userModel[0].id}], model)
 															.exec(function(err, vote) {
 																if (err) {
 																	return console.log(err);
