@@ -129,8 +129,9 @@ function recentBills(){
 			for (x in res.objects){
 				console.log(res.objects[x])
 				var title = res.objects[x].title_without_number;
-				var billContent = res.objects[x].display_number
-				var displayNumber = res.objects[x].display_number
+				var billContent = res.objects[x].display_number;
+				var displayNumber = res.objects[x].display_number;
+				sails.log(displayNumber)
 				var model = {
 					billContent: billContent,
 					displayNumber: displayNumber,
@@ -148,7 +149,6 @@ function recentBills(){
 						//console.log(bill);
 					}
 				});
-				console.log(displayNumber)
 				(function(displayNumber) {
 					govTrack.findVote({related_bill: res.objects[x].id, limit:1000}, function(err, res) {
 						Bill.find()
