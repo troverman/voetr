@@ -11,7 +11,6 @@ angular.module( 'voetr', [
     'services',
     'models',
     'ngMaterial',
-    'voetr.sidebar',
     'voetr.about',
     'voetr.account',
     'voetr.bill',
@@ -21,6 +20,7 @@ angular.module( 'voetr', [
     'voetr.home',
     'voetr.login',
     'voetr.member',
+    'voetr.nav',
     'voetr.search',
     'voetr.register',
     'voetr.intro'

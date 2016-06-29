@@ -66,7 +66,7 @@ module.exports.routes = {
   'get /api/bill': 'BillController.getAll',
   'get /api/bill/count': 'BillController.getCount',
   'get /api/bill/:id': 'BillController.getOne',
-  'get /api/bill/filter/:limit/:skip': 'BillController.getSome',
+  'get /api/bill/filter/:limit/:skip/:sort': 'BillController.getSome',
   'post /api/bill': 'BillController.create',
   'delete /api/bill/:id': 'BillController.destroy',
 

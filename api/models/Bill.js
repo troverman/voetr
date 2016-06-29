@@ -46,9 +46,9 @@ module.exports = {
     },
 
     getSome: function(limiting, skipping, sort) {
-
+        console.log(sort)
         return Bill.find()
-        .sort('voteCount DESC')
+        .sort(sort)
         .limit(limiting)
         .skip(skipping)
         .then(function (models) {

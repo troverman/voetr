@@ -62,7 +62,8 @@ module.exports = {
 		var model = {
 			username: req.param('username'),
 			email: req.param('email'),
-			first_name: req.param('first_name')
+			first_name: req.param('first_name'),
+			avatarUrl: req.param('avatarUrl')
 		};
 
 		User.create(model)

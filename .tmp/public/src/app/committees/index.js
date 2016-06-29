@@ -12,7 +12,7 @@ angular.module( 'voetr.committees', [
 		},
 		resolve: {
             committees: function(CommitteeModel) {
-				return CommitteeModel.getSome(10,0);
+				return CommitteeModel.getSome(100,0);
             }
         }
 	});
@@ -25,6 +25,22 @@ angular.module( 'voetr.committees', [
     $scope.currentUser = config.currentUser;
     $scope.skip = 0;
 
+    $scope.loadMore = function() {
+		$scope.skip = $scope.skip + 100;
+		console.log($scope.skip);
+		CommitteeModel.getSome(100,$scope.skip).then(function(committees) {
+			Array.prototype.push.apply($scope.committees, committees);
+			console.log($scope.committees);
+		});
+	};
+
+	$scope.createCommittee = function(newCommittee) {
+        //newCommittee.user = config.currentUser.id;
+        CommitteeModel.create(newCommittee).then(function(model) {
+            $scope.newCommittee = {};
+        });
+    };
+
     $sailsSocket.subscribe('committee', function (envelope) {
 	    switch(envelope.verb) {
 	        case 'created':
@@ -35,22 +51,6 @@ angular.module( 'voetr.committees', [
 	            break;
 	    }
     });
-
-    /*$scope.loadMore = function() {
-		$scope.skip = $scope.skip + 10;
-		console.log($scope.skip);
-		CommitteeModel.getSome(10,$scope.skip).then(function(committees) {
-			Array.prototype.push.apply($scope.committees, committees);
-			console.log($scope.committees);
-		});
-	};*/
-
-	$scope.createCommittee = function(newCommittee) {
-        //newCommittee.user = config.currentUser.id;
-        CommitteeModel.create(newCommittee).then(function(model) {
-            $scope.newCommittee = {};
-        });
-    };
 
 });
 

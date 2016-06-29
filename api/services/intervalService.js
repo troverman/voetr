@@ -276,6 +276,7 @@ function legislators(){
 					console.log(first_name + last_name + state + fax)
 
 					console.log(bioguide_id)
+					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
 					var model = {
 						username: username,
 						email: email,
@@ -287,7 +288,8 @@ function legislators(){
 						party: party,
 						term_end: term_end,
 						term_start: term_start,
-						bioguide_id: bioguide_id
+						bioguide_id: bioguide_id,
+						avatarUrl: avatarUrl
 					};
 
 					User.findOrCreate({bioguide_id: bioguide_id}, model)
@@ -299,8 +301,63 @@ function legislators(){
 							User.publishCreate(user);
 						}
 					});
-					
+					User.update({bioguide_id: bioguide_id}, model);
 				}
+		    }
+	});
+
+};
+
+function stateLegislators(){
+
+	var url = "http://openstates.org/api/v1//legislators/?active=true&apikey=c16a6c623ee54948bac2a010ea6fab70";
+	request({
+		    url: url,
+		    json: true
+		}, function (error, response, body) {
+		    if (!error && response.statusCode === 200) {
+				var stateData = body;
+				for (x in stateData) {
+					console.log(stateData[x])
+					var first_name = stateData[x].first_name;
+					var last_name = stateData[x].last_name;
+					var photo_url = stateData[x].photo_url;
+					var offices = stateData[x].offices;
+					var state = stateData[x].state;
+					var party = stateData[x].party;
+					var leg_id = stateData[x].leg_id;
+
+					//console.log(offices[0].fax)
+
+					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
+					var email =  stateData[x].email;
+
+					var model = {
+						username: username,
+						email: email,
+						first_name: first_name,
+						last_name: last_name,
+
+						//phone: offices[0].phone,
+						//fax: offices[0].fax,
+
+						leg_id: leg_id,
+						party: party,
+						avatarUrl: photo_url,
+						state : state
+					};
+
+					User.findOrCreate({leg_id: leg_id}, model)
+					.exec(function(err, user) {
+						if (err) {
+							return console.log(err);
+						}
+						else {
+							User.publishCreate(user);
+						}
+					});
+				}
+
 		    }
 	});
 
@@ -367,13 +424,49 @@ function govTracker(){
 
 };
 
+function committees(){
+
+var url = "http://congress.api.sunlightfoundation.com/committees?per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70"
+
+	request({
+			    url: url,
+			    json: true
+			}, function (error, response, body) {
+		    	if (!error) {
+		        	var committeeData = body.results;
+		        	for (x in committeeData){
+
+						var title = committeeData[x].name;
+						var urlTitle = title.replace(/ /g,"-").toLowerCase();
+						var chamber = committeeData[x].chamber;
+						var committee_id = committeeData[x].committee_id;
+						var subcommittee = committeeData[x].subcommittee;
+						var parent_committee_id = committeeData[x].parent_committee_id;
+
+						var model = {
+							title: title,
+							urlTitle: urlTitle,
+							chamber: chamber,
+							committee_id: committee_id,
+							subcommittee: subcommittee,
+							parent_committee_id: parent_committee_id
+						};
+
+						Committee.findOrCreate({urlTitle: urlTitle}, model).exec(function createCB(err, created){
+							if(!err){console.log(created);}
+						});
+		        	}
+		    	}
+		});
+
+};
 
 module.exports.intervalService = function(){
+	stateLegislators();
+	committees();
 	recentBills();
-	//legislators();
+	legislators();
     setInterval(recentBills, 86400000);
-    //setInterval(legislators, 86400000);
-
-    //recentBills(govTracker, 80000);
+    setInterval(legislators, 86400000);
 
 };

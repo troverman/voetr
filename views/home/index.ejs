@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="/styles/css/responsive.css">
         <link rel="stylesheet" href="/styles/css/sidebar.css">
         <link rel="stylesheet" href="/styles/css/theme.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
         <!--STYLES END-->
 
         <!--FONTS-->
@@ -46,7 +47,7 @@
         </script>
     <% } %>
 
-    <div ng-include="'header/index.tpl.html'"></div>
+    <div ng-include="'nav/index.tpl.html'"></div>
     <div class="" ui-view="main" style="width:100%;margin:0px;margin-top:50px;"></div>
 
     <!--SCRIPTS-->
@@ -71,11 +72,11 @@
     <script src="/src/app/bills/index.js"></script>
     <script src="/src/app/committee/index.js"></script>
     <script src="/src/app/committees/index.js"></script>
-    <script src="/src/app/header/index.js"></script>
     <script src="/src/app/home/index.js"></script>
     <script src="/src/app/intro/index.js"></script>
     <script src="/src/app/login/index.js"></script>
     <script src="/src/app/member/index.js"></script>
+    <script src="/src/app/nav/index.js"></script>
     <script src="/src/app/register/index.js"></script>
     <script src="/src/app/search/index.js"></script>
     <script src="/src/common/models/bill.js"></script>

@@ -20,10 +20,15 @@
  */
 module.exports.connections = {
 
+
   productionMongoHqDb: {
     adapter: 'sails-mongo',
     url: 'mongodb://heroku_ckqkfh38:fld1c1ko900aogontskj4st4h7@ds023042.mlab.com:23042/heroku_ckqkfh38'
     //url: process.env.MONGOLAB_URI
+  },
+
+   productionMongoHqDb: {
+    adapter: 'sails-disk',
   }
 
 };

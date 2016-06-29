@@ -13,13 +13,14 @@
 </div>
 <!--/if logged in-->
 <div class="committee-list-parent-container" id="committeeScrolling">
-  <div class="committee-list-container" infinite-scroll='loadMore()' infinite-scroll-container="'#committeeScrolling'" infinite-scroll-distance='1' infinite-scroll-parent>
+  <div class="committee-list-container">
       <div class="committee-container" ng-repeat="committee in committees">
         <h4 class="committees title"><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
       </div>
     </div>
   </div>
 </div>
+<div ng-click="loadMore()">LOAD MORE</div>
 
 
 <div style="height:100px;"></div>

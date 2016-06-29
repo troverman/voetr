@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'header/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -201,17 +201,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
 
 angular.module("bills/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("bills/index.tpl.html",
-    "<md-content>\n" +
-    "	<md-list>\n" +
-    "		<md-subheader class=\"md-no-sticky\">bills</md-subheader>\n" +
-    "		<md-divider ></md-divider>\n" +
-    "		<md-list-item ng-repeat=\"bill in bills\">\n" +
-    "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
-    "				<h4 class=\"committees title\"><a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a></h4>\n" +
-    "			</div>\n" +
-    "		</md-list-item>\n" +
-    "	</md-list>\n" +
-    "</md-content>");
+    "");
 }]);
 
 angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -397,61 +387,17 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "</div>\n" +
     "<!--/if logged in-->\n" +
     "<div class=\"committee-list-parent-container\" id=\"committeeScrolling\">\n" +
-    "  <div class=\"committee-list-container\" infinite-scroll='loadMore()' infinite-scroll-container=\"'#committeeScrolling'\" infinite-scroll-distance='1' infinite-scroll-parent>\n" +
+    "  <div class=\"committee-list-container\">\n" +
     "      <div class=\"committee-container\" ng-repeat=\"committee in committees\">\n" +
     "        <h4 class=\"committees title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
+    "<div ng-click=\"loadMore()\">LOAD MORE</div>\n" +
     "\n" +
     "\n" +
     "<div style=\"height:100px;\"></div>");
-}]);
-
-angular.module("header/index.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("header/index.tpl.html",
-    "<style>\n" +
-    "\n" +
-    ".navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
-    "\n" +
-    "</style>\n" +
-    "\n" +
-    "<div ng-controller=\"HeaderCtrl\">\n" +
-    "    <div class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
-    "      <div class=\"container\">\n" +
-    "        <div class=\"navbar-header\">\n" +
-    "          <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
-    "            <span class=\"sr-only\">Toggle navigation</span>\n" +
-    "            <span class=\"icon-bar\"></span>\n" +
-    "            <span class=\"icon-bar\"></span>\n" +
-    "            <span class=\"icon-bar\"></span>\n" +
-    "          </button>\n" +
-    "          <a class=\"navbar-brand\" href=\"/\"><i style=\"color:#fff\" class=\"fa fa-check\"></i>oetr</a>\n" +
-    "        </div>\n" +
-    "        <div class=\"collapse navbar-collapse\">\n" +
-    "          <ul class=\"nav navbar-nav\">\n" +
-    "            <li><a href=\"/about\">about</a></li>\n" +
-    "            <li><a href=\"/committees\">committees</a></li>\n" +
-    "            <li><a href=\"/search\">search</a></li>\n" +
-    "\n" +
-    "            <form class=\"navbar-form pull-left\" role=\"search\" action=\"/search/\" onSubmit=\" location.href = 'search/' + document.getElementById('search-link').value; return false;\">\n" +
-    "              <div class=\"form-group\">\n" +
-    "                <input ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\" id=\"search-link\" size=\"40\" type=\"text\" placeholder=\"\">\n" +
-    "              </div>\n" +
-    "            </form>\n" +
-    "\n" +
-    "            <li ng-show=\"currentUser\"><a href=\"/account\">account</a></li>\n" +
-    "            <li ng-show=\"currentUser\"><a href=\"/logout\">signout</a></li>\n" +
-    "            <li ng-show=\"!currentUser\"><a href=\"/register\">register</a></li>\n" +
-    "            <li ng-show=\"!currentUser\"><a href=\"/login\">login</a></li>\n" +
-    "          </ul>\n" +
-    "        </div><!--/.nav-collapse -->\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "");
 }]);
 
 angular.module("home/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -640,15 +586,15 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	<div class=\"content-profile-page\">\n" +
     "	  <div class=\"profile-user-page card\">\n" +
     "	    <div class=\"img-user-profile\">\n" +
-    "	      <div style=\"height:16em;width: 100%;overflow: hidden;\">\n" +
-    "	      	<img class=\"profile-bgHome\" src=\"/images/crowd1.jpg\" />\n" +
+    "	      <div style=\"height:25em;width: 100%;overflow: hidden;\">\n" +
+    "	      	<img class=\"profile-bgHome\" src=\"/images/capitol.jpg\" />\n" +
     "	      </div>\n" +
-    "	      <img class=\"avatar\" src=\"/images/trevor.jpg\"/>\n" +
+    "	      <img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
     "	    </div>\n" +
     "	    <div class=\"user-profile-data\">\n" +
     "	      <h1>{{member.username}}</h1>\n" +
     "	      <button class=\"btn\">follow</button><br>\n" +
-    "	      <button class=\"btn\">represent</button><br>\n" +
+    "	      <button class=\"btn\">elect</button><br>\n" +
     "	    </div>\n" +
     "	    <ul class=\"data-user\">\n" +
     "	   		<li><a><strong>{{following.length}}</strong><span>Representing</span></a></li>\n" +
@@ -661,12 +607,87 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	</div>\n" +
     "	<div id=\"profile-activity\">\n" +
     "\n" +
-    "		<div ng-repeat=\"vote in votes\">\n" +
+    "\n" +
+    "		<md-card ng-repeat=\"vote in votes\">\n" +
+    "			<md-card-title>\n" +
+    "				<md-card-title-text>\n" +
+    "					<p>{{member.username}} voted {{vote.vote}}</p>\n" +
+    "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "				</md-card-title-text>\n" +
+    "				<md-card-title-media>\n" +
+    "					<div class=\"md-media-lg card-media\"></div>\n" +
+    "				</md-card-title-media>\n" +
+    "			</md-card-title>\n" +
+    "		</md-card>\n" +
+    "		<!--<div ng-repeat=\"vote in votes\">\n" +
     "			<p>{{member.username}} voted {{vote.vote}} on <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a></p>\n" +
-    "		</div>\n" +
+    "		</div>-->\n" +
     "		\n" +
+    "		  \n" +
+    "		  <!--<md-content class=\"md-padding\" layout-xs=\"column\" layout=\"row\">\n" +
+    "		    <div flex-xs=\"\" flex-gt-xs=\"50\" layout=\"column\">\n" +
+    "		      <md-card>\n" +
+    "		        <md-card-title>\n" +
+    "		          <md-card-title-text>\n" +
+    "		            <span class=\"md-headline\">Card with image</span>\n" +
+    "		            <span class=\"md-subhead\">Large</span>\n" +
+    "		          </md-card-title-text>\n" +
+    "		          <md-card-title-media>\n" +
+    "		            <div class=\"md-media-lg card-media\"></div>\n" +
+    "		          </md-card-title-media>\n" +
+    "		        </md-card-title>\n" +
+    "		        <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
+    "		          <md-button>Action 1</md-button>\n" +
+    "		          <md-button>Action 2</md-button>\n" +
+    "		        </md-card-actions>\n" +
+    "		      </md-card>\n" +
+    "		    </div>\n" +
+    "		  </md-content>-->\n" +
+    "		\n" +
+    "\n" +
+    "\n" +
     "	</div>\n" +
     "</div>");
+}]);
+
+angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("nav/index.tpl.html",
+    "<style>\n" +
+    ".navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
+    "</style>\n" +
+    "\n" +
+    "<div class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
+    "  <div class=\"container\">\n" +
+    "    <div class=\"navbar-header\">\n" +
+    "      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
+    "        <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "      </button>\n" +
+    "      <a class=\"navbar-brand\" href=\"/\"><i style=\"color:#fff\" class=\"fa fa-check\"></i>oetr</a>\n" +
+    "    </div>\n" +
+    "    <div class=\"collapse navbar-collapse\">\n" +
+    "      <ul class=\"nav navbar-nav\">\n" +
+    "        <li><a href=\"/about\">about</a></li>\n" +
+    "        <li><a href=\"/committees\">committees</a></li>\n" +
+    "        <li><a href=\"/search\">search</a></li>\n" +
+    "\n" +
+    "        <form class=\"navbar-form pull-left\" role=\"search\" action=\"/search/\" onSubmit=\" location.href = 'search/' + document.getElementById('search-link').value; return false;\">\n" +
+    "          <div class=\"form-group\">\n" +
+    "            <input ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\" id=\"search-link\" size=\"40\" type=\"text\" placeholder=\"\">\n" +
+    "          </div>\n" +
+    "        </form>\n" +
+    "\n" +
+    "        <li ng-show=\"currentUser\"><a href=\"/account\">account</a></li>\n" +
+    "        <li ng-show=\"currentUser\"><a href=\"/logout\">signout</a></li>\n" +
+    "        <li ng-show=\"!currentUser\"><a href=\"/register\">register</a></li>\n" +
+    "        <li ng-show=\"!currentUser\"><a href=\"/login\">login</a></li>\n" +
+    "      </ul>\n" +
+    "    </div><!--/.nav-collapse -->\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("register/index.tpl.html", []).run(["$templateCache", function($templateCache) {

@@ -26,7 +26,7 @@ angular.module( 'voetr.home', [
 				return UserModel.getCount();
             },
             bills: function(BillModel){
-                return BillModel.getSome(10,0);
+                return BillModel.getSome(10,0, 'createdAt DESC');
             },
 			billCount: function(BillModel){
 				return BillModel.getCount();
