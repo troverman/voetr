@@ -24,7 +24,6 @@ angular.module( 'voetr', [
     'voetr.search',
     'voetr.register',
     'voetr.intro'
-
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {

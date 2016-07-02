@@ -507,7 +507,7 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
     "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">empowering the internet</text>\n" +
     "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">empowering change</text>\n" +
-    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">seeing past partian politics</text>\n" +
+    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">seeing past partisan politics</text>\n" +
     "\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
@@ -656,7 +656,7 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
     ".navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
     "</style>\n" +
     "\n" +
-    "<div class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
+    "<div ng-controller=\"NavCtrl\" class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
     "  <div class=\"container\">\n" +
     "    <div class=\"navbar-header\">\n" +
     "      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +

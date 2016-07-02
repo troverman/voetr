@@ -462,10 +462,10 @@ var url = "http://congress.api.sunlightfoundation.com/committees?per_page=all&ap
 };
 
 module.exports.intervalService = function(){
-	stateLegislators();
-	committees();
-	recentBills();
-	legislators();
+	//stateLegislators();
+	//committees();
+	//recentBills();
+	//legislators();
     setInterval(recentBills, 86400000);
     setInterval(legislators, 86400000);
 
