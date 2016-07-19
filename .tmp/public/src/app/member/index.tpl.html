@@ -8,14 +8,17 @@
 	      <img class="avatar" src="{{member.avatarUrl}}"/>
 	    </div>
 	    <div class="user-profile-data">
-	      <h1>{{member.username}}</h1>
+	      <h3>{{member.username}}</h3>
 	      <button class="btn">follow</button><br>
-	      <button class="btn">elect</button><br>
+	      <button class="btn">select</button><br>
+	      <!--can have dif reps per committee-->
+	      <!--represented by (list of reps with each committee)-->
+	      <!--committee member list have a select button?-->
 	    </div>
 	    <ul class="data-user">
+	    	<li><a><strong>{{votes.length}}</strong><span>Committees</span></a></li>
 	   		<li><a><strong>{{following.length}}</strong><span>Representing</span></a></li>
 	    	<li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>
-	   		<li><a><strong>{{votes.length}}</strong><span>Committees</span></a></li>
 	    	<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>
 	    	<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>
 	    </ul>
@@ -35,9 +38,9 @@
 				</md-card-title-media>
 			</md-card-title>
 		</md-card>
-		<!--<div ng-repeat="vote in votes">
-			<p>{{member.username}} voted {{vote.vote}} on <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a></p>
-		</div>-->
+		<div ng-repeat="vote in votes">
+			<p>{{member.username}} voted {{vote.vote}} on <a href="/bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></p>
+		</div>
 		
 		  
 		  <!--<md-content class="md-padding" layout-xs="column" layout="row">

@@ -592,14 +592,17 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      <img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
     "	    </div>\n" +
     "	    <div class=\"user-profile-data\">\n" +
-    "	      <h1>{{member.username}}</h1>\n" +
+    "	      <h3>{{member.username}}</h3>\n" +
     "	      <button class=\"btn\">follow</button><br>\n" +
-    "	      <button class=\"btn\">elect</button><br>\n" +
+    "	      <button class=\"btn\">select</button><br>\n" +
+    "	      <!--can have dif reps per committee-->\n" +
+    "	      <!--represented by (list of reps with each committee)-->\n" +
+    "	      <!--committee member list have a select button?-->\n" +
     "	    </div>\n" +
     "	    <ul class=\"data-user\">\n" +
+    "	    	<li><a><strong>{{votes.length}}</strong><span>Committees</span></a></li>\n" +
     "	   		<li><a><strong>{{following.length}}</strong><span>Representing</span></a></li>\n" +
     "	    	<li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>\n" +
-    "	   		<li><a><strong>{{votes.length}}</strong><span>Committees</span></a></li>\n" +
     "	    	<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
     "	    	<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
     "	    </ul>\n" +
@@ -619,9 +622,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "				</md-card-title-media>\n" +
     "			</md-card-title>\n" +
     "		</md-card>\n" +
-    "		<!--<div ng-repeat=\"vote in votes\">\n" +
-    "			<p>{{member.username}} voted {{vote.vote}} on <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a></p>\n" +
-    "		</div>-->\n" +
+    "		<div ng-repeat=\"vote in votes\">\n" +
+    "			<p>{{member.username}} voted {{vote.vote}} on <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></p>\n" +
+    "		</div>\n" +
     "		\n" +
     "		  \n" +
     "		  <!--<md-content class=\"md-padding\" layout-xs=\"column\" layout=\"row\">\n" +

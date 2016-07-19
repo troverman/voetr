@@ -60,6 +60,7 @@ function bills(){
 							billContent: billContent,
 							committee: 1,
 							title: title,
+							urlTitle: title.replace(/ /g,"-").toLowerCase(),
 							user: 1
 						};
 
@@ -318,7 +319,6 @@ function stateLegislators(){
 		    if (!error && response.statusCode === 200) {
 				var stateData = body;
 				for (x in stateData) {
-					console.log(stateData[x])
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
 					var photo_url = stateData[x].photo_url;
@@ -347,7 +347,9 @@ function stateLegislators(){
 						state : state
 					};
 
-					User.findOrCreate({leg_id: leg_id}, model)
+					console.log(model);
+
+					/*User.findOrCreate({leg_id: leg_id}, model)
 					.exec(function(err, user) {
 						if (err) {
 							return console.log(err);
@@ -355,7 +357,7 @@ function stateLegislators(){
 						else {
 							User.publishCreate(user);
 						}
-					});
+					});*/
 				}
 
 		    }
@@ -462,7 +464,7 @@ var url = "http://congress.api.sunlightfoundation.com/committees?per_page=all&ap
 };
 
 module.exports.intervalService = function(){
-	//stateLegislators();
+	stateLegislators();
 	//committees();
 	//recentBills();
 	//legislators();

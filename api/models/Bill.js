@@ -12,6 +12,10 @@ module.exports = {
             type: 'string',
             required: true
         },
+        urlTitle: {
+            type: 'string',
+            required: true
+        },
         displayNumber: {
             type: 'string',
         },

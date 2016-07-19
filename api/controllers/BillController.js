@@ -68,6 +68,7 @@ module.exports = {
 			billContent: billContent,
 			committee: committee,
 			title: title,
+			urlTitle: title.replace(/ /g,"-").toLowerCase(),
 			user: user
 		};
 
