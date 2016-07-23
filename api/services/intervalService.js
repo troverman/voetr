@@ -615,8 +615,10 @@ module.exports.intervalService = function(){
 	});
 
 	for (x in states){
-		console.log(states[x])
-		stateBills(states[x])
+		if(x <10){
+			console.log(states[x])
+			stateBills(states[x])
+		}
 	}
 
 	//openStates();
