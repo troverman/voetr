@@ -20,7 +20,7 @@ module.exports = {
             type: 'string',
         },
         billContent: {
-            type: 'string',
+            type: 'json',
             required: true
         },
         committee: {

@@ -7,9 +7,9 @@
         "committee": 1,
         "title": "To prohibit discrimination in public accommodations on the basis of sex, gender identity, and sexual orientation, and for other purposes.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 2,
         "createdAt": "2016-06-27T04:40:48.319Z",
-        "updatedAt": "2016-06-27T04:40:48.319Z",
+        "updatedAt": "2016-07-19T03:13:36.372Z",
         "id": 1
       },
       {
@@ -29,9 +29,9 @@
         "committee": 1,
         "title": "To control the export of electronic waste in order to ensure that such waste does not become the source of counterfeit goods that may reenter military and civilian electronics supply chains in the United States, and for other purposes.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 3,
         "createdAt": "2016-06-27T04:40:48.354Z",
-        "updatedAt": "2016-06-27T04:40:48.354Z",
+        "updatedAt": "2016-07-19T03:14:50.982Z",
         "id": 3
       },
       {
@@ -40,9 +40,9 @@
         "committee": 1,
         "title": "To amend the Outer Continental Shelf Lands Act to authorize the Secretary of the Interior to conduct offshore oil and gas lease sales through Internet-based live lease sales, and for other purposes.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 3,
         "createdAt": "2016-06-27T04:40:48.370Z",
-        "updatedAt": "2016-06-27T04:40:48.370Z",
+        "updatedAt": "2016-07-19T03:14:57.568Z",
         "id": 4
       },
       {
@@ -5507,9 +5507,9 @@
         "committee": 1,
         "title": "Supporting the goals and ideals of May 23 as the “International Day to End Obstetric Fistula” to significantly raise awareness and intensify actions towards ending obstetric fistula.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 2,
         "createdAt": "2016-06-27T04:40:58.782Z",
-        "updatedAt": "2016-06-27T04:40:58.782Z",
+        "updatedAt": "2016-07-19T03:14:46.838Z",
         "id": 501
       },
       {
@@ -5540,9 +5540,9 @@
         "committee": 1,
         "title": "A concurrent resolution expressing the sense of Congress that the Federal excise tax on heavy-duty trucks should not be increased.",
         "user": 1,
-        "voteCount": 0,
+        "voteCount": 1,
         "createdAt": "2016-06-27T04:40:58.861Z",
-        "updatedAt": "2016-06-27T04:40:58.861Z",
+        "updatedAt": "2016-07-19T03:14:06.784Z",
         "id": 504
       },
       {
@@ -11000,6 +11000,1018 @@
         "createdAt": "2016-06-27T04:41:14.455Z",
         "updatedAt": "2016-06-27T04:41:14.455Z",
         "id": 1000
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2013-10-22 00:00:00",
+              "action": "Introduction",
+              "type": [
+                "bill:introduced"
+              ],
+              "related_entities": [],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://dcclims1.dccouncil.us/lims/legislation.aspx?LegNo=B20-0539"
+            }
+          ],
+          "session": "20",
+          "id": "DCB00004504",
+          "votes": [],
+          "documents": [],
+          "title": "\"ST. MATTHEWS EVANGELICAL LUTHERAN CHURCH COMMUNITY GARDEN EQUITABLE REAL PROPERTY TAX RELIEF ACT OF 2013\".",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00004504"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "bill"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000008",
+              "type": "primary",
+              "name": "Wells"
+            }
+          ],
+          "updated_at": "2013-10-30 04:15:11",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2013-10-22 00:00:00",
+            "signed": null,
+            "first": "2013-10-22 00:00:00"
+          },
+          "created_at": "2013-10-30 04:15:11",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://dcclims1.dccouncil.us/images/00001/20131029125826.pdf",
+              "doc_id": "DCD00007380",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "B 20-0539"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "\"ST. MATTHEWS EVANGELICAL LUTHERAN CHURCH COMMUNITY GARDEN EQUITABLE REAL PROPERTY TAX RELIEF ACT OF 2013\".",
+        "urlTitle": "\"st.-matthews-evangelical-lutheran-church-community-garden-equitable-real-property-tax-relief-act-of-2013\".",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:35.639Z",
+        "updatedAt": "2016-07-23T20:45:35.639Z",
+        "id": 1001
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2015-10-30 00:00:00",
+              "action": "comments from committee",
+              "type": [
+                "other"
+              ],
+              "related_entities": [
+                {
+                  "type": "committee",
+                  "name": "Education",
+                  "id": "DCC000032"
+                }
+              ],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/CA21-0234"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00006621",
+          "votes": [],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/34797/CA21-0234-Letter-to-Mayor1.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00012853",
+              "name": "Letter-to-Mayor"
+            },
+            {
+              "url": "http://lims.dccouncil.us/Download/34797/CA21-0234_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00012555",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Proposed contract to exercise option year one (1) with National Service Contractors, Inc.",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00006621"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "bill"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "Phil Mendelson"
+            }
+          ],
+          "updated_at": "2015-11-21 07:30:51",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2015-10-30 00:00:00",
+            "signed": null,
+            "first": "2015-10-30 00:00:00"
+          },
+          "+additional_information": "The attached proposed contract to exercise option year one (1) with National Service Contractors, Inc. in the amount of $1,483,777.44 to provide janitorial and related services seven (7) days a week at twenty-five DC Public Library neighborhood branch libraries was filed in the Office of the Secretary on October 30, 2015.      \n\nThe Council's ten day review begins Monday, November 2, 2015, including Saturdays, Sundays, Council recess and legal holidays. The proposed contract will be deemed approved on Thursday, November 12, 2015, unless a resolution of approval or disapproval is introduced within the ten day review period, extending the review to 45 days.\n",
+          "created_at": "2015-11-05 19:59:12",
+          "versions": [],
+          "chamber": "upper",
+          "bill_id": "CA 21-0234"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Proposed contract to exercise option year one (1) with National Service Contractors, Inc.",
+        "urlTitle": "proposed-contract-to-exercise-option-year-one-(1)-with-national-service-contractors,-inc.",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:35.812Z",
+        "updatedAt": "2016-07-23T20:45:35.813Z",
+        "id": 1002
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2015-11-16 00:00:00",
+              "action": "comments from committee",
+              "type": [
+                "other"
+              ],
+              "related_entities": [
+                {
+                  "type": "committee",
+                  "name": "Committee of the Whole",
+                  "id": null
+                }
+              ],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/CA21-0241"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00006693",
+          "votes": [],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/34884/CA21-0241-Letter-to-Mayor1.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00013080",
+              "name": "Letter-to-Mayor"
+            },
+            {
+              "url": "http://lims.dccouncil.us/Download/34884/CA21-0241_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00012851",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Proposed contract with The Standard Insurance Company",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00006693"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "bill"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "Phil Mendelson"
+            }
+          ],
+          "updated_at": "2015-12-04 07:33:29",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2015-11-16 00:00:00",
+            "signed": null,
+            "first": "2015-11-16 00:00:00"
+          },
+          "+additional_information": "The attached proposed contract with The Standard Insurance Company in the amount of $9,039,778.00 to underwrite and administer the following insurance plans: a) Plan 1 - Group term; life accidental and dismemberment (AD&D); and conversion life insurance which shall include portable term life insurance, b) Plan 2 – Short term disability (STD) insurance, and c) Plan 3 – long term disability (LTD) insurance was filed in the Office of the Secretary on November 16, 2015.      \n     \nThe Council's ten day review begins Thursday, November 19, 2015, including Saturdays, Sundays, Council recess and legal holidays. The proposed contract will be deemed approved on Sunday, November 29, 2015, unless a resolution of approval or disapproval is introduced within the ten day review period, extending the review to 45 days.\n",
+          "created_at": "2015-11-20 07:31:12",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/34884/CA21-0241-Introduction.pdf",
+              "doc_id": "DCD00012850",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "CA 21-0241"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Proposed contract with The Standard Insurance Company",
+        "urlTitle": "proposed-contract-with-the-standard-insurance-company",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:35.969Z",
+        "updatedAt": "2016-07-23T20:45:35.969Z",
+        "id": 1003
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2016-05-17 00:00:00",
+              "action": "referred to committee",
+              "type": [
+                "committee:referred"
+              ],
+              "related_entities": [
+                {
+                  "type": "committee",
+                  "name": "Business, Consumer, and Regulatory Affairs",
+                  "id": "DCC000029"
+                }
+              ],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/PR21-0708"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00007575",
+          "votes": [],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/35773/PR21-0708-Letter-to-Mayor1.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00016660",
+              "name": "Letter-to-Mayor"
+            },
+            {
+              "url": "http://lims.dccouncil.us/Download/35773/PR21-0708_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00015433",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Board of Funeral Directors Mr. John McGuire Confirmation Resolution of 2016",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00007575"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "bill"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "Phil Mendelson"
+            }
+          ],
+          "updated_at": "2016-07-08 04:56:22",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2016-05-17 00:00:00",
+            "signed": null,
+            "first": "2016-05-17 00:00:00"
+          },
+          "+additional_information": "Deemed approved 7/2/2016",
+          "created_at": "2016-05-06 06:47:42",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/35773/PR21-0708-Introduction.pdf",
+              "doc_id": "DCD00015432",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "PR 21-0708"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Board of Funeral Directors Mr. John McGuire Confirmation Resolution of 2016",
+        "urlTitle": "board-of-funeral-directors-mr.-john-mcguire-confirmation-resolution-of-2016",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:36.100Z",
+        "updatedAt": "2016-07-23T20:45:36.100Z",
+        "id": 1004
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2013-09-17 00:00:00",
+              "action": "Introduction",
+              "type": [
+                "bill:introduced"
+              ],
+              "related_entities": [],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://dcclims1.dccouncil.us/lims/legislation.aspx?LegNo=CA20-0182"
+            }
+          ],
+          "session": "20",
+          "id": "DCB00004270",
+          "votes": [],
+          "documents": [],
+          "title": "\"PROPOSED CONTRACT MODIFICATION WITH INDUSTRIAL BANK, N.A. FOR $6,973,600.00\".",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00004270"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "contract"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "PMendelson"
+            },
+            {
+              "leg_id": null,
+              "official_type": "requestor",
+              "type": "cosponsor",
+              "name": "the Office of the Chief Financial Officer",
+              "committee_id": null
+            }
+          ],
+          "updated_at": "2014-02-12 01:08:49",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2013-09-17 00:00:00",
+            "signed": null,
+            "first": "2013-09-17 00:00:00"
+          },
+          "created_at": "2013-09-19 03:27:56",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://dcclims1.dccouncil.us/images/00001/20130923111846.pdf",
+              "doc_id": "DCD00007065",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "CA 20-0182"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "\"PROPOSED CONTRACT MODIFICATION WITH INDUSTRIAL BANK, N.A. FOR $6,973,600.00\".",
+        "urlTitle": "\"proposed-contract-modification-with-industrial-bank,-n.a.-for-$6,973,600.00\".",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:36.222Z",
+        "updatedAt": "2016-07-23T20:45:36.222Z",
+        "id": 1005
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2016-05-17 00:00:00",
+              "action": "referred to committee",
+              "type": [
+                "committee:referred"
+              ],
+              "related_entities": [
+                {
+                  "type": "committee",
+                  "name": "Housing and Community Development",
+                  "id": "DCC000055"
+                }
+              ],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/PR21-0769"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00007686",
+          "votes": [],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/35883/PR21-0769-Letter-to-Mayor1.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00016710",
+              "name": "Letter-to-Mayor"
+            },
+            {
+              "url": "http://lims.dccouncil.us/Download/35883/PR21-0769_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00015705",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Commission on Asian and Pacific Islander Community Development Martha Watanabe Confirmation Resolution of 2016",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00007686"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "bill"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "Phil Mendelson"
+            }
+          ],
+          "updated_at": "2016-07-08 04:57:41",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2016-05-17 00:00:00",
+            "signed": null,
+            "first": "2016-05-17 00:00:00"
+          },
+          "+additional_information": "Deemed approved 7/2/16",
+          "created_at": "2016-05-20 04:50:35",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/35883/PR21-0769-Introduction.pdf",
+              "doc_id": "DCD00015704",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "PR 21-0769"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Commission on Asian and Pacific Islander Community Development Martha Watanabe Confirmation Resolution of 2016",
+        "urlTitle": "commission-on-asian-and-pacific-islander-community-development-martha-watanabe-confirmation-resolution-of-2016",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:36.347Z",
+        "updatedAt": "2016-07-23T20:45:36.347Z",
+        "id": 1006
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2016-06-08 00:00:00",
+              "action": "comments from committee",
+              "type": [
+                "other"
+              ],
+              "related_entities": [
+                {
+                  "type": "committee",
+                  "name": "Education",
+                  "id": "DCC000032"
+                },
+                {
+                  "type": "committee",
+                  "name": "Transportation and the Environment",
+                  "id": "DCC000028"
+                }
+              ],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/REPROG21-0193"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00007791",
+          "votes": [],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/35991/REPROG21-0193-Letter-to-Mayor1.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00016505",
+              "name": "Letter-to-Mayor"
+            },
+            {
+              "url": "http://lims.dccouncil.us/Download/35991/REPROG21-0193_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00015994",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Request to reprogram $1,436,507 of Capital Funds Budget Authority and Allotment from the District of Columbia Public Schools to the Department of Parks and Recreation",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00007791"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "resolution"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "Phil Mendelson"
+            }
+          ],
+          "updated_at": "2016-07-01 04:54:46",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2016-06-08 00:00:00",
+            "signed": null,
+            "first": "2016-06-08 00:00:00"
+          },
+          "+additional_information": "Notice is given that the attached request to reprogram $1,436,507 of Capital funds budget authority and allotment from the District of Columbia Public Schools (DCPS) to the Department of Parks and Recreation (DPR) was filed in the Office of the Secretary on June 8, 2016.  This reprogramming is needed for the construction of the new playground at Joy Evans Recreation Center for use by the students at Van Ness Elementary School. \n\nThe Council's 14 day review begins Thursday, June 9, 2016, and the request  will be deemed approved on Thursday, June 23, 2016, unless a notice of disapproval is filed prior to that time which would extend the review period 30 days.  The request would then be deemed approved on the 31st day of receipt unless an approval or disapproval resolution is adopted prior to that time.\n",
+          "created_at": "2016-06-10 04:52:00",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/35991/REPROG21-0193-Introduction.pdf",
+              "doc_id": "DCD00015993",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "REPROG 21-0193"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Request to reprogram $1,436,507 of Capital Funds Budget Authority and Allotment from the District of Columbia Public Schools to the Department of Parks and Recreation",
+        "urlTitle": "request-to-reprogram-$1,436,507-of-capital-funds-budget-authority-and-allotment-from-the-district-of-columbia-public-schools-to-the-department-of-parks-and-recreation",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:36.471Z",
+        "updatedAt": "2016-07-23T20:45:36.471Z",
+        "id": 1007
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2015-10-22 00:00:00",
+              "action": "comments from committee",
+              "type": [
+                "other"
+              ],
+              "related_entities": [
+                {
+                  "type": "committee",
+                  "name": "Business, Consumer, and Regulatory Affairs",
+                  "id": "DCC000029"
+                }
+              ],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/REPROG21-0143"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00006557",
+          "votes": [],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/34739/REPROG21-0143-Letter-to-Mayor1.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00012825",
+              "name": "Letter-to-Mayor"
+            },
+            {
+              "url": "http://lims.dccouncil.us/Download/34739/REPROG21-0143_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00012387",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Request to reprogram $560,000 of Local Funds Budget Authority from the Department of Employment Services to the Pay-As-You-Go Capital Fund",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00006557"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "resolution"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "Phil Mendelson"
+            }
+          ],
+          "updated_at": "2015-11-17 07:31:25",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2015-10-22 00:00:00",
+            "signed": null,
+            "first": "2015-10-22 00:00:00"
+          },
+          "+additional_information": "Notice is given that the attached request to reprogram $560,000 of Local funds budget authority from the Department of Employment Services (DOES) to the Pay-As-You-Go (Paygo) Capital Funds was filed in the Office of the Secretary on October 22, 2015.  This reprogramming is needed to procure the simulators and modify the existing space to accommodate and secure the simulator equipment.\n\nThe Council's 14 day review begins Friday, October 23, 2015, and the request  will be deemed approved on Friday, November 6, 2015, unless a notice of disapproval is filed prior to that time which would extend the review period 30 days.  The request would then be deemed approved on the 31st day of receipt unless an approval or disapproval resolution is adopted prior to that time.\n",
+          "created_at": "2015-10-24 06:28:54",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/34739/REPROG21-0143-Introduction.pdf",
+              "doc_id": "DCD00012386",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "REPROG 21-0143"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Request to reprogram $560,000 of Local Funds Budget Authority from the Department of Employment Services to the Pay-As-You-Go Capital Fund",
+        "urlTitle": "request-to-reprogram-$560,000-of-local-funds-budget-authority-from-the-department-of-employment-services-to-the-pay-as-you-go-capital-fund",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:36.590Z",
+        "updatedAt": "2016-07-23T20:45:36.590Z",
+        "id": 1008
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2012-09-28 00:00:00",
+              "action": "Introduction",
+              "type": [
+                "bill:introduced"
+              ],
+              "related_entities": [],
+              "actor": "upper"
+            },
+            {
+              "date": "2012-12-04 00:00:00",
+              "action": "Final Vote",
+              "type": [
+                "bill:reading:3"
+              ],
+              "related_entities": [],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://dcclims1.dccouncil.us/lims/legislation.aspx?LegNo=PR19-1027"
+            }
+          ],
+          "session": "19",
+          "id": "DCB00002744",
+          "votes": [
+            {
+              "other_count": 3,
+              "other_votes": [
+                {
+                  "leg_id": "DCL000012",
+                  "name": "Marion Barry"
+                },
+                {
+                  "leg_id": "DCL000004",
+                  "name": "Michael A. MBrown"
+                },
+                {
+                  "leg_id": "DCL000005",
+                  "name": "Phil Mendelson"
+                }
+              ],
+              "yes_count": 10,
+              "yes_votes": [
+                {
+                  "leg_id": "DCL000010",
+                  "name": "Yvette Alexander"
+                },
+                {
+                  "leg_id": "DCL000011",
+                  "name": "Muriel Bowser"
+                },
+                {
+                  "leg_id": "DCL000003",
+                  "name": "David Catania"
+                },
+                {
+                  "leg_id": "DCL000002",
+                  "name": "Mary M. Cheh"
+                },
+                {
+                  "leg_id": "DCL000009",
+                  "name": "Jack Evans"
+                },
+                {
+                  "leg_id": "DCL000007",
+                  "name": "Jim Graham"
+                },
+                {
+                  "leg_id": "DCL000017",
+                  "name": "Kenyan McDuffie"
+                },
+                {
+                  "leg_id": "DCL000014",
+                  "name": "Vincent Orange"
+                },
+                {
+                  "leg_id": "DCL000005",
+                  "name": "Phil PMendelson"
+                },
+                {
+                  "leg_id": "DCL000008",
+                  "name": "Tommy Wells"
+                }
+              ],
+              "+voice_vote": true,
+              "id": "DCV00002171",
+              "motion": "Final Reading",
+              "chamber": "upper",
+              "state": "dc",
+              "session": "19",
+              "sources": [
+                {
+                  "url": "http://dcclims1.dccouncil.us/lims/voting.aspx?VoteTypeID=2&LegID=PR19-1027"
+                }
+              ],
+              "passed": true,
+              "date": "2012-12-04 00:00:00",
+              "vote_id": "DCV00002171",
+              "type": "other",
+              "no_count": 0,
+              "bill_id": "DCB00002744",
+              "no_votes": []
+            }
+          ],
+          "documents": [],
+          "title": "\"TASK ORDERS TO HUMAN CARE AGREEMENT NO. DCHC-2011-H-0002 APPROVAL AND PAYMENT AUTHORIZATION EMERGENCY DECLARATION RESOLUTION OF 2012\".",
+          "alternate_titles": [],
+          "companions": [],
+          "all_ids": [
+            "DCB00002744"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "resolution"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000005",
+              "type": "primary",
+              "name": "PMendelson"
+            },
+            {
+              "leg_id": null,
+              "official_type": "requestor",
+              "type": "cosponsor",
+              "name": "the Mayor"
+            }
+          ],
+          "updated_at": "2012-12-14 01:45:19",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2012-12-04 00:00:00",
+            "signed": null,
+            "first": "2012-09-28 00:00:00"
+          },
+          "created_at": "2012-10-04 03:36:56",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://dcclims1.dccouncil.us/images/00001/20121129132851.pdf",
+              "doc_id": "DCD00004814",
+              "name": "Introduction"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "PR 19-1027"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "\"TASK ORDERS TO HUMAN CARE AGREEMENT NO. DCHC-2011-H-0002 APPROVAL AND PAYMENT AUTHORIZATION EMERGENCY DECLARATION RESOLUTION OF 2012\".",
+        "urlTitle": "\"task-orders-to-human-care-agreement-no.-dchc-2011-h-0002-approval-and-payment-authorization-emergency-declaration-resolution-of-2012\".",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:36.752Z",
+        "updatedAt": "2016-07-23T20:45:36.752Z",
+        "id": 1009
+      },
+      {
+        "billContent": {
+          "actions": [
+            {
+              "date": "2016-04-05 00:00:00",
+              "action": "Final Reading",
+              "type": [
+                "bill:reading:3"
+              ],
+              "related_entities": [],
+              "actor": "upper"
+            }
+          ],
+          "sources": [
+            {
+              "url": "http://lims.dccouncil.us/Legislation/PR21-0629"
+            }
+          ],
+          "session": "21",
+          "id": "DCB00007369",
+          "votes": [
+            {
+              "other_count": 0,
+              "other_votes": [],
+              "yes_count": 13,
+              "yes_votes": [
+                {
+                  "leg_id": "DCL000010",
+                  "name": "Yvette Alexander"
+                },
+                {
+                  "leg_id": "DCL000021",
+                  "name": "Anita Bonds"
+                },
+                {
+                  "leg_id": "DCL000002",
+                  "name": "Mary Cheh"
+                },
+                {
+                  "leg_id": "DCL000009",
+                  "name": "Jack Evans"
+                },
+                {
+                  "leg_id": "DCL000020",
+                  "name": "David Grosso"
+                },
+                {
+                  "leg_id": "DCL000017",
+                  "name": "Kenyan McDuffie"
+                },
+                {
+                  "leg_id": "DCL000014",
+                  "name": "Vincent Orange"
+                },
+                {
+                  "leg_id": "DCL000005",
+                  "name": "Phil Mendelson"
+                },
+                {
+                  "leg_id": "DCL000025",
+                  "name": "Elissa Silverman"
+                },
+                {
+                  "leg_id": "DCL000024",
+                  "name": "Charles Allen"
+                },
+                {
+                  "leg_id": "DCL000023",
+                  "name": "Brianne Nadeau"
+                },
+                {
+                  "leg_id": "DCL000026",
+                  "name": "Brandon Todd"
+                },
+                {
+                  "leg_id": "DCL000027",
+                  "name": "LaRuby May"
+                }
+              ],
+              "id": "DCV00004425",
+              "motion": "Final Reading",
+              "sources": [],
+              "state": "dc",
+              "session": "21",
+              "passed": true,
+              "chamber": "upper",
+              "date": "2016-04-05 00:00:00",
+              "vote_id": "DCV00004425",
+              "type": "other",
+              "no_count": 0,
+              "bill_id": "DCB00007369",
+              "no_votes": []
+            }
+          ],
+          "documents": [
+            {
+              "url": "http://lims.dccouncil.us/Download/35559/PR21-0629_Memorandum.pdf",
+              "mimetype": "application/pdf",
+              "doc_id": "DCD00014882",
+              "name": "Memorandum"
+            }
+          ],
+          "title": "Business Improvement Districts Sunset Repeal Emergency Declaration Resolution of 2016",
+          "alternate_titles": [
+            "R21-0453"
+          ],
+          "companions": [],
+          "all_ids": [
+            "DCB00007369"
+          ],
+          "state": "dc",
+          "subjects": [],
+          "type": [
+            "bill"
+          ],
+          "sponsors": [
+            {
+              "leg_id": "DCL000009",
+              "type": "primary",
+              "name": "Jack Evans"
+            },
+            {
+              "leg_id": "DCL000014",
+              "type": "primary",
+              "name": "Vincent Orange"
+            }
+          ],
+          "updated_at": "2016-04-12 06:44:18",
+          "action_dates": {
+            "passed_upper": null,
+            "passed_lower": null,
+            "last": "2016-04-05 00:00:00",
+            "signed": null,
+            "first": "2016-04-05 00:00:00"
+          },
+          "created_at": "2016-04-07 06:43:27",
+          "versions": [
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/35559/PR21-0629-Introduction.pdf",
+              "doc_id": "DCD00014881",
+              "name": "Introduction"
+            },
+            {
+              "mimetype": "application/pdf",
+              "url": "http://lims.dccouncil.us/Download/35559/PR21-0629-Enrollment.pdf",
+              "doc_id": "DCD00014967",
+              "name": "Enrollment"
+            }
+          ],
+          "chamber": "upper",
+          "bill_id": "PR 21-0629"
+        },
+        "displayNumber": "DCB00008004",
+        "committee": 1,
+        "title": "Business Improvement Districts Sunset Repeal Emergency Declaration Resolution of 2016",
+        "urlTitle": "business-improvement-districts-sunset-repeal-emergency-declaration-resolution-of-2016",
+        "user": 1,
+        "voteCount": 0,
+        "createdAt": "2016-07-23T20:45:37.018Z",
+        "updatedAt": "2016-07-23T20:45:37.018Z",
+        "id": 1010
       }
     ],
     "comment": [],
@@ -13329,7 +14341,16 @@
     "committeeelection": [],
     "committeemember": [],
     "committeevote": [],
-    "passport": [],
+    "passport": [
+      {
+        "protocol": "local",
+        "password": "$2a$10$Ce20Gfzm0SBGzU3o0Csx1ut9zdTrVinuslk/NWw/1KWwGXlfH3zbi",
+        "user": 3188,
+        "createdAt": "2016-07-19T03:08:58.722Z",
+        "updatedAt": "2016-07-19T03:08:58.722Z",
+        "id": 1
+      }
+    ],
     "post": [],
     "user": [
       {
@@ -58534,6 +59555,14 @@
         "createdAt": "2016-06-29T08:48:39.900Z",
         "updatedAt": "2016-06-29T08:48:39.900Z",
         "id": 3187
+      },
+      {
+        "username": "troverman",
+        "email": "troverman@gmail.com",
+        "first_name": "Trevor",
+        "createdAt": "2016-07-19T03:08:58.377Z",
+        "updatedAt": "2016-07-19T03:08:58.377Z",
+        "id": 3188
       }
     ],
     "userinformation": [],
@@ -62992,6 +64021,94 @@
         "createdAt": "2016-06-27T04:42:18.914Z",
         "updatedAt": "2016-06-27T04:42:18.914Z",
         "id": 495
+      },
+      {
+        "vote": 1,
+        "bill": 501,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:13:29.710Z",
+        "updatedAt": "2016-07-19T03:13:29.710Z",
+        "id": 496
+      },
+      {
+        "vote": 1,
+        "bill": 1,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:13:34.084Z",
+        "updatedAt": "2016-07-19T03:13:34.084Z",
+        "id": 497
+      },
+      {
+        "vote": 1,
+        "bill": 1,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:13:36.210Z",
+        "updatedAt": "2016-07-19T03:13:36.210Z",
+        "id": 498
+      },
+      {
+        "vote": 1,
+        "bill": 504,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:06.660Z",
+        "updatedAt": "2016-07-19T03:14:06.660Z",
+        "id": 499
+      },
+      {
+        "vote": 1,
+        "bill": 3,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:11.049Z",
+        "updatedAt": "2016-07-19T03:14:11.049Z",
+        "id": 500
+      },
+      {
+        "vote": 1,
+        "bill": 3,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:13.292Z",
+        "updatedAt": "2016-07-19T03:14:13.292Z",
+        "id": 501
+      },
+      {
+        "vote": 1,
+        "bill": 501,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:46.712Z",
+        "updatedAt": "2016-07-19T03:14:46.712Z",
+        "id": 502
+      },
+      {
+        "vote": 1,
+        "bill": 3,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:50.858Z",
+        "updatedAt": "2016-07-19T03:14:50.858Z",
+        "id": 503
+      },
+      {
+        "vote": 1,
+        "bill": 4,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:53.746Z",
+        "updatedAt": "2016-07-19T03:14:53.746Z",
+        "id": 504
+      },
+      {
+        "vote": 1,
+        "bill": 4,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:55.514Z",
+        "updatedAt": "2016-07-19T03:14:55.514Z",
+        "id": 505
+      },
+      {
+        "vote": 1,
+        "bill": 4,
+        "user": 3188,
+        "createdAt": "2016-07-19T03:14:57.448Z",
+        "updatedAt": "2016-07-19T03:14:57.448Z",
+        "id": 506
       }
     ]
   },
@@ -63000,11 +64117,14 @@
       "title": {
         "type": "string"
       },
+      "urlTitle": {
+        "type": "string"
+      },
       "displayNumber": {
         "type": "string"
       },
       "billContent": {
-        "type": "string"
+        "type": "json"
       },
       "committee": {
         "type": "integer",
@@ -63362,7 +64482,7 @@
   },
   "counters": {
     "bill": {
-      "id": 1000
+      "id": 1010
     },
     "comment": {},
     "committee": {
@@ -63371,14 +64491,16 @@
     "committeeelection": {},
     "committeemember": {},
     "committeevote": {},
-    "passport": {},
+    "passport": {
+      "id": 1
+    },
     "post": {},
     "user": {
-      "id": 3187
+      "id": 3188
     },
     "userinformation": {},
     "vote": {
-      "id": 495
+      "id": 506
     }
   }
 }

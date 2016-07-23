@@ -365,6 +365,92 @@ function stateLegislators(){
 
 };
 
+function openStates(){
+
+	var OpenStates = require('openstates');
+	var openstates = new OpenStates('c16a6c623ee54948bac2a010ea6fab70');
+	openstates.billDetail('nc', '2013', 'HB 589', function(err, json) {
+	  if (err) throw err;
+	  console.log(json);
+	});
+
+}
+
+function stateBills(state){
+
+
+	var url = "http://openstates.org/api/v1/bills/?state="+state+"&apikey=c16a6c623ee54948bac2a010ea6fab70";
+	request({
+		    url: url,
+		    json: true
+		}, function (error, response, body) {
+		    if (!error && response.statusCode === 200) {
+				var stateBillData = body;
+				//console.log(stateBillData.length)
+				for (x in stateBillData) {
+					//console.log(stateBillData[x].id);
+					//get full data -- including votes -- sweet
+
+					//console.log(stateBillData[x].title);
+					//console.log(stateBillData[x].state);
+					//console.log(stateBillData[x].state);
+					//console.log(stateBillData[x].state);
+					//console.log(stateBillData[x]);
+
+					//var url = "http://openstates.org/api/v1/bills/ca/20092010/AB%20667?apikey=c16a6c623ee54948bac2a010ea6fab70"
+					if (typeof stateBillData[x].id != "undefined"){
+						var url = "http://openstates.org/api/v1/bills/"+stateBillData[x].id+"?apikey=c16a6c623ee54948bac2a010ea6fab70";
+						request({
+							    url: url,
+							    json: true
+							}, function (error, response, body) {
+
+								if (!error && response.statusCode === 200) {
+
+									var title = body.title
+									var urlTitle = body.title.replace(/ /g,"-").toLowerCase();
+									var model = {
+										billContent: body,
+										displayNumber: stateBillData[x].id,
+										committee: 1,
+										title: title,
+										urlTitle: urlTitle,
+										user: 1
+									};
+
+									//prelim add
+									console.log(model)
+									Bill.findOrCreate({displayNumber:stateBillData[x].id}, model)
+									.exec(function(err, bill) {
+										if (err) {
+											return console.log(err);
+										}
+										else{
+											console.log('CRE8')
+											console.log(bill)
+										}
+									});
+
+
+									//votes -- to attach to legislators and bills
+									/*console.log(body.votes);
+									if (typeof body.votes[0] != "undefined"){
+										console.log(body.votes[0].yes_votes);
+										console.log(body.votes[0].no_votes);
+									}*/
+
+								}
+
+						});
+					}
+
+				}
+
+		    }
+	});
+
+};
+
 
 function govTracker(){
 
@@ -464,11 +550,82 @@ var url = "http://congress.api.sunlightfoundation.com/committees?per_page=all&ap
 };
 
 module.exports.intervalService = function(){
-	stateLegislators();
+
+
+	var states = Object.keys({
+	    "AL": "Alabama",
+	    "AK": "Alaska",
+	    "AS": "American Samoa",
+	    "AZ": "Arizona",
+	    "AR": "Arkansas",
+	    "CA": "California",
+	    "CO": "Colorado",
+	    "CT": "Connecticut",
+	    "DE": "Delaware",
+	    "DC": "District Of Columbia",
+	    "FM": "Federated States Of Micronesia",
+	    "FL": "Florida",
+	    "GA": "Georgia",
+	    "GU": "Guam",
+	    "HI": "Hawaii",
+	    "ID": "Idaho",
+	    "IL": "Illinois",
+	    "IN": "Indiana",
+	    "IA": "Iowa",
+	    "KS": "Kansas",
+	    "KY": "Kentucky",
+	    "LA": "Louisiana",
+	    "ME": "Maine",
+	    "MH": "Marshall Islands",
+	    "MD": "Maryland",
+	    "MA": "Massachusetts",
+	    "MI": "Michigan",
+	    "MN": "Minnesota",
+	    "MS": "Mississippi",
+	    "MO": "Missouri",
+	    "MT": "Montana",
+	    "NE": "Nebraska",
+	    "NV": "Nevada",
+	    "NH": "New Hampshire",
+	    "NJ": "New Jersey",
+	    "NM": "New Mexico",
+	    "NY": "New York",
+	    "NC": "North Carolina",
+	    "ND": "North Dakota",
+	    "MP": "Northern Mariana Islands",
+	    "OH": "Ohio",
+	    "OK": "Oklahoma",
+	    "OR": "Oregon",
+	    "PW": "Palau",
+	    "PA": "Pennsylvania",
+	    "PR": "Puerto Rico",
+	    "RI": "Rhode Island",
+	    "SC": "South Carolina",
+	    "SD": "South Dakota",
+	    "TN": "Tennessee",
+	    "TX": "Texas",
+	    "UT": "Utah",
+	    "VT": "Vermont",
+	    "VI": "Virgin Islands",
+	    "VA": "Virginia",
+	    "WA": "Washington",
+	    "WV": "West Virginia",
+	    "WI": "Wisconsin",
+	    "WY": "Wyoming"
+	});
+
+	for (x in states){
+		console.log(states[x])
+		stateBills(states[x])
+	}
+
+	//openStates();
+	//stateBills('dc');
+	//stateLegislators();
 	//committees();
 	//recentBills();
 	//legislators();
-    setInterval(recentBills, 86400000);
-    setInterval(legislators, 86400000);
+    //setInterval(recentBills, 86400000);
+    //setInterval(legislators, 86400000);
 
 };
