@@ -389,16 +389,11 @@ function stateBills(state){
 				//console.log(stateBillData.length)
 				for (x in stateBillData) {
 					//console.log(stateBillData[x].id);
-					//get full data -- including votes -- sweet
-
 					//console.log(stateBillData[x].title);
-					//console.log(stateBillData[x].state);
-					//console.log(stateBillData[x].state);
 					//console.log(stateBillData[x].state);
 					//console.log(stateBillData[x]);
 
-					//var url = "http://openstates.org/api/v1/bills/ca/20092010/AB%20667?apikey=c16a6c623ee54948bac2a010ea6fab70"
-					if (typeof stateBillData[x].id != "undefined"){
+					if (typeof stateBillData[x] != "undefined"){
 						var url = "http://openstates.org/api/v1/bills/"+stateBillData[x].id+"?apikey=c16a6c623ee54948bac2a010ea6fab70";
 						request({
 							    url: url,
