@@ -615,7 +615,7 @@ module.exports.intervalService = function(){
 	});
 
 	for (x in states){
-		if(x <10){
+		if(x >40){
 			console.log(states[x])
 			stateBills(states[x])
 		}
