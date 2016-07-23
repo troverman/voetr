@@ -393,7 +393,7 @@ function stateBills(state){
 					//console.log(stateBillData[x].state);
 					//console.log(stateBillData[x]);
 
-					if (stateBillData[x]){
+					if (stateBillData[x].id){
 						console.log(stateBillData[x])
 						var url = "http://openstates.org/api/v1/bills/"+stateBillData[x].id+"?apikey=c16a6c623ee54948bac2a010ea6fab70";
 						request({
@@ -613,7 +613,7 @@ module.exports.intervalService = function(){
 	for (x in states){
 		if(x > 30){
 			console.log(states[x])
-			stateBills(states[x])
+			//stateBills(states[x])
 		}
 	}
 
