@@ -138,6 +138,7 @@ function recentBills(){
 					displayNumber: displayNumber,
 					committee: 1,
 					title: title,
+					urlTitle: title.replace(/ /g,"-").toLowerCase()
 					user: 1
 				};
 				Bill.findOrCreate({displayNumber:displayNumber}, model)
