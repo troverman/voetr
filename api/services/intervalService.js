@@ -616,10 +616,10 @@ module.exports.intervalService = function(){
 
 	//openStates();
 	//stateBills('dc');
-	//stateLegislators();
-	//committees();
+	stateLegislators();
+	committees();
 	//recentBills();
-	//legislators();
+	legislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 
