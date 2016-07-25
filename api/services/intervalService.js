@@ -413,9 +413,7 @@ function stateBills(state){
 									};
 
 									console.log(body.id)
-									//prelim add
-									Bill.findOrCreate({displayNumber:body.id}, model)
-									.exec(function(err, bill) {
+									Bill.findOrCreate({displayNumber:body.id}, model).exec(function(err, bill){
 										if (err) {
 											return console.log(err);
 										}
@@ -424,6 +422,17 @@ function stateBills(state){
 											console.log(bill)
 										}
 									});
+
+									/*Bill.findOrCreate({displayNumber:body.id}, model)
+									.exec(function(err, bill) {
+										if (err) {
+											return console.log(err);
+										}
+										else{
+											console.log('CRE8')
+											console.log(bill)
+										}
+									});*/
 
 
 									//votes -- to attach to legislators and bills
@@ -609,7 +618,7 @@ module.exports.intervalService = function(){
 	});
 
 	for (x in states){
-		if(x<=3){
+		if(x<=20){
 		//if( (x >= 20) && (x < 40) ){
 			//console.log(states[x])
 			stateBills(states[x])

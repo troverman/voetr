@@ -27,9 +27,9 @@ module.exports.connections = {
     //url: process.env.MONGOLAB_URI
   },
 
-   productionMongoHqDb: {
-    adapter: 'sails-disk',
-  }
+   //productionMongoHqDb: {
+    //adapter: 'sails-disk',
+  //}
 
 };
 
