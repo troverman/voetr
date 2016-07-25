@@ -394,52 +394,48 @@ function stateBills(state){
 					//console.log(stateBillData[x]);
 					var stateBillId = stateBillData[x].id
 					if (stateBillId){
-						//console.log(stateBillData[x])
-						var url = "http://openstates.org/api/v1/bills/"+stateBillData[x].id+"?apikey=c16a6c623ee54948bac2a010ea6fab70";
-						(function(stateBillId) {
-							request({
-								    url: url,
-								    json: true
-								}, function (error, response, body) {
+						var url = "http://openstates.org/api/v1/bills/"+stateBillId+"?apikey=c16a6c623ee54948bac2a010ea6fab70";
+						request({
+							    url: url,
+							    json: true
+							}, function (error, response, body) {
 
-									if (!error && response.statusCode === 200) {
+								if (!error && response.statusCode === 200) {
+									var title = body.title
+									var urlTitle = body.title.replace(/ /g,"-").toLowerCase();
+									var model = {
+										billContent: body,
+										displayNumber: body.id,
+										committee: 1,
+										title: title,
+										urlTitle: urlTitle,
+										user: 1
+									};
 
-										var title = body.title
-										var urlTitle = body.title.replace(/ /g,"-").toLowerCase();
-										var model = {
-											billContent: body,
-											displayNumber: stateBillId,
-											committee: 1,
-											title: title,
-											urlTitle: urlTitle,
-											user: 1
-										};
-
-										//prelim add
-										console.log(model)
-										Bill.findOrCreate({displayNumber:stateBillId}, model)
-										.exec(function(err, bill) {
-											if (err) {
-												return console.log(err);
-											}
-											else{
-												console.log('CRE8')
-												console.log(bill)
-											}
-										});
+									console.log(body.id)
+									//prelim add
+									Bill.findOrCreate({displayNumber:body.id}, model)
+									.exec(function(err, bill) {
+										if (err) {
+											return console.log(err);
+										}
+										else{
+											console.log('CRE8')
+											console.log(bill)
+										}
+									});
 
 
-										//votes -- to attach to legislators and bills
-										/*console.log(body.votes);
-										if (typeof body.votes[0] != "undefined"){
-											console.log(body.votes[0].yes_votes);
-											console.log(body.votes[0].no_votes);
-										}*/
+									//votes -- to attach to legislators and bills
+									/*console.log(body.votes);
+									if (typeof body.votes[0] != "undefined"){
+										console.log(body.votes[0].yes_votes);
+										console.log(body.votes[0].no_votes);
+									}*/
 
-									}
+								}
 
-							});
-						})(stateBillId)
+						});
 					}
 
 				}
