@@ -610,7 +610,7 @@ module.exports.intervalService = function(){
 		//if( (x >= 20) && (x < 40) ){
 		//if(x >= 40){
 			//console.log(states[x])
-			stateBills(states[x])
+			//stateBills(states[x])
 		//}
 	}
 
