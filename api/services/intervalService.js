@@ -330,7 +330,7 @@ function stateLegislators(){
 
 					//console.log(offices[0].fax)
 
-					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
+					var username = first_name.trim().replace('.','').replace(' ','.') + '.' + last_name.trim().replace(' ','.');
 					var email =  stateData[x].email;
 					if( typeof email === 'undefined' || email === null || typeof email === 'string' ){
 						email = username + '@gmail.com';
@@ -624,7 +624,7 @@ module.exports.intervalService = function(){
 	stateLegislators();
 	//committees();
 	//recentBills();
-	legislators();
+	//legislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 
