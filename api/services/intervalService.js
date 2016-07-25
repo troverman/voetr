@@ -350,7 +350,7 @@ function stateLegislators(){
 
 					console.log(model);
 
-					/*User.findOrCreate({leg_id: leg_id}, model)
+					User.findOrCreate({leg_id: leg_id}, model)
 					.exec(function(err, user) {
 						if (err) {
 							return console.log(err);
@@ -358,7 +358,9 @@ function stateLegislators(){
 						else {
 							User.publishCreate(user);
 						}
-					});*/
+					});
+					User.update({leg_id: leg_id}, model);
+
 				}
 
 		    }
@@ -618,8 +620,8 @@ module.exports.intervalService = function(){
 	//openStates();
 	//stateBills('dc');
 	stateLegislators();
-	committees();
-	recentBills();
+	//committees();
+	//recentBills();
 	legislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
