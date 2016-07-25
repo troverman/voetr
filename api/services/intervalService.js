@@ -423,18 +423,6 @@ function stateBills(state){
 										}
 									});
 
-									/*Bill.findOrCreate({displayNumber:body.id}, model)
-									.exec(function(err, bill) {
-										if (err) {
-											return console.log(err);
-										}
-										else{
-											console.log('CRE8')
-											console.log(bill)
-										}
-									});*/
-
-
 									//votes -- to attach to legislators and bills
 									/*console.log(body.votes);
 									if (typeof body.votes[0] != "undefined"){
@@ -618,8 +606,8 @@ module.exports.intervalService = function(){
 	});
 
 	for (x in states){
-		if(x<=20){
-		//if( (x >= 20) && (x < 40) ){
+		//if(x<=20){
+		if( (x >= 20) && (x < 40) ){
 			//console.log(states[x])
 			stateBills(states[x])
 		}
