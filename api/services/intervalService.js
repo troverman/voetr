@@ -612,12 +612,12 @@ module.exports.intervalService = function(){
 		if(x<=3){
 		//if( (x >= 20) && (x < 40) ){
 			//console.log(states[x])
-			//stateBills(states[x])
+			stateBills(states[x])
 		}
 	}
 
 	//openStates();
-	stateBills('dc');
+	//stateBills('dc');
 	//stateLegislators();
 	//committees();
 	//recentBills();
