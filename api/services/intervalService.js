@@ -332,7 +332,7 @@ function stateLegislators(){
 
 					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
 					var email =  stateData[x].email;
-					if( typeof email === 'undefined' || email === null ){
+					if( typeof email === 'undefined' || email === null || typeof email === 'string' ){
 						email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
 					}
 					var model = {
