@@ -26,9 +26,9 @@ angular.module( 'voetr.bills', [
 	$scope.skip = 0;
 
     $scope.loadMore = function() {
-		$scope.skip = $scope.skip + 10;
+		$scope.skip = $scope.skip + 100;
 		console.log($scope.skip);
-		BillModel.getSome(10,$scope.skip).then(function(bills) {
+		BillModel.getSome(100,$scope.skip).then(function(bills) {
 			Array.prototype.push.apply($scope.bills, bills);
 		});
 	};

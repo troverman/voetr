@@ -3,7 +3,7 @@
   <!--if logged in-->
   <div ng-show="currentUser">
     <div ng-repeat="vote in votes">
-      {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}{{">{{vote.bill.title}}</a>
+      {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
     </div>
   </div>
   <!--/if logged in-->
@@ -71,7 +71,5 @@
     </div>
   </div>
   <!--/if not logged in-->
-  <div class="footer" >
-  2016 VOETR
-  </div>
+  <div ng-include="'footer/index.tpl.html'"></div>
 </div>

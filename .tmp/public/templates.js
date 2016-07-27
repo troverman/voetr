@@ -1,87 +1,7 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
-    "<style>\n" +
-    "\n" +
-    ".about-container{\n" +
-    "	margin-left:15%;\n" +
-    "	margin-right:15%;\n" +
-    "	margin-top:5%;\n" +
-    "}\n" +
-    "\n" +
-    ".img-fill {\n" +
-    "  width: 100%;\n" +
-    "  display: block;\n" +
-    "  overflow: hidden;\n" +
-    "  position: relative;\n" +
-    "  text-align: center\n" +
-    "}\n" +
-    "\n" +
-    ".img-fill img {\n" +
-    "  height: 100%;\n" +
-    "  min-width: 100%;\n" +
-    "  position: relative;\n" +
-    "  display: inline-block;\n" +
-    "  max-width: none\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container{\n" +
-    "  position:relative;\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container .img-fill {\n" +
-    "  height: 100vh;\n" +
-    "  background:#000;\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container .img-fill:before {\n" +
-    "  content: '';\n" +
-    "  display: block;\n" +
-    "  width:100%;\n" +
-    "  height:100%;\n" +
-    "  top:0px;\n" +
-    "  left:0px;\n" +
-    "  z-index:2;\n" +
-    "  background:rgba(0,0,0,.50);\n" +
-    "  position: absolute;\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container .img-fill img{\n" +
-    "	-webkit-filter: blur(3px);\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container .img-fill .info {\n" +
-    "  position: absolute;\n" +
-    "  top: 0px;\n" +
-    "  left: 0px;\n" +
-    "  width: 100%;\n" +
-    "  z-index:3;\n" +
-    "  top:30%;\n" +
-    "  padding:0 20px;\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container .img-fill h3{\n" +
-    "  font-family:Jura;\n" +
-    "  color:#FFF;\n" +
-    "  margin:auto;\n" +
-    "  white-space:nowrap;\n" +
-    "  //text-align:center;\n" +
-    "  text-overflow:ellipsis;\n" +
-    "  overflow:hidden;\n" +
-    "}\n" +
-    "\n" +
-    ".heading-container .img-fill p{\n" +
-    "  max-width:650px;\n" +
-    "  //margin:auto;\n" +
-    "  margin-top:15px;\n" +
-    "  font-family:Jura;\n" +
-    "  color:#FFF;\n" +
-    "  text-align:justify;\n" +
-    "  overflow:hidden;\n" +
-    "}\n" +
-    "\n" +
-    "</style>\n" +
     "<div class=\"heading-container\">\n" +
     "	<div class=\"img-fill\">\n" +
     "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
@@ -92,44 +12,49 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "		</div>\n" +
     "	</div>\n" +
     "</div>   \n" +
-    "<div class=\"heading-container\">\n" +
+    "<!--<div class=\"heading-container\">\n" +
     "	<div class=\"img-fill\">\n" +
     "		<img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
     "			<h3>Elect, Vote, Create</h3>\n" +
+    "      <h3>Direct Democracy</h3>\n" +
     "		</div>\n" +
     "	</div>\n" +
-    "</div>  \n" +
-    "<div class=\"heading-container\">\n" +
+    "</div>-->\n" +
+    "<!--<div class=\"heading-container\">\n" +
     "	<div class=\"img-fill\">\n" +
     "		<img src=\"/images/crowd.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
     "			<h3>Direct Democracy</h3>\n" +
     "		</div>\n" +
     "	</div>\n" +
-    "</div>  \n" +
+    "</div>--> \n" +
     "\n" +
     "<div class=\"about-container\">\n" +
     "	<div>\n" +
     "		<h2>the voice of the internet</h2>\n" +
     "		<p>direct input on policy</p>\n" +
-    "		<!-- my voice is filtered though 'representatives' that have a skewed agenda - money -->\n" +
+    "    <br>\n" +
     "\n" +
     "		<p>real time voting</p>\n" +
     "		<p>bylaw generation</p>\n" +
-    "		<p>a political social network</p>\n" +
+    "		<p>a political network</p>\n" +
     "		<p>have your voice be heard through collective decision making</p>\n" +
+    "    <br>\n" +
     "\n" +
-    "    <p>select others to represent your vote at any time</p>\n" +
+    "    <p>select others to represent you at any time</p>\n" +
+    "    <p>open ballot elections</p>\n" +
+    "    <br>\n" +
     "\n" +
     "		<p>we believe in a free and open internet</p>\n" +
     "		<p>we believe in direct democracy</p>\n" +
-    "		<!-- mandatory voting -->\n" +
+    "\n" +
     "	\n" +
     "	</div>\n" +
     "</div>\n" +
     "<div style=\"height:300px;\"></div>\n" +
     "\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "\n" +
     "");
 }]);
@@ -201,6 +126,30 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
 
 angular.module("bills/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("bills/index.tpl.html",
+    "<md-content>\n" +
+    "	<md-list>\n" +
+    "		<md-subheader class=\"md-no-sticky\">bills</md-subheader>\n" +
+    "		<md-divider ></md-divider>\n" +
+    "		<md-list-item ng-repeat=\"bill in bills\">\n" +
+    "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
+    "				<h4 class=\"committees title\">\n" +
+    "					{{bill.voteCount}}\n" +
+    "          			<button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "          			<button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "					<a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "				</h4>\n" +
+    "			</div>\n" +
+    "		</md-list-item>\n" +
+    "	</md-list>\n" +
+    "	<md-divider ></md-divider>\n" +
+    "	<br><br>\n" +
+    "	<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
+    "	  <button class=\"btn btn-default\">LOAD MORE</button>\n" +
+    "	</div>\n" +
+    "</md-content>\n" +
+    "\n" +
+    "<div style=\"height:100px;\"></div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 
@@ -340,9 +289,7 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "<div ui-view=\"home\"></div>\n" +
     "<div ui-view=\"bills\"></div>\n" +
     "<div ui-view=\"discussion\"></div>\n" +
-    "<div ui-view=\"members\"></div>\n" +
-    "\n" +
-    "");
+    "<div ui-view=\"members\"></div>");
 }]);
 
 angular.module("committee/members.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -373,8 +320,11 @@ angular.module("committee/members.tpl.html", []).run(["$templateCache", function
 angular.module("committees/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("committees/index.tpl.html",
     "<!--if logged in-->\n" +
+    "<md-subheader class=\"md-no-sticky\">committees</md-subheader>\n" +
+    "<md-divider ></md-divider>\n" +
+    "\n" +
     "<div ng-show=\"currentUser\">\n" +
-    "  <div style=\"margin-left:20%;margin-right:20%;margin-top:5%\">\n" +
+    "  <div style=\"margin-left:2%;margin-right:2%;\">\n" +
     "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
     "      <div class=\"form-group\">\n" +
     "        <input type=\"text\" placeholder= \"committee title\" ng-model=\"newCommittee.title\" class=\"form-control\" id=\"postTitle\">\n" +
@@ -394,10 +344,39 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
-    "<div ng-click=\"loadMore()\">LOAD MORE</div>\n" +
+    "<md-divider ></md-divider>\n" +
+    "<br><br>\n" +
+    "<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
+    "  <button class=\"btn btn-default\">LOAD MORE</button>\n" +
+    "</div>\n" +
     "\n" +
+    "<div style=\"height:100px;\"></div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "");
+}]);
+
+angular.module("footer/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("footer/index.tpl.html",
+    "<style>\n" +
+    ".footer{\n" +
+    "	min-height:200px;\n" +
+    "	background-color:#414141;\n" +
+    "	padding:50px;\n" +
+    "	color: gray;\n" +
+    "}\n" +
+    ".footer a{\n" +
+    "	color:white;\n" +
+    "	padding:5px;\n" +
+    "}\n" +
+    "</style>\n" +
     "\n" +
-    "<div style=\"height:100px;\"></div>");
+    "<div class=\"footer\" ng-controller=\"FooterCtrl\">\n" +
+    "	{{date | date:'yyyy'}} <a href=\"/\">voetr</a>\n" +
+    "	<a href=\"/about\">about</a>\n" +
+    "	<a href=\"/bills\">bills</a>\n" +
+    "	<a href=\"/committees\">committees</a>\n" +
+    "	<a href=\"/\">stats</a>\n" +
+    "</div>");
 }]);
 
 angular.module("home/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -407,7 +386,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
     "    <div ng-repeat=\"vote in votes\">\n" +
-    "      {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}{{\">{{vote.bill.title}}</a>\n" +
+    "      {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if logged in-->\n" +
@@ -475,9 +454,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
-    "  <div class=\"footer\" >\n" +
-    "  2016 VOETR\n" +
-    "  </div>\n" +
+    "  <div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "</div>");
 }]);
 
@@ -629,11 +606,10 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		      </md-card>\n" +
     "		    </div>\n" +
     "		  </md-content>-->\n" +
-    "		\n" +
-    "\n" +
-    "\n" +
     "	</div>\n" +
-    "</div>");
+    "	<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templateCache) {

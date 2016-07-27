@@ -17,13 +17,14 @@ angular.module( 'voetr', [
     'voetr.bills',
     'voetr.committee',
     'voetr.committees',
+    'voetr.footer',
     'voetr.home',
+    'voetr.intro',
     'voetr.login',
     'voetr.member',
     'voetr.nav',
     'voetr.search',
     'voetr.register',
-    'voetr.intro'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
