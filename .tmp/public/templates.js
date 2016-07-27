@@ -408,7 +408,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      </div>\n" +
     "\n" +
     "      <div id=\"bills\">\n" +
-    "        <h2>bills</h2><hr>\n" +
+    "        <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
     "        <h4>{{billCount}}</h4>\n" +
     "        <div ng-repeat=\"bill in bills\">\n" +
     "          <!--<md-card>\n" +
@@ -431,7 +431,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      </div>\n" +
     "\n" +
     "      <div id=\"committees\">\n" +
-    "        <h2>committees</h2><hr>\n" +
+    "        <h2><a href=\"/committees\">committees</a></h2><hr>\n" +
     "        <h4>{{committeeCount}}</h4>\n" +
     "        <div ng-repeat=\"committee in committees\">\n" +
     "          <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
@@ -655,46 +655,46 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
 angular.module("register/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("register/index.tpl.html",
     "<!--register-->\n" +
-    "        <div class=\"register-form\">\n" +
+    "<div class=\"register-form\" style=\"text-align:center\">\n" +
     "\n" +
-    "<div class=\"row\">\n" +
-    "    <div class=\"col-md-6 col-md-offset-3\">\n" +
-    "        <h3>Create an Account</h3>\n" +
-    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"username\" placeholder=\"Username\" value=\"\">\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-md-6 col-md-offset-3\">\n" +
+    "            <h3>Create an Account</h3><hr>\n" +
+    "            <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"username\" placeholder=\"Username\" value=\"\">\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
-    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                <div class=\"form-group\" style=\"\">\n" +
+    "                    <div class=\"col-sm-offset-1 col-sm-10\">\n" +
+    "                        <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
+    "            </form>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<a href=\"/login\">already have an account?</a>\n" +
+    "    <hr>\n" +
+    "    <a href=\"/login\">already have an account?</a>\n" +
     "\n" +
     "</div>");
 }]);
