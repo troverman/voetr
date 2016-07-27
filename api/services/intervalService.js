@@ -17,6 +17,7 @@ function bills(){
 
 		        	var billData = body.results;
 		        	for (i in billData){
+		        		//console.log(billData[i].summary);
 
 		        		/*
 		        		sails.log(billData[i].bill_id);
@@ -55,7 +56,7 @@ function bills(){
 
 						var title = billData[i].official_title;
 						var billContent = billData[i].bill_id + ' : ' + billData[i].official_title + ' : ' + billData[i].sponsor + ' : ' + billData[i].introduced_on + ' : ' + billData[i].urls.congress
-						console.log(billData[i].bill_id);
+						//console.log(billData[i].bill_id);
 						var model = {
 							billContent: billContent,
 							committee: 1,
@@ -618,10 +619,10 @@ module.exports.intervalService = function(){
 			//stateBills(states[x])
 		//}
 	}
-
+	bills()
 	//openStates();
 	//stateBills('dc');
-	stateLegislators();
+	//stateLegislators();
 	//committees();
 	//recentBills();
 	//legislators();

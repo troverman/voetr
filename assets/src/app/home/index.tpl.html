@@ -11,83 +11,67 @@
 	<!--if not logged in-->
   <div ng-show="!currentUser">
     <div ng-include="'intro/index.tpl.html'"></div>
-    <!--<div class="heading-container">
-        <div class="img-fill">
-            <img src="/images/crowd1.jpg" alt="">
-            <div class="info">
-                <h3>Empowering the internet</h3>
-                <p>vote and have your voice heard, come together with the collective power of the internet</p>
-            </div>
+    <div id="about">
+
+      <div id="information">
+        <i style="font-size:256px;" class="fa fa-bullhorn"></i>
+        <p>the internet's voice</p>
+        <p>a decision making cloud</p>
+        <p>be part of the movement</p>
+        <p>crowd-sourced government</p>
+        <hr>
+        <a href="/about" class="btn btn-default">learn more</a>
+        <br>
+      </div>
+
+      <div id="bills">
+        <h2>bills</h2><hr>
+        <h4>{{billCount}}</h4>
+        <div ng-repeat="bill in bills">
+          <!--<md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Card with image</span>
+                <span class="md-subhead">Small</span>
+              </md-card-title-text>
+              <md-card-title-media>
+                <div class="md-media-sm card-media"></div>
+              </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button>yes</md-button>
+              <md-button>no</md-button>
+            </md-card-actions>
+          </md-card>-->
+          <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
         </div>
-    </div>-->
+      </div>
 
-    <div id="home-content">
-
-        <div style="height:500px;background-color:white;text-align:center">
-            <div style="height:88px;"></div>
-            <i style="font-size:256px;" class="fa fa-bullhorn"></i>
-            <p>the internet's voice</p>
-            <p>a decision making cloud</p>
-            <p>be part of the movement</p>
-            <p>bylaw creation, crowd-sourced government</p>
-
-
-            <div style="height:88px;"></div>
+      <div id="committees">
+        <h2>committees</h2><hr>
+        <h4>{{committeeCount}}</h4>
+        <div ng-repeat="committee in committees">
+          <h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
         </div>
+      </div>
 
-        <div style="background-color:#fff;text-align:center;">
-            <h2>bills</h2>
-            <p>{{billCount}}</p>
-            <div ng-repeat="bill in bills">
-              <!--<md-card>
-                <md-card-title>
-                  <md-card-title-text>
-                    <span class="md-headline">Card with image</span>
-                    <span class="md-subhead">Small</span>
-                  </md-card-title-text>
-                  <md-card-title-media>
-                    <div class="md-media-sm card-media"></div>
-                  </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                  <md-button>yes</md-button>
-                  <md-button>no</md-button>
-                </md-card-actions>
-              </md-card>-->
-              <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
-            </div>
-
-            <hr>
-
-            <h2>committees</h2>
-            <p>{{committeeCount}}</p>
-            <div ng-repeat="committee in committees">
-              <h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
-            </div>
-
+      <div id="register">
+        <div ng-include="'register/index.tpl.html'">
         </div>
-        <div style="height:500px;background-color:#D8D8D8;text-align:center">
-          <div ng-include="'register/index.tpl.html'"></div>
-        </div>
+      </div>
 
-      
-        <div style="background-color:#f1f0ed;text-align:center">
-            <p>numbers and stats infographic</p>
-            <p>local counties / self governing committees / total members / search / political info</p>
-
-            <p>{{userCount}} voetrs</p>
-            <div ng-repeat="user in users">
-              <a href="/member/{{user.username}}">{{user.username}}</a>
-            </div>
+      <div id="members">
+        <p>local counties / self governing committees / total members / search</p>
+        <h4>{{userCount}} members</h4><hr>
+        <div ng-repeat="user in users">
+          <a href="/member/{{user.username}}">{{user.username}}</a>
         </div>
+      </div>
+
     </div>
   </div>
   <!--/if not logged in-->
-
-
-</div>
-<div class="footer" >
+  <div class="footer" >
   2016 VOETR
+  </div>
 </div>
-
-

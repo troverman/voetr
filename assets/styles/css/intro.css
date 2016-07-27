@@ -1,12 +1,3 @@
-html {
-    height: 100%;
-    overflow: hidden;
-    font-weight:100;
-}
-body {
-    height: 100%;
-}
-
 /* Bob */
 @-webkit-keyframes hvr-bob {
   0% {
@@ -184,10 +175,7 @@ svg > .newsletter-rect {
     -webkit-mask: url(#newsletter-mask);
     mask: url(#newsletter-mask);
 }
-/*.newsletter-rect:hover {
-    fill: #2ab996;
-    transition: fill .2s;
-}*/
+
 video {
   position: absolute;
   top: 0%;

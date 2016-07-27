@@ -415,87 +415,70 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "	<!--if not logged in-->\n" +
     "  <div ng-show=\"!currentUser\">\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
-    "    <!--<div class=\"heading-container\">\n" +
-    "        <div class=\"img-fill\">\n" +
-    "            <img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
-    "            <div class=\"info\">\n" +
-    "                <h3>Empowering the internet</h3>\n" +
-    "                <p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
-    "            </div>\n" +
+    "    <div id=\"about\">\n" +
+    "\n" +
+    "      <div id=\"information\">\n" +
+    "        <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
+    "        <p>the internet's voice</p>\n" +
+    "        <p>a decision making cloud</p>\n" +
+    "        <p>be part of the movement</p>\n" +
+    "        <p>crowd-sourced government</p>\n" +
+    "        <hr>\n" +
+    "        <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
+    "        <br>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <div id=\"bills\">\n" +
+    "        <h2>bills</h2><hr>\n" +
+    "        <h4>{{billCount}}</h4>\n" +
+    "        <div ng-repeat=\"bill in bills\">\n" +
+    "          <!--<md-card>\n" +
+    "            <md-card-title>\n" +
+    "              <md-card-title-text>\n" +
+    "                <span class=\"md-headline\">Card with image</span>\n" +
+    "                <span class=\"md-subhead\">Small</span>\n" +
+    "              </md-card-title-text>\n" +
+    "              <md-card-title-media>\n" +
+    "                <div class=\"md-media-sm card-media\"></div>\n" +
+    "              </md-card-title-media>\n" +
+    "            </md-card-title>\n" +
+    "            <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
+    "              <md-button>yes</md-button>\n" +
+    "              <md-button>no</md-button>\n" +
+    "            </md-card-actions>\n" +
+    "          </md-card>-->\n" +
+    "          <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
     "        </div>\n" +
-    "    </div>-->\n" +
+    "      </div>\n" +
     "\n" +
-    "    <div id=\"home-content\">\n" +
-    "\n" +
-    "        <div style=\"height:500px;background-color:white;text-align:center\">\n" +
-    "            <div style=\"height:88px;\"></div>\n" +
-    "            <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
-    "            <p>the internet's voice</p>\n" +
-    "            <p>a decision making cloud</p>\n" +
-    "            <p>be part of the movement</p>\n" +
-    "            <p>bylaw creation, crowd-sourced government</p>\n" +
-    "\n" +
-    "\n" +
-    "            <div style=\"height:88px;\"></div>\n" +
+    "      <div id=\"committees\">\n" +
+    "        <h2>committees</h2><hr>\n" +
+    "        <h4>{{committeeCount}}</h4>\n" +
+    "        <div ng-repeat=\"committee in committees\">\n" +
+    "          <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
     "        </div>\n" +
+    "      </div>\n" +
     "\n" +
-    "        <div style=\"background-color:#fff;text-align:center;\">\n" +
-    "            <h2>bills</h2>\n" +
-    "            <p>{{billCount}}</p>\n" +
-    "            <div ng-repeat=\"bill in bills\">\n" +
-    "              <!--<md-card>\n" +
-    "                <md-card-title>\n" +
-    "                  <md-card-title-text>\n" +
-    "                    <span class=\"md-headline\">Card with image</span>\n" +
-    "                    <span class=\"md-subhead\">Small</span>\n" +
-    "                  </md-card-title-text>\n" +
-    "                  <md-card-title-media>\n" +
-    "                    <div class=\"md-media-sm card-media\"></div>\n" +
-    "                  </md-card-title-media>\n" +
-    "                </md-card-title>\n" +
-    "                <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
-    "                  <md-button>yes</md-button>\n" +
-    "                  <md-button>no</md-button>\n" +
-    "                </md-card-actions>\n" +
-    "              </md-card>-->\n" +
-    "              <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <hr>\n" +
-    "\n" +
-    "            <h2>committees</h2>\n" +
-    "            <p>{{committeeCount}}</p>\n" +
-    "            <div ng-repeat=\"committee in committees\">\n" +
-    "              <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
-    "            </div>\n" +
-    "\n" +
+    "      <div id=\"register\">\n" +
+    "        <div ng-include=\"'register/index.tpl.html'\">\n" +
     "        </div>\n" +
-    "        <div style=\"height:500px;background-color:#D8D8D8;text-align:center\">\n" +
-    "          <div ng-include=\"'register/index.tpl.html'\"></div>\n" +
-    "        </div>\n" +
+    "      </div>\n" +
     "\n" +
-    "      \n" +
-    "        <div style=\"background-color:#f1f0ed;text-align:center\">\n" +
-    "            <p>numbers and stats infographic</p>\n" +
-    "            <p>local counties / self governing committees / total members / search / political info</p>\n" +
-    "\n" +
-    "            <p>{{userCount}} voetrs</p>\n" +
-    "            <div ng-repeat=\"user in users\">\n" +
-    "              <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
-    "            </div>\n" +
+    "      <div id=\"members\">\n" +
+    "        <p>local counties / self governing committees / total members / search</p>\n" +
+    "        <h4>{{userCount}} members</h4><hr>\n" +
+    "        <div ng-repeat=\"user in users\">\n" +
+    "          <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
     "        </div>\n" +
+    "      </div>\n" +
+    "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
-    "\n" +
-    "\n" +
-    "</div>\n" +
-    "<div class=\"footer\" >\n" +
+    "  <div class=\"footer\" >\n" +
     "  2016 VOETR\n" +
-    "</div>\n" +
-    "\n" +
-    "\n" +
-    "");
+    "  </div>\n" +
+    "</div>");
 }]);
 
 angular.module("intro/index.tpl.html", []).run(["$templateCache", function($templateCache) {
