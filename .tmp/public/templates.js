@@ -6,54 +6,34 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "	<div class=\"img-fill\">\n" +
     "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
-    "      <h3>Empowering the internet</h3>\n" +
-    "      <h3>Seeing past partisan politics</h3>\n" +
-    "      <p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
+    "      	<h3>Empowering the internet</h3>\n" +
+    "      	<h3>Seeing past partisan politics</h3>\n" +
+    "      	<p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
     "		</div>\n" +
-    "	</div>\n" +
-    "</div>   \n" +
-    "<!--<div class=\"heading-container\">\n" +
-    "	<div class=\"img-fill\">\n" +
-    "		<img src=\"/images/crowd1.jpg\" alt=\"\">\n" +
-    "		<div class=\"info\">\n" +
-    "			<h3>Elect, Vote, Create</h3>\n" +
-    "      <h3>Direct Democracy</h3>\n" +
-    "		</div>\n" +
-    "	</div>\n" +
-    "</div>-->\n" +
-    "<!--<div class=\"heading-container\">\n" +
-    "	<div class=\"img-fill\">\n" +
-    "		<img src=\"/images/crowd.jpg\" alt=\"\">\n" +
-    "		<div class=\"info\">\n" +
-    "			<h3>Direct Democracy</h3>\n" +
-    "		</div>\n" +
-    "	</div>\n" +
-    "</div>--> \n" +
-    "\n" +
-    "<div class=\"about-container\">\n" +
-    "	<div>\n" +
-    "		<h2>the voice of the internet</h2>\n" +
-    "		<p>direct input on policy</p>\n" +
-    "    <br>\n" +
-    "\n" +
-    "		<p>real time voting</p>\n" +
-    "		<p>bylaw generation</p>\n" +
-    "		<p>a political network</p>\n" +
-    "		<p>have your voice be heard through collective decision making</p>\n" +
-    "    <br>\n" +
-    "\n" +
-    "    <p>select others to represent you at any time</p>\n" +
-    "    <p>open ballot elections</p>\n" +
-    "    <br>\n" +
-    "\n" +
-    "		<p>we believe in a free and open internet</p>\n" +
-    "		<p>we believe in direct democracy</p>\n" +
-    "\n" +
-    "	\n" +
     "	</div>\n" +
     "</div>\n" +
-    "<div style=\"height:300px;\"></div>\n" +
-    "\n" +
+    "<div class=\"about-container\">\n" +
+    "	<div id=\"section1\">\n" +
+    "		<h2>the voice of the internet</h2>\n" +
+    "		<p>direct input on policy</p>\n" +
+    "		<p>a political network</p>\n" +
+    "	</div>\n" +
+    "	<div id=\"section2\">\n" +
+    "		<p>real time voting</p>\n" +
+    "		<!--<p>bylaw generation</p>-->\n" +
+    "		<!--<p>have your voice be heard through collective decision making</p>-->\n" +
+    "		<p>direct input on policy</p>\n" +
+    "		<!--that matters to you-->\n" +
+    "	</div>\n" +
+    "	<div id=\"section3\">\n" +
+    "	    <p>select others to represent you at any time</p>\n" +
+    "	    <p>continual open ballot elections</p>\n" +
+    "	</div>\n" +
+    "	<div id=\"section4\">\n" +
+    "		<p>we believe in direct democracy</p>\n" +
+    "		<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
+    "	</div>\n" +
+    "</div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "\n" +
     "");
@@ -444,7 +424,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      </div>\n" +
     "\n" +
     "      <div id=\"members\">\n" +
-    "        <p>local counties / self governing committees / total members / search</p>\n" +
+    "        <!--<p>local counties / self governing committees / total members / search</p>-->\n" +
     "        <h4>{{userCount}} members</h4><hr>\n" +
     "        <div ng-repeat=\"user in users\">\n" +
     "          <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
