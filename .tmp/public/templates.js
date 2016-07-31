@@ -15,7 +15,6 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "<div class=\"about-container\">\n" +
     "	<div id=\"section1\">\n" +
     "		<h2>the voice of the internet</h2>\n" +
-    "		<p>direct input on policy</p>\n" +
     "		<p>a political network</p>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
@@ -61,18 +60,23 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "	<div class=\"bill-container\">\n" +
     "\n" +
     "		<h2>{{bill.title}}</h2>\n" +
-    "		<p>{{bill.createdAt}}</p>\n" +
-    "		<p><a href=\"\">{{bill.committee}}</a></p>\n" +
+    "		<md-subheader class=\"md-no-sticky\">{{bill.createdAt}}</md-subheader>\n" +
+    "		<!--<p><a href=\"\">{{bill.committee}}</a></p>-->\n" +
+    "		<md-divider></md-divider>\n" +
+    "		<br><br>\n" +
     "\n" +
-    "		<p class=\"lead\">{{bill.billContent}}</p>\n" +
-    "\n" +
+    "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "		{{bill.voteCount}}\n" +
-    "\n" +
     "		<div ng-repeat=\"vote in votes\">\n" +
     "			{{vote.vote}}<a href=\"/member/{{vote.user.username}}\">{{vote.user.username}}</a>\n" +
     "		</div>\n" +
-    "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "\n" +
+    "		<br><br><br>\n" +
+    "\n" +
+    "		<div id=\"bill-content\" style=\"padding:20px;border:1px solid grey\">\n" +
+    "			<p class=\"lead\">{{bill.billContent}}</p>\n" +
+    "		</div>\n" +
     "\n" +
     "		<!--if logged in-->\n" +
     "		<div style=\"height:100px;\"></div>\n" +
@@ -93,7 +97,6 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "		  <div class=\"post-container\" ng-repeat=\"comment in comments | orderBy:'-createdAt'\">\n" +
     "		    <a href=\"/comment/{{comment.id}}\">{{comment.id}}</a>\n" +
     "		   	<a href=\"/member/{{comment.user.username}}\">{{comment.user.username}}</a>\n" +
-    "\n" +
     "		    <p>{{comment.comment}}</p>\n" +
     "		  </div>\n" +
     "		  <br><br>\n" +
@@ -109,7 +112,7 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function($temp
     "<md-content>\n" +
     "	<md-list>\n" +
     "		<md-subheader class=\"md-no-sticky\">bills</md-subheader>\n" +
-    "		<md-divider ></md-divider>\n" +
+    "		<md-divider></md-divider>\n" +
     "		<md-list-item ng-repeat=\"bill in bills\">\n" +
     "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
     "				<h4 class=\"committees title\">\n" +
@@ -494,30 +497,37 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
 angular.module("login/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("login/index.tpl.html",
     "<!--login-->\n" +
-    "<div class=\"row\">\n" +
-    "    <div class=\"col-md-6\">\n" +
-    "        <h3>Login</h3>\n" +
-    "        <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
+    "<div class=\"login-form\" style=\"text-align:center;min-height:100%;\">\n" +
+    "\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-md-6 col-md-offset-3\">\n" +
+    "            <h3>Login</h3><hr>\n" +
+    "            <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                <div class=\"col-sm-10\">\n" +
-    "                    <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"col-sm-offset-2 col-sm-10\">\n" +
-    "                    <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <div class=\"col-sm-offset-1 col-sm-10\">\n" +
+    "                        <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
+    "            </form>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "</div>");
+    "    <hr>\n" +
+    "    <a href=\"/register\">don't have an account?</a>\n" +
+    "</div>\n" +
+    "<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
+    "");
 }]);
 
 angular.module("member/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -648,12 +658,6 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "                    </div>\n" +
     "                </div>\n" +
     "                <div class=\"form-group\">\n" +
-    "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"form-group\">\n" +
     "                    <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
     "                    <div class=\"col-sm-10\">\n" +
     "                        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
@@ -663,6 +667,12 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "                    <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
     "                    <div class=\"col-sm-10\">\n" +
     "                        <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
+    "                    <div class=\"col-sm-10\">\n" +
+    "                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "                <div class=\"form-group\" style=\"\">\n" +

@@ -10,18 +10,23 @@
 	<div class="bill-container">
 
 		<h2>{{bill.title}}</h2>
-		<p>{{bill.createdAt}}</p>
-		<p><a href="">{{bill.committee}}</a></p>
+		<md-subheader class="md-no-sticky">{{bill.createdAt}}</md-subheader>
+		<!--<p><a href="">{{bill.committee}}</a></p>-->
+		<md-divider></md-divider>
+		<br><br>
 
-		<p class="lead">{{bill.billContent}}</p>
-
+		<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i></button>
+		<button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
 		{{bill.voteCount}}
-
 		<div ng-repeat="vote in votes">
 			{{vote.vote}}<a href="/member/{{vote.user.username}}">{{vote.user.username}}</a>
 		</div>
-		<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i></button>
-		<button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
+
+		<br><br><br>
+
+		<div id="bill-content" style="padding:20px;border:1px solid grey">
+			<p class="lead">{{bill.billContent}}</p>
+		</div>
 
 		<!--if logged in-->
 		<div style="height:100px;"></div>
@@ -42,7 +47,6 @@
 		  <div class="post-container" ng-repeat="comment in comments | orderBy:'-createdAt'">
 		    <a href="/comment/{{comment.id}}">{{comment.id}}</a>
 		   	<a href="/member/{{comment.user.username}}">{{comment.user.username}}</a>
-
 		    <p>{{comment.comment}}</p>
 		  </div>
 		  <br><br>

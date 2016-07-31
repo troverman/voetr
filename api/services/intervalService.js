@@ -4,6 +4,14 @@ var Q = require('q');
 
 function bills(){
 
+	govTrack.findBill({sort: '-introduced_date', limit:1000}, function(err, res) {
+		if (!err) {
+			for (x in res.objects){
+				console.log(res.objects[x]);
+			}
+		}
+	});
+
 	var url = "http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70"
 
 	request({
@@ -18,7 +26,7 @@ function bills(){
 		        	var billData = body.results;
 		        	for (i in billData){
 		        		//console.log(billData[i].summary);
-
+		        		console.log(billData[i]);
 		        		/*
 		        		sails.log(billData[i].bill_id);
 		        		sails.log(billData[i].bill_type);
@@ -126,7 +134,7 @@ function recentBills(){
 	//}));
 	//console.log(ok)
 
-	govTrack.findBill({sort: '-introduced_date', limit:1000}, function(err, res) {
+	govTrack.findBill({sort: '-introduced_date', limit:2000}, function(err, res) {
 		if (!err) {
 			for (x in res.objects){
 				console.log(res.objects[x])
@@ -611,20 +619,20 @@ module.exports.intervalService = function(){
 	    "WY": "Wyoming"
 	});
 
-	for (x in states){
+	//for (x in states){
 		//if(x<=20){
 		//if( (x >= 20) && (x < 40) ){
 		//if(x >= 40){
 			//console.log(states[x])
 			//stateBills(states[x])
 		//}
-	}
-	bills()
+	//}
+	//bills()
 	//openStates();
 	//stateBills('dc');
 	//stateLegislators();
 	//committees();
-	//recentBills();
+	recentBills();
 	//legislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);

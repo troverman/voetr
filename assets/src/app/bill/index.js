@@ -74,7 +74,7 @@ angular.module( 'voetr.bill', [
             return null;
         }
         $scope.newVote.user = config.currentUser.id;
-        $scope.newVote.bill = bill;
+        $scope.newVote.bill = bill.id;
         $scope.newVote.vote = newVote;
         VoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
