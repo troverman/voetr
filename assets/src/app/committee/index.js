@@ -129,7 +129,7 @@ angular.module( 'voetr.committee', [
     $sailsSocket.subscribe('vote', function (envelope) {
         switch(envelope.verb) {
             case 'created':
-                BillModel.getSome(10,0).then(function(bills){
+                BillModel.getSome(10,0, 'createdAt DESC').then(function(bills){
                     $scope.bills = bills;
                 });
                 break;
