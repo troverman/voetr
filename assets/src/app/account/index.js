@@ -14,7 +14,7 @@ angular.module( 'voetr.account', [
 })
 
 .controller( 'AccountCtrl', function AccountController( $scope, titleService, config ) {
-	titleService.setTitle('Account - voetr');
+	titleService.setTitle('account - voetr');
 	$scope.currentUser = config.currentUser;
 
 });
