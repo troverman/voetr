@@ -34,7 +34,7 @@ angular.module( 'voetr.committee', [
     .state( 'committee.bills', {
         url: '/bills',
         views: {
-            "members": {
+            "bills": {
                 controller: 'CommitteeBillCtrl',
                 templateUrl: 'committee/bills.tpl.html'
             }
@@ -42,6 +42,20 @@ angular.module( 'voetr.committee', [
         resolve: {
             bills: function(BillModel) {
                 return BillModel.getSome(100, 0, 'createdAt DESC');
+            }
+         }
+    })
+    .state( 'committee.committees', {
+        url: '/committees',
+        views: {
+            "committees": {
+                controller: 'CommitteeCommitteesCtrl',
+                templateUrl: 'committee/committees.tpl.html'
+            }
+        },
+        resolve: {
+            committees: function() {
+                return [1,2,3,4,5,6,7,8];
             }
          }
     })
@@ -141,6 +155,11 @@ angular.module( 'voetr.committee', [
 .controller( 'CommitteeBillCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, bills) {
     $scope.committee = committee;
     $scope.bills = bills;
+})
+
+.controller( 'CommitteeCommitteesCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, committees) {
+    $scope.committee = committee;
+    $scope.committees = committees;
 })
 
 .controller( 'CommitteeDiscussionCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, committee, posts) {
