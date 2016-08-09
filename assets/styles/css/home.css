@@ -5,19 +5,19 @@
 }
 #bills{
 	text-align:center;
-	background-color:rgb(235,235,235);
+	background-color:#EBEBEB;
 	padding-top:50px;
 	padding-bottom:50px;
 }
 #committees{
 	text-align:center;
-	background-color:#888;
+	background-color:#fff;
 	padding-top:50px;
 	padding-bottom:50px;
 }
 #register{
 	text-align:center;
-	background-color:#D8D8D8;
+	background-color:#EBEBEB;
 	padding-top:50px;
 	padding-bottom:50px;
 }
