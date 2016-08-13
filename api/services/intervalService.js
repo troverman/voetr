@@ -199,12 +199,16 @@ function recentBills(){
 																	bill: billModel[0].id,
 																	user: userModel[0].id
 																};
-																Vote.findOrCreate([{bill:billModel[0].id},{user:userModel[0].id}], model)
+																Vote.findOrCreate({bill:billModel[0].id, user:userModel[0].id}, model)
 																.exec(function(err, vote) {
 																	if (err) {
 																		return console.log(err);
 																	}
 																	else {
+
+																		Vote.publishCreate(vote);
+																		console.log(vote);
+
 																		Vote.count()
 																		.where({bill: billModel[0].id})
 																		.exec(function(err, voteCount) {
@@ -215,8 +219,6 @@ function recentBills(){
 																			  }
 																			});
 																		});
-																		Vote.publishCreate(vote);
-																		//console.log(vote);
 																	}
 																});
 															}
@@ -472,13 +474,17 @@ function stateBills(state){
 																			bill: bill.id,
 																			user: user[0].id
 																		}
-																		//console.log(model);
-																		Vote.findOrCreate([{bill:bill.id},{user:user[0].id}], model)
+																		//console.log(model);{vote: -1, voteString: 'Nay'}
+																		Vote.findOrCreate({bill:bill.id, user:user[0].id}, model)
 																		.exec(function(err, vote) {
 																			if (err) {
 																				return console.log(err);
 																			}
 																			else {
+
+																				Vote.publishCreate(vote);
+																				console.log(vote);
+
 																				Vote.count()
 																				.where({bill: bill.id})
 																				.exec(function(err, voteCount) {
@@ -489,8 +495,7 @@ function stateBills(state){
 																					  }
 																					});
 																				});
-																				Vote.publishCreate(vote);
-																				console.log(vote);
+																				
 																			}
 																		});
 																	}
@@ -695,7 +700,7 @@ module.exports.intervalService = function(){
 	//stateBills('dc');
 	//stateLegislators();
 	//committees();
-	//recentBills();
+	recentBills();
 	//legislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
