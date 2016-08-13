@@ -163,6 +163,9 @@ function recentBills(){
 				});
 				(function(displayNumber) {
 					govTrack.findVote({related_bill: res.objects[x].id, limit:1000}, function(err, res) {
+
+
+						//-->is res.objects passed inside? --> this code is weird
 						Bill.find()
 						.where({displayNumber: displayNumber})
 						.then(function(billModel){
@@ -173,16 +176,11 @@ function recentBills(){
 										govTrack.findVoteVoter({vote: res.objects[x].id}, function(err, res) {
 											if(!err && res.objects){
 												for(x in res.objects){
-													//if(typeof(billModel) != "undefined"){console.log('outside:'+x+':'+billModel[0].id)}
 													(function(x) {
 														User.find()
 														.where({bioguide_id: res.objects[x].person.bioguideid})
 														.then(function(userModel) {
 															if(typeof(billModel) != "undefined" && typeof(userModel != "undefined")){
-																//console.log('inside:'+x+':'+billModel[0].id)
-																//console.log('bill:'+billModel[0].id);
-																//console.log('user:'+userModel[0].id);
-																//console.log('vote:'+res.objects[x].option.value);
 																var vote = 0
 																if (res.objects[x].option.value == 'Yea' || res.objects[x].option.value == 'Aye'){
 																	vote = 1;
@@ -231,6 +229,8 @@ function recentBills(){
 								}
 							}
 						});
+
+
 					})	
 				})(displayNumber);
 			}
@@ -701,7 +701,7 @@ module.exports.intervalService = function(){
 	//stateLegislators();
 	//committees();
 	//recentBills();
-	setInterval(recentBills(), 1800000);
+	//setInterval(recentBills(), 1800000);
 
 	//legislators();
     //setInterval(recentBills, 86400000);
