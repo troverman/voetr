@@ -40,8 +40,8 @@
         <div>
           <h4>
             {{bill.voteCount}}
-            <button class="btn btn-default" ng-click="createVote(1, bill)">upvote</button>
-            <button class="btn btn-default" ng-click="createVote(-1, bill)">downvote</button>
+            <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
+            <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>
             <a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a>
           </h4>
         </div>

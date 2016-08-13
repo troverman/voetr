@@ -1,6 +1,7 @@
 var request = require('request');
 var govTrack = require('govtrack-node');
 var Q = require('q');
+var _ = require('lodash');
 
 function bills(){
 
@@ -132,16 +133,16 @@ function recentBills(){
 	//		return model.id 
 	//	}) 
 	//}));
-	//console.log(ok)
+	console.log('RECENT BILLS RUNNING')
 
 	govTrack.findBill({sort: '-introduced_date', limit:2000}, function(err, res) {
 		if (!err) {
 			for (x in res.objects){
-				console.log(res.objects[x])
+				//console.log(res.objects[x])
 				var title = res.objects[x].title_without_number;
 				var billContent = res.objects[x].display_number;
 				var displayNumber = res.objects[x].display_number;
-				sails.log(displayNumber)
+				//sails.log(displayNumber)
 				var model = {
 					billContent: billContent,
 					displayNumber: displayNumber,
@@ -173,49 +174,54 @@ function recentBills(){
 											if(!err && res.objects){
 												for(x in res.objects){
 													//if(typeof(billModel) != "undefined"){console.log('outside:'+x+':'+billModel[0].id)}
-													User.find()
-													.where({bioguide_id: res.objects[x].person.bioguideid})
-													.then(function(userModel) {
-														if(typeof(billModel) != "undefined" && typeof(userModel != "undefined")){
-															//console.log('inside:'+x+':'+billModel[0].id)
-															//console.log('bill:'+billModel[0].id);
-															//console.log('user:'+userModel[0].id);
-															//console.log('vote:'+res.objects[x].option.value);
-															var vote = 0
-															if (res.objects[x].option.value == 'Yea' || res.objects[x].option.value == 'Aye'){
-																vote = 1;
-															}
-															if(res.objects[x].option.value == 'Nay'){
-																vote = -1;
-															}
-															var model = {
-																vote: vote,
-																voteString: res.objects[x].option.value,
-																bill: billModel[0].id,
-																user: userModel[0].id
-															};
-															Vote.findOrCreate([{bill:billModel[0].id},{user:userModel[0].id}], model)
-															.exec(function(err, vote) {
-																if (err) {
-																	return console.log(err);
+													(function(x) {
+														User.find()
+														.where({bioguide_id: res.objects[x].person.bioguideid})
+														.then(function(userModel) {
+															if(typeof(billModel) != "undefined" && typeof(userModel != "undefined")){
+																//console.log('inside:'+x+':'+billModel[0].id)
+																//console.log('bill:'+billModel[0].id);
+																//console.log('user:'+userModel[0].id);
+																//console.log('vote:'+res.objects[x].option.value);
+																var vote = 0
+																if (res.objects[x].option.value == 'Yea' || res.objects[x].option.value == 'Aye'){
+																	vote = 1;
 																}
-																else {
-																	Vote.count()
-																	.where({bill: billModel[0].id})
-																	.exec(function(err, voteCount) {
-																		console.log(voteCount)
-																		Bill.update({id: billModel[0].id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
-																		  if (err) {
-																		    return;
-																		  }
+																if(res.objects[x].option.value == 'Nay' || res.objects[x].option.value == 'No'){
+																	vote = -1;
+																}
+																//if (vote == 0){
+																	//console.log(res.objects[x].option.value)
+																//}
+																var model = {
+																	vote: vote,
+																	voteString: res.objects[x].option.value,
+																	bill: billModel[0].id,
+																	user: userModel[0].id
+																};
+																Vote.findOrCreate([{bill:billModel[0].id},{user:userModel[0].id}], model)
+																.exec(function(err, vote) {
+																	if (err) {
+																		return console.log(err);
+																	}
+																	else {
+																		Vote.count()
+																		.where({bill: billModel[0].id})
+																		.exec(function(err, voteCount) {
+																			//console.log(voteCount)
+																			Bill.update({id: billModel[0].id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+																			  if (err) {
+																			    return;
+																			  }
+																			});
 																		});
-																	});
-																	Vote.publishCreate(vote);
-																	console.log(vote);
-																}
-															});
-														}
-													});						
+																		Vote.publishCreate(vote);
+																		//console.log(vote);
+																	}
+																});
+															}
+														});
+													})(x)
 												}
 											}
 										});
@@ -426,23 +432,75 @@ function stateBills(state){
 										user: 1
 									};
 
-									console.log(body.id)
+
 									Bill.findOrCreate({displayNumber:body.id}, model).exec(function(err, bill){
 										if (err) {
 											return console.log(err);
 										}
 										else{
-											console.log('CRE8')
-											console.log(bill)
+
+											//console.log('CRE8');
+											//console.log(bill);
+
+											if (typeof body.votes[0] != "undefined"){
+
+												var yesVotesArray = _.map(body.votes[0].yes_votes, function(element) { 
+												     return _.extend({}, element, {vote: 1, voteString: 'Yea'});
+												});
+												var noVotesArray = _.map(body.votes[0].no_votes, function(element) { 
+												     return _.extend({}, element, {vote: -1, voteString: 'Nay'});
+												});
+												var otherVotesArray = _.map(body.votes[0].other_votes, function(element) { 
+												     return _.extend({}, element, {vote: 0, voteString: 'No Vote'});
+												});
+
+												var votesArray = [];
+												var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
+												//console.log(votesArray)
+												for(x in votesArray){
+													var leg_id = votesArray[x].leg_id;
+													if (leg_id){
+														(function(x) {
+															User.find({leg_id: leg_id}).then(function(user){
+																//console.log(x)
+																if (typeof user[0] != "undefined"){
+																	//console.log(user);
+																	var model = {
+																		vote: votesArray[x].vote,
+																		voteString: votesArray[x].voteString,
+																		bill: bill.id,
+																		user: user[0].id
+																	}
+																	//console.log(model);
+																	Vote.findOrCreate([{bill:bill.id},{user:user[0].id}], model)
+																	.exec(function(err, vote) {
+																		if (err) {
+																			return console.log(err);
+																		}
+																		else {
+																			Vote.count()
+																			.where({bill: bill.id})
+																			.exec(function(err, voteCount) {
+																				console.log(voteCount)
+																				Bill.update({id: bill.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+																				  if (err) {
+																				    return;
+																				  }
+																				});
+																			});
+																			Vote.publishCreate(vote);
+																			console.log(vote);
+																		}
+																	});
+																}
+
+															});
+														})(x)
+													}
+												}
+											}
 										}
 									});
-
-									//votes -- to attach to legislators and bills
-									/*console.log(body.votes);
-									if (typeof body.votes[0] != "undefined"){
-										console.log(body.votes[0].yes_votes);
-										console.log(body.votes[0].no_votes);
-									}*/
 
 								}
 
@@ -453,6 +511,10 @@ function stateBills(state){
 
 		    }
 	});
+
+};
+
+function stateBillVotes(state){
 
 };
 
@@ -619,14 +681,14 @@ module.exports.intervalService = function(){
 	    "WY": "Wyoming"
 	});
 
-	//for (x in states){
-		//if(x<=20){
-		//if( (x >= 20) && (x < 40) ){
+	for (x in states){
+		//if(x<=7){
+		if( (x >= 0) && (x < 5) ){
 		//if(x >= 40){
 			//console.log(states[x])
 			//stateBills(states[x])
-		//}
-	//}
+		}
+	}
 	//bills()
 	//openStates();
 	//stateBills('dc');

@@ -14,5 +14,5 @@ angular.module( 'voetr.about', [
 })
 
 .controller( 'AboutCtrl', function AboutController( $scope, titleService ) {
-	titleService.setTitle('About - voetr');
+	titleService.setTitle('about - voetr');
 });

@@ -14,7 +14,7 @@ angular.module( 'voetr.login', [
 })
 
 .controller( 'LoginCtrl', function LoginController( $scope, titleService, config ) {
-	titleService.setTitle('voetr');
+	titleService.setTitle('login - voetr');
 	$scope.currentUser = config.currentUser;
 
 });

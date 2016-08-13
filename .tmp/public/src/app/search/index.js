@@ -43,10 +43,9 @@ angular.module( 'voetr.search', [
 })
 
 .controller( 'SearchController', function SearchController( $scope, $stateParams, lodash, config, titleService, searchResults, SearchModel ) {
-    titleService.setTitle('Search');
     $scope.searchQuery = $stateParams.searchQuery;
+    titleService.setTitle($scope.searchQuery + '- voetr');
     $scope.searchResults = searchResults;
-
     $scope.keyPress = function(searchValue){
         SearchModel.search(searchValue).then(function(models){
             $scope.searchResults = models;

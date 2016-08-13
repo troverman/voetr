@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/committees.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -163,8 +163,8 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "      <div>\n" +
     "        <h4>\n" +
     "          {{bill.voteCount}}\n" +
-    "          <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\">upvote</button>\n" +
-    "          <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
+    "          <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "          <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
     "        </h4>\n" +
     "      </div>\n" +
@@ -175,6 +175,31 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("committee/committees.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/committees.tpl.html",
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
+    "    <hr>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div id=\"main-container\">\n" +
+    "  <div class=\"committee-title\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
+    "  </div>\n" +
+    "  <h1>members</h1>\n" +
     "</div>\n" +
     "");
 }]);
@@ -251,8 +276,8 @@ angular.module("committee/home.tpl.html", []).run(["$templateCache", function($t
     "        <div>\n" +
     "          <h4>\n" +
     "            {{bill.voteCount}}\n" +
-    "            <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\">upvote</button>\n" +
-    "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\">downvote</button>\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "            <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
     "          </h4>\n" +
     "        </div>\n" +
@@ -568,34 +593,17 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "				</md-card-title-text>\n" +
     "				<md-card-title-media>\n" +
-    "					<div class=\"md-media-lg card-media\"></div>\n" +
+    "					<div class=\"md-media-lg card-media\"><img class=\"avatar\" src=\"{{member.avatarUrl}}\"/></div>\n" +
     "				</md-card-title-media>\n" +
     "			</md-card-title>\n" +
     "		</md-card>\n" +
-    "		<div ng-repeat=\"vote in votes\">\n" +
+    "\n" +
+    "\n" +
+    "		<!--<div ng-repeat=\"vote in votes\">\n" +
     "			<p>{{member.username}} voted {{vote.vote}} on <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></p>\n" +
-    "		</div>\n" +
+    "		</div>-->\n" +
     "		\n" +
     "		  \n" +
-    "		  <!--<md-content class=\"md-padding\" layout-xs=\"column\" layout=\"row\">\n" +
-    "		    <div flex-xs=\"\" flex-gt-xs=\"50\" layout=\"column\">\n" +
-    "		      <md-card>\n" +
-    "		        <md-card-title>\n" +
-    "		          <md-card-title-text>\n" +
-    "		            <span class=\"md-headline\">Card with image</span>\n" +
-    "		            <span class=\"md-subhead\">Large</span>\n" +
-    "		          </md-card-title-text>\n" +
-    "		          <md-card-title-media>\n" +
-    "		            <div class=\"md-media-lg card-media\"></div>\n" +
-    "		          </md-card-title-media>\n" +
-    "		        </md-card-title>\n" +
-    "		        <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
-    "		          <md-button>Action 1</md-button>\n" +
-    "		          <md-button>Action 2</md-button>\n" +
-    "		        </md-card-actions>\n" +
-    "		      </md-card>\n" +
-    "		    </div>\n" +
-    "		  </md-content>-->\n" +
     "	</div>\n" +
     "	<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
     "</div>\n" +
