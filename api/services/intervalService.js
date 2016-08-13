@@ -432,76 +432,77 @@ function stateBills(state){
 										user: 1
 									};
 
+									var votes = body.votes[0];
+									(function(votes) {
+										Bill.findOrCreate({displayNumber:body.id}, model).exec(function(err, bill){
+											if (err) {
+												return console.log(err);
+											}
+											else{
 
-									Bill.findOrCreate({displayNumber:body.id}, model).exec(function(err, bill){
-										if (err) {
-											return console.log(err);
-										}
-										else{
+												//console.log('CRE8');
+												//console.log(bill);
 
-											//console.log('CRE8');
-											//console.log(bill);
+												if (typeof votes != "undefined"){
 
-											if (typeof body.votes[0] != "undefined"){
+													var yesVotesArray = _.map(votes.yes_votes, function(element) { 
+													     return _.extend({}, element, {vote: 1, voteString: 'Yea'});
+													});
+													var noVotesArray = _.map(votes.no_votes, function(element) { 
+													     return _.extend({}, element, {vote: -1, voteString: 'Nay'});
+													});
+													var otherVotesArray = _.map(votes.other_votes, function(element) { 
+													     return _.extend({}, element, {vote: 0, voteString: 'No Vote'});
+													});
 
-												var yesVotesArray = _.map(body.votes[0].yes_votes, function(element) { 
-												     return _.extend({}, element, {vote: 1, voteString: 'Yea'});
-												});
-												var noVotesArray = _.map(body.votes[0].no_votes, function(element) { 
-												     return _.extend({}, element, {vote: -1, voteString: 'Nay'});
-												});
-												var otherVotesArray = _.map(body.votes[0].other_votes, function(element) { 
-												     return _.extend({}, element, {vote: 0, voteString: 'No Vote'});
-												});
-
-												var votesArray = [];
-												var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
-												//console.log(votesArray)
-												for(x in votesArray){
-													var leg_id = votesArray[x].leg_id;
-													if (leg_id){
-														(function(x) {
-															User.find({leg_id: leg_id}).then(function(user){
-																//console.log(x)
-																if (typeof user[0] != "undefined"){
-																	//console.log(user);
-																	var model = {
-																		vote: votesArray[x].vote,
-																		voteString: votesArray[x].voteString,
-																		bill: bill.id,
-																		user: user[0].id
-																	}
-																	//console.log(model);
-																	Vote.findOrCreate([{bill:bill.id},{user:user[0].id}], model)
-																	.exec(function(err, vote) {
-																		if (err) {
-																			return console.log(err);
+													var votesArray = [];
+													var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
+													//console.log(votesArray)
+													for(x in votesArray){
+														var leg_id = votesArray[x].leg_id;
+														if (leg_id){
+															(function(x) {
+																User.find({leg_id: leg_id}).then(function(user){
+																	//console.log(x)
+																	if (typeof user[0] != "undefined"){
+																		//console.log(user);
+																		var model = {
+																			vote: votesArray[x].vote,
+																			voteString: votesArray[x].voteString,
+																			bill: bill.id,
+																			user: user[0].id
 																		}
-																		else {
-																			Vote.count()
-																			.where({bill: bill.id})
-																			.exec(function(err, voteCount) {
-																				console.log(voteCount)
-																				Bill.update({id: bill.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
-																				  if (err) {
-																				    return;
-																				  }
+																		//console.log(model);
+																		Vote.findOrCreate([{bill:bill.id},{user:user[0].id}], model)
+																		.exec(function(err, vote) {
+																			if (err) {
+																				return console.log(err);
+																			}
+																			else {
+																				Vote.count()
+																				.where({bill: bill.id})
+																				.exec(function(err, voteCount) {
+																					console.log(voteCount)
+																					Bill.update({id: bill.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+																					  if (err) {
+																					    return;
+																					  }
+																					});
 																				});
-																			});
-																			Vote.publishCreate(vote);
-																			console.log(vote);
-																		}
-																	});
-																}
+																				Vote.publishCreate(vote);
+																				console.log(vote);
+																			}
+																		});
+																	}
 
-															});
-														})(x)
+																});
+															})(x)
+														}
 													}
 												}
 											}
-										}
-									});
-
+										});
+									})(votes)
 								}
 
 						});
