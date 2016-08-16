@@ -64,7 +64,10 @@
         <!--<p>local counties / self governing committees / total members / search</p>-->
         <h4>{{userCount}} members</h4><hr>
         <div ng-repeat="user in users">
-          <a href="/member/{{user.username}}">{{user.username}}</a>
+          <a href="/member/{{user.username}}">
+            <img src="{{member.avatarUrl}}"/>
+            <p>{{user.username}}</p>
+          </a>
         </div>
       </div>
 

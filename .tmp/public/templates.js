@@ -568,8 +568,8 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    </div>\n" +
     "	    <div class=\"user-profile-data\">\n" +
     "	      <h3>{{member.username}}</h3>\n" +
-    "	      <button class=\"btn\">follow</button><br>\n" +
-    "	      <button class=\"btn\">select</button><br>\n" +
+    "	      <button class=\"btn btn-default\">follow</button><br>\n" +
+    "	      <button class=\"btn btn-default\">elect</button><br>\n" +
     "	      <!--can have dif reps per committee-->\n" +
     "	      <!--represented by (list of reps with each committee)-->\n" +
     "	      <!--committee member list have a select button?-->\n" +
@@ -583,9 +583,11 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    </ul>\n" +
     "	  </div>\n" +
     "	</div>\n" +
+    "\n" +
     "	<div id=\"profile-activity\">\n" +
     "\n" +
     "\n" +
+    "		<h1>Votes</h1><hr>\n" +
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
@@ -596,16 +598,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "					<div class=\"md-media-lg card-media\"><img class=\"avatar\" src=\"{{member.avatarUrl}}\"/></div>\n" +
     "				</md-card-title-media>\n" +
     "			</md-card-title>\n" +
-    "		</md-card>\n" +
-    "\n" +
-    "\n" +
-    "		<!--<div ng-repeat=\"vote in votes\">\n" +
-    "			<p>{{member.username}} voted {{vote.vote}} on <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></p>\n" +
-    "		</div>-->\n" +
-    "		\n" +
+    "		</md-card>		\n" +
     "		  \n" +
     "	</div>\n" +
-    "	<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
     "</div>\n" +
     "");
 }]);

@@ -137,11 +137,12 @@ function recentBills(){
 
 	govTrack.findBill({sort: '-introduced_date', limit:2000}, function(err, res) {
 		if (!err) {
-			for (x in res.objects){
+			var bills = res.objects;
+			for (x in bills){
 				//console.log(res.objects[x])
-				var title = res.objects[x].title_without_number;
-				var billContent = res.objects[x].display_number;
-				var displayNumber = res.objects[x].display_number;
+				var title = bills[x].title_without_number;
+				var billContent = bills[x].display_number;
+				var displayNumber = bills[x].display_number;
 				//sails.log(displayNumber)
 				var model = {
 					billContent: billContent,
@@ -162,75 +163,81 @@ function recentBills(){
 					}
 				});
 				(function(displayNumber) {
-					govTrack.findVote({related_bill: res.objects[x].id, limit:1000}, function(err, res) {
+					govTrack.findVote({related_bill: bills[x].id, limit:1000}, function(err, res) {
+						if(!err && res.objects){
+							var votes = res.objects;
+							(function(votes) {
+								Bill.find()
+								.where({displayNumber: displayNumber})
+								.then(function(billModel){
+									var billModel = billModel;
+									if (!err && votes.length > 0) {
+										for(x in votes){
+											(function(billModel) {
+												govTrack.findVoteVoter({vote: votes[x].id}, function(err, res) {
+													if(!err && res.objects){
+														var voteVoters = res.objects;
+														for(x in voteVoters){
+															console.log(voteVoters[x].option.id);
+															console.log(voteVoters[x].vote.category);
+															console.log(voteVoters[x].vote.question);
 
+															(function(voteVoters, x) {
+																User.find()
+																.where({bioguide_id: voteVoters[x].person.bioguideid})
+																.then(function(userModel) {
+																	if(typeof(billModel) != "undefined" && typeof(userModel != "undefined")){
+																		var vote = 0
+																		if (voteVoters[x].option.value == 'Yea' || voteVoters[x].option.value == 'Aye'){
+																			vote = 1;
+																		}
+																		if(voteVoters[x].option.value == 'Nay' || voteVoters[x].option.value == 'No'){
+																			vote = -1;
+																		}
+																		//if (vote == 0){
+																			//console.log(voteVoters[x].option.value)
+																		//}
+																		var model = {
+																			vote: vote,
+																			voteString: voteVoters[x].option.value,
+																			bill: billModel[0].id,
+																			user: userModel[0].id
+																		};
+																		//Vote.create(model)
+																		/*Vote.findOrCreate({bill:billModel[0].id, user:userModel[0].id}, model)
+																		.exec(function(err, vote) {
+																			if (err) {
+																				return console.log(err);
+																			}
+																			else {
 
-						//-->is res.objects passed inside? --> this code is weird
-						Bill.find()
-						.where({displayNumber: displayNumber})
-						.then(function(billModel){
-							var billModel = billModel;
-							if (!err && res.objects.length > 0) {
-								for(x in res.objects){
-									(function(billModel) {
-										govTrack.findVoteVoter({vote: res.objects[x].id}, function(err, res) {
-											if(!err && res.objects){
-												for(x in res.objects){
-													(function(x) {
-														User.find()
-														.where({bioguide_id: res.objects[x].person.bioguideid})
-														.then(function(userModel) {
-															if(typeof(billModel) != "undefined" && typeof(userModel != "undefined")){
-																var vote = 0
-																if (res.objects[x].option.value == 'Yea' || res.objects[x].option.value == 'Aye'){
-																	vote = 1;
-																}
-																if(res.objects[x].option.value == 'Nay' || res.objects[x].option.value == 'No'){
-																	vote = -1;
-																}
-																//if (vote == 0){
-																	//console.log(res.objects[x].option.value)
-																//}
-																var model = {
-																	vote: vote,
-																	voteString: res.objects[x].option.value,
-																	bill: billModel[0].id,
-																	user: userModel[0].id
-																};
-																Vote.findOrCreate({bill:billModel[0].id, user:userModel[0].id}, model)
-																.exec(function(err, vote) {
-																	if (err) {
-																		return console.log(err);
-																	}
-																	else {
+																				Vote.publishCreate(vote);
+																				console.log(vote);
 
-																		Vote.publishCreate(vote);
-																		console.log(vote);
-
-																		Vote.count()
-																		.where({bill: billModel[0].id})
-																		.exec(function(err, voteCount) {
-																			//console.log(voteCount)
-																			Bill.update({id: billModel[0].id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
-																			  if (err) {
-																			    return;
-																			  }
-																			});
-																		});
+																				Vote.count()
+																				.where({bill: billModel[0].id})
+																				.exec(function(err, voteCount) {
+																					console.log(voteCount)
+																					Bill.update({id: billModel[0].id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+																					  if (err) {
+																					    return;
+																					  }
+																					});
+																				});
+																			}
+																		});*/
 																	}
 																});
-															}
-														});
-													})(x)
-												}
-											}
-										});
-									})(billModel)
-								}
-							}
-						});
-
-
+															})(voteVoters, x)
+														}
+													}
+												});
+											})(billModel)
+										}
+									}
+								});
+							})(votes)
+						}
 					})	
 				})(displayNumber);
 			}
@@ -701,7 +708,7 @@ module.exports.intervalService = function(){
 	//stateLegislators();
 	//committees();
 	//recentBills();
-	//setInterval(recentBills(), 1800000);
+	//setInterval(recentBills(), 900000);
 
 	//legislators();
     //setInterval(recentBills, 86400000);

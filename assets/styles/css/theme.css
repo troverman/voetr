@@ -8,6 +8,41 @@ html, body {
   color:#000;
 }
 
+/*
+html {
+    height:100%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    margin:0;
+    padding-bottom:200px;
+    min-height: 100%
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom:0;
+    left:0;
+    padding:1rem;
+    padding:50px;
+    background-color:#414141;
+    min-height:200px;
+    color: gray;
+}
+
+.footer a{
+    color:white;
+    padding:5px;
+}
+*/
+
 a {
   text-decoration: none !important;
   color:#222;
@@ -192,11 +227,6 @@ hr {
   }
 }
 
-@media screen and (max-width: 640px) {
-    .home-pad {
-        margin-left: 50px;
-    }
-}
 .nav {
   font-family:Jura;
   font-size:20px;

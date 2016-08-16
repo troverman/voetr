@@ -9,8 +9,8 @@
 	    </div>
 	    <div class="user-profile-data">
 	      <h3>{{member.username}}</h3>
-	      <button class="btn">follow</button><br>
-	      <button class="btn">select</button><br>
+	      <button class="btn btn-default">follow</button><br>
+	      <button class="btn btn-default">elect</button><br>
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
 	      <!--committee member list have a select button?-->
@@ -24,9 +24,11 @@
 	    </ul>
 	  </div>
 	</div>
+
 	<div id="profile-activity">
 
 
+		<h1>Votes</h1><hr>
 		<md-card ng-repeat="vote in votes">
 			<md-card-title>
 				<md-card-title-text>
@@ -37,14 +39,7 @@
 					<div class="md-media-lg card-media"><img class="avatar" src="{{member.avatarUrl}}"/></div>
 				</md-card-title-media>
 			</md-card-title>
-		</md-card>
-
-
-		<!--<div ng-repeat="vote in votes">
-			<p>{{member.username}} voted {{vote.vote}} on <a href="/bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></p>
-		</div>-->
-		
+		</md-card>		
 		  
 	</div>
-	<!--<div ng-include="'footer/index.tpl.html'"></div>-->
 </div>
