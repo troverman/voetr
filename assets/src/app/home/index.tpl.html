@@ -65,7 +65,7 @@
         <h4>{{userCount}} members</h4><hr>
         <div ng-repeat="user in users">
           <a href="/member/{{user.username}}">
-            <img src="{{user.avatarUrl}}"/>
+            <img style="max-height:64px" src="{{user.avatarUrl}}"/>
             <p>{{user.username}}</p>
           </a>
         </div>
