@@ -418,32 +418,55 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div id=\"bills\">\n" +
     "        <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
     "        <h4>{{billCount}}</h4>\n" +
-    "        <div ng-repeat=\"bill in bills\">\n" +
-    "          <!--<md-card>\n" +
-    "            <md-card-title>\n" +
-    "              <md-card-title-text>\n" +
-    "                <span class=\"md-headline\">Card with image</span>\n" +
-    "                <span class=\"md-subhead\">Small</span>\n" +
-    "              </md-card-title-text>\n" +
-    "              <md-card-title-media>\n" +
-    "                <div class=\"md-media-sm card-media\"></div>\n" +
-    "              </md-card-title-media>\n" +
-    "            </md-card-title>\n" +
-    "            <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
-    "              <md-button>yes</md-button>\n" +
-    "              <md-button>no</md-button>\n" +
-    "            </md-card-actions>\n" +
-    "          </md-card>-->\n" +
+    "\n" +
+    "\n" +
+    "        <!--<div ng-repeat=\"bill in bills\">\n" +
     "          <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
+    "        </div>-->\n" +
+    "\n" +
+    "\n" +
+    "        <div class=\"container\">\n" +
+    "          <div class='md-padding' layout=\"row\" layout-wrap>\n" +
+    "            <md-card flex=\"30\" ng-repeat=\"bill in bills\">\n" +
+    "              <md-card-title>\n" +
+    "                <md-card-title-text>\n" +
+    "                  <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">\n" +
+    "                    <span class=\"\">{{bill.title}}</span>\n" +
+    "                  </a>\n" +
+    "                </md-card-title-text>\n" +
+    "              </md-card-title>\n" +
+    "            </md-card>\n" +
+    "          </div>\n" +
     "        </div>\n" +
+    "\n" +
+    "\n" +
     "      </div>\n" +
     "\n" +
     "      <div id=\"committees\">\n" +
     "        <h2><a href=\"/committees\">committees</a></h2><hr>\n" +
     "        <h4>{{committeeCount}}</h4>\n" +
-    "        <div ng-repeat=\"committee in committees\">\n" +
+    "\n" +
+    "\n" +
+    "        <!--<div ng-repeat=\"committee in committees\">\n" +
     "          <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
+    "        </div>-->\n" +
+    "\n" +
+    "        <div class=\"container\">\n" +
+    "          <div class='md-padding' layout=\"row\" layout-wrap>\n" +
+    "            <md-card flex=\"15\" ng-repeat=\"committee in committees\">\n" +
+    "              <md-card-title>\n" +
+    "                <md-card-title-text>\n" +
+    "                  <a href=\"/committee/{{committee.urlTitle}}\">\n" +
+    "                    <span class=\"\">{{committee.title}}</span>\n" +
+    "                  </a>\n" +
+    "                </md-card-title-text>\n" +
+    "              </md-card-title>\n" +
+    "            </md-card>\n" +
+    "          </div>\n" +
     "        </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "      </div>\n" +
     "\n" +
     "      <div id=\"register\">\n" +
@@ -454,9 +477,34 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div id=\"members\">\n" +
     "        <!--<p>local counties / self governing committees / total members / search</p>-->\n" +
     "        <h4>{{userCount}} members</h4><hr>\n" +
-    "        <div ng-repeat=\"user in users\">\n" +
-    "          <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
+    "        <!--<div class=\"container\">\n" +
+    "          <div ng-repeat=\"user in users\">\n" +
+    "            <div class=\"col-sm-4\">\n" +
+    "              <a href=\"/member/{{user.username}}\">\n" +
+    "                <img style=\"max-height:128px\" src=\"{{user.avatarUrl}}\"/>\n" +
+    "                <p>{{user.username}}</p>\n" +
+    "              </a>\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "        </div>-->\n" +
+    "        <div class=\"container\">\n" +
+    "          <div class='md-padding' layout=\"row\" layout-wrap>\n" +
+    "            <md-card flex=\"15\" ng-repeat=\"user in users\">\n" +
+    "              <a href=\"/member/{{user.username}}\">\n" +
+    "                <img ng-src=\"{{user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{user.username}}\">\n" +
+    "              </a>\n" +
+    "              <md-card-title>\n" +
+    "                <md-card-title-text>\n" +
+    "                  <a href=\"/member/{{user.username}}\">\n" +
+    "                    <span class=\"\">{{user.username}}</span>\n" +
+    "                  </a>\n" +
+    "                </md-card-title-text>\n" +
+    "              </md-card-title>\n" +
+    "            </md-card>\n" +
+    "          </div>\n" +
     "        </div>\n" +
+    "\n" +
+    "\n" +
     "      </div>\n" +
     "\n" +
     "    </div>\n" +

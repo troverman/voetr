@@ -27,32 +27,55 @@
       <div id="bills">
         <h2><a href="/bills">bills</a></h2><hr>
         <h4>{{billCount}}</h4>
-        <div ng-repeat="bill in bills">
-          <!--<md-card>
-            <md-card-title>
-              <md-card-title-text>
-                <span class="md-headline">Card with image</span>
-                <span class="md-subhead">Small</span>
-              </md-card-title-text>
-              <md-card-title-media>
-                <div class="md-media-sm card-media"></div>
-              </md-card-title-media>
-            </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button>yes</md-button>
-              <md-button>no</md-button>
-            </md-card-actions>
-          </md-card>-->
+
+
+        <!--<div ng-repeat="bill in bills">
           <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
+        </div>-->
+
+
+        <div class="container">
+          <div class='md-padding' layout="row" layout-wrap>
+            <md-card flex="30" ng-repeat="bill in bills">
+              <md-card-title>
+                <md-card-title-text>
+                  <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">
+                    <span class="">{{bill.title}}</span>
+                  </a>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
         </div>
+
+
       </div>
 
       <div id="committees">
         <h2><a href="/committees">committees</a></h2><hr>
         <h4>{{committeeCount}}</h4>
-        <div ng-repeat="committee in committees">
+
+
+        <!--<div ng-repeat="committee in committees">
           <h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
+        </div>-->
+
+        <div class="container">
+          <div class='md-padding' layout="row" layout-wrap>
+            <md-card flex="15" ng-repeat="committee in committees">
+              <md-card-title>
+                <md-card-title-text>
+                  <a href="/committee/{{committee.urlTitle}}">
+                    <span class="">{{committee.title}}</span>
+                  </a>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
         </div>
+
+
+
       </div>
 
       <div id="register">
@@ -63,12 +86,34 @@
       <div id="members">
         <!--<p>local counties / self governing committees / total members / search</p>-->
         <h4>{{userCount}} members</h4><hr>
-        <div ng-repeat="user in users">
-          <a href="/member/{{user.username}}">
-            <img style="max-height:64px" src="{{user.avatarUrl}}"/>
-            <p>{{user.username}}</p>
-          </a>
+        <!--<div class="container">
+          <div ng-repeat="user in users">
+            <div class="col-sm-4">
+              <a href="/member/{{user.username}}">
+                <img style="max-height:128px" src="{{user.avatarUrl}}"/>
+                <p>{{user.username}}</p>
+              </a>
+            </div>
+          </div>
+        </div>-->
+        <div class="container">
+          <div class='md-padding' layout="row" layout-wrap>
+            <md-card flex="15" ng-repeat="user in users">
+              <a href="/member/{{user.username}}">
+                <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
+              </a>
+              <md-card-title>
+                <md-card-title-text>
+                  <a href="/member/{{user.username}}">
+                    <span class="">{{user.username}}</span>
+                  </a>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
         </div>
+
+
       </div>
 
     </div>
