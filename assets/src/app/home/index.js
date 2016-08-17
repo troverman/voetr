@@ -54,7 +54,7 @@ angular.module( 'voetr.home', [
 	$scope.skipCommittees = 10;
     $scope.loadMoreCommittees = function() {
 		$scope.skipCommittees = $scope.skipCommittees + 100;
-		CommitteeModel.getSome(10,$scope.skipCommittees).then(function(committees) {
+		CommitteeModel.getSome(100,$scope.skipCommittees).then(function(committees) {
 			Array.prototype.push.apply($scope.committees, committees);
 		});
 	};
