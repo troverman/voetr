@@ -12,11 +12,9 @@ angular.module( 'voetr.home', [
 		},
 		resolve:{
 			committees: function(CommitteeModel) {
-				console.log('committees')
 				return CommitteeModel.getSome(10,0);
             },
 			committeeCount: function(CommitteeModel) {
-				console.log('committee count')
 				return CommitteeModel.getCount();
             },
             users: function(UserModel){
@@ -35,7 +33,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel ) {
+.controller( 'HomeCtrl', function HomeController($scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, BillModel, CommitteeModel, UserModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -44,6 +42,31 @@ angular.module( 'voetr.home', [
 	$scope.committeeCount = committeeCount.committeeCount;
 	$scope.users = users;
 	$scope.userCount = userCount.userCount;
+
+	$scope.skipBills = 10;
+    $scope.loadMoreBills = function() {
+		$scope.skipBills = $scope.skipBills + 20;
+		BillModel.getSome(100,$scope.skipBills).then(function(bills) {
+			Array.prototype.push.apply($scope.bills, bills);
+		});
+	};
+
+	$scope.skipCommittees = 10;
+    $scope.loadMoreCommittees = function() {
+		$scope.skipCommittees = $scope.skipCommittees + 100;
+		CommitteeModel.getSome(100,$scope.skipCommittees).then(function(committees) {
+			Array.prototype.push.apply($scope.committees, committees);
+		});
+	};
+
+	$scope.skipMembers = 33;
+    $scope.loadMoreMembers = function() {
+		$scope.skipMembers = $scope.skipMembers + 33;
+		UserModel.getSome(100,$scope.skipMembers).then(function(users) {
+			Array.prototype.push.apply($scope.users, users);
+		});
+	};
+
 	if ($scope.currentUser){
 		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
 			$scope.votes = votes;

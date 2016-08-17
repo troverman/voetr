@@ -426,7 +426,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "\n" +
     "        <div class=\"container\">\n" +
-    "          <div class='md-padding' layout=\"row\" layout-wrap>\n" +
+    "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "            <md-card flex=\"30\" ng-repeat=\"bill in bills\">\n" +
     "              <md-card-title>\n" +
     "                <md-card-title-text>\n" +
@@ -439,6 +439,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "        </div>\n" +
     "\n" +
+    "        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
+    "          <button class=\"btn btn-default\">more</button>\n" +
+    "        </div>\n" +
     "\n" +
     "      </div>\n" +
     "\n" +
@@ -452,7 +455,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        </div>-->\n" +
     "\n" +
     "        <div class=\"container\">\n" +
-    "          <div class='md-padding' layout=\"row\" layout-wrap>\n" +
+    "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "            <md-card flex=\"15\" ng-repeat=\"committee in committees\">\n" +
     "              <md-card-title>\n" +
     "                <md-card-title-text>\n" +
@@ -465,6 +468,10 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "        </div>\n" +
     "\n" +
+    "        \n" +
+    "        <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
+    "          <button class=\"btn btn-default\">more</button>\n" +
+    "        </div>\n" +
     "\n" +
     "\n" +
     "      </div>\n" +
@@ -488,8 +495,8 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "        </div>-->\n" +
     "        <div class=\"container\">\n" +
-    "          <div class='md-padding' layout=\"row\" layout-wrap>\n" +
-    "            <md-card flex=\"15\" ng-repeat=\"user in users\">\n" +
+    "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
+    "            <md-card flex=\"20\" ng-repeat=\"user in users\">\n" +
     "              <a href=\"/member/{{user.username}}\">\n" +
     "                <img ng-src=\"{{user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{user.username}}\">\n" +
     "              </a>\n" +
@@ -504,6 +511,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "        </div>\n" +
     "\n" +
+    "        <div ng-click=\"loadMoreMembers()\" style=\"text-align:center\">\n" +
+    "          <button class=\"btn btn-default\">more</button>\n" +
+    "        </div>\n" +
     "\n" +
     "      </div>\n" +
     "\n" +

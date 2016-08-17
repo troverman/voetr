@@ -35,7 +35,7 @@
 
 
         <div class="container">
-          <div class='md-padding' layout="row" layout-wrap>
+          <div class='md-padding' layout="row" layout-align="center" layout-wrap>
             <md-card flex="30" ng-repeat="bill in bills">
               <md-card-title>
                 <md-card-title-text>
@@ -48,6 +48,9 @@
           </div>
         </div>
 
+        <div ng-click="loadMoreBills()" style="text-align:center">
+          <button class="btn btn-default">more</button>
+        </div>
 
       </div>
 
@@ -61,7 +64,7 @@
         </div>-->
 
         <div class="container">
-          <div class='md-padding' layout="row" layout-wrap>
+          <div class='md-padding' layout="row" layout-align="center" layout-wrap>
             <md-card flex="15" ng-repeat="committee in committees">
               <md-card-title>
                 <md-card-title-text>
@@ -74,6 +77,10 @@
           </div>
         </div>
 
+        
+        <div ng-click="loadMoreCommittees()" style="text-align:center">
+          <button class="btn btn-default">more</button>
+        </div>
 
 
       </div>
@@ -97,8 +104,8 @@
           </div>
         </div>-->
         <div class="container">
-          <div class='md-padding' layout="row" layout-wrap>
-            <md-card flex="15" ng-repeat="user in users">
+          <div class='md-padding' layout="row" layout-align="center" layout-wrap>
+            <md-card flex="20" ng-repeat="user in users">
               <a href="/member/{{user.username}}">
                 <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
               </a>
@@ -113,6 +120,9 @@
           </div>
         </div>
 
+        <div ng-click="loadMoreMembers()" style="text-align:center">
+          <button class="btn btn-default">more</button>
+        </div>
 
       </div>
 
