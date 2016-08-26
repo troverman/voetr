@@ -289,7 +289,7 @@ angular.module("committee/home.tpl.html", []).run(["$templateCache", function($t
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -359,7 +359,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "</div>\n" +
     "\n" +
     "<div style=\"height:100px;\"></div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
     "");
 }]);
 
@@ -422,10 +422,12 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "                  </a>\n" +
     "                </md-card-title-text>\n" +
     "              </md-card-title>\n" +
+    "              <!--\n" +
     "              <md-card-actions layout=\"row\" layout-align=\"center\">\n" +
     "                <md-button>upvote</md-button>\n" +
     "                <md-button>downvote</md-button>\n" +
-    "            </md-card-actions>\n" +
+    "              </md-card-actions>\n" +
+    "              -->\n" +
     "            </md-card>\n" +
     "          </div>\n" +
     "        </div>\n" +
@@ -511,7 +513,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
-    "  <div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "  <!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
     "</div>");
 }]);
 
@@ -651,6 +653,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		  \n" +
     "	</div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 

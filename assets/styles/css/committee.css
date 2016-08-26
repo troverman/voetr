@@ -2,12 +2,10 @@
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
     width: 0;
     height: 100%;
-    margin-left: -250px;
     overflow-y: auto;
-    background: #34393d;
+    background: #24242e;//#34393d;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -67,6 +65,7 @@
     color: #fff;
     background: none;
 }
+
 
 @media(min-width:768px) {
 
