@@ -25,8 +25,8 @@ angular.module( 'voetr.member', [
             }
         },
 		resolve: {
-            votes: function(VoteModel, member) {
-                return VoteModel.getByUser(member.id);
+            votes: function(VoteVoteModel, member) {
+                return VoteVoteModel.getByUser(member.id);
             }
         }
     });

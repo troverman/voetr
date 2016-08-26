@@ -1,6 +1,6 @@
-angular.module('models.vote', ['lodash', 'services', 'sails.io',])
+angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
 
-.service('VoteModel', function(lodash, utils, $sailsSocket) {
+.service('VoteVoteModel', function(lodash, utils, $sailsSocket) {
     this.getAll = function() {
         var url = utils.prepareUrl('vote');
         return $sailsSocket.get(url).then(success, error);

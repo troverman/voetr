@@ -5,5 +5,6 @@ angular.module('models', [
 	'models.post',
 	'models.search',
 	'models.user',
-	'models.vote'
+	'models.vote',
+	'models.voteVote'
 ]);

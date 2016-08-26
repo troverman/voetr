@@ -30,15 +30,15 @@ angular.module( 'voetr.bill', [
             comments: function(CommentModel, bill) {
                 return CommentModel.getByBill(bill.id);
             },
-            votes: function(VoteModel, bill) {
-                return VoteModel.getByBill(bill.id);
+            votes: function(VoteVoteModel, bill) {
+                return VoteVoteModel.getByBill(bill.id);
             }
          }
     });
 
 })
 
-.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel ) {
+.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
@@ -76,7 +76,7 @@ angular.module( 'voetr.bill', [
         $scope.newVote.user = config.currentUser.id;
         $scope.newVote.bill = bill.id;
         $scope.newVote.vote = newVote;
-        VoteModel.create($scope.newVote).then(function(model) {
+        VoteVoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });
     }

@@ -11,6 +11,11 @@ angular.module('models.vote', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getByVote = function(model) {
+        var url = utils.prepareUrl('vote/vote/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getByUser = function(model) {
         var url = utils.prepareUrl('vote/user/' + model);
         return $sailsSocket.get(url).then(success, error);

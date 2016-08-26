@@ -95,7 +95,7 @@ angular.module( 'voetr.committee', [
     $scope.committee = committee;
 })
 
-.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteModel) {
+.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteVoteModel) {
     $scope.committee = committee;
     if (committee == undefined){
         $location.url('committees');
@@ -120,7 +120,7 @@ angular.module( 'voetr.committee', [
         $scope.newVote.bill = bill.id;
         $scope.newVote.user = config.currentUser.id;
         $scope.newVote.vote = newVote;
-        VoteModel.create($scope.newVote).then(function(model) {
+        VoteVoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });
     };
