@@ -365,25 +365,12 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
 
 angular.module("footer/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("footer/index.tpl.html",
-    "<style>\n" +
-    ".footer{\n" +
-    "	min-height:200px;\n" +
-    "	background-color:#414141;\n" +
-    "	padding:50px;\n" +
-    "	color: gray;\n" +
-    "}\n" +
-    ".footer a{\n" +
-    "	color:white;\n" +
-    "	padding:5px;\n" +
-    "}\n" +
-    "</style>\n" +
-    "\n" +
     "<div class=\"footer\" ng-controller=\"FooterCtrl\">\n" +
     "	{{date | date:'yyyy'}} <a href=\"/\">voetr</a>\n" +
     "	<a href=\"/about\">about</a>\n" +
     "	<a href=\"/bills\">bills</a>\n" +
     "	<a href=\"/committees\">committees</a>\n" +
-    "	<a href=\"/\">stats</a>\n" +
+    "	<a href=\"#\">votes</a>\n" +
     "</div>");
 }]);
 
@@ -435,6 +422,10 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "                  </a>\n" +
     "                </md-card-title-text>\n" +
     "              </md-card-title>\n" +
+    "              <md-card-actions layout=\"row\" layout-align=\"center\">\n" +
+    "                <md-button>upvote</md-button>\n" +
+    "                <md-button>downvote</md-button>\n" +
+    "            </md-card-actions>\n" +
     "            </md-card>\n" +
     "          </div>\n" +
     "        </div>\n" +

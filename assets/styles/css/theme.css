@@ -8,7 +8,7 @@ html, body {
   color:#000;
 }
 
-/*
+
 html {
     height:100%;
     box-sizing: border-box;
@@ -26,22 +26,21 @@ body {
 }
 
 .footer {
-    position: absolute;
-    right: 0;
-    bottom:0;
-    left:0;
-    padding:1rem;
+    //position: absolute;
+    //right: 0;
+    //bottom:0;
+    //left:0;
+    //padding:1rem;
     padding:50px;
     background-color:#414141;
-    min-height:200px;
     color: gray;
 }
 
 .footer a{
-    color:white;
-    padding:5px;
+  color:white;
+  padding:5px;
 }
-*/
+
 
 a {
   text-decoration: none !important;
@@ -64,6 +63,7 @@ hr {
   width: 20%;
   border-top: 1px solid #2AB996;
 }
+
 
 .flex {
     display: flex;

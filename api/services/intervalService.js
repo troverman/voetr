@@ -173,14 +173,39 @@ function recentBills(){
 									var billModel = billModel;
 									if (!err && votes.length > 0) {
 										for(x in votes){
+
+
+											/*var model = {
+												vote: vote,
+												voteString: voteVoters[x].option.value,
+												bill: billModel[0].id,
+											};
+											Vote.findOrCreate({displayNumber:displayNumber}, model)
+											.exec(function(err, bill) {
+												if (err) {
+													return console.log(err);
+												}
+												else {
+													//Bill.publishCreate(bill);
+													//console.log(bill);
+												}
+											});*/
+
+											//create 'Vote' here
+											//create 'Vote model'
+											//BillVote model is vvv
+												//associated bill -- associated vote--
+
+
 											(function(billModel) {
 												govTrack.findVoteVoter({vote: votes[x].id}, function(err, res) {
 													if(!err && res.objects){
 														var voteVoters = res.objects;
+														
 														for(x in voteVoters){
-															console.log(voteVoters[x].option.id);
-															console.log(voteVoters[x].vote.category);
-															console.log(voteVoters[x].vote.question);
+															//console.log(voteVoters[x].option.id);
+															//console.log(voteVoters[x].vote.category);
+															//console.log(voteVoters[x].vote.question);
 
 															(function(voteVoters, x) {
 																User.find()
@@ -203,6 +228,9 @@ function recentBills(){
 																			bill: billModel[0].id,
 																			user: userModel[0].id
 																		};
+
+																		//VoteVote --> aww yeee i need to get in the zzooone
+
 																		//Vote.create(model)
 																		/*Vote.findOrCreate({bill:billModel[0].id, user:userModel[0].id}, model)
 																		.exec(function(err, vote) {
@@ -707,7 +735,7 @@ module.exports.intervalService = function(){
 	//stateBills('dc');
 	//stateLegislators();
 	//committees();
-	//recentBills();
+	recentBills();
 	//setInterval(recentBills(), 900000);
 
 	//legislators();

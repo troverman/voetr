@@ -46,7 +46,7 @@ angular.module( 'voetr.home', [
 	$scope.skipBills = 10;
     $scope.loadMoreBills = function() {
 		$scope.skipBills = $scope.skipBills + 20;
-		BillModel.getSome(100,$scope.skipBills).then(function(bills) {
+		BillModel.getSome(10,$scope.skipBills).then(function(bills) {
 			Array.prototype.push.apply($scope.bills, bills);
 		});
 	};
@@ -62,7 +62,7 @@ angular.module( 'voetr.home', [
 	$scope.skipMembers = 33;
     $scope.loadMoreMembers = function() {
 		$scope.skipMembers = $scope.skipMembers + 33;
-		UserModel.getSome(100,$scope.skipMembers).then(function(users) {
+		UserModel.getSome(33,$scope.skipMembers).then(function(users) {
 			Array.prototype.push.apply($scope.users, users);
 		});
 	};
