@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/committees.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/committees.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -359,7 +359,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "</div>\n" +
     "\n" +
     "<div style=\"height:100px;\"></div>\n" +
-    "<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 
@@ -513,7 +513,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if not logged in-->\n" +
-    "  <!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
+    "  <div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "</div>");
 }]);
 
@@ -770,4 +770,40 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
     "		</div>-->\n" +
     "	</div>\n" +
     "</div>");
+}]);
+
+angular.module("vote/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("vote/index.tpl.html",
+    "<div ui-view=\"vote\">\n" +
+    "	<h1>VOTE</h1>\n" +
+    "</div>");
+}]);
+
+angular.module("votes/index.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("votes/index.tpl.html",
+    "<md-content>\n" +
+    "	<md-list>\n" +
+    "		<md-subheader class=\"md-no-sticky\">votes</md-subheader>\n" +
+    "		<md-divider></md-divider>\n" +
+    "		<md-list-item ng-repeat=\"vote in votes\">\n" +
+    "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
+    "				<h4 class=\"committees title\">\n" +
+    "					{{vote.voteCount}}\n" +
+    "          			<button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "          			<button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "					<a href=\"/vote/{{vote.id}}\">{{vote.title}}</a>\n" +
+    "				</h4>\n" +
+    "			</div>\n" +
+    "		</md-list-item>\n" +
+    "	</md-list>\n" +
+    "	<md-divider ></md-divider>\n" +
+    "	<br><br>\n" +
+    "	<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
+    "	  <button class=\"btn btn-default\">LOAD MORE</button>\n" +
+    "	</div>\n" +
+    "</md-content>\n" +
+    "\n" +
+    "<div style=\"height:100px;\"></div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "");
 }]);

@@ -53,6 +53,9 @@ module.exports.routes = {
   'get /member/:id': 'HomeController.index',
   'get /search': 'HomeController.index',
   'get /search/:searchQuery': 'HomeController.index',
+  'get /votes': 'HomeController.index',
+  'get /vote/:id': 'HomeController.index',
+
   'get /login': 'HomeController.index',
   'get /register': 'HomeController.index',
   'get /logout': 'AuthController.logout',

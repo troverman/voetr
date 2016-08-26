@@ -23,8 +23,10 @@ angular.module( 'voetr', [
     'voetr.login',
     'voetr.member',
     'voetr.nav',
-    'voetr.search',
     'voetr.register',
+    'voetr.search',
+    'voetr.vote',
+    'voetr.votes',
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
