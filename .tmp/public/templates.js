@@ -393,10 +393,14 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "      <div id=\"information\">\n" +
     "        <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
-    "        <p>the internet's voice</p>\n" +
-    "        <p>a decision making cloud</p>\n" +
-    "        <p>be part of the movement</p>\n" +
+    "        <!--<p>the internet's voice</p>-->\n" +
+    "        <!--<p>a decision making cloud</p>-->\n" +
+    "        <hr>\n" +
+    "        <h4>be part of the movement</h4>\n" +
+    "        <p>seeing past partisan politics</p>\n" +
     "        <p>crowd-sourced government</p>\n" +
+    "        <p>continual open ballot elections</p>\n" +
+    "        <p>direct input on policy</p>\n" +
     "        <hr>\n" +
     "        <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
     "        <br>\n" +
@@ -405,12 +409,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div id=\"bills\">\n" +
     "        <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
     "        <h4>{{billCount}}</h4>\n" +
-    "\n" +
-    "\n" +
-    "        <!--<div ng-repeat=\"bill in bills\">\n" +
-    "          <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
-    "        </div>-->\n" +
-    "\n" +
     "\n" +
     "        <div class=\"container\">\n" +
     "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
@@ -442,11 +440,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        <h2><a href=\"/committees\">committees</a></h2><hr>\n" +
     "        <h4>{{committeeCount}}</h4>\n" +
     "\n" +
-    "\n" +
-    "        <!--<div ng-repeat=\"committee in committees\">\n" +
-    "          <h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
-    "        </div>-->\n" +
-    "\n" +
     "        <div class=\"container\">\n" +
     "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "            <md-card flex=\"15\" ng-repeat=\"committee in committees\">\n" +
@@ -461,11 +454,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "        </div>\n" +
     "\n" +
-    "        \n" +
     "        <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
     "          <button class=\"btn btn-default\">more</button>\n" +
     "        </div>\n" +
-    "\n" +
     "\n" +
     "      </div>\n" +
     "\n" +
@@ -475,18 +466,8 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      </div>\n" +
     "\n" +
     "      <div id=\"members\">\n" +
-    "        <!--<p>local counties / self governing committees / total members / search</p>-->\n" +
+    "        <!--<p>local counties / search</p>-->\n" +
     "        <h4>{{userCount}} members</h4><hr>\n" +
-    "        <!--<div class=\"container\">\n" +
-    "          <div ng-repeat=\"user in users\">\n" +
-    "            <div class=\"col-sm-4\">\n" +
-    "              <a href=\"/member/{{user.username}}\">\n" +
-    "                <img style=\"max-height:128px\" src=\"{{user.avatarUrl}}\"/>\n" +
-    "                <p>{{user.username}}</p>\n" +
-    "              </a>\n" +
-    "            </div>\n" +
-    "          </div>\n" +
-    "        </div>-->\n" +
     "        <div class=\"container\">\n" +
     "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "            <md-card flex=\"20\" ng-repeat=\"user in users\">\n" +
@@ -526,7 +507,9 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
     "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">empowering the internet</text>\n" +
     "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">empowering change</text>\n" +
-    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">seeing past partisan politics</text>\n" +
+    "                <!--<text x=\"960\" y=\"51%\" class=\"small-text mantra\">seeing past partisan politics</text>-->\n" +
+    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">direct input on policy</text>\n" +
+    "\n" +
     "\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
@@ -652,8 +635,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		</md-card>		\n" +
     "		  \n" +
     "	</div>\n" +
+    "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
     "</div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 

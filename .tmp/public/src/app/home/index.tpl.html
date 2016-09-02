@@ -15,10 +15,14 @@
 
       <div id="information">
         <i style="font-size:256px;" class="fa fa-bullhorn"></i>
-        <p>the internet's voice</p>
-        <p>a decision making cloud</p>
-        <p>be part of the movement</p>
+        <!--<p>the internet's voice</p>-->
+        <!--<p>a decision making cloud</p>-->
+        <hr>
+        <h4>be part of the movement</h4>
+        <p>seeing past partisan politics</p>
         <p>crowd-sourced government</p>
+        <p>continual open ballot elections</p>
+        <p>direct input on policy</p>
         <hr>
         <a href="/about" class="btn btn-default">learn more</a>
         <br>
@@ -27,12 +31,6 @@
       <div id="bills">
         <h2><a href="/bills">bills</a></h2><hr>
         <h4>{{billCount}}</h4>
-
-
-        <!--<div ng-repeat="bill in bills">
-          <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
-        </div>-->
-
 
         <div class="container">
           <div class='md-padding' layout="row" layout-align="center" layout-wrap>
@@ -64,11 +62,6 @@
         <h2><a href="/committees">committees</a></h2><hr>
         <h4>{{committeeCount}}</h4>
 
-
-        <!--<div ng-repeat="committee in committees">
-          <h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
-        </div>-->
-
         <div class="container">
           <div class='md-padding' layout="row" layout-align="center" layout-wrap>
             <md-card flex="15" ng-repeat="committee in committees">
@@ -83,11 +76,9 @@
           </div>
         </div>
 
-        
         <div ng-click="loadMoreCommittees()" style="text-align:center">
           <button class="btn btn-default">more</button>
         </div>
-
 
       </div>
 
@@ -97,18 +88,8 @@
       </div>
 
       <div id="members">
-        <!--<p>local counties / self governing committees / total members / search</p>-->
+        <!--<p>local counties / search</p>-->
         <h4>{{userCount}} members</h4><hr>
-        <!--<div class="container">
-          <div ng-repeat="user in users">
-            <div class="col-sm-4">
-              <a href="/member/{{user.username}}">
-                <img style="max-height:128px" src="{{user.avatarUrl}}"/>
-                <p>{{user.username}}</p>
-              </a>
-            </div>
-          </div>
-        </div>-->
         <div class="container">
           <div class='md-padding' layout="row" layout-align="center" layout-wrap>
             <md-card flex="20" ng-repeat="user in users">
