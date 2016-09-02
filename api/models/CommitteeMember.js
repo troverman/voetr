@@ -22,15 +22,24 @@ module.exports = {
         }
     },
 
+    afterCreate: function (committee, next) {
+        // set message.user = to appropriate user model
+        User.getOne(committee.user)
+        .spread(function(user) {
+            committee.user = user;
+            next(null, committee);
+        });
+    },
+
     getAll: function() {
-        return CommitteeVote.find()
+        return CommitteeMember.find()
         .then(function (models) {
             return [models];
         });
     },
 
     getOne: function(id) {
-        return CommitteeVote.findOne(id)
+        return CommitteeMember.findOne(id)
         .then(function (model) {
             return [model];
         });

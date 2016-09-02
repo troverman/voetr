@@ -103,6 +103,14 @@ module.exports.routes = {
   'post /api/committee': 'CommitteeController.create',
   'delete /api/committee/:id': 'CommitteeController.destroy',
 
+   /**
+   * CommitteeMember routes
+   */
+  'get /api/committeeMember/committee/:id': 'CommitteeMemberController.getByCommittee',
+  'get /api/committeeMember/member/:id': 'CommitteeMemberController.getByMember',
+  'post /api/committeeMember': 'CommitteeMemberController.create',
+  'delete /api/committeeMember/:id': 'CommitteeMemberController.destroy',
+
   /**
    * CommitteeVote routes
    */
@@ -133,6 +141,32 @@ module.exports.routes = {
   'get /api/user/filter/:limit/:skip': 'UserController.getSome',
   'get /api/user/username/:path': 'UserController.getByUsername',
   'post /api/user': 'UserController.create',
+
+  /**
+   * Vote routes
+   */
+
+  /*
+  'get /api/vote': 'Vote.getAll',
+  'get /api/vote/:id': 'Vote.getOne',
+  'get /api/vote/bill/:id': 'Vote.getByBill',
+  'get /api/vote/user/:id': 'Vote.getByUser',
+  'post /api/vote': 'Vote.create',
+  'delete /api/vote/:id': 'Vote.destroy',
+  */
+
+  /**
+   * voteVote routes
+   */
+   
+  /*
+  'get /api/vote': 'Vote.getAll',
+  'get /api/vote/:id': 'Vote.getOne',
+  'get /api/vote/bill/:id': 'Vote.getByBill',
+  'get /api/vote/user/:id': 'Vote.getByUser',
+  'post /api/vote': 'Vote.create',
+  'delete /api/vote/:id': 'Vote.destroy',
+  */
 
   //'/*'   : 'HomeController.index'
 
