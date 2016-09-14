@@ -146,27 +146,24 @@ module.exports.routes = {
    * Vote routes
    */
 
-  /*
-  'get /api/vote': 'Vote.getAll',
-  'get /api/vote/:id': 'Vote.getOne',
-  'get /api/vote/bill/:id': 'Vote.getByBill',
-  'get /api/vote/user/:id': 'Vote.getByUser',
-  'post /api/vote': 'Vote.create',
-  'delete /api/vote/:id': 'Vote.destroy',
-  */
+  'get /api/vote': 'VoteController.getAll',
+  'get /api/vote/:id': 'VoteController.getOne',
+  'get /api/vote/bill/:id': 'VoteController.getByBill',
+  'get /api/vote/committee/:id': 'VoteController.getByCommittee',
+  'post /api/vote': 'VoteController.create',
+  'delete /api/vote/:id': 'VoteController.destroy',
 
   /**
    * voteVote routes
    */
-   
-  /*
-  'get /api/vote': 'Vote.getAll',
-  'get /api/vote/:id': 'Vote.getOne',
-  'get /api/vote/bill/:id': 'Vote.getByBill',
-  'get /api/vote/user/:id': 'Vote.getByUser',
-  'post /api/vote': 'Vote.create',
-  'delete /api/vote/:id': 'Vote.destroy',
-  */
+  'get /api/votevote': 'VoteVoteController.getAll',
+  'get /api/votevote/:id': 'VoteVoteController.getOne',
+  'get /api/votevote/bill/:id': 'VoteVoteController.getByBill',
+  'get /api/vote/user/:id': 'VoteVoteController.getByUser',
+  'get /api/votevote/vote/:id': 'VoteVoteController.getByVote',
+  'post /api/votevote': 'VoteVoteController.create',
+  'delete /api/votevote/:id': 'VoteVoteController.destroy',
+  //api/vote/:id/vote --> maybe 
 
   //'/*'   : 'HomeController.index'
 

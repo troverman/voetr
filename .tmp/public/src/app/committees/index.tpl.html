@@ -1,0 +1,33 @@
+<!--if logged in-->
+<md-subheader class="md-no-sticky">committees</md-subheader>
+<md-divider ></md-divider>
+
+<div ng-show="currentUser">
+  <div style="margin-left:2%;margin-right:2%;">
+    <form class="committee-input" role="form" ng-submit="createCommittee(newCommittee)">
+      <div class="form-group">
+        <input type="text" placeholder= "committee title" ng-model="newCommittee.title" class="form-control" id="postTitle">
+        <input type="text" placeholder= "committee url" ng-model="newCommittee.urlTitle" class="form-control" id="postTitle">
+        <input type="text" placeholder= "committee parent" ng-model="newCommittee.parent" class="form-control" id="postTitle">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<!--/if logged in-->
+<div class="committee-list-parent-container" id="committeeScrolling">
+  <div class="committee-list-container">
+      <div class="committee-container" ng-repeat="committee in committees">
+        <h4 class="committees title"><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
+      </div>
+    </div>
+  </div>
+</div>
+<md-divider ></md-divider>
+<br><br>
+<div ng-click="loadMore()" style="text-align:center">
+  <button class="btn btn-default">LOAD MORE</button>
+</div>
+
+<div style="height:100px;"></div>
+<div ng-include="'footer/index.tpl.html'"></div>

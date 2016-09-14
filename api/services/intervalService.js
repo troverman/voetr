@@ -36,13 +36,11 @@ function bills(){
 		        		sails.log(billData[i].congress);
 						sails.log(billData[i].cosponsors_count);
 		        		sails.log(billData[i].enacted_as);
-
 		        		sails.log(billData[i].history);
 						sails.log(billData[i].history.active);
 		        		sails.log(billData[i].history.awaiting_signature);
 		        		sails.log(billData[i].history.enacted);
 						sails.log(billData[i].history.vetoed);
-
 		        		sails.log(billData[i].introduced_on);
 		        		sails.log(billData[i].last_action_at);
 		        		sails.log(billData[i].last_version_on);
@@ -51,13 +49,11 @@ function bills(){
 						sails.log(billData[i].popular_title);
 						sails.log(billData[i].related_bill_ids);
 						sails.log(billData[i].short_title);
-
 						sails.log(billData[i].sponsor);
 						sails.log(billData[i].sponsor.first_name);
 						sails.log(billData[i].sponsor.last_name);
 						sails.log(billData[i].sponsor.title);
 						sails.log(billData[i].sponsor_id);
-
 						sails.log(billData[i].urls);
 						sails.log(billData[i].urls.congress);
 						*/
@@ -173,14 +169,24 @@ function recentBills(){
 									var billModel = billModel;
 									if (!err && votes.length > 0) {
 										for(x in votes){
-
-
-											/*var model = {
-												vote: vote,
-												voteString: voteVoters[x].option.value,
+											var model = {
+												vote: votes[x],
+												voteString: votes[x],
 												bill: billModel[0].id,
 											};
-											Vote.findOrCreate({displayNumber:displayNumber}, model)
+											console.log(billModel[0].id)
+											console.log(votes[x].id);
+											console.log(votes[x].question)
+											console.log(votes[x].vote_type)
+											console.log(votes[x].total_minus)
+											console.log(votes[x].total_plus)
+											console.log(votes[x].total_other)
+											console.log(votes[x].source)
+											console.log(votes[x].chamber)
+											console.log(votes[x].required)
+											console.log(votes[x].result)
+
+											/*Vote.findOrCreate({displayNumber:displayNumber}, model)
 											.exec(function(err, bill) {
 												if (err) {
 													return console.log(err);
@@ -195,7 +201,6 @@ function recentBills(){
 											//create 'Vote model'
 											//BillVote model is vvv
 												//associated bill -- associated vote--
-
 
 											(function(billModel) {
 												govTrack.findVoteVoter({vote: votes[x].id}, function(err, res) {
@@ -238,10 +243,8 @@ function recentBills(){
 																				return console.log(err);
 																			}
 																			else {
-
 																				Vote.publishCreate(vote);
 																				console.log(vote);
-
 																				Vote.count()
 																				.where({bill: billModel[0].id})
 																				.exec(function(err, voteCount) {
@@ -610,8 +613,6 @@ function govTracker(){
 						}
 					}
 				});
-
-
 			}
 		}
 	});*/
