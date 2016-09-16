@@ -11,28 +11,27 @@ angular.module( 'voetr.votes', [
 			}
 		},
 		resolve: {
-            votes: function(BillModel) {
-				return BillModel.getSome(100, 0, 'voteCount DESC');
+            votes: function(VoteModel) {
+				return VoteModel.getSome(100, 0, 'createdAt DESC');
             }
         }
 	});
 	$urlRouterProvider.when('/votes/', '/votes');
 })
 
-.controller( 'VotesCtrl', function VotesCtrl( $scope, $sailsSocket, lodash, titleService, config, BillModel, votes) {
+.controller( 'VotesCtrl', function VotesCtrl( $scope, $sailsSocket, lodash, titleService, config, VoteModel, votes) {
 	titleService.setTitle('votes - voetr');
 	$scope.currentUser = config.currentUser;
     $scope.votes = votes;
+    console.log(votes)
 	$scope.skip = 0;
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
-		console.log($scope.skip);
-		BillModel.getSome(100,$scope.skip,'voteCount DESC').then(function(votes) {
+		VoteModel.getSome(100,$scope.skip,'createdAt DESC').then(function(votes) {
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};
-
 
 });
 

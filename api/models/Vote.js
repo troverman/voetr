@@ -8,11 +8,36 @@
 module.exports = {
 
 	attributes: {
-        vote: {
-            type: 'integer',
+        result: {
+            type: 'string'
+        },
+        required: {
+            type: 'string'
+        },
+        type: {
+            type: 'string'
+        },
+        voteCount:{
+            type: 'integer'
+        },
+        plusCount:{
+            type: 'integer'
+        },
+        minusCount:{
+            type: 'integer'
+        },
+        otherCount:{
+            type: 'integer'
+        },
+        title: {
+            type: 'string',
             required: true
         },
-        voteString: {
+        urlTitle: {
+            type: 'string',
+            required: true
+        },
+        displayId: {
             type: 'string',
         },
         bill: {
@@ -26,9 +51,20 @@ module.exports = {
     },
 
     getAll: function() {
-        return Bill.find()
+        return Vote.find()
         .then(function (models) {
             return [models];
+        });
+    },
+
+    getSome: function(limiting, skipping, sort) {
+        return Vote.find()
+        .sort(sort)
+        .limit(limiting)
+        .skip(skipping)
+        .populate('bill')
+        .then(function (models) {
+            return models;
         });
     },
 
@@ -53,7 +89,7 @@ module.exports = {
     },
 
     getOne: function(id) {
-        return Bill.findOne(id)
+        return Vote.findOne(id)
         .then(function (model) {
             return [model];
         });

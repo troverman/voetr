@@ -6,13 +6,18 @@ angular.module('models.vote', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getByBill = function(model) {
-        var url = utils.prepareUrl('vote/bill/' + model);
+    this.getOne = function(model) {
+        var url = utils.prepareUrl('vote/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getByVote = function(model) {
-        var url = utils.prepareUrl('vote/vote/' + model);
+    this.getSome = function(limit, skip, sort) {
+        var url = utils.prepareUrl('vote/filter/' + limit + '/' + skip + '/' + sort);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+    this.getByBill = function(model) {
+        var url = utils.prepareUrl('vote/bill/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 

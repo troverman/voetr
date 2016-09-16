@@ -30,15 +30,15 @@ angular.module( 'voetr.bill', [
             comments: function(CommentModel, bill) {
                 return CommentModel.getByBill(bill.id);
             },
-            votes: function(VoteVoteModel, bill) {
-                return VoteVoteModel.getByBill(bill.id);
+            votes: function(VoteModel, bill) {
+                return VoteModel.getByBill(bill.id);
             }
          }
     });
 
 })
 
-.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteVoteModel ) {
+.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
@@ -47,6 +47,9 @@ angular.module( 'voetr.bill', [
     $scope.comments = comments;
     $scope.currentUser = config.currentUser;
 
+    console.log(votes)
+
+    /*
     $scope.calculateSum = function() {
         $scope.voteSum = 0;
         for (i = 0; i < votes.length; i++) { 
@@ -55,6 +58,7 @@ angular.module( 'voetr.bill', [
         return $scope.voteSum;
     }
     //$scope.calculateSum();
+    */
 
 
     $sailsSocket.subscribe('vote', function (envelope) {
@@ -69,6 +73,7 @@ angular.module( 'voetr.bill', [
         }
     });
 
+    /*
     $scope.createVote = function(newVote) {
         if ($scope.currentUser == undefined){
             return null;
@@ -80,6 +85,7 @@ angular.module( 'voetr.bill', [
             $scope.newVote = {};
         });
     }
+    */
 
     $sailsSocket.subscribe('comment', function (envelope) {
 	    switch(envelope.verb) {

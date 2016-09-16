@@ -46,6 +46,16 @@ module.exports = {
         });
     },
 
+    getByVote: function(vote) {
+        return VoteVote.find()
+        .where({vote: vote})
+        .sort({createdAt: 'desc'})
+        .populate('user')
+        .then(function (models) {
+            return models;
+        });
+    },
+
     getByUser: function(user) {
         return VoteVote.find()
         .where({user: user})

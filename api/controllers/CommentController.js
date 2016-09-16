@@ -43,8 +43,6 @@ module.exports = {
 		});
 	},
 
-	
-
 	create: function (req, res) {
 		var comment = req.param('comment');
 		var bill = req.param('bill');

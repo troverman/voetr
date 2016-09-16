@@ -29,6 +29,28 @@ module.exports = {
         last_name: {
             type: 'string',
         },
+        middleName: {
+            type: 'string',
+        },
+        dateOfBirth: {
+            type: 'string',
+        },
+        stateOfBirth: {
+            type: 'string',
+        },
+        driversLicenseNumber: {
+            type: 'string',
+        },
+        socialSecurityNumber: {
+            type: 'string',
+        },
+        identificationUrl: {
+            type: 'string',
+        },
+        isVerified: {
+            type: 'boolean',
+            defaultsTo: false
+        },
         socialMedia: {
             type: 'json',
         },
@@ -42,6 +64,9 @@ module.exports = {
             type: 'string',
         },
         term_start: {
+            type: 'string',
+        },
+        address: {
             type: 'string',
         },
         phone: {

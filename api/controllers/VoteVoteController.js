@@ -32,6 +32,20 @@ module.exports = {
 		});
 	},
 
+	getByVote: function(req, res) {
+		console.log("GET BY VOTE")
+		VoteVote.getByVote(req.param('id'))
+		.then(function(model) {
+			console.log(model)
+			VoteVote.watch(req);
+			VoteVote.subscribe(req, model);
+			res.json(model);
+		})
+		.fail(function(err) {
+			res.send(404);
+		});
+	},
+
 	getByUser: function(req, res) {
 		VoteVote.getByVote(req.param('id'))
 		.then(function(model) {
@@ -45,8 +59,9 @@ module.exports = {
 	},
 
 	getByUser: function(req, res) {
-		VoteVote.getByVote(req.param('id'))
+		VoteVote.getByUser(req.param('id'))
 		.then(function(model) {
+			console.log(model)
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
 			res.json(model);

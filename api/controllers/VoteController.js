@@ -20,6 +20,21 @@ module.exports = {
 		});
 	},
 
+	getSome: function(req, res) {
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		var sort = req.param('sort');
+		Vote.getSome(limit, skip, sort)
+		.then(function(models) {
+			Vote.watch(req);
+			Vote.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	getByBill: function(req, res) {
 		Vote.getByBill(req.param('id'))
 		.then(function(model) {

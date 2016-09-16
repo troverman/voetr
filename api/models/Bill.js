@@ -50,7 +50,6 @@ module.exports = {
     },
 
     getSome: function(limiting, skipping, sort) {
-        console.log(sort)
         return Bill.find()
         .sort(sort)
         .limit(limiting)
@@ -58,7 +57,6 @@ module.exports = {
         .then(function (models) {
             return models;
         });
-
     },
 
 

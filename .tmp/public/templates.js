@@ -65,11 +65,23 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "		<md-divider></md-divider>\n" +
     "		<br><br>\n" +
     "\n" +
+    "		<!--\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "		-->\n" +
+    "\n" +
+    "		<!--\n" +
     "		{{bill.voteCount}}\n" +
     "		<div ng-repeat=\"vote in votes\">\n" +
     "			{{vote.vote}}<a href=\"/member/{{vote.user.username}}\">{{vote.user.username}}</a>\n" +
+    "		</div>\n" +
+    "		-->\n" +
+    "\n" +
+    "		<div ng-repeat=\"vote in votes\">\n" +
+    "			<p><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></p>\n" +
+    "			<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>\n" +
+    "			<p>{{vote.result}}</p>\n" +
+    "			<p>{{vote.type}}\n" +
     "		</div>\n" +
     "\n" +
     "		<br><br><br>\n" +
@@ -759,7 +771,16 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
 angular.module("vote/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("vote/index.tpl.html",
     "<div ui-view=\"vote\">\n" +
-    "	<h1>VOTE</h1>\n" +
+    "\n" +
+    "	<a href=\"bill/{{vote.bill}}/1\">{{vote.bill}}</a>\n" +
+    "\n" +
+    "	<h1>{{vote.title}}</h1>\n" +
+    "\n" +
+    "	<div ng-repeat=\"voteVote in votes\">\n" +
+    "		{{voteVote}}\n" +
+    "	</div>\n" +
+    "\n" +
+    "\n" +
     "</div>");
 }]);
 

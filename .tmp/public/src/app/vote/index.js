@@ -9,7 +9,12 @@ angular.module( 'voetr.vote', [
 			"main": {
 				templateUrl: 'vote/index.tpl.html'
 			}
-		}
+		},
+		resolve: {
+            vote: function(VoteModel, $stateParams) {
+                return VoteModel.getOne($stateParams.id);
+            }
+        }
 	})
     .state( 'vote.index', {
         url: '',
@@ -18,11 +23,19 @@ angular.module( 'voetr.vote', [
 				controller: 'VoteCtrl',
                 templateUrl: 'vote/index.tpl.html'
             }
+        },
+		resolve: {
+            votes: function(VoteVoteModel, $stateParams) {
+                return VoteVoteModel.getByVote(vote.id);
+            }
         }
     });
 
 })
 
-.controller( 'VoteCtrl', function VoteController( $scope, config, lodash, $sailsSocket, titleService ) {
-	titleService.setTitle('VOTE - voetr');
+.controller( 'VoteCtrl', function VoteController( $scope, config, lodash, $sailsSocket, titleService, vote, votes) {
+	titleService.setTitle(vote.title + '- voetr');
+	$scope.vote = vote;
+	//$scope.votes = votes;
+	//console.log(votes)
 });
