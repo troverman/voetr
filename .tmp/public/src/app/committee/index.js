@@ -27,7 +27,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             bills: function(BillModel) {
-                return BillModel.getSome(100, 0, 'voteCount DESC');
+                return BillModel.getByCommittee(1, 100, 0, 'voteCount DESC');
             }
          }
     })
@@ -41,7 +41,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             bills: function(BillModel) {
-                return BillModel.getSome(100, 0, 'createdAt DESC');
+                return BillModel.getByCommittee(1, 100, 0, 'createdAt DESC');
             }
          }
     })

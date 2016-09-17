@@ -25,17 +25,17 @@ angular.module( 'voetr.vote', [
             }
         },
 		resolve: {
-            votes: function(VoteVoteModel, $stateParams) {
+            votes: function(VoteVoteModel, $stateParams, vote) {
                 return VoteVoteModel.getByVote(vote.id);
             }
         }
-    });
+    })
 
 })
 
 .controller( 'VoteCtrl', function VoteController( $scope, config, lodash, $sailsSocket, titleService, vote, votes) {
 	titleService.setTitle(vote.title + '- voetr');
 	$scope.vote = vote;
-	//$scope.votes = votes;
-	//console.log(votes)
+	$scope.votes = votes;
+	console.log(votes)
 });

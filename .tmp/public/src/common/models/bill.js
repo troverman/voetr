@@ -26,8 +26,8 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getByCommittee = function(model) {
-        var url = utils.prepareUrl('bill/committee/' + model);
+    this.getByCommittee = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('bill/committee/' + model + '/' + limit + '/' + skip + '/' + sort);
         return $sailsSocket.get(url).then(success, error);
     };
 

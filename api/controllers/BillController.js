@@ -31,6 +31,22 @@ module.exports = {
 		});
 	},
 
+	getByCommittee: function(req, res) {
+		var id = req.param('id');
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		var sort = req.param('sort');
+		Bill.getSome(limit, skip, sort)
+		.then(function(models) {
+			Bill.watch(req);
+			Bill.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	getCount: function(req, res) {
 		Bill.count()
 		.exec(function(err, billCount) {
