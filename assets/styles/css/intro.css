@@ -80,6 +80,8 @@
     top: 0;
 }
 .intro-container {
+    position: relative;
+    overflow:hidden;
     cursor: default;
     min-height: 100vh;
     z-index: 1;
