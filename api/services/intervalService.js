@@ -646,14 +646,14 @@ module.exports.intervalService = function(){
 		if( (x >= 0) && (x < 5) ){
 		//if(x >= 40){
 			//console.log(states[x])
-			stateBills(states[x])
+			//stateBills(states[x])
 		}
 	}
 	//bills()
 	//openStates();
 	//stateLegislators();
 	//committees();
-	//recentBills();
+	recentBills();
 	//setInterval(recentBills(), 900000);
 
 	//legislators();

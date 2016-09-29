@@ -143,6 +143,8 @@
 svg {
     width: 100%;
     min-height: 100vh;
+    max-height: 100vh;
+
 }
 svg text {
     text-anchor: middle;
@@ -179,7 +181,7 @@ video {
   top: 0%;
   left: 0%;
   min-width: 100%;
-  min-height: 28%;
+  min-height: 100vh;
   width: auto;
   height: auto;
   z-index: -5;
