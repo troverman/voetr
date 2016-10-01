@@ -10,7 +10,8 @@
 	    <div class="user-profile-data">
 	      <h3>{{member.username}}</h3>
 	      <button class="btn btn-default">follow</button><br>
-	      <button class="btn btn-default">elect</button><br>
+	      <button class="btn btn-primary">select as a representative</button><br>
+	      <br><br>
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
 	      <!--committee member list have a select button?-->
@@ -28,7 +29,7 @@
 	<div id="profile-activity">
 
 
-		<h1>Votes</h1><hr>
+		<h1>Activity</h1><hr>
 		<md-card ng-repeat="vote in votes">
 			<md-card-title>
 				<md-card-title-text>

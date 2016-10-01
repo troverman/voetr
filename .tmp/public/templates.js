@@ -407,10 +407,14 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
     "        <hr>\n" +
     "        <h4>be part of the movement</h4>\n" +
+    "        <!--\n" +
     "        <p>seeing past partisan politics</p>\n" +
     "        <p>crowd-sourced government</p>\n" +
+    "        -->\n" +
     "        <p>continual open ballot elections</p>\n" +
+    "        <!--<p>you have to choose,</p>-->\n" +
     "        <p>direct input on policy</p>\n" +
+    "        <!--<p>as grandular as it goes, voice your opinion on what matters, law</p>-->\n" +
     "        <hr>\n" +
     "        <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
     "        <br>\n" +
@@ -606,7 +610,8 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    <div class=\"user-profile-data\">\n" +
     "	      <h3>{{member.username}}</h3>\n" +
     "	      <button class=\"btn btn-default\">follow</button><br>\n" +
-    "	      <button class=\"btn btn-default\">elect</button><br>\n" +
+    "	      <button class=\"btn btn-primary\">select as a representative</button><br>\n" +
+    "	      <br><br>\n" +
     "	      <!--can have dif reps per committee-->\n" +
     "	      <!--represented by (list of reps with each committee)-->\n" +
     "	      <!--committee member list have a select button?-->\n" +
@@ -624,7 +629,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	<div id=\"profile-activity\">\n" +
     "\n" +
     "\n" +
-    "		<h1>Votes</h1><hr>\n" +
+    "		<h1>Activity</h1><hr>\n" +
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
