@@ -78,6 +78,7 @@
 .intro {
     position: relative;
     top: 0;
+    overflow: hidden;
 }
 .intro-container {
     cursor: default;
@@ -131,7 +132,7 @@
   font-size: 25px !important;
 }
 .tri-after {
-  opacity: 0;
+  opacity: 0.2;
   transition: opacity .2s;
 }
 .tri-after:hover {
@@ -141,8 +142,10 @@
   visibility: hidden;
 }
 svg {
-    width: 100%;
-    min-height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
 svg text {
     text-anchor: middle;
@@ -176,18 +179,16 @@ svg > .newsletter-rect {
 
 video {
   position: absolute;
-  top: 0%;
-  left: 0%;
+  top: 0;
+  left: 0;
+  bottom: 0;
   min-width: 100%;
-  min-height: 28%;
-  width: auto;
-  height: auto;
-  z-index: -5;
+  min-height: 100%;
   overflow: hidden;
+  z-index: -5;
 }
 
 /* media queries */
-
 @media only screen and (max-width: 1200px) {
   svg {
     font-size:0.8em !important;
@@ -201,7 +202,7 @@ video {
     visibility: hidden;
   }
   .tri-after {
-    opacity: 1.0;
+    opacity: 0.2;
   }
   video {
     display: none;

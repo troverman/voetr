@@ -400,7 +400,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "	<!--if not logged in-->\n" +
     "  <div ng-show=\"!currentUser\">\n" +
-    "    <!--<div ng-include=\"'intro/index.tpl.html'\"></div>-->\n" +
+    "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "    <div id=\"about\">\n" +
     "\n" +
     "      <div id=\"information\">\n" +
@@ -509,17 +509,14 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
 
 angular.module("intro/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("intro/index.tpl.html",
-    "<div class=\"intro-container\">\n" +
-    "    <svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"1920px\" height=\"1080px\" preserveAspectRatio=\"xMidYMid slice\">\n" +
+    "<div class=\"intro-container intro\">\n" +
+    "    <svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid slice\">\n" +
     "        <defs>\n" +
     "            <mask class=\"intro-mask\" id=\"intro-mask\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\">\n" +
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
     "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">empowering the internet</text>\n" +
     "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">empowering change</text>\n" +
-    "                <!--<text x=\"960\" y=\"51%\" class=\"small-text mantra\">seeing past partisan politics</text>-->\n" +
     "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">direct input on policy</text>\n" +
-    "\n" +
-    "\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
     "                    <svg class=\"tri-before\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +
@@ -536,7 +533,7 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                </a>\n" +
     "            </mask>\n" +
     "        </defs>\n" +
-    "        <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
+    "        <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"></rect>\n" +
     "        <a href=\"#about\" class=\"hvr-bob\" du-smooth-scroll>\n" +
     "            <svg class=\"tri-after\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +
     "                <g>\n" +
@@ -725,6 +722,13 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "                    </div>\n" +
     "                </div>\n" +
     "            </form>\n" +
+    "\n" +
+    "            <!--\n" +
+    "            <p>facebook</p>\n" +
+    "            <p>google</p>\n" +
+    "            <p>twitter</p>\n" +
+    "            -->\n" +
+    "\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <hr>\n" +
