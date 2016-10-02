@@ -82,7 +82,6 @@
 }
 .intro-container {
     cursor: default;
-    min-height: 100vh;
     z-index: 1;
 }
 .intro-mask {
