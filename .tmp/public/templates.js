@@ -7,7 +7,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
     "      	<h3>Empowering the internet</h3>\n" +
-    "      	<h3>Seeing past partisan politics</h3>\n" +
+    "      	<!--<h3>Seeing past partisan politics</h3>-->\n" +
     "      	<p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
     "		</div>\n" +
     "	</div>\n" +
@@ -20,9 +20,8 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "	<div id=\"section2\">\n" +
     "		<p>real time voting</p>\n" +
     "		<!--<p>bylaw generation</p>-->\n" +
-    "		<!--<p>have your voice be heard through collective decision making</p>-->\n" +
     "		<p>direct input on policy</p>\n" +
-    "		<!--that matters to you-->\n" +
+    "		<p>decision making influence</p>\n" +
     "	</div>\n" +
     "	<div id=\"section3\">\n" +
     "	    <p>select others to represent you at any time</p>\n" +
@@ -30,6 +29,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "	</div>\n" +
     "	<div id=\"section4\">\n" +
     "		<p>we believe in direct democracy</p>\n" +
+    "		<!--we believe in fostering engaged communities...-->\n" +
     "		<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
     "	</div>\n" +
     "</div>\n" +
@@ -52,24 +52,25 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "	.bill-container{\n" +
     "		padding:50px;\n" +
+    "		padding-top:35px;\n" +
+    "	}\n" +
+    "	.bill-content{\n" +
+    "		padding:20px;\n" +
+    "		border:1px solid grey;\n" +
     "	}\n" +
     "\n" +
     "</style>\n" +
     "\n" +
     "<div ui-view=\"bill\">\n" +
     "	<div class=\"bill-container\">\n" +
-    "\n" +
-    "		<h2>{{bill.title}}</h2>\n" +
+    "		<h3>{{bill.title}}</h3>\n" +
     "		<md-subheader class=\"md-no-sticky\">{{bill.createdAt}}</md-subheader>\n" +
     "		<!--<p><a href=\"\">{{bill.committee}}</a></p>-->\n" +
     "		<md-divider></md-divider>\n" +
-    "		<br><br>\n" +
-    "\n" +
     "		<!--\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "		-->\n" +
-    "\n" +
     "		<!--\n" +
     "		{{bill.voteCount}}\n" +
     "		<div ng-repeat=\"vote in votes\">\n" +
@@ -77,41 +78,55 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "		</div>\n" +
     "		-->\n" +
     "\n" +
-    "		<div ng-repeat=\"vote in votes\">\n" +
-    "			<p><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></p>\n" +
-    "			<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>\n" +
-    "			<p>{{vote.result}}</p>\n" +
-    "			<p>{{vote.type}}\n" +
+    "		<div id=\"bill-content\">\n" +
+    "			<br>\n" +
+    "			<p class=\"lead\">{{bill.billContent.current_status_description}}</p>\n" +
+    "			<p class=\"lead\">{{bill.billContent.current_status_label}}</p>\n" +
+    "			<p class=\"lead\">{{bill.billContent.display_number}}</p>\n" +
+    "			<!--<p class=\"lead\">{{bill.billContent.introduced_date}}</p>-->\n" +
+    "			<!--<p class=\"lead\">{{bill.billContent.is_alive}}</p>-->\n" +
+    "			<p class=\"lead\"><a href=\"{{bill.billContent.link}}\">link</a></p>\n" +
+    "			<!--<p class=\"lead\">{{bill.billContent.major_actions}}</p>-->\n" +
+    "			<!--<p class=\"lead\">{{bill.billContent.sponsor}}</p>-->\n" +
+    "			<!--<p class=\"lead\">{{bill.billContent.titles}}</p>-->\n" +
+    "			<md-divider></md-divider>\n" +
     "		</div>\n" +
     "\n" +
-    "		<br><br><br>\n" +
-    "\n" +
-    "		<div id=\"bill-content\" style=\"padding:20px;border:1px solid grey\">\n" +
-    "			<p class=\"lead\">{{bill.billContent}}</p>\n" +
-    "		</div>\n" +
-    "\n" +
-    "		<!--if logged in-->\n" +
-    "		<div style=\"height:100px;\"></div>\n" +
-    "		<div ng-show=\"currentUser\">\n" +
-    "			<div>\n" +
-    "			  <form class=\"blog-input\" role=\"form\" ng-submit=\"createComment(newComment)\">\n" +
-    "			    <div class=\"form-group\">\n" +
-    "			      <input type=\"text\" placeholder=\"comment...\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\">\n" +
-    "			    </div>\n" +
-    "			    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "			  </form>\n" +
+    "		<div class=\"voteContainer\" ng-show=\"votes.length!=0\">\n" +
+    "			<h3>votes</h3>\n" +
+    "			<md-divider></md-divider>\n" +
+    "			<div ng-repeat=\"vote in votes\">\n" +
+    "				<h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
+    "				<p>{{vote.type}}</p>\n" +
+    "				<p>{{vote.result}}</p>\n" +
+    "				<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>\n" +
+    "				<md-divider></md-divider>\n" +
     "			</div>\n" +
     "		</div>\n" +
-    "		<!--/if logged in-->\n" +
     "\n" +
-    "		<div class=\"post-list-container\">\n" +
-    "		  <br><br>\n" +
-    "		  <div class=\"post-container\" ng-repeat=\"comment in comments | orderBy:'-createdAt'\">\n" +
-    "		    <a href=\"/comment/{{comment.id}}\">{{comment.id}}</a>\n" +
-    "		   	<a href=\"/member/{{comment.user.username}}\">{{comment.user.username}}</a>\n" +
-    "		    <p>{{comment.comment}}</p>\n" +
-    "		  </div>\n" +
-    "		  <br><br>\n" +
+    "		<div class=\"commentsContainer\" ng-show=\"comments.length!=0\">\n" +
+    "			<h3>comments</h3>\n" +
+    "			<md-divider></md-divider>\n" +
+    "			<!--if logged in-->\n" +
+    "			<div ng-show=\"currentUser\">\n" +
+    "				<form class=\"blog-input\" role=\"form\" ng-submit=\"createComment(newComment)\">\n" +
+    "					<div class=\"form-group\">\n" +
+    "						<input type=\"text\" placeholder=\"comment...\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\">\n" +
+    "					</div>\n" +
+    "					<button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "				</form>\n" +
+    "				<md-divider></md-divider>\n" +
+    "			</div>\n" +
+    "			<!--/if logged in-->\n" +
+    "			<div class=\"commentContainer\" ng-repeat=\"comment in comments | orderBy:'-createdAt'\">\n" +
+    "				<a href=\"/comment/{{comment.id}}\">link</a>\n" +
+    "				<a href=\"/member/{{comment.user.username}}\">\n" +
+    "					<img src=\"{{comment.user.avatarUrl}}\">\n" +
+    "					<p>{{comment.user.username}}</p>\n" +
+    "				</a>\n" +
+    "				<p>{{comment.comment}}</p>\n" +
+    "				<md-divider></md-divider>\n" +
+    "			</div>\n" +
     "		</div>\n" +
     "		<div style=\"height:100px;\"></div>\n" +
     "\n" +
@@ -156,10 +171,9 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
     "    <hr>\n" +
     "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>-->\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>-->\n" +
     "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
-    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>-->\n" +
-    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>-->\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
     "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
     "  </ul>\n" +
@@ -168,7 +182,9 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "  <div class=\"committee-title\">\n" +
     "    <h1>{{committee.title}}</h1>\n" +
     "  </div>\n" +
-    "  <h1>bills</h1>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <h2>bills</h2>\n" +
+    "  <md-divider ></md-divider>\n" +
     "  <div class=\"bill-list-container\">\n" +
     "  <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
     "    <div class=\"bill-item\">\n" +
@@ -185,6 +201,7 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "      </div>\n" +
     "      <br>\n" +
     "    </div>\n" +
+    "    <md-divider ></md-divider>\n" +
     "  </div>\n" +
     "</div>\n" +
     "</div>\n" +
@@ -202,7 +219,6 @@ angular.module("committee/committees.tpl.html", []).run(["$templateCache", funct
     "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
     "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
     "  </ul>\n" +
@@ -211,7 +227,7 @@ angular.module("committee/committees.tpl.html", []).run(["$templateCache", funct
     "  <div class=\"committee-title\">\n" +
     "    <h1>{{committee.title}}</h1>\n" +
     "  </div>\n" +
-    "  <h1>members</h1>\n" +
+    "  <h1>committees</h1>\n" +
     "</div>\n" +
     "");
 }]);
@@ -223,12 +239,11 @@ angular.module("committee/discussion.tpl.html", []).run(["$templateCache", funct
     "    <br>\n" +
     "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
     "    <hr>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>-->\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>-->\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills<i class=\"fa fa-pencil\"></i></a></li>\n" +
     "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
@@ -249,21 +264,22 @@ angular.module("committee/home.tpl.html", []).run(["$templateCache", function($t
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
-    "    <li><a style=\"font-weight:bold\" href=\"/\">{{committee.title}}</a></li>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
     "    <hr>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>-->\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/votes\">votes</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
     "<div id=\"main-container\">\n" +
     "  <div class=\"committee-title\">\n" +
     "    <h1>{{committee.title}}</h1>\n" +
     "  </div>\n" +
+    "  <md-divider ></md-divider>\n" +
     "  <div ng-show=\"currentUser\">\n" +
     "    <br>\n" +
     "    <button class=\"btn btn-primary\">edit committee</button>\n" +
@@ -294,10 +310,11 @@ angular.module("committee/home.tpl.html", []).run(["$templateCache", function($t
     "          </h4>\n" +
     "        </div>\n" +
     "        <div>\n" +
-    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">comment</a>\n" +
+    "          <a href=\"/bill/{{bill.id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
     "        </div>\n" +
     "        <br>\n" +
     "      </div>\n" +
+    "      <md-divider ></md-divider>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -319,20 +336,32 @@ angular.module("committee/members.tpl.html", []).run(["$templateCache", function
     "    <br>\n" +
     "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
     "    <hr>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>-->\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">elections</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>\n" +
+    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
     "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/votes\">votes</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
     "<div id=\"main-container\">\n" +
     "  <div class=\"committee-title\">\n" +
     "    <h1>{{committee.title}}</h1>\n" +
     "  </div>\n" +
-    "  <h1>members</h1>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <h2>members</h2>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <div class=\"committeeMembersContainer\">\n" +
+    "    <div class=\"committeeMember\" ng-repeat=\"member in members\">\n" +
+    "      <a href=\"/member/{{member.username}}\">\n" +
+    "        <img src=\"{{member.avatarUrl}}\" style=\"height:64px;\">\n" +
+    "        <h4>{{member.username}}</h4>\n" +
+    "      </a>\n" +
+    "      <p>representing x</p>\n" +
+    "      <button class=\"btn btn-primary\">select as representative</button>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
     "</div>\n" +
     "");
 }]);
@@ -342,7 +371,19 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "<!--if logged in-->\n" +
     "<md-subheader class=\"md-no-sticky\">committees</md-subheader>\n" +
     "<md-divider ></md-divider>\n" +
-    "\n" +
+    "<md-subheader class=\"md-no-sticky\">filter</md-subheader>\n" +
+    "<md-divider ></md-divider>\n" +
+    "<div>\n" +
+    "  <style type=\"text/css\">\n" +
+    "      .angular-google-map-container { height: 250px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }\n" +
+    "  </style>\n" +
+    "  <div itemscope itemtype=\"Map\" class=\"map-outter bottom-contact\">\n" +
+    "      <div class=\"gmap-container\" id=\"gmap\">\n" +
+    "          <ui-gmap-google-map center=\"map.center\" zoom=\"map.zoom\" options=\"options\">\n" +
+    "          </ui-gmap-google-map>\n" +
+    "      </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
     "<div ng-show=\"currentUser\">\n" +
     "  <div style=\"margin-left:2%;margin-right:2%;\">\n" +
     "    <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
@@ -360,6 +401,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "  <div class=\"committee-list-container\">\n" +
     "      <div class=\"committee-container\" ng-repeat=\"committee in committees\">\n" +
     "        <h4 class=\"committees title\"><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
+    "        <p>x members</p>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
@@ -412,6 +454,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        <p>crowd-sourced government</p>\n" +
     "        -->\n" +
     "        <p>continual open ballot elections</p>\n" +
+    "        <!--decision making influnce-->\n" +
     "        <!--<p>you have to choose,</p>-->\n" +
     "        <p>direct input on policy</p>\n" +
     "        <!--<p>as grandular as it goes, voice your opinion on what matters, law</p>-->\n" +
@@ -633,7 +676,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
-    "					<p>{{member.username}} voted {{vote.vote}}</p>\n" +
+    "					<p>{{member.username}} voted {{vote.voteString}}</p>\n" +
     "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "				</md-card-title-text>\n" +
     "				<md-card-title-media>\n" +
@@ -772,15 +815,26 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
 
 angular.module("vote/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("vote/index.tpl.html",
+    "<style>\n" +
+    "	.voteContainer{padding:50px;}\n" +
+    "</style>\n" +
     "<div ui-view=\"vote\">\n" +
     "\n" +
-    "	<a href=\"bill/{{vote.bill}}/1\">{{vote.bill}}</a>\n" +
-    "\n" +
-    "	<h1>{{vote.title}}</h1>\n" +
-    "\n" +
-    "	<div ng-repeat=\"voteVote in votes\">\n" +
-    "		{{voteVote}}\n" +
-    "	</div>\n" +
+    "	<div class=\"voteContainer\">\n" +
+    "		<a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a>\n" +
+    "		<h3>{{vote.title}}</h3>\n" +
+    "		<md-divider></md-divider>\n" +
+    "		<div class=\"voteVoteContainer\">\n" +
+    "			<div class=\"voteVote\" ng-repeat=\"vote in votes\">\n" +
+    "				<a href=\"/member/{{vote.user.username}}\">\n" +
+    "					<img src=\"{{vote.user.avatarUrl}}\" style=\"height:64px;\">\n" +
+    "					{{vote.user.username}}\n" +
+    "				</a>\n" +
+    "				<h4>{{vote.voteString}}</h4>\n" +
+    "				<md-divider></md-divider>\n" +
+    "			</div>\n" +
+    "		</div>\n" +
+    "	<div>\n" +
     "\n" +
     "\n" +
     "</div>");
@@ -794,12 +848,12 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function($temp
     "		<md-divider></md-divider>\n" +
     "		<md-list-item ng-repeat=\"vote in votes\">\n" +
     "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
-    "				<h4 class=\"committees title\">\n" +
+    "				<h3 class=\"committees title\">\n" +
     "					{{vote.voteCount}}\n" +
     "          			<button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "          			<button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "					<a href=\"/vote/{{vote.id}}\">{{vote.title}}</a>\n" +
-    "				</h4>\n" +
+    "				</h3>\n" +
     "			</div>\n" +
     "		</md-list-item>\n" +
     "	</md-list>\n" +

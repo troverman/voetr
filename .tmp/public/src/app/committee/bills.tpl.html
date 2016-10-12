@@ -4,10 +4,9 @@
     <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
     <hr>
     <!--<li><a href="committee/{{committee.urlTitle}}">bylaws</a></li>-->
-    <li><a href="committee/{{committee.urlTitle}}/committees">committees</a></li>
+    <!--<li><a href="committee/{{committee.urlTitle}}/committees">committees</a></li>-->
     <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/bills">bills</a></li>
-    <!--<li><a href="committee/{{committee.urlTitle}}">discussion</a></li>-->
-    <!--<li><a href="committee/{{committee.urlTitle}}">elections</a></li>-->
+    <li><a href="committee/{{committee.urlTitle}}">discussion</a></li>
     <!--<li><a href="committee/{{committee.urlTitle}}">polls</a></li>-->
     <li><a href="committee/{{committee.urlTitle}}/members">members</a></li>
   </ul>
@@ -16,7 +15,9 @@
   <div class="committee-title">
     <h1>{{committee.title}}</h1>
   </div>
-  <h1>bills</h1>
+  <md-divider ></md-divider>
+  <h2>bills</h2>
+  <md-divider ></md-divider>
   <div class="bill-list-container">
   <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
     <div class="bill-item">
@@ -33,6 +34,7 @@
       </div>
       <br>
     </div>
+    <md-divider ></md-divider>
   </div>
 </div>
 </div>

@@ -35,6 +35,10 @@ module.exports = {
             collection: 'vote',
             via: 'bill'
         },
+        comments: {
+            collection: 'comment',
+            via: 'bill'
+        },
         voteCount: {
             type: 'integer',
             defaultsTo: 0
@@ -54,6 +58,8 @@ module.exports = {
         .sort(sort)
         .limit(limiting)
         .skip(skipping)
+        .populate('votes')
+        .populate('comments')
         .then(function (models) {
             return models;
         });

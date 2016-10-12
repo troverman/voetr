@@ -60,8 +60,10 @@ module.exports = {
 				return console.log(err);
 			}
 			else {
-				Comment.publishCreate(comment);
-				res.json(comment);
+				Comment.getOne(comment.id).then(function(comment){
+					Comment.publishCreate(comment[0]);
+					res.json(comment[0]);
+				})
 			}
 		});
 	},

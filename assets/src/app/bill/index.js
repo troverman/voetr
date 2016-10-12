@@ -90,6 +90,7 @@ angular.module( 'voetr.bill', [
     $sailsSocket.subscribe('comment', function (envelope) {
 	    switch(envelope.verb) {
 	        case 'created':
+                console.log(envelope.data)
 	            $scope.comments.unshift(envelope.data);
 	            break;
 	        case 'destroyed':
@@ -99,7 +100,7 @@ angular.module( 'voetr.bill', [
     });
 
 	$scope.createComment = function(newComment) {
-        newComment.user = config.currentUser.id;
+        newComment.user = config.currentUser;
         newComment.bill = bill;
         CommentModel.create(newComment).then(function(model) {
             $scope.newComment = {};

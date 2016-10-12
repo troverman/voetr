@@ -47,6 +47,7 @@ module.exports = {
     },
 
     getByVote: function(vote) {
+        console.log(vote);
         return VoteVote.find()
         .where({vote: vote})
         .sort({createdAt: 'desc'})
@@ -61,6 +62,7 @@ module.exports = {
         .where({user: user})
         .sort({createdAt: 'desc'})
         .populate('bill')
+        .populate('vote')
         .then(function (models) {
             return models;
         });

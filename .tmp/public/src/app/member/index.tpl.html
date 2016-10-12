@@ -33,7 +33,7 @@
 		<md-card ng-repeat="vote in votes">
 			<md-card-title>
 				<md-card-title-text>
-					<p>{{member.username}} voted {{vote.vote}}</p>
+					<p>{{member.username}} voted {{vote.voteString}}</p>
 					<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
 				</md-card-title-text>
 				<md-card-title-media>

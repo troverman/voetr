@@ -104,95 +104,93 @@ function recentBills(){
 					committee: 1,
 					title: title,
 					urlTitle: title.replace(/ /g,"-").toLowerCase(),
+					displayId: bills[x].id,
 					user: 1
 				};
-				(function(bills, x) {
-					Bill.findOrCreate({displayNumber:displayNumber}, model)
-					.exec(function(err, billModel) {
-						if (!err) {
-							Bill.publishCreate(billModel);
-							(function(billModel) {
-								govTrack.findVote({related_bill: bills[x].id, limit:1000}, function(err, res) {
-									if(!err && res.objects){
-										var votes = res.objects;
-										if (!err && votes.length > 0) {
-											for(x in votes){
-												var model = {
-													result: votes[x].result,
-													required: votes[x].required,
-													type: votes[x].vote_type,
-													plusCount: votes[x].total_plus,
-													minusCount: votes[x].total_minus,
-													otherCount: votes[x].total_other,
-													title: votes[x].question,
-													urlTitle: title.replace(/ /g,"-").toLowerCase(),
-													displayId: votes[x].id,
-													bill: billModel.id,
-													user: 1
-												};
-												(function(votes, x) {
-													Vote.findOrCreate({displayId:votes[x].id}, model)
-													.exec(function(err, voteModel) {
-														if (!err){
-															Vote.publishCreate(voteModel);
-															(function(voteModel) {
-																govTrack.findVoteVoter({vote: votes[x].id}, function(err, res) {
-																	if(!err && res.objects){
-																		var voteVoters = res.objects;
-																		for(x in voteVoters){
-																			(function(voteVoters, x) {
-																				User.find()
-																				.where({bioguide_id: voteVoters[x].person.bioguideid})
-																				.then(function(userModel) {
-																					var voteInteger = 0;
-																					var voteString = voteVoters[x].option.value;
-																					if(voteString == 'Yea' || voteString == 'Aye'){voteInteger = 1;}
-																					if(voteString == 'Nay' || voteString == 'No'){voteInteger = -1;}
-																					var model = {
-																						voteInteger: voteInteger,
-																						voteString: voteString,
-																						vote: voteModel.id,
-																						bill: billModel.id,
-																						user: userModel[0].id
-																					};
-																					VoteVote.findOrCreate({bill: billModel.id, vote:voteModel.id, user: userModel[0].id}, model)
-																					.exec(function(err, voteVoteModel) {
-																						if (!err) {
-																							//console.log(voteVoteModel)
+				Bill.findOrCreate({displayNumber:displayNumber}, model)
+				.exec(function(err, billModel) {
+					if (!err) {
+						Bill.publishCreate(billModel);
+						(function(billModel) {
+							govTrack.findVote({related_bill: billModel.displayId, limit:1000}, function(err, res) {
+								if(!err && res.objects){
+									var votes = res.objects;
+									if (!err && votes.length > 0) {
+										for(y in votes){
+											var model = {
+												result: votes[y].result,
+												required: votes[y].required,
+												type: votes[y].vote_type,
+												plusCount: votes[y].total_plus,
+												minusCount: votes[y].total_minus,
+												otherCount: votes[y].total_other,
+												title: votes[y].question,
+												urlTitle: votes[y].question.replace(/ /g,"-").toLowerCase(),
+												displayId: votes[y].id,
+												bill: billModel.id,
+												user: 1
+											};
+											Vote.findOrCreate({displayId:votes[y].id, title: votes[y].question}, model)
+											.exec(function(err, voteModel) {
+												if (!err){
+													Vote.publishCreate(voteModel);
+													(function(voteModel) {
+														govTrack.findVoteVoter({vote: voteModel.displayId, limit:1000}, function(err, res) {
+															if(!err && res.objects){
+																var voteVoters = res.objects;
+																console.log(voteVoters.length);
+																for(z in voteVoters){
+																	var voteString = voteVoters[z].option.value;
+																	(function(voteString) {
+																		User.find()
+																		.where({bioguide_id: voteVoters[z].person.bioguideid})
+																		.then(function(userModel) {
+																			var voteInteger = 0;
+																			if(voteString == 'Yea' || voteString == 'Aye'){voteInteger = 1;}
+																			if(voteString == 'Nay' || voteString == 'No'){voteInteger = -1;}
+																			var model = {
+																				voteInteger: voteInteger,
+																				voteString: voteString,
+																				vote: voteModel.id,
+																				bill: billModel.id,
+																				user: userModel[0].id
+																			};
+																			VoteVote.findOrCreate({bill: billModel.id, vote:voteModel.id, user: userModel[0].id}, model)
+																			.exec(function(err, voteVoteModel) {
+																				if (!err) {
+																					//console.log(voteVoteModel)
 
-																							/*
-																							VoteVote.publishCreate(voteVoteModel);
-																							VoteVote.count()
-																							.where({bill: billModel.id, vote:voteModel.id, user: userModel[0].id})
-																							.exec(function(err, voteCount) {
-																								console.log(voteCount)
-																								Vote.update({id: voteModel.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
-																								  if (err) {
-																								    return;
-																								  }
-																								});
-																							});
-																							*/
-	
-																						}
+																					/*
+																					VoteVote.publishCreate(voteVoteModel);
+																					VoteVote.count()
+																					.where({bill: billModel.id, vote:voteModel.id, user: userModel[0].id})
+																					.exec(function(err, voteCount) {
+																						console.log(voteCount)
+																						Vote.update({id: voteModel.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+																						  if (err) {
+																						    return;
+																						  }
+																						});
 																					});
-																				});
-																			})(voteVoters, x)
-																		}
-																	}
-																});
-															})(voteModel);
-														}
-													});
-												})(votes, x);
-											}
+																					*/
+
+																				}
+																			});
+																		});
+																	})(voteString)
+																}
+															}
+														});
+													})(voteModel);
+												}
+											});
 										}
 									}
-								});
-							})(billModel);
-						}
-					});
-				})(bills, x);
+								}
+							});
+						})(billModel);
+					}
+				});
 			}
 		}
 	});

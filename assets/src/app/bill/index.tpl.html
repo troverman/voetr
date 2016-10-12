@@ -2,24 +2,25 @@
 
 	.bill-container{
 		padding:50px;
+		padding-top:35px;
+	}
+	.bill-content{
+		padding:20px;
+		border:1px solid grey;
 	}
 
 </style>
 
 <div ui-view="bill">
 	<div class="bill-container">
-
-		<h2>{{bill.title}}</h2>
+		<h3>{{bill.title}}</h3>
 		<md-subheader class="md-no-sticky">{{bill.createdAt}}</md-subheader>
 		<!--<p><a href="">{{bill.committee}}</a></p>-->
 		<md-divider></md-divider>
-		<br><br>
-
 		<!--
 		<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i></button>
 		<button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
 		-->
-
 		<!--
 		{{bill.voteCount}}
 		<div ng-repeat="vote in votes">
@@ -27,41 +28,55 @@
 		</div>
 		-->
 
-		<div ng-repeat="vote in votes">
-			<p><a href="/vote/{{vote.id}}">{{vote.title}}</a></p>
-			<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>
-			<p>{{vote.result}}</p>
-			<p>{{vote.type}}
+		<div id="bill-content">
+			<br>
+			<p class="lead">{{bill.billContent.current_status_description}}</p>
+			<p class="lead">{{bill.billContent.current_status_label}}</p>
+			<p class="lead">{{bill.billContent.display_number}}</p>
+			<!--<p class="lead">{{bill.billContent.introduced_date}}</p>-->
+			<!--<p class="lead">{{bill.billContent.is_alive}}</p>-->
+			<p class="lead"><a href="{{bill.billContent.link}}">link</a></p>
+			<!--<p class="lead">{{bill.billContent.major_actions}}</p>-->
+			<!--<p class="lead">{{bill.billContent.sponsor}}</p>-->
+			<!--<p class="lead">{{bill.billContent.titles}}</p>-->
+			<md-divider></md-divider>
 		</div>
 
-		<br><br><br>
-
-		<div id="bill-content" style="padding:20px;border:1px solid grey">
-			<p class="lead">{{bill.billContent}}</p>
-		</div>
-
-		<!--if logged in-->
-		<div style="height:100px;"></div>
-		<div ng-show="currentUser">
-			<div>
-			  <form class="blog-input" role="form" ng-submit="createComment(newComment)">
-			    <div class="form-group">
-			      <input type="text" placeholder="comment..." ng-model="newComment.comment" class="form-control" id="postTitle">
-			    </div>
-			    <button type="submit" class="btn btn-primary">Submit</button>
-			  </form>
+		<div class="voteContainer" ng-show="votes.length!=0">
+			<h3>votes</h3>
+			<md-divider></md-divider>
+			<div ng-repeat="vote in votes">
+				<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
+				<p>{{vote.type}}</p>
+				<p>{{vote.result}}</p>
+				<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>
+				<md-divider></md-divider>
 			</div>
 		</div>
-		<!--/if logged in-->
 
-		<div class="post-list-container">
-		  <br><br>
-		  <div class="post-container" ng-repeat="comment in comments | orderBy:'-createdAt'">
-		    <a href="/comment/{{comment.id}}">{{comment.id}}</a>
-		   	<a href="/member/{{comment.user.username}}">{{comment.user.username}}</a>
-		    <p>{{comment.comment}}</p>
-		  </div>
-		  <br><br>
+		<div class="commentsContainer" ng-show="comments.length!=0">
+			<h3>comments</h3>
+			<md-divider></md-divider>
+			<!--if logged in-->
+			<div ng-show="currentUser">
+				<form class="blog-input" role="form" ng-submit="createComment(newComment)">
+					<div class="form-group">
+						<input type="text" placeholder="comment..." ng-model="newComment.comment" class="form-control" id="postTitle">
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+				<md-divider></md-divider>
+			</div>
+			<!--/if logged in-->
+			<div class="commentContainer" ng-repeat="comment in comments | orderBy:'-createdAt'">
+				<a href="/comment/{{comment.id}}">link</a>
+				<a href="/member/{{comment.user.username}}">
+					<img src="{{comment.user.avatarUrl}}">
+					<p>{{comment.user.username}}</p>
+				</a>
+				<p>{{comment.comment}}</p>
+				<md-divider></md-divider>
+			</div>
 		</div>
 		<div style="height:100px;"></div>
 

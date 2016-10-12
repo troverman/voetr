@@ -41,6 +41,7 @@ module.exports = {
 
     getOne: function(id) {
         return Comment.findOne(id)
+        .populate('user')
         .then(function (model) {
             return [model];
         });

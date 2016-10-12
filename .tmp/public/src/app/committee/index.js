@@ -83,7 +83,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             members: function(BillModel) {
-                return null;
+                return [{username:'troverman', avatarUrl:'/images/trevor.jpg'}];
             }
          }
     });
@@ -167,8 +167,9 @@ angular.module( 'voetr.committee', [
     $scope.posts = posts;
 })
 
-.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, committee) {
+.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, members, committee) {
     $scope.committee = committee;
+    $scope.members = members;
 });
 
 

@@ -4,12 +4,12 @@
 		<md-divider></md-divider>
 		<md-list-item ng-repeat="vote in votes">
 			<div class="md-list-item-text" layout="column">
-				<h4 class="committees title">
+				<h3 class="committees title">
 					{{vote.voteCount}}
           			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
           			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
 					<a href="/vote/{{vote.id}}">{{vote.title}}</a>
-				</h4>
+				</h3>
 			</div>
 		</md-list-item>
 	</md-list>

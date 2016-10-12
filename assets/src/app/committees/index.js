@@ -1,7 +1,7 @@
 angular.module( 'voetr.committees', [
 ])
 
-.config(function config( $stateProvider, $urlRouterProvider ) {
+.config(function config( $stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider ) {
 	$stateProvider.state( 'committees', {
 		url: '/committees',
 		views: {
@@ -16,6 +16,11 @@ angular.module( 'voetr.committees', [
             }
         }
 	});
+	uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDKPi-Krk_GCd_YfHS4ghUH3P4afPtPstA',
+        v: '3.20',
+        libraries: 'weather,geometry,visualization'
+    });
 	$urlRouterProvider.when('/committees/', '/committees');
 })
 
@@ -24,6 +29,12 @@ angular.module( 'voetr.committees', [
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
     $scope.skip = 0;
+    $scope.map = {
+		center: {latitude: 39.443659, longitude: -83.082276 },
+		zoom: 8
+	};
+	$scope.options = {scrollwheel: false};
+	$scope.windowOptions = {visible: false};
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;

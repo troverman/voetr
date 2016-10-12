@@ -73,6 +73,7 @@ module.exports = {
         .where({bill: bill})
         .sort({createdAt: 'desc'})
         .populate('user')
+        .populate('bill')
         .then(function (models) {
             return models;
         });
@@ -90,6 +91,7 @@ module.exports = {
 
     getOne: function(id) {
         return Vote.findOne(id)
+        .populate('bill')
         .then(function (model) {
             return [model];
         });
