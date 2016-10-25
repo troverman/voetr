@@ -4,7 +4,7 @@
 		<md-divider></md-divider>
 		<md-list-item ng-repeat="vote in votes">
 			<div class="md-list-item-text" layout="column">
-				<h3 class="committees title">
+				<h3 class="committees title" style="font-size:25px">
 					{{vote.voteCount}}
           			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
           			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>

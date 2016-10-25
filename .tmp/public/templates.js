@@ -176,6 +176,7 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "    <li><a href=\"committee/{{committee.urlTitle}}\">discussion</a></li>\n" +
     "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/votes\">votes</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
     "<div id=\"main-container\">\n" +
@@ -248,12 +249,19 @@ angular.module("committee/discussion.tpl.html", []).run(["$templateCache", funct
     "  </ul>\n" +
     "</div>\n" +
     "<div id=\"main-container\">\n" +
-    "  <div class=\"committee-title\">\n" +
+    " <div class=\"committee-title\">\n" +
     "    <h1>{{committee.title}}</h1>\n" +
     "  </div>\n" +
-    "  <h1>Discussion</h1>\n" +
-    "  <div ng-repeat=\"post in posts\">\n" +
-    "    <h4>post {{post}}</h4>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <h2>discussion</h2>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <div class=\"committeeDiscussionContainer\">\n" +
+    "    <div class=\"committeeDiscussion\" ng-repeat=\"discussion in posts\">\n" +
+    "      <a href=\"/discussion/{{discussion}}\">\n" +
+    "        <h4>{{discussion}}</h4>\n" +
+    "        <md-divider ></md-divider>\n" +
+    "      </a>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
     "");
@@ -453,14 +461,17 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        <p>seeing past partisan politics</p>\n" +
     "        <p>crowd-sourced government</p>\n" +
     "        -->\n" +
-    "        <p>continual open ballot elections</p>\n" +
     "        <!--decision making influnce-->\n" +
     "        <!--<p>you have to choose,</p>-->\n" +
-    "        <p>direct input on policy</p>\n" +
+    "        <p>with direct input on policy your voice counts</p>\n" +
+    "        <p>continual open ballot elections - represent others at anytime</p>\n" +
+    "\n" +
     "        <!--<p>as grandular as it goes, voice your opinion on what matters, law</p>-->\n" +
     "        <hr>\n" +
     "        <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
-    "        <br>\n" +
+    "        <div style=\"height:100px;\"></div>\n" +
+    "        <div style=\"height:100px;\"></div>\n" +
+    "        <div style=\"height:100px;\"></div>\n" +
     "      </div>\n" +
     "\n" +
     "      <div id=\"register\">\n" +
@@ -561,9 +572,9 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "        <defs>\n" +
     "            <mask class=\"intro-mask\" id=\"intro-mask\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\">\n" +
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
-    "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">empowering the internet</text>\n" +
+    "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">build empowerment, change consensus</text>\n" +
     "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">empowering change</text>\n" +
-    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">direct input on policy</text>\n" +
+    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">direct input on policy, be the voice of the internet</text>\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
     "                    <svg class=\"tri-before\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +
@@ -633,7 +644,7 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
     "        </div>\n" +
     "    </div>\n" +
     "    <hr>\n" +
-    "    <a href=\"/register\">don't have an account?</a>\n" +
+    "    <a href=\"/register\">register an account</a>\n" +
     "</div>\n" +
     "<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
     "");
@@ -848,7 +859,7 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function($temp
     "		<md-divider></md-divider>\n" +
     "		<md-list-item ng-repeat=\"vote in votes\">\n" +
     "			<div class=\"md-list-item-text\" layout=\"column\">\n" +
-    "				<h3 class=\"committees title\">\n" +
+    "				<h3 class=\"committees title\" style=\"font-size:25px\">\n" +
     "					{{vote.voteCount}}\n" +
     "          			<button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "          			<button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
