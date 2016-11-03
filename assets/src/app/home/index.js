@@ -59,9 +59,9 @@ angular.module( 'voetr.home', [
 		});
 	};
 
-	$scope.skipMembers = 20;
+	$scope.skipMembers = 32;
     $scope.loadMoreMembers = function() {
-		$scope.skipMembers = $scope.skipMembers + 32;
+		$scope.skipMembers = $scope.skipMembers + 20;
 		UserModel.getSome(20,$scope.skipMembers).then(function(users) {
 			Array.prototype.push.apply($scope.users, users);
 		});
