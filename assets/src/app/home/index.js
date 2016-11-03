@@ -18,7 +18,7 @@ angular.module( 'voetr.home', [
 				return CommitteeModel.getCount();
             },
             users: function(UserModel){
-				return UserModel.getSome(32,0);
+				return UserModel.getSome(20,32);
             },
             userCount: function(UserModel){
 				return UserModel.getCount();
@@ -59,10 +59,10 @@ angular.module( 'voetr.home', [
 		});
 	};
 
-	$scope.skipMembers = 32;
+	$scope.skipMembers = 20;
     $scope.loadMoreMembers = function() {
 		$scope.skipMembers = $scope.skipMembers + 32;
-		UserModel.getSome(32,$scope.skipMembers).then(function(users) {
+		UserModel.getSome(20,$scope.skipMembers).then(function(users) {
 			Array.prototype.push.apply($scope.users, users);
 		});
 	};
