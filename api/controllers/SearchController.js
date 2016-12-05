@@ -63,7 +63,7 @@ module.exports = {
 					.limit(25)
 					.then(function(models) {
 						var superSuperCombinedModels = superCombinedModels.concat(models);
-						VOte.watch(req);
+						Vote.watch(req);
 						Vote.subscribe(req, models);
 						res.json(superSuperCombinedModels);
 					}
