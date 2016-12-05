@@ -66,7 +66,7 @@ module.exports = {
 						Vote.watch(req);
 						Vote.subscribe(req, models);
 						res.json(superSuperCombinedModels);
-					}
+					})
 
 				})
 				.fail(function(err) {});	
