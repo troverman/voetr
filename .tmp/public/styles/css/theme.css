@@ -8,7 +8,6 @@ html, body {
   color:#000;
 }
 
-
 html {
     height:100%;
     box-sizing: border-box;
@@ -26,13 +25,10 @@ body {
 }
 
 .footer {
-    //position: absolute;
-    //right: 0;
-    //bottom:0;
-    //left:0;
     padding:50px;
     background-color:#414141;
     color: gray;
+    font-family: Jura;
 }
 
 .footer a{

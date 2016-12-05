@@ -86,7 +86,21 @@ angular.module( 'voetr.committee', [
                 return [{username:'troverman', avatarUrl:'/images/trevor.jpg'}];
             }
          }
-    });
+    })
+    .state( 'committee.votes', {
+        url: '/votes',
+        views: {
+            "votes": {
+                controller: 'CommitteeVoteCtrl',
+                templateUrl: 'committee/votes.tpl.html'
+            }
+        },
+        resolve: {
+            votes: function(VoteModel) {
+                return VoteModel.getSome(100, 0, 'createdAt DESC');
+            }
+         }
+    })
 
 
 })
@@ -105,6 +119,16 @@ angular.module( 'voetr.committee', [
     $scope.bills = bills;
     $scope.newBill = {};
     $scope.newVote = {};
+    $scope.createBillToggle = false;
+    $scope.editCommitteeToggle = false;
+
+    $scope.toggleCreateBill = function(){
+        $scope.createBillToggle = $scope.createBillToggle ? false : true;
+    }
+
+    $scope.toggleEditCommittee = function(){
+        $scope.editCommitteeToggle = $scope.editCommitteeToggle ? false : true;
+    }
 
     $scope.createBill = function(newBill) {
         newBill.user = config.currentUser.id;
@@ -162,7 +186,7 @@ angular.module( 'voetr.committee', [
     $scope.committees = committees;
 })
 
-.controller( 'CommitteeDiscussionCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, committee, posts) {
+.controller( 'CommitteeDiscussionCtrl', function CommitteeDiscussionCtrl( $scope, $sailsSocket, committee, posts) {
     $scope.committee = committee;
     $scope.posts = posts;
 })
@@ -170,7 +194,13 @@ angular.module( 'voetr.committee', [
 .controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, members, committee) {
     $scope.committee = committee;
     $scope.members = members;
+})
+
+.controller( 'CommitteeVoteCtrl', function CommitteeVoteCtrl( $scope, $sailsSocket, votes, committee) {
+    $scope.committee = committee;
+    $scope.votes = votes;
 });
+
 
 
 

@@ -37,19 +37,9 @@ module.exports = {
     },
 
     getByBill: function(bill) {
+        console.log(bill)
         return VoteVote.find()
         .where({bill: bill})
-        .sort({createdAt: 'desc'})
-        .populate('user')
-        .then(function (models) {
-            return models;
-        });
-    },
-
-    getByVote: function(vote) {
-        console.log(vote);
-        return VoteVote.find()
-        .where({vote: vote})
         .sort({createdAt: 'desc'})
         .populate('user')
         .then(function (models) {

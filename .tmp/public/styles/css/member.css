@@ -14,7 +14,7 @@
 
 .profile-user-page .img-user-profile {
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
 
 .profile-user-page .img-user-profile .profile-bgHome {
@@ -37,7 +37,7 @@
 
 .profile-user-page .user-profile-data,
 .profile-user-page .description-profile {
-  text-align: center;
+  text-align: left;
   padding: 0 1.5em;
 }
 
@@ -76,7 +76,7 @@
   padding: 0;
   width: 20%;
   display: table-cell;
-  text-align: center;
+  text-align: left;
   border-left: 0.1em solid transparent;
 }
 
@@ -130,13 +130,4 @@
   color: #3498db;
 }
 
-footer h4 {
-  display: block;
-  text-align: center;
-  clear: both;
-  font-family: "Coda", sans-serif;
-  color: #566965;
-  line-height: 6;
-  font-size: 1em;
-}
-#profile-activity{text-align:center;}
+#profile-activity{text-align:left;}

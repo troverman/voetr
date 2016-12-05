@@ -138,7 +138,6 @@ function recentBills(){
 														govTrack.findVoteVoter({vote: voteModel.displayId, limit:1000}, function(err, res) {
 															if(!err && res.objects){
 																var voteVoters = res.objects;
-																console.log(voteVoters.length);
 																for(z in voteVoters){
 																	var voteString = voteVoters[z].option.value;
 																	(function(voteString) {
@@ -146,24 +145,31 @@ function recentBills(){
 																		.where({bioguide_id: voteVoters[z].person.bioguideid})
 																		.then(function(userModel) {
 																			var voteInteger = 0;
+																			var user = userModel;
 																			if(voteString == 'Yea' || voteString == 'Aye'){voteInteger = 1;}
 																			if(voteString == 'Nay' || voteString == 'No'){voteInteger = -1;}
+																			if(user[0]){user = userModel[0].id}
 																			var model = {
 																				voteInteger: voteInteger,
 																				voteString: voteString,
 																				vote: voteModel.id,
 																				bill: billModel.id,
-																				user: userModel[0].id
+																				user: user
 																			};
-																			VoteVote.findOrCreate({bill: billModel.id, vote:voteModel.id, user: userModel[0].id}, model)
+
+																			//console.log(model);
+																			VoteVote.find({bill: billModel, vote:voteModel, user:userModel[0]})
+																			.then(function(voteVoteModel) {
+																				console.log('...')
+																				if(voteVoteModel.length >0){console.log(voteVoteModel)}
+																			});
+
+																			VoteVote.findOrCreate({bill: billModel.id, vote:voteModel.id, user: user}, model)
 																			.exec(function(err, voteVoteModel) {
 																				if (!err) {
-																					//console.log(voteVoteModel)
-
-																					/*
 																					VoteVote.publishCreate(voteVoteModel);
 																					VoteVote.count()
-																					.where({bill: billModel.id, vote:voteModel.id, user: userModel[0].id})
+																					.where({bill: billModel.id, vote:voteModel.id})
 																					.exec(function(err, voteCount) {
 																						console.log(voteCount)
 																						Vote.update({id: voteModel.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
@@ -172,8 +178,6 @@ function recentBills(){
 																						  }
 																						});
 																					});
-																					*/
-
 																				}
 																			});
 																		});
@@ -206,7 +210,6 @@ function recentVotes(){
 function legislators(){
 
 	var url = "http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70";
-
 	request({
 		    url: url,
 		    json: true
@@ -657,5 +660,23 @@ module.exports.intervalService = function(){
 	//legislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
+
+    //multithreading...
+    /*var cluster = require('cluster'),
+    numCPUs = require('os').cpus().length;
+
+	//console.log('global '+numCPUs);
+
+	// create the server 
+	if (cluster.isMaster) {
+	    for (var i = 0; i < numCPUs; i++) {
+        	console.log('this is for CPU '+i);
+	        cluster.fork();
+	    }
+	}
+	else {
+	    console.log('This is a worker!');
+		recentBills();
+	}*/
 
 };

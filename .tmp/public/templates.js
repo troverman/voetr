@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/committees.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/bills.tpl.html', 'committee/committees.tpl.html', 'committee/discussion.tpl.html', 'committee/home.tpl.html', 'committee/index.tpl.html', 'committee/members.tpl.html', 'committee/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'intro/index.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -99,6 +99,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "				<h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
     "				<p>{{vote.type}}</p>\n" +
     "				<p>{{vote.result}}</p>\n" +
+    "				<p>{{vote.voteCount}}</p>\n" +
     "				<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>\n" +
     "				<md-divider></md-divider>\n" +
     "			</div>\n" +
@@ -240,12 +241,10 @@ angular.module("committee/discussion.tpl.html", []).run(["$templateCache", funct
     "    <br>\n" +
     "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
     "    <hr>\n" +
-    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">bylaws</a></li>-->\n" +
-    "    <!--<li><a href=\"committee/{{committee.urlTitle}}/committees\">committees</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills<i class=\"fa fa-pencil\"></i></a></li>\n" +
     "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
-    "    <!--<li><a href=\"committee/{{committee.urlTitle}}\">polls</a></li>-->\n" +
     "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/votes\">votes</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
     "<div id=\"main-container\">\n" +
@@ -290,12 +289,18 @@ angular.module("committee/home.tpl.html", []).run(["$templateCache", function($t
     "  <md-divider ></md-divider>\n" +
     "  <div ng-show=\"currentUser\">\n" +
     "    <br>\n" +
-    "    <button class=\"btn btn-primary\">edit committee</button>\n" +
+    "    <button ng-click=\"toggleEditCommittee()\" class=\"btn btn-primary\">edit committee</button>\n" +
     "    <br>\n" +
+    "\n" +
+    "    <div style=\"margin-left:20%;margin-right:20%;\" ng-show=\"editCommitteeToggle\">\n" +
+    "      edit committee form\n" +
+    "    </div>\n" +
+    "\n" +
     "    <br>\n" +
-    "    <button class=\"btn btn-primary\">+ bill</button>\n" +
+    "    <button ng-click=\"toggleCreateBill()\" class=\"btn btn-primary\">+ bill</button>\n" +
     "    <br>\n" +
-    "    <div style=\"margin-left:20%;margin-right:20%;\">\n" +
+    "\n" +
+    "    <div style=\"margin-left:20%;margin-right:20%;\" ng-show=\"createBillToggle\">\n" +
     "      <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
     "        <div class=\"form-group\">\n" +
     "          <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
@@ -304,8 +309,8 @@ angular.module("committee/home.tpl.html", []).run(["$templateCache", function($t
     "        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
     "      </form>\n" +
     "    </div>\n" +
+    "    \n" +
     "  </div>\n" +
-    "\n" +
     "  <div class=\"bill-list-container\">\n" +
     "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
     "      <div class=\"bill-item\">\n" +
@@ -334,7 +339,8 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "<div ui-view=\"home\"></div>\n" +
     "<div ui-view=\"bills\"></div>\n" +
     "<div ui-view=\"discussion\"></div>\n" +
-    "<div ui-view=\"members\"></div>");
+    "<div ui-view=\"members\"></div>\n" +
+    "<div ui-view=\"votes\"></div>");
 }]);
 
 angular.module("committee/members.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -368,6 +374,52 @@ angular.module("committee/members.tpl.html", []).run(["$templateCache", function
     "      </a>\n" +
     "      <p>representing x</p>\n" +
     "      <button class=\"btn btn-primary\">select as representative</button>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("committee/votes.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("committee/votes.tpl.html",
+    "<div id=\"sidebar-wrapper\">\n" +
+    "  <ul class=\"sidebar-nav\">\n" +
+    "    <br>\n" +
+    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
+    "    <hr>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
+    "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
+    "    <li style=\"color: #fff;background: #4b5359\"><a style=\"color: #2AB996\" href=\"committee/{{committee.urlTitle}}/votes\">votes</a></li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div id=\"main-container\">\n" +
+    "  <div class=\"committee-title\">\n" +
+    "    <h1>{{committee.title}}</h1>\n" +
+    "  </div>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <h2>votes</h2>\n" +
+    "  <md-divider ></md-divider>\n" +
+    "  <div class=\"vote-list-container\">\n" +
+    "    <div class=\"vote-container\" ng-repeat=\"vote in votes\">\n" +
+    "      <div class=\"vote-item\">\n" +
+    "\n" +
+    "        <div>\n" +
+    "          <br>\n" +
+    "          <h4>\n" +
+    "            0\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "            <a href=\"/vote/{{vote.id}}\">{{vote.title}}</a>\n" +
+    "          </h4>\n" +
+    "          <h5>{{vote.bill.title}}</h5>\n" +
+    "        </div>\n" +
+    "        <div>\n" +
+    "          <a href=\"/vote/{{vote.id}}\">comment</a>\n" +
+    "        </div>\n" +
+    "        <md-divider></md-divider>\n" +
+    "\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -432,7 +484,7 @@ angular.module("footer/index.tpl.html", []).run(["$templateCache", function($tem
     "	<a href=\"/about\">about</a>\n" +
     "	<a href=\"/bills\">bills</a>\n" +
     "	<a href=\"/committees\">committees</a>\n" +
-    "	<a href=\"#\">votes</a>\n" +
+    "	<a href=\"/votes\">votes</a>\n" +
     "</div>");
 }]);
 
@@ -442,6 +494,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
+    "    <h1>welcome {{currentUser.username}}</h1>\n" +
     "    <div ng-repeat=\"vote in votes\">\n" +
     "      {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "    </div>\n" +
@@ -573,8 +626,8 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "            <mask class=\"intro-mask\" id=\"intro-mask\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\">\n" +
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
     "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">build empowerment, change consensus</text>\n" +
-    "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">empowering change</text>\n" +
-    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">direct input on policy, be the voice of the internet</text>\n" +
+    "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">build empowerment, change consensus</text>\n" +
+    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">with direct input on policy, become the voice of the internet</text>\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
     "                    <svg class=\"tri-before\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +
@@ -671,8 +724,8 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      <!--committee member list have a select button?-->\n" +
     "	    </div>\n" +
     "	    <ul class=\"data-user\">\n" +
-    "	    	<li><a><strong>{{votes.length}}</strong><span>Committees</span></a></li>\n" +
-    "	   		<li><a><strong>{{following.length}}</strong><span>Representing</span></a></li>\n" +
+    "	    	<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>\n" +
+    "	   		<li><a><strong>{{representing.length}}</strong><span>Representing</span></a></li>\n" +
     "	    	<li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>\n" +
     "	    	<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
     "	    	<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
@@ -680,14 +733,15 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	  </div>\n" +
     "	</div>\n" +
     "\n" +
-    "	<div id=\"profile-activity\">\n" +
+    "	<div class=\"container\" id=\"profile-activity\">\n" +
     "\n" +
-    "\n" +
-    "		<h1>Activity</h1><hr>\n" +
+    "		<h1>Activity</h1>\n" +
+    "		<md-divider></md-divider><br>\n" +
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
     "					<p>{{member.username}} voted {{vote.voteString}}</p>\n" +
+    "					<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
     "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "				</md-card-title-text>\n" +
     "				<md-card-title-media>\n" +
@@ -800,26 +854,31 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
   $templateCache.put("search/index.tpl.html",
     "<div ui-view=\"search\">\n" +
     "	<div style=\"margin-left:10%;margin-right:10%;margin-top:5%\">\n" +
-    "		<div>\n" +
-    "			<h1>{{searchQuery}}</h1><hr style=\"width:100%\">\n" +
+    "		<div ng-show=\"!searchQuery\">\n" +
+    "			<h1>discover content</h1>\n" +
     "		</div>\n" +
+    "		<div ng-show=\"searchQuery\">\n" +
+    "			<div>\n" +
+    "				<h1>{{searchQuery}}</h1><hr style=\"width:100%\">\n" +
+    "			</div>\n" +
     "\n" +
-    "		<!--<input ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\">\n" +
-    "		<div ng-repeat=\"searchResult in searchResults\">\n" +
-    "			<a href=\"/project/{{searchResult.urlTitle}}\">{{searchResult.title}}</a>\n" +
+    "			<!--<input ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\">\n" +
+    "			<div ng-repeat=\"searchResult in searchResults\">\n" +
+    "				<a href=\"/project/{{searchResult.urlTitle}}\">{{searchResult.title}}</a>\n" +
+    "			</div>\n" +
+    "			<div style=\"height:100px\"></div>-->\n" +
+    "\n" +
+    "\n" +
+    "			<div ng-repeat=\"searchResult in searchResults\">\n" +
+    "				<h4 ng-show=\"searchResult.username\"><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h4>\n" +
+    "				<h4 ng-show=\"searchResult.billContent\"><a href=\"/bill/{{searchResult.id}}/{{searchResult.title}}\">{{searchResult.title}}</a></h4>\n" +
+    "				<h4 ng-show=\"!searchResult.billContent\"><a href=\"/committee/{{searchResult.urlTitle}}\">{{searchResult.title}}</a></h4>\n" +
+    "			</div>\n" +
+    "			<br>\n" +
+    "			<!--<div ng-repeat=\"searchResult in searchResults\">\n" +
+    "				<h4><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h4>\n" +
+    "			</div>-->\n" +
     "		</div>\n" +
-    "		<div style=\"height:100px\"></div>-->\n" +
-    "\n" +
-    "\n" +
-    "		<div ng-repeat=\"searchResult in searchResults\">\n" +
-    "			<h4 ng-show=\"searchResult.username\"><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h4>\n" +
-    "			<h4 ng-show=\"searchResult.billContent\"><a href=\"/bill/{{searchResult.id}}/{{searchResult.title}}\">{{searchResult.title}}</a></h4>\n" +
-    "			<h4 ng-show=\"!searchResult.billContent\"><a href=\"/committee/{{searchResult.urlTitle}}\">{{searchResult.title}}</a></h4>\n" +
-    "		</div>\n" +
-    "		<br>\n" +
-    "		<!--<div ng-repeat=\"searchResult in searchResults\">\n" +
-    "			<h4><a href=\"/member/{{searchResult.username}}\">{{searchResult.username}}</a></h4>\n" +
-    "		</div>-->\n" +
     "	</div>\n" +
     "</div>");
 }]);
@@ -832,9 +891,10 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function($templ
     "<div ui-view=\"vote\">\n" +
     "\n" +
     "	<div class=\"voteContainer\">\n" +
-    "		<a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a>\n" +
     "		<h3>{{vote.title}}</h3>\n" +
+    "		<h5><a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></h5>\n" +
     "		<md-divider></md-divider>\n" +
+    "		<br><br>\n" +
     "		<div class=\"voteVoteContainer\">\n" +
     "			<div class=\"voteVote\" ng-repeat=\"vote in votes\">\n" +
     "				<a href=\"/member/{{vote.user.username}}\">\n" +

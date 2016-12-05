@@ -22,7 +22,6 @@ module.exports = {
 		})
 		.limit(25)
 		.then(function(models) {
-
 			var CommitteeModels = models;
 			Committee.watch(req);
 			Committee.subscribe(req, models);
@@ -30,10 +29,10 @@ module.exports = {
 			User.find()
 			.where({
 				or: [
-				{username: {contains: searchQuery}},
-				{first_name: {contains: searchQuery}},
-				{last_name: {contains: searchQuery}}
-			]
+					{username: {contains: searchQuery}},
+					{first_name: {contains: searchQuery}},
+					{last_name: {contains: searchQuery}}
+				]
 			})
 			.limit(25)
 			.then(function(models) {
@@ -45,16 +44,29 @@ module.exports = {
 				Bill.find()
 				.where({
 					or: [
-					{title: {contains: searchQuery}},
-					{billContent: {contains: searchQuery}}
-				]
+						{title: {contains: searchQuery}},
+						{billContent: {contains: searchQuery}}
+					]
 				})
 				.limit(25)
 				.then(function(models) {
 					var superCombinedModels = combinedModels.concat(models);
 					Bill.watch(req);
 					Bill.subscribe(req, models);
-					res.json(superCombinedModels);
+
+					Vote.find()
+					.where({
+						//or: [
+							{title: {contains: searchQuery}}
+						//]
+					})
+					.limit(25)
+					.then(function(models) {
+						var superSuperCombinedModels = superCombinedModels.concat(models);
+						VOte.watch(req);
+						Vote.subscribe(req, models);
+						res.json(superSuperCombinedModels);
+					}
 
 				})
 				.fail(function(err) {});	

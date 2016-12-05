@@ -19,12 +19,18 @@
   <md-divider ></md-divider>
   <div ng-show="currentUser">
     <br>
-    <button class="btn btn-primary">edit committee</button>
+    <button ng-click="toggleEditCommittee()" class="btn btn-primary">edit committee</button>
     <br>
+
+    <div style="margin-left:20%;margin-right:20%;" ng-show="editCommitteeToggle">
+      edit committee form
+    </div>
+
     <br>
-    <button class="btn btn-primary">+ bill</button>
+    <button ng-click="toggleCreateBill()" class="btn btn-primary">+ bill</button>
     <br>
-    <div style="margin-left:20%;margin-right:20%;">
+
+    <div style="margin-left:20%;margin-right:20%;" ng-show="createBillToggle">
       <form class="committee-input" role="form" ng-submit="createBill(newBill)">
         <div class="form-group">
           <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
@@ -33,8 +39,8 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+    
   </div>
-
   <div class="bill-list-container">
     <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
       <div class="bill-item">

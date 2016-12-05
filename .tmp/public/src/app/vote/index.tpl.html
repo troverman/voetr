@@ -4,9 +4,10 @@
 <div ui-view="vote">
 
 	<div class="voteContainer">
-		<a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a>
 		<h3>{{vote.title}}</h3>
+		<h5><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h5>
 		<md-divider></md-divider>
+		<br><br>
 		<div class="voteVoteContainer">
 			<div class="voteVote" ng-repeat="vote in votes">
 				<a href="/member/{{vote.user.username}}">

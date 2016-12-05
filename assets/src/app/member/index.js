@@ -38,5 +38,7 @@ angular.module( 'voetr.member', [
 	$scope.votes = votes;
     $scope.following = votes;
     $scope.followers = votes;
+    $scope.committees = votes;
+    $scope.representing = votes;
 
 });
