@@ -57,7 +57,7 @@ module.exports = {
 					Vote.find()
 					.where({
 						//or: [
-							{title: {contains: searchQuery},
+							title: {contains: searchQuery},
 						//]
 					})
 					.limit(25)
