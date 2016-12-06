@@ -12,7 +12,7 @@ angular.module( 'voetr.votes', [
 		},
 		resolve: {
             votes: function(VoteModel) {
-				return VoteModel.getSome(100, 0, 'createdAt DESC');
+				return VoteModel.getSome(100, 0, 'voteCount DESC');
             }
         }
 	});
@@ -28,7 +28,7 @@ angular.module( 'voetr.votes', [
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
-		VoteModel.getSome(100,$scope.skip,'createdAt DESC').then(function(votes) {
+		VoteModel.getSome(100,$scope.skip,'voteCount DESC').then(function(votes) {
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};

@@ -407,7 +407,7 @@ angular.module("committee/votes.tpl.html", []).run(["$templateCache", function($
     "        <div>\n" +
     "          <br>\n" +
     "          <h4>\n" +
-    "            0\n" +
+    "            {{vote.voteCount}}\n" +
     "            <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "            <a href=\"/vote/{{vote.id}}\">{{vote.title}}</a>\n" +
@@ -505,26 +505,27 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "  <div ng-show=\"!currentUser\">\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
     "    <div id=\"about\">\n" +
-    "\n" +
     "      <div id=\"information\">\n" +
-    "        <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
-    "        <hr>\n" +
-    "        <h4>be part of the movement</h4>\n" +
-    "        <!--\n" +
-    "        <p>seeing past partisan politics</p>\n" +
-    "        <p>crowd-sourced government</p>\n" +
-    "        -->\n" +
-    "        <!--decision making influnce-->\n" +
-    "        <!--<p>you have to choose,</p>-->\n" +
-    "        <p>with direct input on policy your voice counts</p>\n" +
-    "        <p>continual open ballot elections - represent others at anytime</p>\n" +
+    "        <div class=\"container\">\n" +
+    "          <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
+    "          <hr>\n" +
+    "          <h4>be part of the movement</h4>\n" +
+    "          <!--\n" +
+    "          <p>seeing past partisan politics</p>\n" +
+    "          <p>crowd-sourced government</p>\n" +
+    "          -->\n" +
+    "          <!--decision making influnce-->\n" +
+    "          <!--<p>you have to choose,</p>-->\n" +
+    "          <p>with direct input on policy your voice counts</p>\n" +
+    "          <p>continual open ballot elections - represent others at anytime</p>\n" +
     "\n" +
-    "        <!--<p>as grandular as it goes, voice your opinion on what matters, law</p>-->\n" +
-    "        <hr>\n" +
-    "        <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
-    "        <div style=\"height:100px;\"></div>\n" +
-    "        <div style=\"height:100px;\"></div>\n" +
-    "        <div style=\"height:100px;\"></div>\n" +
+    "          <!--<p>as grandular as it goes, voice your opinion on what matters, law</p>-->\n" +
+    "          <hr>\n" +
+    "          <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
+    "          <div style=\"height:100px;\"></div>\n" +
+    "          <div style=\"height:100px;\"></div>\n" +
+    "          <div style=\"height:100px;\"></div>\n" +
+    "        </div>\n" +
     "      </div>\n" +
     "\n" +
     "      <div id=\"register\">\n" +
@@ -534,61 +535,68 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "\n" +
     "      <div id=\"bills\">\n" +
-    "        <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
-    "        <h4>{{billCount}}</h4>\n" +
-    "\n" +
     "        <div class=\"container\">\n" +
-    "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
-    "            <md-card flex=\"30\" ng-repeat=\"bill in bills\">\n" +
-    "              <md-card-title>\n" +
-    "                <md-card-title-text>\n" +
-    "                  <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">\n" +
-    "                    <span class=\"\">{{bill.title}}</span>\n" +
-    "                  </a>\n" +
-    "                </md-card-title-text>\n" +
-    "              </md-card-title>\n" +
-    "              <!--\n" +
-    "              <md-card-actions layout=\"row\" layout-align=\"center\">\n" +
-    "                <md-button>upvote</md-button>\n" +
-    "                <md-button>downvote</md-button>\n" +
-    "              </md-card-actions>\n" +
-    "              -->\n" +
-    "            </md-card>\n" +
-    "          </div>\n" +
-    "        </div>\n" +
+    "          <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
+    "          <h4>{{billCount}}</h4>\n" +
     "\n" +
-    "        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "          <button class=\"btn btn-default\">more</button>\n" +
+    "          <div class=\"container\">\n" +
+    "            <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
+    "              <md-card flex=\"30\" ng-repeat=\"bill in bills\">\n" +
+    "                <md-card-title>\n" +
+    "                  <md-card-title-text>\n" +
+    "                    <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">\n" +
+    "                      <span class=\"\">{{bill.title}}</span>\n" +
+    "                    </a>\n" +
+    "                  </md-card-title-text>\n" +
+    "                </md-card-title>\n" +
+    "                <!--\n" +
+    "                <md-card-actions layout=\"row\" layout-align=\"center\">\n" +
+    "                  <md-button>upvote</md-button>\n" +
+    "                  <md-button>downvote</md-button>\n" +
+    "                </md-card-actions>\n" +
+    "                -->\n" +
+    "              </md-card>\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "\n" +
+    "          <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
+    "            <button class=\"btn btn-default\">more</button>\n" +
+    "          </div>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "\n" +
     "      <div id=\"committees\">\n" +
-    "        <h2><a href=\"/committees\">committees</a></h2><hr>\n" +
-    "        <h4>{{committeeCount}}</h4>\n" +
-    "\n" +
     "        <div class=\"container\">\n" +
-    "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
-    "            <md-card flex=\"15\" ng-repeat=\"committee in committees\">\n" +
-    "              <md-card-title>\n" +
-    "                <md-card-title-text>\n" +
-    "                  <a href=\"/committee/{{committee.urlTitle}}\">\n" +
-    "                    <span class=\"\">{{committee.title}}</span>\n" +
-    "                  </a>\n" +
-    "                </md-card-title-text>\n" +
-    "              </md-card-title>\n" +
-    "            </md-card>\n" +
-    "          </div>\n" +
-    "        </div>\n" +
     "\n" +
-    "        <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
-    "          <button class=\"btn btn-default\">more</button>\n" +
+    "          <h2><a href=\"/committees\">committees</a></h2><hr>\n" +
+    "          <h4>{{committeeCount}}</h4>\n" +
+    "\n" +
+    "          <div class=\"container\">\n" +
+    "            <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
+    "              <md-card flex=\"15\" ng-repeat=\"committee in committees\">\n" +
+    "                <md-card-title>\n" +
+    "                  <md-card-title-text>\n" +
+    "                    <a href=\"/committee/{{committee.urlTitle}}\">\n" +
+    "                      <span class=\"\">{{committee.title}}</span>\n" +
+    "                    </a>\n" +
+    "                  </md-card-title-text>\n" +
+    "                </md-card-title>\n" +
+    "              </md-card>\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "\n" +
+    "          <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
+    "            <button class=\"btn btn-default\">more</button>\n" +
+    "          </div>\n" +
+    "\n" +
     "        </div>\n" +
     "      </div>\n" +
     "\n" +
     "      <div id=\"members\">\n" +
-    "        <!--<p>local counties / search</p>-->\n" +
-    "        <h4>{{userCount}} members</h4><hr>\n" +
     "        <div class=\"container\">\n" +
+    "          <!--<p>local counties / search</p>-->\n" +
+    "          <h2>members</h2><hr>\n" +
+    "          <h4>{{userCount}}</h4>\n" +
     "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "            <md-card flex=\"20\" ng-repeat=\"user in users\">\n" +
     "              <a href=\"/member/{{user.username}}\">\n" +
@@ -603,10 +611,10 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "              </md-card-title>\n" +
     "            </md-card>\n" +
     "          </div>\n" +
-    "        </div>\n" +
     "\n" +
-    "        <div ng-click=\"loadMoreMembers()\" style=\"text-align:center\">\n" +
-    "          <button class=\"btn btn-default\">more</button>\n" +
+    "          <div ng-click=\"loadMoreMembers()\" style=\"text-align:center\">\n" +
+    "            <button class=\"btn btn-default\">more</button>\n" +
+    "          </div>\n" +
     "        </div>\n" +
     "\n" +
     "      </div>\n" +
@@ -712,9 +720,11 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      <div style=\"height:25em;width: 100%;overflow: hidden;\">\n" +
     "	      	<img class=\"profile-bgHome\" src=\"/images/capitol.jpg\" />\n" +
     "	      </div>\n" +
-    "	      <img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
+    "	      <div class=\"container\">\n" +
+    "	      	<img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
+    "	  	  </div>\n" +
     "	    </div>\n" +
-    "	    <div class=\"user-profile-data\">\n" +
+    "	    <div class=\"user-profile-data container\">\n" +
     "	      <h3>{{member.username}}</h3>\n" +
     "	      <button class=\"btn btn-default\">follow</button><br>\n" +
     "	      <button class=\"btn btn-primary\">select as a representative</button><br>\n" +
@@ -732,15 +742,28 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    </ul>\n" +
     "	  </div>\n" +
     "	</div>\n" +
+    "	<uib-tabset>\n" +
+    "		<uib-tab heading=\"Videos\" active=\"active\">\n" +
+    "			<div class=\"spacing-25\"></div>\n" +
+    "			<div ng-show=\"currentUser.id == member.id\">\n" +
+    "				settings, edit\n" +
+    "			</div>\n" +
+    "\n" +
+    "			<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\" style=\"margin-top: 25px;\">\n" +
+    "		  	</div>\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Campaigns\">\n" +
+    "		</uib-tab>\n" +
+    "	</uib-tabset>\n" +
     "\n" +
     "	<div class=\"container\" id=\"profile-activity\">\n" +
-    "\n" +
+    "		<br>\n" +
     "		<h1>Activity</h1>\n" +
     "		<md-divider></md-divider><br>\n" +
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
-    "					<p>{{member.username}} voted {{vote.voteString}}</p>\n" +
+    "					<p>{{vote.voteString}}</p>\n" +
     "					<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
     "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "				</md-card-title-text>\n" +

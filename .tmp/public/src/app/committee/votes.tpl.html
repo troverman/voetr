@@ -23,7 +23,7 @@
         <div>
           <br>
           <h4>
-            0
+            {{vote.voteCount}}
             <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
             <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>
             <a href="/vote/{{vote.id}}">{{vote.title}}</a>

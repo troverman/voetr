@@ -5,9 +5,11 @@
 	      <div style="height:25em;width: 100%;overflow: hidden;">
 	      	<img class="profile-bgHome" src="/images/capitol.jpg" />
 	      </div>
-	      <img class="avatar" src="{{member.avatarUrl}}"/>
+	      <div class="container">
+	      	<img class="avatar" src="{{member.avatarUrl}}"/>
+	  	  </div>
 	    </div>
-	    <div class="user-profile-data">
+	    <div class="user-profile-data container">
 	      <h3>{{member.username}}</h3>
 	      <button class="btn btn-default">follow</button><br>
 	      <button class="btn btn-primary">select as a representative</button><br>
@@ -25,15 +27,28 @@
 	    </ul>
 	  </div>
 	</div>
+	<uib-tabset>
+		<uib-tab heading="Videos" active="active">
+			<div class="spacing-25"></div>
+			<div ng-show="currentUser.id == member.id">
+				settings, edit
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 25px;">
+		  	</div>
+		</uib-tab>
+		<uib-tab heading="Campaigns">
+		</uib-tab>
+	</uib-tabset>
 
 	<div class="container" id="profile-activity">
-
+		<br>
 		<h1>Activity</h1>
 		<md-divider></md-divider><br>
 		<md-card ng-repeat="vote in votes">
 			<md-card-title>
 				<md-card-title-text>
-					<p>{{member.username}} voted {{vote.voteString}}</p>
+					<p>{{vote.voteString}}</p>
 					<a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a> for 
 					<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
 				</md-card-title-text>

@@ -97,11 +97,10 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             votes: function(VoteModel) {
-                return VoteModel.getSome(100, 0, 'createdAt DESC');
+                return VoteModel.getSome(100, 0, 'voteCount DESC');
             }
          }
     })
-
 
 })
 
