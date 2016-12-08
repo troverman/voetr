@@ -7,29 +7,22 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
     "      	<h3>Empowering the internet</h3>\n" +
-    "      	<!--<h3>Seeing past partisan politics</h3>-->\n" +
-    "      	<p>vote and have your voice heard, come together with the collective power of the internet</p>\n" +
     "		</div>\n" +
     "	</div>\n" +
     "</div>\n" +
     "<div class=\"about-container\">\n" +
     "	<div id=\"section1\">\n" +
     "		<h2>the voice of the internet</h2>\n" +
-    "		<p>a political network</p>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
-    "		<p>real time voting</p>\n" +
-    "		<!--<p>bylaw generation</p>-->\n" +
-    "		<p>direct input on policy</p>\n" +
-    "		<p>decision making influence</p>\n" +
+    "		<p>real time input on policy</p>\n" +
+    "		<p>decision making influence in the power of your hands</p>\n" +
     "	</div>\n" +
     "	<div id=\"section3\">\n" +
-    "	    <p>select others to represent you at any time</p>\n" +
-    "	    <p>continual open ballot elections</p>\n" +
+    "	    <p>with continual open ballot elections, select others to represent you at any time</p>\n" +
     "	</div>\n" +
     "	<div id=\"section4\">\n" +
-    "		<p>we believe in direct democracy</p>\n" +
-    "		<!--we believe in fostering engaged communities...-->\n" +
+    "		<p>power to the people</p>\n" +
     "		<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
     "	</div>\n" +
     "</div>\n" +
@@ -799,9 +792,9 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
     "    </div>\n" +
     "    <div class=\"collapse navbar-collapse\">\n" +
     "      <ul class=\"nav navbar-nav\">\n" +
-    "        <li><a href=\"/about\">about</a></li>\n" +
-    "        <li><a href=\"/committees\">committees</a></li>\n" +
-    "        <li><a href=\"/search\">search</a></li>\n" +
+    "        <li ng-show=\"!currentUser\"><a href=\"/about\">about</a></li>\n" +
+    "        <!--<li><a href=\"/committees\">committees</a></li>-->\n" +
+    "        <li><a href=\"/search\">discover</a></li>\n" +
     "\n" +
     "        <form class=\"navbar-form pull-left\" role=\"search\" action=\"/search/\" onSubmit=\" location.href = 'search/' + document.getElementById('search-link').value; return false;\">\n" +
     "          <div class=\"form-group\">\n" +
