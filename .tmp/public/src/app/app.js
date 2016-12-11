@@ -11,6 +11,7 @@ angular.module( 'voetr', [
     'services',
     'models',
     'ngMaterial',
+    'ngFileUpload',
     'voetr.about',
     'voetr.account',
     'voetr.bill',

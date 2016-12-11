@@ -32,13 +32,14 @@ angular.module( 'voetr.member', [
     });
 })
 
-.controller( 'MemberCtrl', function MemberController( $scope, titleService, member, votes ) {
+.controller( 'MemberCtrl', function MemberController( $scope, config, member, titleService, votes ) {
 	titleService.setTitle(member.username + ' - voetr');
+    $scope.currentUser = config.currentUser;
 	$scope.member = member;
 	$scope.votes = votes;
     $scope.following = votes;
     $scope.followers = votes;
     $scope.committees = votes;
     $scope.representing = votes;
-
+    console.log(member)
 });

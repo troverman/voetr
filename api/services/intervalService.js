@@ -253,10 +253,13 @@ function legislators(){
 						facebook: facebook_id
 					};
 
-					console.log(first_name + last_name + state + fax)
-
-					console.log(bioguide_id)
+					//console.log(first_name + last_name + state + fax)
+					//console.log(bioguide_id)
 					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
+					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg', 'images/nature.jpg']
+					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
+					var coverUrl = coverUrlArray[randInt];
+
 					var model = {
 						username: username,
 						email: email,
@@ -269,7 +272,8 @@ function legislators(){
 						term_end: term_end,
 						term_start: term_start,
 						bioguide_id: bioguide_id,
-						avatarUrl: avatarUrl
+						avatarUrl: avatarUrl,
+						coverUrl : coverUrl
 					};
 
 					User.findOrCreate({bioguide_id: bioguide_id}, model)
@@ -281,7 +285,7 @@ function legislators(){
 							User.publishCreate(user);
 						}
 					});
-					User.update({bioguide_id: bioguide_id}, model);
+					User.update({bioguide_id: bioguide_id}, model).then(function(){console.log('updated')});
 				}
 		    }
 	});
@@ -313,6 +317,12 @@ function stateLegislators(){
 					if( typeof email === 'undefined' || email === null || typeof email === 'string' ){
 						email = username + '@gmail.com';
 					}
+
+					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg']
+					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
+					var coverUrl = coverUrlArray[randInt];
+
+
 					var model = {
 						username: username,
 						email: email,
@@ -325,6 +335,7 @@ function stateLegislators(){
 						leg_id: leg_id,
 						party: party,
 						avatarUrl: photo_url,
+						coverUrl : coverUrl,
 						state : state
 					};
 
@@ -339,8 +350,7 @@ function stateLegislators(){
 							User.publishCreate(user);
 						}
 					});
-					User.update({leg_id: leg_id}, model);
-
+					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})
 				}
 
 		    }
@@ -657,6 +667,7 @@ module.exports.intervalService = function(){
 	//recentBills();
 
 	//legislators();
+	//stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 

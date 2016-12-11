@@ -11,6 +11,11 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getMine = function() {
+        var url = utils.prepareUrl('user/me');
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getCount = function() {
         var url = utils.prepareUrl('user/count');
         return $sailsSocket.get(url).then(success, error);
@@ -41,6 +46,11 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         });
 
         return deferred.promise;
+    };
+
+    this.update = function(newModel){
+        var url = utils.prepareUrl('user/' + newModel.id);
+        return $sailsSocket.post(url, newModel).then(success, error);
     };
 
     var success = function(response) {

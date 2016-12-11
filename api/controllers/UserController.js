@@ -9,6 +9,20 @@ module.exports = {
 		});
 	},
 
+	getMine: function(req,res){
+
+		var me = req.user.id;
+		User.findOne(me)
+		.populate('passports')
+		.then(function(user){
+			return res.json(user);
+		})
+		.catch(function(err){
+			return res.negotiate(err);
+		});
+
+	},
+
 	getSome: function(req, res) {
 		var limit = req.param('limit');
 		var skip = req.param('skip');
@@ -76,5 +90,61 @@ module.exports = {
 				res.json(model);
 			}
 		});
+	},
+
+	update: function(req,res){
+		var id = req.param('id');
+		var model = {
+			//email: req.param('email'),
+			//first_name : req.param('first_name'),
+			//username : req.param('username'),
+			avatarUrl: req.param('avatarUrl'),
+			coverUrl: req.param('coverUrl'),
+		};
+
+		User.update({id: id}, model)
+		.then(function(model){
+			User.publishUpdate(id, model);
+			res.json(model);
+		});
+
+	},
+
+	upload: function(req,res){
+		res.setTimeout(0)
+		var options = {
+			adapter: require("skipper-s3"),
+			key: 'AKIAJWRI5PIDP5OGKGLQ',
+		 	secret: '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',
+		 	bucket: 'voetr',
+		}
+		var byteCount = req.file('picture')._files[0].stream.byteCount
+
+		req.file('picture')
+		.on('progress', function (event){
+			//why is this doubled
+			//server processing --> to s3. 
+			//need to programatically delete s3 chunks if fail / and on delete
+			var percentageUploaded = event.written/byteCount
+			console.log(percentageUploaded)
+			//File.publishUpdate(newFile.id, event)
+		})
+		.upload(options, function response(err,uploadedFiles){
+			console.log('we are in the code')
+			if (err) {
+		    	return res.negotiate(err);
+		    	console.log(err)
+		    }
+		    if (uploadedFiles.length === 0){
+		    	return res.badRequest('No file was uploaded');
+		    }
+		    console.log(uploadedFiles)
+		    var amazonUrl = uploadedFiles[0].extra.Location;
+		    return res.json({amazonUrl: amazonUrl});
+		});
+
 	}
+
+
+
 };

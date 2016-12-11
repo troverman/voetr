@@ -140,10 +140,14 @@ module.exports.routes = {
    */
   'get /api/user': 'UserController.getAll',
   'get /api/user/count': 'UserController.getCount',
+  'get /api/user/me': 'UserController.getMine',
   'get /api/user/:id': 'UserController.getOne',
   'get /api/user/filter/:limit/:skip': 'UserController.getSome',
   'get /api/user/username/:path': 'UserController.getByUsername',
   'post /api/user': 'UserController.create',
+  'post /api/user/upload': 'UserController.upload',
+  'post /api/user/:id': 'UserController.update',
+
 
   /**
    * Vote routes

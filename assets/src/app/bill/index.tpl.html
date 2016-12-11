@@ -14,20 +14,11 @@
 <div ui-view="bill">
 	<div class="bill-container">
 		<h3>{{bill.title}}</h3>
-		<md-subheader class="md-no-sticky">{{bill.createdAt}}</md-subheader>
+		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
+
 		<!--<p><a href="">{{bill.committee}}</a></p>-->
 		<md-divider></md-divider>
-		<!--
-		<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i></button>
-		<button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
-		-->
-		<!--
-		{{bill.voteCount}}
-		<div ng-repeat="vote in votes">
-			{{vote.vote}}<a href="/member/{{vote.user.username}}">{{vote.user.username}}</a>
-		</div>
-		-->
-
+		
 		<div id="bill-content">
 			<br>
 			<p class="lead">{{bill.billContent.current_status_description}}</p>
@@ -35,7 +26,7 @@
 			<p class="lead">{{bill.billContent.display_number}}</p>
 			<!--<p class="lead">{{bill.billContent.introduced_date}}</p>-->
 			<!--<p class="lead">{{bill.billContent.is_alive}}</p>-->
-			<p class="lead"><a href="{{bill.billContent.link}}">link</a></p>
+			<p class="lead"><a href="{{bill.billContent.link}}">Full Text Link</a></p>
 			<!--<p class="lead">{{bill.billContent.major_actions}}</p>-->
 			<!--<p class="lead">{{bill.billContent.sponsor}}</p>-->
 			<!--<p class="lead">{{bill.billContent.titles}}</p>-->

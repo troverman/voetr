@@ -2,9 +2,15 @@
 
   <!--if logged in-->
   <div ng-show="currentUser">
-    <h1>welcome {{currentUser.username}}</h1>
-    <div ng-repeat="vote in votes">
-      {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+    <div class="container">
+      <h1>welcome {{currentUser.username}}</h1>
+      <h4>committees</h4>
+      <h4>upcoming votes</h4>
+      <h4>my constituents</h4>
+
+      <div ng-repeat="vote in votes">
+        {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+      </div>
     </div>
   </div>
   <!--/if logged in-->
@@ -68,7 +74,7 @@
           </div>
 
           <div ng-click="loadMoreBills()" style="text-align:center">
-            <button class="btn btn-default">more</button>
+            <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
           </div>
         </div>
       </div>
@@ -94,7 +100,7 @@
           </div>
 
           <div ng-click="loadMoreCommittees()" style="text-align:center">
-            <button class="btn btn-default">more</button>
+            <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
           </div>
 
         </div>
@@ -121,7 +127,7 @@
           </div>
 
           <div ng-click="loadMoreMembers()" style="text-align:center">
-            <button class="btn btn-default">more</button>
+            <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
           </div>
         </div>
 

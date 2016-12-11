@@ -38,7 +38,7 @@ var jsFilesToInject = [
   'bower_components/angular-animate/angular-animate.min.js',
   'bower_components/angular-aria/angular-aria.min.js',
   'bower_components/angular-material/angular-material.js',
-
+  'bower_components/ng-file-upload/ng-file-upload.min.js',
 
 
   //

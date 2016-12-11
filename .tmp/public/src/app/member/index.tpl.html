@@ -3,20 +3,24 @@
 	  <div class="profile-user-page card">
 	    <div class="img-user-profile">
 	      <div style="height:25em;width: 100%;overflow: hidden;">
-	      	<img class="profile-bgHome" src="/images/capitol.jpg" />
+	      	<img class="profile-bgHome" src="{{member.coverUrl}}" />
 	      </div>
 	      <div class="container">
 	      	<img class="avatar" src="{{member.avatarUrl}}"/>
 	  	  </div>
 	    </div>
 	    <div class="user-profile-data container">
-	      <h3>{{member.username}}</h3>
+	      <h2>{{member.username}}</h2>
 	      <button class="btn btn-default">follow</button><br>
 	      <button class="btn btn-primary">select as a representative</button><br>
-	      <br><br>
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
 	      <!--committee member list have a select button?-->
+	      <div ng-show="currentUser.id == member.id">
+			<button class="btn btn-primary"><a href="/account">settings</a></button>
+		  </div>
+	      <br><br>
+
 	    </div>
 	    <ul class="data-user">
 	    	<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>
@@ -27,7 +31,7 @@
 	    </ul>
 	  </div>
 	</div>
-	<uib-tabset>
+	<!--<uib-tabset>
 		<uib-tab heading="Videos" active="active">
 			<div class="spacing-25"></div>
 			<div ng-show="currentUser.id == member.id">
@@ -39,7 +43,7 @@
 		</uib-tab>
 		<uib-tab heading="Campaigns">
 		</uib-tab>
-	</uib-tabset>
+	</uib-tabset>-->
 
 	<div class="container" id="profile-activity">
 		<br>

@@ -26,7 +26,8 @@ body {
 
 .footer {
     padding:50px;
-    background-color:#414141;
+    background-color:#24242e;
+    //#414141;
     color: gray;
     font-family: Jura;
 }
@@ -224,6 +225,15 @@ hr {
 .nav {
   font-family:Jura;
   font-size:20px;
+}
+
+.navbar.center .navbar-inner {
+    text-align: center;
+}
+.navbar.center .navbar-inner .nav {
+    float: none;
+    display:inline-block;
+    vertical-align: top;  
 }
 
 .active span {

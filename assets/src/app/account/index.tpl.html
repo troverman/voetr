@@ -1,4 +1,45 @@
-<h1>Account</h1>
-<p><a href="/member/{{currentUser.username}}">{{currentUser.username}}</a></p>
-<p>{{currentUser.email}}</p>
-<p>{{currentUser.first_name}}</p>
+<div class="container">
+	<h1>Account</h1><md-divider></md-divider>
+	<img style="width:100%;max-height:300px;" src="{{user.coverUrl}}">
+	<a href="/member/{{currentUser.username}}"><img class="avatar" src="{{user.avatarUrl}}"/></a>
+
+	<p><a href="/member/{{currentUser.username}}">{{user.username}}</a></p>
+	<p>{{user.email}}</p>
+	<p>{{user.first_name}}</p><md-divider></md-divider>
+
+	<h3>Update Avatar</h3>
+	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadAvatar($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+		<div>Drag photos or click here to upload.</div>
+		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  
+		</div>
+		<p ng-show="avatarLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
+		<div ng-show="avatarLoading" class="progress">
+			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{avatarPercentage}}%;">
+		</div>
+	</div>
+
+	<h3>Update Cover</h3>
+	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadCover($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+		<div>Drag photos or click here to upload.</div>
+		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  
+		</div>
+		<p ng-show="coverLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
+		<div ng-show="coverLoading" class="progress">
+			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{coverPercentage}}%;">
+		</div>
+	</div>
+
+	<h3>social accounts</h3>
+	<p>facebook</p>
+	<p>twitter</p>
+	<p>google</p>
+	<p>btc wallet</p>
+
+	{{user.passports}}
+
+	<h3>settings</h3>
+	<p>email settings</p>
+	<p>verified account</p>
+	<p>drivers license</p>
+	<p>ssn</p>
+</div>

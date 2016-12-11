@@ -33,10 +33,52 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("account/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/index.tpl.html",
-    "<h1>Account</h1>\n" +
-    "<p><a href=\"/member/{{currentUser.username}}\">{{currentUser.username}}</a></p>\n" +
-    "<p>{{currentUser.email}}</p>\n" +
-    "<p>{{currentUser.first_name}}</p>");
+    "<div class=\"container\">\n" +
+    "	<h1>Account</h1><md-divider></md-divider>\n" +
+    "	<img style=\"width:100%;max-height:300px;\" src=\"{{user.coverUrl}}\">\n" +
+    "	<a href=\"/member/{{currentUser.username}}\"><img class=\"avatar\" src=\"{{user.avatarUrl}}\"/></a>\n" +
+    "\n" +
+    "	<p><a href=\"/member/{{currentUser.username}}\">{{user.username}}</a></p>\n" +
+    "	<p>{{user.email}}</p>\n" +
+    "	<p>{{user.first_name}}</p><md-divider></md-divider>\n" +
+    "\n" +
+    "	<h3>Update Avatar</h3>\n" +
+    "	<div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadAvatar($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
+    "		<div>Drag photos or click here to upload.</div>\n" +
+    "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  \n" +
+    "		</div>\n" +
+    "		<p ng-show=\"avatarLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
+    "		<div ng-show=\"avatarLoading\" class=\"progress\">\n" +
+    "			<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{avatarPercentage}}%;\">\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "\n" +
+    "	<h3>Update Cover</h3>\n" +
+    "	<div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadCover($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
+    "		<div>Drag photos or click here to upload.</div>\n" +
+    "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  \n" +
+    "		</div>\n" +
+    "		<p ng-show=\"coverLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
+    "		<div ng-show=\"coverLoading\" class=\"progress\">\n" +
+    "			<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{coverPercentage}}%;\">\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "\n" +
+    "	<h3>social accounts</h3>\n" +
+    "	<p>facebook</p>\n" +
+    "	<p>twitter</p>\n" +
+    "	<p>google</p>\n" +
+    "	<p>btc wallet</p>\n" +
+    "\n" +
+    "	{{user.passports}}\n" +
+    "\n" +
+    "	<h3>settings</h3>\n" +
+    "	<p>email settings</p>\n" +
+    "	<p>verified account</p>\n" +
+    "	<p>drivers license</p>\n" +
+    "	<p>ssn</p>\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -57,20 +99,11 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "<div ui-view=\"bill\">\n" +
     "	<div class=\"bill-container\">\n" +
     "		<h3>{{bill.title}}</h3>\n" +
-    "		<md-subheader class=\"md-no-sticky\">{{bill.createdAt}}</md-subheader>\n" +
+    "		<md-subheader ng-bind=\"bill.createdAt | date:'MM/dd/yyyy h:mma'\" class=\"md-no-sticky\"></md-subheader><br>\n" +
+    "\n" +
     "		<!--<p><a href=\"\">{{bill.committee}}</a></p>-->\n" +
     "		<md-divider></md-divider>\n" +
-    "		<!--\n" +
-    "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "		<button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
-    "		-->\n" +
-    "		<!--\n" +
-    "		{{bill.voteCount}}\n" +
-    "		<div ng-repeat=\"vote in votes\">\n" +
-    "			{{vote.vote}}<a href=\"/member/{{vote.user.username}}\">{{vote.user.username}}</a>\n" +
-    "		</div>\n" +
-    "		-->\n" +
-    "\n" +
+    "		\n" +
     "		<div id=\"bill-content\">\n" +
     "			<br>\n" +
     "			<p class=\"lead\">{{bill.billContent.current_status_description}}</p>\n" +
@@ -78,7 +111,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "			<p class=\"lead\">{{bill.billContent.display_number}}</p>\n" +
     "			<!--<p class=\"lead\">{{bill.billContent.introduced_date}}</p>-->\n" +
     "			<!--<p class=\"lead\">{{bill.billContent.is_alive}}</p>-->\n" +
-    "			<p class=\"lead\"><a href=\"{{bill.billContent.link}}\">link</a></p>\n" +
+    "			<p class=\"lead\"><a href=\"{{bill.billContent.link}}\">Full Text Link</a></p>\n" +
     "			<!--<p class=\"lead\">{{bill.billContent.major_actions}}</p>-->\n" +
     "			<!--<p class=\"lead\">{{bill.billContent.sponsor}}</p>-->\n" +
     "			<!--<p class=\"lead\">{{bill.billContent.titles}}</p>-->\n" +
@@ -148,7 +181,7 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function($temp
     "	<md-divider ></md-divider>\n" +
     "	<br><br>\n" +
     "	<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "	  <button class=\"btn btn-default\">LOAD MORE</button>\n" +
+    "	  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">LOAD MORE</button>\n" +
     "	</div>\n" +
     "</md-content>\n" +
     "\n" +
@@ -462,7 +495,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function(
     "<md-divider ></md-divider>\n" +
     "<br><br>\n" +
     "<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "  <button class=\"btn btn-default\">LOAD MORE</button>\n" +
+    "  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">LOAD MORE</button>\n" +
     "</div>\n" +
     "\n" +
     "<div style=\"height:100px;\"></div>\n" +
@@ -487,9 +520,15 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
-    "    <h1>welcome {{currentUser.username}}</h1>\n" +
-    "    <div ng-repeat=\"vote in votes\">\n" +
-    "      {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "    <div class=\"container\">\n" +
+    "      <h1>welcome {{currentUser.username}}</h1>\n" +
+    "      <h4>committees</h4>\n" +
+    "      <h4>upcoming votes</h4>\n" +
+    "      <h4>my constituents</h4>\n" +
+    "\n" +
+    "      <div ng-repeat=\"vote in votes\">\n" +
+    "        {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <!--/if logged in-->\n" +
@@ -553,7 +592,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "\n" +
     "          <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "            <button class=\"btn btn-default\">more</button>\n" +
+    "            <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more</button>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "      </div>\n" +
@@ -579,7 +618,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "\n" +
     "          <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
-    "            <button class=\"btn btn-default\">more</button>\n" +
+    "            <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more</button>\n" +
     "          </div>\n" +
     "\n" +
     "        </div>\n" +
@@ -606,7 +645,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          </div>\n" +
     "\n" +
     "          <div ng-click=\"loadMoreMembers()\" style=\"text-align:center\">\n" +
-    "            <button class=\"btn btn-default\">more</button>\n" +
+    "            <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more</button>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "\n" +
@@ -711,20 +750,24 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	  <div class=\"profile-user-page card\">\n" +
     "	    <div class=\"img-user-profile\">\n" +
     "	      <div style=\"height:25em;width: 100%;overflow: hidden;\">\n" +
-    "	      	<img class=\"profile-bgHome\" src=\"/images/capitol.jpg\" />\n" +
+    "	      	<img class=\"profile-bgHome\" src=\"{{member.coverUrl}}\" />\n" +
     "	      </div>\n" +
     "	      <div class=\"container\">\n" +
     "	      	<img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
     "	  	  </div>\n" +
     "	    </div>\n" +
     "	    <div class=\"user-profile-data container\">\n" +
-    "	      <h3>{{member.username}}</h3>\n" +
+    "	      <h2>{{member.username}}</h2>\n" +
     "	      <button class=\"btn btn-default\">follow</button><br>\n" +
     "	      <button class=\"btn btn-primary\">select as a representative</button><br>\n" +
-    "	      <br><br>\n" +
     "	      <!--can have dif reps per committee-->\n" +
     "	      <!--represented by (list of reps with each committee)-->\n" +
     "	      <!--committee member list have a select button?-->\n" +
+    "	      <div ng-show=\"currentUser.id == member.id\">\n" +
+    "			<button class=\"btn btn-primary\"><a href=\"/account\">settings</a></button>\n" +
+    "		  </div>\n" +
+    "	      <br><br>\n" +
+    "\n" +
     "	    </div>\n" +
     "	    <ul class=\"data-user\">\n" +
     "	    	<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>\n" +
@@ -735,7 +778,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    </ul>\n" +
     "	  </div>\n" +
     "	</div>\n" +
-    "	<uib-tabset>\n" +
+    "	<!--<uib-tabset>\n" +
     "		<uib-tab heading=\"Videos\" active=\"active\">\n" +
     "			<div class=\"spacing-25\"></div>\n" +
     "			<div ng-show=\"currentUser.id == member.id\">\n" +
@@ -747,7 +790,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"Campaigns\">\n" +
     "		</uib-tab>\n" +
-    "	</uib-tabset>\n" +
+    "	</uib-tabset>-->\n" +
     "\n" +
     "	<div class=\"container\" id=\"profile-activity\">\n" +
     "		<br>\n" +
@@ -780,7 +823,7 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
     "</style>\n" +
     "\n" +
     "<div ng-controller=\"NavCtrl\" class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
-    "  <div class=\"container\">\n" +
+    "  <div class=\"container center\">\n" +
     "    <div class=\"navbar-header\">\n" +
     "      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
     "        <span class=\"sr-only\">Toggle navigation</span>\n" +
@@ -793,7 +836,6 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
     "    <div class=\"collapse navbar-collapse\">\n" +
     "      <ul class=\"nav navbar-nav\">\n" +
     "        <li ng-show=\"!currentUser\"><a href=\"/about\">about</a></li>\n" +
-    "        <!--<li><a href=\"/committees\">committees</a></li>-->\n" +
     "        <li><a href=\"/search\">discover</a></li>\n" +
     "\n" +
     "        <form class=\"navbar-form pull-left\" role=\"search\" action=\"/search/\" onSubmit=\" location.href = 'search/' + document.getElementById('search-link').value; return false;\">\n" +
@@ -802,7 +844,9 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
     "          </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <li ng-show=\"currentUser\"><a href=\"/account\">account</a></li>\n" +
+    "        <!--<li ng-show=\"currentUser\"><a href=\"/account\">account</a></li>-->\n" +
+    "        <li ng-show=\"currentUser\"><a href=\"/account\">{{currentUser.username}}</a></li>\n" +
+    "\n" +
     "        <li ng-show=\"currentUser\"><a href=\"/logout\">signout</a></li>\n" +
     "        <li ng-show=\"!currentUser\"><a href=\"/register\">register</a></li>\n" +
     "        <li ng-show=\"!currentUser\"><a href=\"/login\">login</a></li>\n" +
@@ -947,7 +991,7 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function($temp
     "	<md-divider ></md-divider>\n" +
     "	<br><br>\n" +
     "	<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "	  <button class=\"btn btn-default\">LOAD MORE</button>\n" +
+    "	  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">LOAD MORE</button>\n" +
     "	</div>\n" +
     "</md-content>\n" +
     "\n" +
