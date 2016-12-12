@@ -167,7 +167,9 @@ module.exports.routes = {
   'get /api/votevote': 'VoteVoteController.getAll',
   'get /api/votevote/:id': 'VoteVoteController.getOne',
   'get /api/votevote/bill/:id': 'VoteVoteController.getByBill',
-  'get /api/vote/user/:id': 'VoteVoteController.getByUser',
+  'get /api/votevote/user/count/:id': 'VoteVoteController.getUserCount',
+  'get /api/votevote/user/:id/:limit/:skip/:sort': 'VoteVoteController.getByUser',
+
   'get /api/votevote/vote/:id': 'VoteVoteController.getByVote',
   'post /api/votevote': 'VoteVoteController.create',
   'delete /api/votevote/:id': 'VoteVoteController.destroy',

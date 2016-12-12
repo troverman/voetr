@@ -47,10 +47,12 @@ module.exports = {
         });
     },
 
-    getByUser: function(user) {
+    getByUser: function(user, limiting, skipping, sort) {
         return VoteVote.find()
         .where({user: user})
-        .sort({createdAt: 'desc'})
+        .sort(sort)
+        .limit(limiting)
+        .skip(skipping)
         .populate('bill')
         .populate('vote')
         .then(function (models) {

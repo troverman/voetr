@@ -16,8 +16,13 @@ angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getByUser = function(model) {
-        var url = utils.prepareUrl('vote/user/' + model);
+    this.getByUser = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('votevote/user/' + model + '/' + limit + '/' + skip + '/' + sort);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+    this.getUserCount = function(model) {
+        var url = utils.prepareUrl('votevote/user/count/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 

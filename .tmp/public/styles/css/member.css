@@ -18,20 +18,22 @@
 }
 
 .profile-user-page .img-user-profile .profile-bgHome {
+  min-height:35em;
+  //max-height:35em;
   border-bottom: .2em solid #f5f5f5;
   width: 100%;
-  margin-top:-40%;
+  margin-top:-10%;
   //height: 16em;
 }
 
 .avatar {
   margin: 0 auto;
   background: #fff;
-  width: 7em;
-  height: 7em;
+  width: 15em;
+  height: 15em;
   padding: 0.25em;
   border-radius: .4em;
-  margin-top: -10em;
+  margin-top: -13em;//-8.4em;
   box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);
 }
 

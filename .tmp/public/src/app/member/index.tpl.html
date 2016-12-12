@@ -5,9 +5,30 @@
 	      <div style="height:25em;width: 100%;overflow: hidden;">
 	      	<img class="profile-bgHome" src="{{member.coverUrl}}" />
 	      </div>
+		  <ul class="data-user">
+			<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>
+			<li><a><strong>{{representing.length}}</strong><span>Representing</span></a></li>
+			<li><a><strong>{{voteCount}}</strong><span>Votes</span></a></li>
+			<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>
+			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>
+		  </ul>
 	      <div class="container">
 	      	<img class="avatar" src="{{member.avatarUrl}}"/>
 	  	  </div>
+	  	  <!--
+	  	  	<uib-tabset>
+				<uib-tab heading="Activity" active="active">
+					<div class="spacing-25"></div>
+					<div ng-show="currentUser.id == member.id">
+						settings, edit
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 25px;">
+				  	</div>
+				</uib-tab>
+				<uib-tab heading="Votes">
+				</uib-tab>
+			</uib-tabset>
+			-->
 	    </div>
 	    <div class="user-profile-data container">
 	      <h2>{{member.username}}</h2>
@@ -15,40 +36,40 @@
 	      <button class="btn btn-primary">select as a representative</button><br>
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
-	      <!--committee member list have a select button?-->
 	      <div ng-show="currentUser.id == member.id">
 			<button class="btn btn-primary"><a href="/account">settings</a></button>
 		  </div>
 	      <br><br>
-
 	    </div>
-	    <ul class="data-user">
-	    	<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>
-	   		<li><a><strong>{{representing.length}}</strong><span>Representing</span></a></li>
-	    	<li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>
-	    	<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>
-	    	<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>
-	    </ul>
 	  </div>
 	</div>
-	<!--<uib-tabset>
-		<uib-tab heading="Videos" active="active">
-			<div class="spacing-25"></div>
+	<uib-tabset class="container">
+		<uib-tab heading="Activity" active="active">
+		</uib-tab>
+		<uib-tab heading="Committees">
+		</uib-tab>
+		<uib-tab heading="Representing">
+		</uib-tab>
+		<uib-tab heading="Followers">
+		</uib-tab>
+		<uib-tab heading="Following">
+		</uib-tab>
+		<uib-tab heading="Votes">
+		</uib-tab>
+		<uib-tab heading="Edit Profile">
+			<!--
 			<div ng-show="currentUser.id == member.id">
 				settings, edit
 			</div>
-
 			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 25px;">
+				<h1>test</h1>
 		  	</div>
+		  	-->
 		</uib-tab>
-		<uib-tab heading="Campaigns">
-		</uib-tab>
-	</uib-tabset>-->
+	</uib-tabset>
 
 	<div class="container" id="profile-activity">
 		<br>
-		<h1>Activity</h1>
-		<md-divider></md-divider><br>
 		<md-card ng-repeat="vote in votes">
 			<md-card-title>
 				<md-card-title-text>
@@ -56,13 +77,19 @@
 					<a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a> for 
 					<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
 				</md-card-title-text>
-				<md-card-title-media>
-					<div class="md-media-lg card-media"><img class="avatar" src="{{member.avatarUrl}}"/></div>
-				</md-card-title-media>
 			</md-card-title>
-		</md-card>		
-		  
+			<!--
+			<md-card-title-media>
+				<div class="md-media-lg card-media"><img class="avatar" src="{{member.avatarUrl}}"/></div>
+			</md-card-title-media>
+			-->
+		</md-card>
+		<br><br>	
+		<div ng-click="loadMore()" style="text-align:center">
+		  <button class="btn btn-default col-xs-10 col-xs-offset-1">LOAD MORE</button>
+		</div>
 	</div>
+	<div style="height:50px"></div>
 	<div ng-include="'footer/index.tpl.html'"></div>
 
 </div>

@@ -58,7 +58,7 @@ angular.module( 'voetr.account', [
         .then(function(response){
             $scope.coverLoading = false;
 			$scope.user.coverUrl = response.data.amazonUrl;
-            accountSave();
+            accountSave();//probably should have a save button here -- if not save delete failed file
         },
         function(err){
             $scope.coverLoading = false;
@@ -70,15 +70,12 @@ angular.module( 'voetr.account', [
 
    function accountSave(){
         $scope.saving = true;
-
         var model = {
             id: $scope.user.id,
             avatarUrl: $scope.user.avatarUrl,
 			coverUrl: $scope.user.coverUrl,
-
         };
         console.log(model)
-
         return UserModel.update(model);
     }
 

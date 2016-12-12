@@ -45,9 +45,12 @@ module.exports = {
 	},
 
 	getByUser: function(req, res) {
-		VoteVote.getByUser(req.param('id'))
+		var id = req.param('id');
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		var sort = req.param('sort');
+		VoteVote.getByUser(id, limit, skip, sort)
 		.then(function(model) {
-			console.log(model)
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
 			res.json(model);
@@ -65,6 +68,19 @@ module.exports = {
 		})
 		.fail(function(err) {
 			res.send(404);
+		});
+	},
+
+	getUserCount: function(req, res) {
+		VoteVote.count()
+		.where({user:req.param('id')})
+		.exec(function(err, voteCount) {
+			if (err) {
+				return console.log(err);
+			}
+			else{
+				res.json({ voteCount: voteCount });
+			}
 		});
 	},
 

@@ -33,51 +33,88 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
 
 angular.module("account/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/index.tpl.html",
+    "<div style=\"height:25em;width: 100%;overflow: hidden;\">\n" +
+    "<img style=\"width:100%;min-height:35em;\" src=\"{{user.coverUrl}}\">\n" +
+    "</div>\n" +
     "<div class=\"container\">\n" +
-    "	<h1>Account</h1><md-divider></md-divider>\n" +
-    "	<img style=\"width:100%;max-height:300px;\" src=\"{{user.coverUrl}}\">\n" +
     "	<a href=\"/member/{{currentUser.username}}\"><img class=\"avatar\" src=\"{{user.avatarUrl}}\"/></a>\n" +
     "\n" +
-    "	<p><a href=\"/member/{{currentUser.username}}\">{{user.username}}</a></p>\n" +
+    "	<h3><a href=\"/member/{{currentUser.username}}\">{{user.username}}</a></h3>\n" +
+    "	<!--\n" +
     "	<p>{{user.email}}</p>\n" +
-    "	<p>{{user.first_name}}</p><md-divider></md-divider>\n" +
+    "	<p>{{user.first_name}}</p>\n" +
+    "	-->\n" +
+    "\n" +
+    "	<md-divider></md-divider>\n" +
+    "	<br><br><br>\n" +
+    "\n" +
+    "	<form name=\"acountForm\" id=\"accountForm\">\n" +
+    "		<div layout=\"column\" layout-align=\"center stretch\">\n" +
+    "			<md-input-container>\n" +
+    "				<label class=\"modal-label\">Username</label>\n" +
+    "				<input ng-model=\"user.username\" required name=\"firstName\" type=\"text\">\n" +
+    "			</md-input-container>\n" +
+    "			<md-input-container>\n" +
+    "				<label class=\"modal-label\">Email</label>\n" +
+    "				<input ng-model=\"user.email\" required name=\"firstName\" type=\"text\">\n" +
+    "			</md-input-container>\n" +
+    "			<md-input-container>\n" +
+    "				<label class=\"modal-label\">First Name</label>\n" +
+    "				<input ng-model=\"user.first_name\" required name=\"firstName\" type=\"text\">\n" +
+    "			</md-input-container>\n" +
+    "			<md-input-container>\n" +
+    "				<label class=\"modal-label\">Last Name</label>\n" +
+    "				<input ng-model=\"user.last_name\" required name=\"lastName\" type=\"text\">\n" +
+    "			</md-input-container>\n" +
+    "		</div>\n" +
+    "		<button class=\"btn btn-primary\">Save</button>\n" +
+    "	</form>\n" +
+    "\n" +
+    "	<br><br><br>\n" +
+    "	<md-divider></md-divider>\n" +
     "\n" +
     "	<h3>Update Avatar</h3>\n" +
     "	<div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadAvatar($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
     "		<div>Drag photos or click here to upload.</div>\n" +
-    "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  \n" +
-    "		</div>\n" +
-    "		<p ng-show=\"avatarLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
-    "		<div ng-show=\"avatarLoading\" class=\"progress\">\n" +
-    "			<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{avatarPercentage}}%;\">\n" +
-    "		</div>\n" +
+    "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  		\n" +
+    "	</div>\n" +
+    "	<p ng-show=\"avatarLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
+    "	<div ng-show=\"avatarLoading\" class=\"progress\">\n" +
+    "		<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{avatarPercentage}}%;\"></div>\n" +
     "	</div>\n" +
     "\n" +
     "	<h3>Update Cover</h3>\n" +
     "	<div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadCover($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
     "		<div>Drag photos or click here to upload.</div>\n" +
     "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  \n" +
-    "		</div>\n" +
-    "		<p ng-show=\"coverLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
-    "		<div ng-show=\"coverLoading\" class=\"progress\">\n" +
-    "			<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{coverPercentage}}%;\">\n" +
-    "		</div>\n" +
+    "	</div>\n" +
+    "	<p ng-show=\"coverLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
+    "	<div ng-show=\"coverLoading\" class=\"progress\">\n" +
+    "		<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{coverPercentage}}%;\"></div>\n" +
     "	</div>\n" +
     "\n" +
-    "	<h3>social accounts</h3>\n" +
-    "	<p>facebook</p>\n" +
-    "	<p>twitter</p>\n" +
-    "	<p>google</p>\n" +
-    "	<p>btc wallet</p>\n" +
-    "\n" +
+    "	<h3>connected accounts</h3>\n" +
+    "	<md-divider></md-divider><br>\n" +
+    "	<button class=\"btn btn-primary\">connect facebook</button>\n" +
+    "	<button class=\"btn btn-primary\">connect twitter</button>\n" +
+    "	<button class=\"btn btn-primary\">connect google</button>\n" +
+    "	<button class=\"btn btn-primary\">connect btc wallet</button>\n" +
+    "	<br><br>\n" +
     "	{{user.passports}}\n" +
     "\n" +
     "	<h3>settings</h3>\n" +
+    "	<md-divider></md-divider><br>\n" +
     "	<p>email settings</p>\n" +
     "	<p>verified account</p>\n" +
     "	<p>drivers license</p>\n" +
     "	<p>ssn</p>\n" +
+    "\n" +
+    "	<div style=\"height:100px;\"></div>\n" +
+    "\n" +
     "</div>\n" +
+    "\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
     "");
 }]);
 
@@ -524,6 +561,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <h1>welcome {{currentUser.username}}</h1>\n" +
     "      <h4>committees</h4>\n" +
     "      <h4>upcoming votes</h4>\n" +
+    "      <h4>your representatives</h4>\n" +
     "      <h4>my constituents</h4>\n" +
     "\n" +
     "      <div ng-repeat=\"vote in votes\">\n" +
@@ -547,11 +585,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          <p>crowd-sourced government</p>\n" +
     "          -->\n" +
     "          <!--decision making influnce-->\n" +
-    "          <!--<p>you have to choose,</p>-->\n" +
     "          <p>with direct input on policy your voice counts</p>\n" +
     "          <p>continual open ballot elections - represent others at anytime</p>\n" +
     "\n" +
-    "          <!--<p>as grandular as it goes, voice your opinion on what matters, law</p>-->\n" +
     "          <hr>\n" +
     "          <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
     "          <div style=\"height:100px;\"></div>\n" +
@@ -752,9 +788,30 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      <div style=\"height:25em;width: 100%;overflow: hidden;\">\n" +
     "	      	<img class=\"profile-bgHome\" src=\"{{member.coverUrl}}\" />\n" +
     "	      </div>\n" +
+    "		  <ul class=\"data-user\">\n" +
+    "			<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>\n" +
+    "			<li><a><strong>{{representing.length}}</strong><span>Representing</span></a></li>\n" +
+    "			<li><a><strong>{{voteCount}}</strong><span>Votes</span></a></li>\n" +
+    "			<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
+    "			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
+    "		  </ul>\n" +
     "	      <div class=\"container\">\n" +
     "	      	<img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
     "	  	  </div>\n" +
+    "	  	  <!--\n" +
+    "	  	  	<uib-tabset>\n" +
+    "				<uib-tab heading=\"Activity\" active=\"active\">\n" +
+    "					<div class=\"spacing-25\"></div>\n" +
+    "					<div ng-show=\"currentUser.id == member.id\">\n" +
+    "						settings, edit\n" +
+    "					</div>\n" +
+    "					<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\" style=\"margin-top: 25px;\">\n" +
+    "				  	</div>\n" +
+    "				</uib-tab>\n" +
+    "				<uib-tab heading=\"Votes\">\n" +
+    "				</uib-tab>\n" +
+    "			</uib-tabset>\n" +
+    "			-->\n" +
     "	    </div>\n" +
     "	    <div class=\"user-profile-data container\">\n" +
     "	      <h2>{{member.username}}</h2>\n" +
@@ -762,40 +819,40 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      <button class=\"btn btn-primary\">select as a representative</button><br>\n" +
     "	      <!--can have dif reps per committee-->\n" +
     "	      <!--represented by (list of reps with each committee)-->\n" +
-    "	      <!--committee member list have a select button?-->\n" +
     "	      <div ng-show=\"currentUser.id == member.id\">\n" +
     "			<button class=\"btn btn-primary\"><a href=\"/account\">settings</a></button>\n" +
     "		  </div>\n" +
     "	      <br><br>\n" +
-    "\n" +
     "	    </div>\n" +
-    "	    <ul class=\"data-user\">\n" +
-    "	    	<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>\n" +
-    "	   		<li><a><strong>{{representing.length}}</strong><span>Representing</span></a></li>\n" +
-    "	    	<li><a><strong>{{votes.length}}</strong><span>Votes</span></a></li>\n" +
-    "	    	<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
-    "	    	<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
-    "	    </ul>\n" +
     "	  </div>\n" +
     "	</div>\n" +
-    "	<!--<uib-tabset>\n" +
-    "		<uib-tab heading=\"Videos\" active=\"active\">\n" +
-    "			<div class=\"spacing-25\"></div>\n" +
+    "	<uib-tabset class=\"container\">\n" +
+    "		<uib-tab heading=\"Activity\" active=\"active\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Committees\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Representing\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Followers\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Following\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Votes\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab heading=\"Edit Profile\">\n" +
+    "			<!--\n" +
     "			<div ng-show=\"currentUser.id == member.id\">\n" +
     "				settings, edit\n" +
     "			</div>\n" +
-    "\n" +
     "			<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\" style=\"margin-top: 25px;\">\n" +
+    "				<h1>test</h1>\n" +
     "		  	</div>\n" +
+    "		  	-->\n" +
     "		</uib-tab>\n" +
-    "		<uib-tab heading=\"Campaigns\">\n" +
-    "		</uib-tab>\n" +
-    "	</uib-tabset>-->\n" +
+    "	</uib-tabset>\n" +
     "\n" +
     "	<div class=\"container\" id=\"profile-activity\">\n" +
     "		<br>\n" +
-    "		<h1>Activity</h1>\n" +
-    "		<md-divider></md-divider><br>\n" +
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
@@ -803,13 +860,19 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "					<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
     "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "				</md-card-title-text>\n" +
-    "				<md-card-title-media>\n" +
-    "					<div class=\"md-media-lg card-media\"><img class=\"avatar\" src=\"{{member.avatarUrl}}\"/></div>\n" +
-    "				</md-card-title-media>\n" +
     "			</md-card-title>\n" +
-    "		</md-card>		\n" +
-    "		  \n" +
+    "			<!--\n" +
+    "			<md-card-title-media>\n" +
+    "				<div class=\"md-media-lg card-media\"><img class=\"avatar\" src=\"{{member.avatarUrl}}\"/></div>\n" +
+    "			</md-card-title-media>\n" +
+    "			-->\n" +
+    "		</md-card>\n" +
+    "		<br><br>	\n" +
+    "		<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
+    "		  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">LOAD MORE</button>\n" +
+    "		</div>\n" +
     "	</div>\n" +
+    "	<div style=\"height:50px\"></div>\n" +
     "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "\n" +
     "</div>\n" +
@@ -916,6 +979,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
     "	<div style=\"margin-left:10%;margin-right:10%;margin-top:5%\">\n" +
     "		<div ng-show=\"!searchQuery\">\n" +
     "			<h1>discover content</h1>\n" +
+    "			<p>trending</p>\n" +
     "		</div>\n" +
     "		<div ng-show=\"searchQuery\">\n" +
     "			<div>\n" +
