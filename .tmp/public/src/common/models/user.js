@@ -6,7 +6,7 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getSome = function(limit, skip) {
+    this.getSome = function(limit, skip, sort) {
         var url = utils.prepareUrl('user/filter/' + limit + '/' + skip);
         return $sailsSocket.get(url).then(success, error);
     };
@@ -27,25 +27,14 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
     };
 
     this.getOne = function(id) {
-        var deferred = $q.defer();
         var url = utils.prepareUrl('user/' + id);
-
-        $sailsSocket.get(url, function(model) {
-            return deferred.resolve(model);
-        });
-
-        return deferred.promise;
+        return $sailsSocket.get(url).then(success, error);
     };
 
     this.create = function(newModel) {
         var deferred = $q.defer();
         var url = utils.prepareUrl('user');
-
-        $sailsSocket.post(url, newModel, function(model) {
-            return deferred.resolve(model);
-        });
-
-        return deferred.promise;
+        return $sailsSocket.post(url, newModel).then(success, error);
     };
 
     this.update = function(newModel){

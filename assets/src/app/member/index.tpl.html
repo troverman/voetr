@@ -12,28 +12,29 @@
 			<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>
 			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>
 		  </ul>
+		  <!--
+		  <div class="container">
+			<ul class="nav nav-tabs" style="margin-left:11em">
+				<li><a href="#">Activity</a></li>
+				<li><a href="#">Committees</a></li>
+				<li><a href="#">Representing</a></li>
+				<li><a href="#">Followers</a></li>
+				<li><a href="#">Following</a></li>
+				<li><a href="#">Votes</a></li>
+				<li><a href="#">Follow</a></li>
+				<li ng-show="currentUser.id == member.id"><a href="#">Edit Profile</a></li>
+		  	</ul>
+		  </div>
+		  <md-divider></md-divider>
+		  -->
 	      <div class="container">
 	      	<img class="avatar" src="{{member.avatarUrl}}"/>
 	  	  </div>
-	  	  <!--
-	  	  	<uib-tabset>
-				<uib-tab heading="Activity" active="active">
-					<div class="spacing-25"></div>
-					<div ng-show="currentUser.id == member.id">
-						settings, edit
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 25px;">
-				  	</div>
-				</uib-tab>
-				<uib-tab heading="Votes">
-				</uib-tab>
-			</uib-tabset>
-			-->
 	    </div>
 	    <div class="user-profile-data container">
 	      <h2>{{member.username}}</h2>
-	      <button class="btn btn-default">follow</button><br>
-	      <button class="btn btn-primary">select as a representative</button><br>
+	      <!--<button class="btn btn-default">follow</button><br>-->
+	      <button class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button><br>
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
 	      <div ng-show="currentUser.id == member.id">
@@ -43,6 +44,7 @@
 	    </div>
 	  </div>
 	</div>
+
 	<uib-tabset class="container">
 		<uib-tab heading="Activity" active="active">
 		</uib-tab>
@@ -56,18 +58,12 @@
 		</uib-tab>
 		<uib-tab heading="Votes">
 		</uib-tab>
-		<uib-tab heading="Edit Profile">
-			<!--
-			<div ng-show="currentUser.id == member.id">
-				settings, edit
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 25px;">
-				<h1>test</h1>
-		  	</div>
-		  	-->
+		<uib-tab heading="Follow">
+		</uib-tab>
+		<uib-tab ng-show="currentUser.id == member.id" heading="Edit Profile">
 		</uib-tab>
 	</uib-tabset>
-
+	
 	<div class="container" id="profile-activity">
 		<br>
 		<md-card ng-repeat="vote in votes">
@@ -85,7 +81,7 @@
 			-->
 		</md-card>
 		<br><br>	
-		<div ng-click="loadMore()" style="text-align:center">
+		<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
 		  <button class="btn btn-default col-xs-10 col-xs-offset-1">LOAD MORE</button>
 		</div>
 	</div>

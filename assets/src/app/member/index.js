@@ -48,6 +48,10 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
     console.log(member);
 
+    $scope.selectAsRepresentative = function(){
+        console.log('represent')
+    }
+
     $scope.loadMore = function() {
         $scope.skip = $scope.skip + 25;
         VoteVoteModel.getByUser($scope.member.id, 25, $scope.skip).then(function(committees) {

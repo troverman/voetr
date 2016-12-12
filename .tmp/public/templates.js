@@ -795,28 +795,29 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "			<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
     "			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
     "		  </ul>\n" +
+    "		  <!--\n" +
+    "		  <div class=\"container\">\n" +
+    "			<ul class=\"nav nav-tabs\" style=\"margin-left:11em\">\n" +
+    "				<li><a href=\"#\">Activity</a></li>\n" +
+    "				<li><a href=\"#\">Committees</a></li>\n" +
+    "				<li><a href=\"#\">Representing</a></li>\n" +
+    "				<li><a href=\"#\">Followers</a></li>\n" +
+    "				<li><a href=\"#\">Following</a></li>\n" +
+    "				<li><a href=\"#\">Votes</a></li>\n" +
+    "				<li><a href=\"#\">Follow</a></li>\n" +
+    "				<li ng-show=\"currentUser.id == member.id\"><a href=\"#\">Edit Profile</a></li>\n" +
+    "		  	</ul>\n" +
+    "		  </div>\n" +
+    "		  <md-divider></md-divider>\n" +
+    "		  -->\n" +
     "	      <div class=\"container\">\n" +
     "	      	<img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
     "	  	  </div>\n" +
-    "	  	  <!--\n" +
-    "	  	  	<uib-tabset>\n" +
-    "				<uib-tab heading=\"Activity\" active=\"active\">\n" +
-    "					<div class=\"spacing-25\"></div>\n" +
-    "					<div ng-show=\"currentUser.id == member.id\">\n" +
-    "						settings, edit\n" +
-    "					</div>\n" +
-    "					<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\" style=\"margin-top: 25px;\">\n" +
-    "				  	</div>\n" +
-    "				</uib-tab>\n" +
-    "				<uib-tab heading=\"Votes\">\n" +
-    "				</uib-tab>\n" +
-    "			</uib-tabset>\n" +
-    "			-->\n" +
     "	    </div>\n" +
     "	    <div class=\"user-profile-data container\">\n" +
     "	      <h2>{{member.username}}</h2>\n" +
-    "	      <button class=\"btn btn-default\">follow</button><br>\n" +
-    "	      <button class=\"btn btn-primary\">select as a representative</button><br>\n" +
+    "	      <!--<button class=\"btn btn-default\">follow</button><br>-->\n" +
+    "	      <button class=\"btn btn-primary\" ng-click=\"selectAsRepresentative()\">select as a representative</button><br>\n" +
     "	      <!--can have dif reps per committee-->\n" +
     "	      <!--represented by (list of reps with each committee)-->\n" +
     "	      <div ng-show=\"currentUser.id == member.id\">\n" +
@@ -826,6 +827,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	    </div>\n" +
     "	  </div>\n" +
     "	</div>\n" +
+    "\n" +
     "	<uib-tabset class=\"container\">\n" +
     "		<uib-tab heading=\"Activity\" active=\"active\">\n" +
     "		</uib-tab>\n" +
@@ -839,18 +841,12 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"Votes\">\n" +
     "		</uib-tab>\n" +
-    "		<uib-tab heading=\"Edit Profile\">\n" +
-    "			<!--\n" +
-    "			<div ng-show=\"currentUser.id == member.id\">\n" +
-    "				settings, edit\n" +
-    "			</div>\n" +
-    "			<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\" style=\"margin-top: 25px;\">\n" +
-    "				<h1>test</h1>\n" +
-    "		  	</div>\n" +
-    "		  	-->\n" +
+    "		<uib-tab heading=\"Follow\">\n" +
+    "		</uib-tab>\n" +
+    "		<uib-tab ng-show=\"currentUser.id == member.id\" heading=\"Edit Profile\">\n" +
     "		</uib-tab>\n" +
     "	</uib-tabset>\n" +
-    "\n" +
+    "	\n" +
     "	<div class=\"container\" id=\"profile-activity\">\n" +
     "		<br>\n" +
     "		<md-card ng-repeat=\"vote in votes\">\n" +
@@ -868,7 +864,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "			-->\n" +
     "		</md-card>\n" +
     "		<br><br>	\n" +
-    "		<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
+    "		<div ng-show=\"votes.legnth > 0 && votes.legnth != voteCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
     "		  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">LOAD MORE</button>\n" +
     "		</div>\n" +
     "	</div>\n" +
