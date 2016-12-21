@@ -61,7 +61,7 @@ module.exports = {
 		Committee.find()
 		.where({urlTitle: req.param('path')})
 		.spread(function(model) {
-			Post.subscribe(req, model);
+			Committee.subscribe(req, model);
 			res.json(model);
 		})
 		.fail(function(err) {
