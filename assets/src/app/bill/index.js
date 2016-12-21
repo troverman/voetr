@@ -38,7 +38,7 @@ angular.module( 'voetr.bill', [
 
 })
 
-.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel ) {
+.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
@@ -49,17 +49,21 @@ angular.module( 'voetr.bill', [
 
     console.log(votes)
 
-    /*
-    $scope.calculateSum = function() {
-        $scope.voteSum = 0;
-        for (i = 0; i < votes.length; i++) { 
-            $scope.voteSum += votes[i].vote;
+    $scope.createVote = function(voteInteger, newVote) {
+        if ($scope.currentUser == undefined){
+            return null;
         }
-        return $scope.voteSum;
-    }
-    //$scope.calculateSum();
-    */
+        $scope.newVote.user = config.currentUser.id;
+        $scope.newVote.bill = bill.id;
+        $scope.newVote.vote = newVote.id;
+        $scope.newVote.voteInteger = voteInteger;
+        $scope.newVote.voteString = 'Yes or No';
 
+        console.log($scope.newVote)
+        VoteVoteModel.create($scope.newVote).then(function(model) {
+            $scope.newVote = {};
+        });
+    }
 
     $sailsSocket.subscribe('vote', function (envelope) {
         switch(envelope.verb) {
@@ -72,20 +76,6 @@ angular.module( 'voetr.bill', [
                 break;
         }
     });
-
-    /*
-    $scope.createVote = function(newVote) {
-        if ($scope.currentUser == undefined){
-            return null;
-        }
-        $scope.newVote.user = config.currentUser.id;
-        $scope.newVote.bill = bill.id;
-        $scope.newVote.vote = newVote;
-        VoteVoteModel.create($scope.newVote).then(function(model) {
-            $scope.newVote = {};
-        });
-    }
-    */
 
     $sailsSocket.subscribe('comment', function (envelope) {
 	    switch(envelope.verb) {

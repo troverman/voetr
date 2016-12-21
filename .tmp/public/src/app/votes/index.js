@@ -19,12 +19,25 @@ angular.module( 'voetr.votes', [
 	$urlRouterProvider.when('/votes/', '/votes');
 })
 
-.controller( 'VotesCtrl', function VotesCtrl( $scope, $sailsSocket, lodash, titleService, config, VoteModel, votes) {
+.controller( 'VotesCtrl', function VotesCtrl( $scope, $sailsSocket, lodash, titleService, config, votes, VoteModel, VoteVoteModel) {
 	titleService.setTitle('votes - voetr');
 	$scope.currentUser = config.currentUser;
     $scope.votes = votes;
     console.log(votes)
 	$scope.skip = 0;
+
+	$scope.createVote = function(voteInteger, newVote) {
+        if ($scope.currentUser == undefined){
+            return null;
+        }
+        $scope.newVote.user = config.currentUser.id;
+        $scope.newVote.bill = newVote.bill;
+        $scope.newVote.vote = newVote.id;
+        $scope.newVote.voteInteger = voteInteger;
+        VoteVoteModel.create($scope.newVote).then(function(model) {
+            $scope.newVote = {};
+        });
+    }
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;

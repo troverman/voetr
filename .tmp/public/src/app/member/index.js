@@ -25,6 +25,12 @@ angular.module( 'voetr.member', [
             }
         },
 		resolve: {
+            constituents: function(RepresentativeModel, member) {
+                return RepresentativeModel.getConstituents(member);
+            },
+            representatives: function(RepresentativeModel, member) {
+                return RepresentativeModel.getRepresentatives(member);
+            },
             votes: function(VoteVoteModel, member) {
                 return VoteVoteModel.getByUser(member.id, 25, 0, 'createdAt desc');
             },
@@ -35,7 +41,7 @@ angular.module( 'voetr.member', [
     });
 })
 
-.controller( 'MemberCtrl', function MemberController( $scope, config, member, titleService, voteCount, votes, VoteVoteModel ) {
+.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel ) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
@@ -44,13 +50,29 @@ angular.module( 'voetr.member', [
     $scope.following = votes;
     $scope.followers = votes;
     $scope.committees = votes;
-    $scope.representing = votes;
+    $scope.constituents = constituents;
+    $scope.representatives = representatives;
     $scope.skip = 0;
+
     console.log(member);
 
     $scope.selectAsRepresentative = function(){
-        console.log('represent')
-    }
+        $scope.newRepresentative = {};
+        $scope.newRepresentative.representative = $scope.member;
+        $scope.newRepresentative.constituent = config.currentUser;
+        RepresentativeModel.create($scope.newRepresentative).then(function(model) {
+            $scope.newFollower = {};
+        });
+    };
+
+    $scope.removeRepresentative = function(member) {
+        // check here if this message belongs to the currentUser
+        if (member.user.id === config.currentUser.id) {
+            RepresentativeModel.delete(member).then(function(model) {
+                // message has been deleted, and removed from $scope.messages
+            });
+        }
+    };
 
     $scope.loadMore = function() {
         $scope.skip = $scope.skip + 25;
@@ -59,5 +81,47 @@ angular.module( 'voetr.member', [
             console.log($scope.committees);
         });
     };
+
+    $sailsSocket.subscribe('representative', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                if(envelope.data.representative.id == member.id){
+                    $scope.constituents.unshift(envelope.data);
+                }
+                if(envelope.data.constituent.id == member.id){
+                    $scope.representatives.unshift(envelope.data);
+                }
+                break;
+            case 'destroyed':
+                lodash.remove($scope.representatives, {id: envelope.id});
+                break;
+        }
+    });
+
+    /*
+    $sailsSocket.subscribe('user', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                //console.log(envelope.data);
+                $scope.followers.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.followers, {id: envelope.id});
+                break;
+        }
+    });
+    */
+
+    $sailsSocket.subscribe('votevote', function (envelope) {
+        console.log(envelope)
+        switch(envelope.verb) {
+            case 'created':
+                $scope.votes.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.votes, {id: envelope.id});
+                break;
+        }
+    });
 
 });

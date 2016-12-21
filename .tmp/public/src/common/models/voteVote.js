@@ -7,7 +7,7 @@ angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
     };
 
     this.getByBill = function(model) {
-        var url = utils.prepareUrl('vote/bill/' + model);
+        var url = utils.prepareUrl('votevote/bill/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 
@@ -27,12 +27,12 @@ angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
     };
 
     this.create = function(newModel) {
-        var url = utils.prepareUrl('vote');
+        var url = utils.prepareUrl('votevote');
         return $sailsSocket.post(url, newModel).then(success, error);
     };
 
     this.delete = function(model) {
-        var url = utils.prepareUrl('vote/' + model.id);
+        var url = utils.prepareUrl('votevote/' + model.id);
         return $sailsSocket.delete(url).then(success, error);
     };
 

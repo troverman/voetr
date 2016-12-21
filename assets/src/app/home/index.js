@@ -11,6 +11,19 @@ angular.module( 'voetr.home', [
 			}
 		},
 		resolve:{
+			config: "config",
+			constituents: function(RepresentativeModel, config) {
+				if(config.currentUser){
+                	return RepresentativeModel.getConstituents(config.currentUser);
+            	}
+            	else{return null}
+            },
+            representatives: function(RepresentativeModel, config) {
+				if(config.currentUser){
+                	return RepresentativeModel.getRepresentatives(config.currentUser);
+                }
+            	else{return null}
+            },
 			committees: function(CommitteeModel) {
 				return CommitteeModel.getSome(10,0);
             },
@@ -29,11 +42,14 @@ angular.module( 'voetr.home', [
 			billCount: function(BillModel){
 				return BillModel.getCount();
             },
+			votes: function(VoteModel) {
+				return VoteModel.getSome(100, 0, 'voteCount DESC');
+            }
 		}
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, BillModel, CommitteeModel, UserModel ) {
+.controller( 'HomeCtrl', function HomeController($scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -42,6 +58,17 @@ angular.module( 'voetr.home', [
 	$scope.committeeCount = committeeCount.committeeCount;
 	$scope.users = users;
 	$scope.userCount = userCount.userCount;
+	$scope.constituents = constituents;
+    $scope.representatives = representatives;
+    $scope.votes = votes;
+
+    if ($scope.currentUser){
+		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
+			console.log(votes)
+			$scope.userVotes = votes;
+		});
+	}
+
 
 	$scope.skipBills = 10;
     $scope.loadMoreBills = function() {
@@ -66,11 +93,5 @@ angular.module( 'voetr.home', [
 			Array.prototype.push.apply($scope.users, users);
 		});
 	};
-
-	if ($scope.currentUser){
-		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
-			$scope.votes = votes;
-		});
-	}
 
 });

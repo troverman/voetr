@@ -1,18 +1,23 @@
-angular.module('models.post', ['lodash', 'services', 'sails.io',])
+angular.module('models.follower', ['lodash', 'services', 'sails.io',])
 
-.service('PostModel', function(lodash, utils, $sailsSocket) {
+.service('FollowerModel', function(lodash, utils, $sailsSocket) {
     this.getAll = function() {
-        var url = utils.prepareUrl('post');
+        var url = utils.prepareUrl('follower');
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+    this.getByUser = function(model) {
+        var url = utils.prepareUrl('follower/followers/' + model.id);
         return $sailsSocket.get(url).then(success, error);
     };
 
     this.create = function(newModel) {
-        var url = utils.prepareUrl('post');
+        var url = utils.prepareUrl('follower');
         return $sailsSocket.post(url, newModel).then(success, error);
     };
 
     this.delete = function(model) {
-        var url = utils.prepareUrl('post/' + model.id);
+        var url = utils.prepareUrl('follower/' + model.id);
         return $sailsSocket.delete(url).then(success, error);
     };
 

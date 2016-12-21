@@ -37,6 +37,8 @@
 			<h3>votes</h3>
 			<md-divider></md-divider>
 			<div ng-repeat="vote in votes">
+      			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
+      			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
 				<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
 				<p>{{vote.type}}</p>
 				<p>{{vote.result}}</p>

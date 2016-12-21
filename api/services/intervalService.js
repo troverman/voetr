@@ -168,8 +168,9 @@ function recentBills(){
 																			.exec(function(err, voteVoteModel) {
 																				if (!err) {
 																					VoteVote.publishCreate(voteVoteModel);
+																					//break into positive and negative..!
 																					VoteVote.count()
-																					.where({bill: billModel.id, vote:voteModel.id})
+																					.where({vote:voteModel.id})
 																					.exec(function(err, voteCount) {
 																						console.log(voteCount)
 																						Vote.update({id: voteModel.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
@@ -587,6 +588,10 @@ var url = "http://congress.api.sunlightfoundation.com/committees?per_page=all&ap
 
 };
 
+function proPublica(){
+	var url="hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx";
+};
+
 module.exports.intervalService = function(){
 
 
@@ -662,7 +667,6 @@ module.exports.intervalService = function(){
 	}
 	//bills()
 	//openStates();
-	//stateLegislators();
 	//committees();
 	//recentBills();
 

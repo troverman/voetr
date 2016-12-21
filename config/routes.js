@@ -123,12 +123,24 @@ module.exports.routes = {
   'delete /api/committeevote/:id': 'CommitteeVoteController.destroy',
 
   /**
-   * Post routes
+   * Follower routes
    */
-  'get /api/post': 'PostController.getAll',
-  'get /api/post/:id': 'PostController.getOne',
-  'post /api/post': 'PostController.create',
-  'delete /api/post/:id': 'PostController.destroy',
+  'get /api/follower': 'FollowerController.getAll',
+  'get /api/follower/:id': 'FollowerController.getOne',
+  'get /api/follower/followers/:id': 'FollowerController.getFollowers',
+  'get /api/follower/following/:id': 'FollowerController.getFollowing',
+  'post /api/follower': 'FollowerController.create',
+  'delete /api/follower/:id': 'FollowerController.destroy',
+
+  /**
+   * Representative routes
+   */
+  'get /api/representative': 'RepresentativeController.getAll',
+  'get /api/representative/:id': 'RepresentativeController.getOne',
+  'get /api/representative/constituents/:id': 'RepresentativeController.getConstituents',
+  'get /api/representative/representatives/:id': 'RepresentativeController.getRepresentatives',
+  'post /api/representative': 'RepresentativeController.create',
+  'delete /api/representative/:id': 'RepresentativeController.destroy',
 
   /**
    * Search routes
@@ -148,11 +160,9 @@ module.exports.routes = {
   'post /api/user/upload': 'UserController.upload',
   'post /api/user/:id': 'UserController.update',
 
-
   /**
    * Vote routes
    */
-
   'get /api/vote': 'VoteController.getAll',
   'get /api/vote/:id': 'VoteController.getOne',
   'get /api/vote/bill/:id': 'VoteController.getByBill',
@@ -173,7 +183,6 @@ module.exports.routes = {
   'get /api/votevote/vote/:id': 'VoteVoteController.getByVote',
   'post /api/votevote': 'VoteVoteController.create',
   'delete /api/votevote/:id': 'VoteVoteController.destroy',
-  //api/vote/:id/vote --> maybe 
 
   //'/*'   : 'HomeController.index'
 

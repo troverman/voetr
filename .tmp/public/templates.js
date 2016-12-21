@@ -2,28 +2,39 @@ angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about/index.tpl.html",
+    "<div class=\"imageContainer\">\n" +
+    "	<video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\"></video>\n" +
+    "	<div class=\"imageContainerDiv\">  \n" +
+    "		<h1>build empowerment, change consensus</h1>\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "<!--\n" +
     "<div class=\"heading-container\">\n" +
     "	<div class=\"img-fill\">\n" +
     "		<img src=\"/images/capitol.jpg\" alt=\"\">\n" +
     "		<div class=\"info\">\n" +
-    "      	<h3>Empowering the internet</h3>\n" +
+    "      	<h3>empowering the internet</h3>\n" +
     "		</div>\n" +
     "	</div>\n" +
     "</div>\n" +
+    "-->\n" +
     "<div class=\"about-container\">\n" +
     "	<div id=\"section1\">\n" +
     "		<h2>the voice of the internet</h2>\n" +
+    "		<p>build empowerment, change consensus</p>\n" +
+    "		<p>directly impact the political landscape</p>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
-    "		<p>real time input on policy</p>\n" +
+    "		<h4>direct your impact though real time input on policy</h4>\n" +
     "		<p>decision making influence in the power of your hands</p>\n" +
     "	</div>\n" +
     "	<div id=\"section3\">\n" +
+    "		<h4>elect representatives and serve your constituents</h4>\n" +
     "	    <p>with continual open ballot elections, select others to represent you at any time</p>\n" +
     "	</div>\n" +
     "	<div id=\"section4\">\n" +
-    "		<p>power to the people</p>\n" +
     "		<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
+    "		<h4>power to the people</h4>\n" +
     "	</div>\n" +
     "</div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
@@ -159,6 +170,8 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function($templ
     "			<h3>votes</h3>\n" +
     "			<md-divider></md-divider>\n" +
     "			<div ng-repeat=\"vote in votes\">\n" +
+    "      			<button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
+    "      			<button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i> {{vote.minusCount}}</button>\n" +
     "				<h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
     "				<p>{{vote.type}}</p>\n" +
     "				<p>{{vote.result}}</p>\n" +
@@ -557,34 +570,65 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
+    "    <div style=\"height:50px\"></div>\n" +
     "    <div class=\"container\">\n" +
-    "      <h1>welcome {{currentUser.username}}</h1>\n" +
-    "      <h4>committees</h4>\n" +
-    "      <h4>upcoming votes</h4>\n" +
-    "      <h4>your representatives</h4>\n" +
-    "      <h4>my constituents</h4>\n" +
+    "      <div class=\"col-md-4\">\n" +
+    "        <img class=\"avatar\" style=\"margin-top:0em\" src=\"{{currentUser.avatarUrl}}\"/>\n" +
+    "        <h2><a href=\"/member/{{currentUser.username}}\">{{currentUser.username}}</a></h2>\n" +
+    "      </div>\n" +
+    "      <div class=\"col-md-8\">\n" +
+    "        <h3>recommended votes</h3>\n" +
+    "        <div ng-repeat=\"vote in votes\">\n" +
+    "          <h4>\n" +
+    "            {{vote.voteCount}}\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "            <a href=\"/vote/{{vote.id}}\">{{vote.title}}</a>\n" +
+    "          </h4>\n" +
+    "          <br><br>\n" +
+    "        </div>\n" +
     "\n" +
-    "      <div ng-repeat=\"vote in votes\">\n" +
-    "        {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "        <h3>my constituents</h3>\n" +
+    "        <div ng-repeat=\"constituent in constituents\">\n" +
+    "          <img class=\"avatar\" style=\"margin-top:0em;\" src=\"{{constituent.constituent.avatarUrl}}\"/>\n" +
+    "          <h4><a href=\"/member/{{constituent.constituent.username}}\">{{constituent.constituent.username}}</a></h4>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <h3>my representatives</h3>\n" +
+    "        <div ng-repeat=\"representative in representatives\">\n" +
+    "          <img class=\"avatar\" style=\"margin-top:0em;\" src=\"{{representative.representative.avatarUrl}}\"/>\n" +
+    "          <h4><a href=\"/member/{{representative.representative.username}}\">{{representative.representative.username}}</a></h4>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div ng-repeat=\"vote in userVotes\">\n" +
+    "          {{vote.vote}} | <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
+    "    <div style=\"height:50px;\"></div>\n" +
     "  </div>\n" +
     "  <!--/if logged in-->\n" +
     "\n" +
     "	<!--if not logged in-->\n" +
     "  <div ng-show=\"!currentUser\">\n" +
     "    <div ng-include=\"'intro/index.tpl.html'\"></div>\n" +
+    "\n" +
+    "    <!--\n" +
+    "    <div class=\"imageContainer\">\n" +
+    "      <video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\"></video>\n" +
+    "      <div class=\"imageContainerDiv\">  \n" +
+    "        <h1>build empowerment, change consensus</h1>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "    -->\n" +
+    "\n" +
     "    <div id=\"about\">\n" +
     "      <div id=\"information\">\n" +
     "        <div class=\"container\">\n" +
     "          <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
     "          <hr>\n" +
     "          <h4>be part of the movement</h4>\n" +
-    "          <!--\n" +
-    "          <p>seeing past partisan politics</p>\n" +
-    "          <p>crowd-sourced government</p>\n" +
-    "          -->\n" +
-    "          <!--decision making influnce-->\n" +
+    "          <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->\n" +
     "          <p>with direct input on policy your voice counts</p>\n" +
     "          <p>continual open ballot elections - represent others at anytime</p>\n" +
     "\n" +
@@ -604,6 +648,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "      <div id=\"bills\">\n" +
     "        <div class=\"container\">\n" +
+    "          \n" +
     "          <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
     "          <h4>{{billCount}}</h4>\n" +
     "\n" +
@@ -617,12 +662,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "                    </a>\n" +
     "                  </md-card-title-text>\n" +
     "                </md-card-title>\n" +
-    "                <!--\n" +
-    "                <md-card-actions layout=\"row\" layout-align=\"center\">\n" +
-    "                  <md-button>upvote</md-button>\n" +
-    "                  <md-button>downvote</md-button>\n" +
-    "                </md-card-actions>\n" +
-    "                -->\n" +
     "              </md-card>\n" +
     "            </div>\n" +
     "          </div>\n" +
@@ -696,14 +735,14 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
 
 angular.module("intro/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("intro/index.tpl.html",
-    "<div class=\"intro-container intro\">\n" +
-    "    <svg class=\"intro\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid slice\">\n" +
+    "<div class=\"intro-container intro\" style=\"max-height:700px\">\n" +
+    "    <svg class=\"intro\" style=\"max-height:700px\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1920 1080\" width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid slice\">\n" +
     "        <defs>\n" +
     "            <mask class=\"intro-mask\" id=\"intro-mask\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\">\n" +
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
-    "                <text x=\"960\" y=\"46%\" class=\"medium-text desktop\">build empowerment, change consensus</text>\n" +
-    "                <text x=\"960\" y=\"44%\" class=\"medium-text mobile\">build empowerment, change consensus</text>\n" +
-    "                <text x=\"960\" y=\"51%\" class=\"small-text mantra\">with direct input on policy, become the voice of the internet</text>\n" +
+    "                <text x=\"960\" y=\"40%\" class=\"medium-text desktop\">build empowerment, change consensus</text>\n" +
+    "                <text x=\"960\" y=\"38%\" class=\"medium-text mobile\">build empowerment, change consensus</text>\n" +
+    "                <text x=\"960\" y=\"45%\" class=\"small-text mantra\">with direct input on policy, become the voice of the internet</text>\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
     "                    <svg class=\"tri-before\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +
@@ -790,10 +829,11 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      </div>\n" +
     "		  <ul class=\"data-user\">\n" +
     "			<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>\n" +
-    "			<li><a><strong>{{representing.length}}</strong><span>Representing</span></a></li>\n" +
+    "			<li><a><strong>{{constituents.length || 0}}</strong><span>Constituents</span></a></li>\n" +
+    "			<li><a><strong>{{representatives.length || 0}}</strong><span>Representatives</span></a></li>\n" +
     "			<li><a><strong>{{voteCount}}</strong><span>Votes</span></a></li>\n" +
-    "			<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
-    "			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>\n" +
+    "			<!--<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>\n" +
+    "			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>-->\n" +
     "		  </ul>\n" +
     "		  <!--\n" +
     "		  <div class=\"container\">\n" +
@@ -818,6 +858,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "	      <h2>{{member.username}}</h2>\n" +
     "	      <!--<button class=\"btn btn-default\">follow</button><br>-->\n" +
     "	      <button class=\"btn btn-primary\" ng-click=\"selectAsRepresentative()\">select as a representative</button><br>\n" +
+    "\n" +
+    "	      <!--<button class=\"btn btn-primary\" ng-click=\"removeRepresentative()\">remove as a representative</button>-->\n" +
+    "\n" +
     "	      <!--can have dif reps per committee-->\n" +
     "	      <!--represented by (list of reps with each committee)-->\n" +
     "	      <div ng-show=\"currentUser.id == member.id\">\n" +
@@ -833,17 +876,40 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"Committees\">\n" +
     "		</uib-tab>\n" +
-    "		<uib-tab heading=\"Representing\">\n" +
+    "		<uib-tab heading=\"Constituents\">\n" +
+    "			<md-card ng-repeat=\"constituent in constituents\">\n" +
+    "				<md-card-title-text>\n" +
+    "					<a href=\"/member/{{constituent.constituent.username}}/\">{{constituent.constituent.username}}</a>\n" +
+    "				</md-card-title-text>\n" +
+    "			</md-card>\n" +
     "		</uib-tab>\n" +
-    "		<uib-tab heading=\"Followers\">\n" +
+    "		<uib-tab heading=\"Representatives\">\n" +
+    "			<md-card ng-repeat=\"representative in representatives\">\n" +
+    "				<md-card-title-text>\n" +
+    "					<a href=\"/member/{{representative.representative.username}}/\">{{representative.representative.username}}</a>\n" +
+    "				</md-card-title-text>\n" +
+    "			</md-card>\n" +
+    "		</uib-tab>\n" +
+    "		<!--<uib-tab heading=\"Followers\">\n" +
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"Following\">\n" +
-    "		</uib-tab>\n" +
+    "		</uib-tab>-->\n" +
     "		<uib-tab heading=\"Votes\">\n" +
+    "			<md-card ng-repeat=\"vote in votes\">\n" +
+    "				<md-card-title>\n" +
+    "					<md-card-title-text>\n" +
+    "						<p>{{vote.voteString}}</p> on behalf of {{constituents.length}} constituents about\n" +
+    "						<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
+    "						<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "					</md-card-title-text>\n" +
+    "				</md-card-title>\n" +
+    "			</md-card>\n" +
     "		</uib-tab>\n" +
-    "		<uib-tab heading=\"Follow\">\n" +
-    "		</uib-tab>\n" +
-    "		<uib-tab ng-show=\"currentUser.id == member.id\" heading=\"Edit Profile\">\n" +
+    "		<!--<uib-tab heading=\"Follow\">\n" +
+    "		</uib-tab>-->\n" +
+    "		<!--<uib-tab heading=\"Select as a representative\">\n" +
+    "		</uib-tab>-->\n" +
+    "		<uib-tab ng-click=\"goToAccount()\" ng-show=\"currentUser.id == member.id\" heading=\"Edit Profile\">\n" +
     "		</uib-tab>\n" +
     "	</uib-tabset>\n" +
     "	\n" +
@@ -852,7 +918,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function($tem
     "		<md-card ng-repeat=\"vote in votes\">\n" +
     "			<md-card-title>\n" +
     "				<md-card-title-text>\n" +
-    "					<p>{{vote.voteString}}</p>\n" +
+    "					<p>{{vote.voteString}}</p> on behalf of {{constituents.length}} constituents about\n" +
     "					<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
     "					<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "				</md-card-title-text>\n" +
@@ -976,6 +1042,11 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function($tem
     "		<div ng-show=\"!searchQuery\">\n" +
     "			<h1>discover content</h1>\n" +
     "			<p>trending</p>\n" +
+    "			<h4>committees</h4>\n" +
+    "			<h4>members</h4>\n" +
+    "			<h4>bills</h4>\n" +
+    "			<h4>votes</h4>\n" +
+    "			\n" +
     "		</div>\n" +
     "		<div ng-show=\"searchQuery\">\n" +
     "			<div>\n" +
@@ -1012,11 +1083,14 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function($templ
     "\n" +
     "	<div class=\"voteContainer\">\n" +
     "		<h3>{{vote.title}}</h3>\n" +
+    "		<button class=\"btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "        <button class=\"btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "		<h5><a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></h5>\n" +
     "		<md-divider></md-divider>\n" +
     "		<br><br>\n" +
     "		<div class=\"voteVoteContainer\">\n" +
     "			<div class=\"voteVote\" ng-repeat=\"vote in votes\">\n" +
+    "				{{vote.voteCount}}\n" +
     "				<a href=\"/member/{{vote.user.username}}\">\n" +
     "					<img src=\"{{vote.user.avatarUrl}}\" style=\"height:64px;\">\n" +
     "					{{vote.user.username}}\n" +

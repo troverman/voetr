@@ -33,9 +33,23 @@ angular.module( 'voetr.vote', [
 
 })
 
-.controller( 'VoteCtrl', function VoteController( $scope, config, lodash, $sailsSocket, titleService, vote, votes) {
+.controller( 'VoteCtrl', function VoteController( $scope, config, lodash, $sailsSocket, titleService, vote, votes, VoteVoteModel) {
 	titleService.setTitle(vote.title + '- voetr');
 	$scope.vote = vote;
 	$scope.votes = votes;
-	console.log(votes)
+	console.log(votes);
+
+	$scope.createVote = function(newVote) {
+        if ($scope.currentUser == undefined){
+            return null;
+        }
+        $scope.newVote.user = config.currentUser.id;
+        $scope.newVote.bill = vote.bill;
+        $scope.newVote.vote = vote.id;
+        $scope.newVote.voteInteger = newVote;
+        VoteVoteModel.create($scope.newVote).then(function(model) {
+            $scope.newVote = {};
+        });
+    };
+
 });

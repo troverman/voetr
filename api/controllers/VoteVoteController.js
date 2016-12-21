@@ -92,6 +92,7 @@ module.exports = {
 			voteInteger: req.param('voteInteger'),
 			voteString: req.param('voteString'),
 		};
+		console.log(model)
 
 		VoteVote.create(model)
 		.exec(function(err, model) {
@@ -102,10 +103,10 @@ module.exports = {
 				//this is total not up plus down
 				//need to restructure this
 				VoteVote.count()
-				.where({bill: req.param('bill')})
+				.where({vote: req.param('vote')})
 				.exec(function(err, VoteVoteCount) {
 					console.log(VoteVoteCount)
-					Bill.update({id: req.param('bill')}, {VoteVoteCount:VoteVoteCount}).exec(function afterwards(err, updated){
+					Vote.update({id: req.param('vote')}, {voteCount:VoteVoteCount}).exec(function afterwards(err, updated){
 					  if (err) {
 					    return;
 					  }

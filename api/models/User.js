@@ -74,10 +74,6 @@ module.exports = {
         phone: {
             type: 'string',
         },
-        posts: {
-            collection: 'post',
-            via: 'user'
-        },
         committees: {
             collection: 'committeemember',
             via: 'user'
