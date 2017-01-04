@@ -5,16 +5,7 @@ var _ = require('lodash');
 
 function bills(){
 
-	govTrack.findBill({sort: '-introduced_date', limit:1000}, function(err, res) {
-		if (!err) {
-			for (x in res.objects){
-				console.log(res.objects[x]);
-			}
-		}
-	});
-
 	var url = "http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70"
-
 	request({
 			    url: url,
 			    json: true
@@ -589,7 +580,35 @@ var url = "http://congress.api.sunlightfoundation.com/committees?per_page=all&ap
 };
 
 function proPublica(){
-	var url="hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx";
+
+	//incrementally add all roll call votes for each session.... 
+	//y u do this govTrack.. 
+	//just use sunlight to replace govTrack
+	for(var i; i++; i>10000){
+
+		var model= {
+			//url: 'https://api.propublica.org/congress/v1/114/house/bills/introduced.json',
+			url: 'https://api.propublica.org/congress/v1/114/senate/sessions/2/votes/'+i+'.json',
+			//url: 'https://api.propublica.org/congress/v1/house/votes/2016/1.json',
+			json: true,
+			headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+		};
+
+		request(model, function (error, response, body) {
+			console.log(body.results.votes)
+			//console.log(body.results.votes.vote.bill)
+			//console.log(body.results.votes.vote.positions)
+			for (x in body.results.votes.vote.positions){
+				//body.results.votes.vote.positions[x].member_id
+				console.log(body.results.votes.vote.positions[x].member_id)
+				//User.find()
+				//.where({bioguide_id: body.results.votes.vote.positions[x].member_id})
+				//.then(function(userModel) {
+				//	console.log(userModel)
+				//});
+			}
+		});
+	}
 };
 
 module.exports.intervalService = function(){
@@ -665,10 +684,12 @@ module.exports.intervalService = function(){
 			//stateBills(states[x])
 		}
 	}
+
+	proPublica();
 	//bills()
 	//openStates();
 	//committees();
-	//recentBills();
+	recentBills();
 
 	//legislators();
 	//stateLegislators();

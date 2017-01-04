@@ -5,6 +5,7 @@ angular.module( 'voetr.member', [
 	$stateProvider.state( 'member', {
 		abstract: true,
 		url: '/member/:path',
+        //url: '/:path', //---> would need to be loaded last
 		views: {
 			"main": {
 				templateUrl: 'member/index.tpl.html'

@@ -184,7 +184,12 @@ module.exports.routes = {
   'post /api/votevote': 'VoteVoteController.create',
   'delete /api/votevote/:id': 'VoteVoteController.destroy',
 
-  //'/*'   : 'HomeController.index'
+
+  'get /*': {
+    controller: "HomeController",
+    action: "index",
+    skipAssets: true
+  }
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options

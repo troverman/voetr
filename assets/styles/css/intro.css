@@ -204,7 +204,7 @@ video {
     opacity: 0.2;
   }
   video {
-    display: none;
+    //display: none;
   }
   .intro-img {
     visibility: visible;

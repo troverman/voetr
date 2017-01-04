@@ -106,10 +106,10 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "\n" +
     "	<h3>connected accounts</h3>\n" +
     "	<md-divider></md-divider><br>\n" +
-    "	<button class=\"btn btn-primary\">connect facebook</button>\n" +
-    "	<button class=\"btn btn-primary\">connect twitter</button>\n" +
-    "	<button class=\"btn btn-primary\">connect google</button>\n" +
-    "	<button class=\"btn btn-primary\">connect btc wallet</button>\n" +
+    "	<button class=\"btn btn-primary\" href=\"/auth/facebook\">connect facebook</button>\n" +
+    "	<button class=\"btn btn-primary\" href=\"/auth/twitter\">connect twitter</button>\n" +
+    "	<button class=\"btn btn-primary\" href=\"/auth/google\">connect google</button>\n" +
+    "	<button class=\"btn btn-primary\" href=\"/auth/btc\">connect btc wallet</button>\n" +
     "	<br><br>\n" +
     "	{{user.passports}}\n" +
     "\n" +
