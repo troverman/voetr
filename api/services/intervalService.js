@@ -685,11 +685,11 @@ module.exports.intervalService = function(){
 		}
 	}
 
-	proPublica();
+	//proPublica();
 	//bills()
 	//openStates();
 	//committees();
-	recentBills();
+	//recentBills();
 
 	//legislators();
 	//stateLegislators();
