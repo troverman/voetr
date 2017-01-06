@@ -1,0 +1,136 @@
+
+
+.imageContainer {
+  overflow:hidden;
+  //min-height: 100vh;
+  min-height: 500px;
+  font-family: Jura;
+  margin:0;padding:0;border:0 none;position: relative;
+}
+.imageContainerDiv {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAAEFsT2yAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFElEQVR4nGNhYGBwYIET////ZwAAETIDym2lzEcAAAAASUVORK5CYII=);
+  background-size: 2px 2px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  width: 100%;
+  //height: 100vh;
+  height:500px;
+  display: flex;
+  flex-direction: column;
+}
+.imageContainerDiv h1 {
+  color: rgba(255,255,255,0.9);
+  font-size: 50px;
+  font-weight: 400;
+  text-align: center;
+  margin: auto;
+  margin-left:10%;
+}
+.flexible {
+  max-height:500px;
+  position:absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.img-fill {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+}
+
+.img-fill img {
+  height: 100%;
+  min-width: 100%;
+  position: relative;
+  display: inline-block;
+  max-width: none
+}
+
+.heading-container{
+  position:relative;
+}
+
+.heading-container .img-fill {
+  max-height: 700px;
+  background:#000;
+}
+
+.heading-container .img-fill:before {
+  content: '';
+  display: block;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:2;
+  background:rgba(0,0,0,.50);
+  position: absolute;
+}
+
+.heading-container .img-fill img{
+  -webkit-filter: blur(3px);
+}
+
+.heading-container .img-fill .info {
+  position: absolute;
+  top: 0px;
+  left: 10%;
+  width: 100%;
+  z-index:3;
+  top:30%;
+  padding:0 20px;
+}
+
+.heading-container .img-fill h3{
+  font-family:Jura;
+  color:#FFF;
+  margin:auto;
+  white-space:nowrap;
+  //text-align:center;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+
+.heading-container .img-fill p{
+  //margin:auto;
+  margin-top:15px;
+  font-family:Jura;
+  color:#FFF;
+  text-align:center;
+  overflow:hidden;
+}
+
+
+.about-container{
+	margin-top:5%;
+}
+#section1{
+  height:300px;
+  padding-left:10%;
+  padding-right:10%;
+}
+#section2{
+  height:350px;
+  background-color:rgb(225,225,225);
+  padding-top:5%;
+  padding-left:10%;
+  padding-right:10%;
+}
+#section3{
+  height:350px;
+  background-color:rgb(215,215,215);
+  padding-top:5%;
+  padding-left:10%;
+  padding-right:10%;
+}
+#section4{
+  height:350px;
+  background-color:rgb(225,225,225);
+  padding-top:5%;
+  padding-left:10%;
+  padding-right:10%;
+}

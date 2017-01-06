@@ -1,0 +1,27 @@
+<style>
+	.voteContainer{padding:50px;}
+</style>
+<div ui-view="vote">
+
+	<div class="voteContainer">
+		<h3>{{vote.title}}</h3>
+		<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i></button>
+        <button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
+		<h5><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h5>
+		<md-divider></md-divider>
+		<br><br>
+		<div class="voteVoteContainer">
+			<div class="voteVote" ng-repeat="vote in votes">
+				{{vote.voteCount}}
+				<a href="/member/{{vote.user.username}}">
+					<img src="{{vote.user.avatarUrl}}" style="height:64px;">
+					{{vote.user.username}}
+				</a>
+				<h4>{{vote.voteString}}</h4>
+				<md-divider></md-divider>
+			</div>
+		</div>
+	<div>
+
+
+</div>
