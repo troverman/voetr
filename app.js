@@ -12,6 +12,7 @@ process.chdir(__dirname);
   try {
     sails = require('sails');
   } catch (e) {
+    console.log(e)
     return;
   }
 
@@ -26,7 +27,6 @@ process.chdir(__dirname);
       rc = function () { return {}; };
     }
   }
-
 
   // Start server
   sails.lift(rc('sails'));
