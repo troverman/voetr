@@ -57,9 +57,6 @@ angular.module( 'voetr.bill', [
         $scope.newVote.bill = bill.id;
         $scope.newVote.vote = newVote.id;
         $scope.newVote.voteInteger = voteInteger;
-        $scope.newVote.voteString = 'Yes or No';
-
-        console.log($scope.newVote)
         VoteVoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });

@@ -35,9 +35,11 @@ angular.module( 'voetr.vote', [
 
 .controller( 'VoteCtrl', function VoteController( $sailsSocket, $scope, config, lodash, $sailsSocket, titleService, vote, votes, VoteVoteModel) {
 	titleService.setTitle(vote.title + '- voetr');
+    $scope.currentUser = config.currentUser;
+    $scope.newComment = {};
+    $scope.newVote = {};
 	$scope.vote = vote;
 	$scope.votes = votes;
-	console.log(votes);
 
 	$scope.createVote = function(newVote) {
         if ($scope.currentUser == undefined){
@@ -47,6 +49,7 @@ angular.module( 'voetr.vote', [
         $scope.newVote.bill = vote.bill;
         $scope.newVote.vote = vote.id;
         $scope.newVote.voteInteger = newVote;
+        console.log($scope.newVote)
         VoteVoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });

@@ -81,6 +81,14 @@ module.exports = {
         bioguide_id:{
             type: 'string'
         },
+        representatives: {
+            collection: 'representative',
+            via: 'constituent'
+        },
+        constituents: {
+            collection: 'representative',
+            via: 'representative'
+        },
         passports: {
           collection: 'Passport',
           via: 'user'

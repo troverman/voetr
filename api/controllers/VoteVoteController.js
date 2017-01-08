@@ -90,9 +90,10 @@ module.exports = {
 			user: req.param('user'),
 			vote: req.param('vote'),
 			voteInteger: req.param('voteInteger'),
-			voteString: req.param('voteString'),
 		};
-		console.log(model)
+
+		if (req.param('voteInteger') == 1){model.voteString = "Yes"}
+		if (req.param('voteInteger') == -1){model.voteString = "No"}
 
 		VoteVote.create(model)
 		.exec(function(err, model) {
@@ -112,9 +113,10 @@ module.exports = {
 					  }
 					});
 				});
-				VoteVote.watch(req);
-				VoteVote.publishCreate(model.toJSON());
-				res.json(model);
+				VoteVote.getOne(model.id).then(function(votevote){
+					VoteVote.publishCreate(votevote[0]);
+					res.json(votevote[0]);
+				});
 			}
 		});
 

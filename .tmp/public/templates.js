@@ -283,6 +283,8 @@ angular.module("committee/bills.tpl.html", []).run(["$templateCache", function($
     "  </div>\n" +
     "</div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
     "");
 }]);
 
@@ -339,6 +341,7 @@ angular.module("committee/discussion.tpl.html", []).run(["$templateCache", funct
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 
@@ -416,7 +419,8 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function($
     "<div ui-view=\"bills\"></div>\n" +
     "<div ui-view=\"discussion\"></div>\n" +
     "<div ui-view=\"members\"></div>\n" +
-    "<div ui-view=\"votes\"></div>");
+    "<div ui-view=\"votes\"></div>\n" +
+    "");
 }]);
 
 angular.module("committee/members.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -448,11 +452,13 @@ angular.module("committee/members.tpl.html", []).run(["$templateCache", function
     "        <img src=\"{{member.avatarUrl}}\" style=\"height:64px;\">\n" +
     "        <h4>{{member.username}}</h4>\n" +
     "      </a>\n" +
-    "      <p>representing x</p>\n" +
+    "      <p>{{member}}</p>\n" +
     "      <button class=\"btn btn-primary\">select as representative</button>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
     "");
 }]);
 
@@ -499,6 +505,8 @@ angular.module("committee/votes.tpl.html", []).run(["$templateCache", function($
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
     "");
 }]);
 
@@ -785,10 +793,10 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
 angular.module("login/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("login/index.tpl.html",
     "<!--login-->\n" +
-    "<div class=\"login-form\" style=\"text-align:center;min-height:100%;\">\n" +
+    "<div class=\"login-form container\" style=\"min-height:100%;\">\n" +
     "\n" +
     "    <div class=\"row\">\n" +
-    "        <div class=\"col-md-6 col-md-offset-3\">\n" +
+    "        <div class=\"col-md-12\">\n" +
     "            <h3>Login</h3><hr>\n" +
     "            <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
     "                <div class=\"form-group\">\n" +
@@ -812,7 +820,11 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
     "        </div>\n" +
     "    </div>\n" +
     "    <hr>\n" +
-    "    <a href=\"/register\">register an account</a>\n" +
+    "    <div class=\"row\">\n" +
+    "        <div style=\"text-align:center\">\n" +
+    "            <a href=\"/register\">register an account</a>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "</div>\n" +
     "<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
     "");
@@ -984,10 +996,10 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function($templa
 angular.module("register/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("register/index.tpl.html",
     "<!--register-->\n" +
-    "<div class=\"register-form\" style=\"text-align:center\">\n" +
+    "<div class=\"register-form container\">\n" +
     "\n" +
     "    <div class=\"row\">\n" +
-    "        <div class=\"col-md-6 col-md-offset-3\">\n" +
+    "        <div class=\"col-md-12\">\n" +
     "            <h3>Create an Account</h3><hr>\n" +
     "            <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
     "                <div class=\"form-group\">\n" +
@@ -1030,8 +1042,11 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "        </div>\n" +
     "    </div>\n" +
     "    <hr>\n" +
-    "    <a href=\"/login\">already have an account?</a>\n" +
-    "\n" +
+    "    <div class=\"row\">\n" +
+    "        <div style=\"text-align:center\">\n" +
+    "            <a href=\"/login\">already have an account?</a>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "</div>");
 }]);
 
