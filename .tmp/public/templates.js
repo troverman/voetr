@@ -23,6 +23,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function($temp
     "		<h2>the voice of the internet</h2>\n" +
     "		<p>build empowerment, change consensus</p>\n" +
     "		<p>directly impact the political landscape</p>\n" +
+    "		<img style=\"height:64px\" src=\"http://www.freeiconspng.com/uploads/vote-icon-19.png\"/>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
     "		<h4>direct your impact though real time input on policy</h4>\n" +

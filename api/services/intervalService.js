@@ -294,6 +294,13 @@ function stateLegislators(){
 		    if (!error && response.statusCode === 200) {
 				var stateData = body;
 				for (x in stateData) {
+
+					//if (stateData[x].offices.map(function(obj){return obj.fax})){
+					//	if (stateData[x].state == 'nc'){
+					//		console.log(stateData[x])
+					//	}
+					//}
+
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
 					var photo_url = stateData[x].photo_url;
@@ -331,9 +338,9 @@ function stateLegislators(){
 						state : state
 					};
 
-					console.log(model);
+					//console.log(model);
 
-					User.findOrCreate({leg_id: leg_id}, model)
+					/*User.findOrCreate({leg_id: leg_id}, model)
 					.exec(function(err, user) {
 						if (err) {
 							return console.log(err);
@@ -342,7 +349,7 @@ function stateLegislators(){
 							User.publishCreate(user);
 						}
 					});
-					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})
+					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})*/
 				}
 
 		    }
@@ -692,7 +699,7 @@ module.exports.intervalService = function(){
 	//recentBills();
 
 	//legislators();
-	//stateLegislators();
+	stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 
