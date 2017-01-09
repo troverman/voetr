@@ -115,6 +115,7 @@ module.exports = {
 				});
 				VoteVote.getOne(model.id).then(function(votevote){
 					VoteVote.publishCreate(votevote[0]);
+					contactService.sendFax(votevote[0])
 					res.json(votevote[0]);
 				});
 			}

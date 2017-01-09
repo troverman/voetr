@@ -11,21 +11,19 @@ module.exports = {
 		//req.user;
 		//req.vote;
 
-		//var model = {
-		//	name: req.param('name'),
-		//	email: req.param('email'),
-		//	faxContent: req.param('faxContent'),
-		//	legislator: legislatorList[x]
-		//};
+		var form = {
+			name: 'Trevor Overman',
+			email: 'troverman@gmail.com',
+			faxContent: '<html>html content here!</html>',
+			legislatorList: ['formattedForFax...']
+		};
 
 		var model = {
 			url: url,
-  			form: { mes: "heydude" } //data
+  			form: form
 		};
 
 		request.post(model, function (error, response, body) {
-			console.log(error)
-			console.log(response)
 			console.log(body)
 		});
 		
