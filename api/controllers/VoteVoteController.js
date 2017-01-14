@@ -107,7 +107,11 @@ module.exports = {
 				.where({vote: req.param('vote')})
 				.exec(function(err, VoteVoteCount) {
 					console.log(VoteVoteCount)
+
+					//do a getOne --> then update, plusCount:plusCount, minusCount --> if for this yee.... ....
+
 					Vote.update({id: req.param('vote')}, {voteCount:VoteVoteCount}).exec(function afterwards(err, updated){
+					  Vote.publishUpdate(req.param('vote'), updated);
 					  if (err) {
 					    return;
 					  }
@@ -115,7 +119,11 @@ module.exports = {
 				});
 				VoteVote.getOne(model.id).then(function(votevote){
 					VoteVote.publishCreate(votevote[0]);
-					contactService.sendFax(votevote[0])
+
+					contactService.sendEmail(votevote[0]);
+					contactService.sendFax(votevote[0]);
+					contactService.sendMail(votevote[0])
+
 					res.json(votevote[0]);
 				});
 			}

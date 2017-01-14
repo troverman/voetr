@@ -1,20 +1,59 @@
+<style>
+
+.upVote:hover{
+  color:white;
+  background-color:#2ab996;
+}
+.downVote:hover{
+  color:white;
+  background-color:red;
+}
+.upVoted{
+  color:white;
+  background-color:#2ab996;
+}
+.downVoted{
+  color:white;
+  background-color:red;
+}
+.upVoted:focus{
+  color:white;
+  background-color:#2ab996;
+}
+.downVoted:focus{
+  color:white;
+  background-color:red;
+}
+
+</style>
+
 <div id="wrapper">
 
   <!--if logged in-->
   <div ng-show="currentUser">
     <div style="height:50px"></div>
+
+    <!--
+    <div ng-show="!currentUser.isVerified">
+      upload id, select representatives, enter location
+    </div>
+    -->
+
+
     <div class="container">
       <div class="col-md-4">
         <img class="avatar" style="margin-top:0em" src="{{currentUser.avatarUrl}}"/>
         <h2><a href="/member/{{currentUser.username}}">{{currentUser.username}}</a></h2>
+        <p>representatives - {{representatives.length}}</p>
+        <p>constituents - {{constituents.length}}</p>
       </div>
       <div class="col-md-8">
         <h3>recommended votes</h3>
         <div ng-repeat="vote in votes">
           <h4>
             {{vote.voteCount}}
-            <button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
-            <button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
+            <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
+            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
             <a href="/vote/{{vote.id}}">{{vote.title}}</a>
           </h4>
           <br><br>
@@ -60,8 +99,10 @@
           <i style="font-size:256px;" class="fa fa-bullhorn"></i>
           <hr>
           <h4>be part of the movement</h4>
+          <p>create commmunity consensus</p>
           <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->
           <p>with direct input on policy your voice counts</p>
+          <p>tell your reps how you feel about any piece of legislation</p>
           <p>continual open ballot elections - represent others at anytime</p>
 
           <hr>

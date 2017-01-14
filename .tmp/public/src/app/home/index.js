@@ -49,7 +49,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes ) {
+.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -63,11 +63,36 @@ angular.module( 'voetr.home', [
     $scope.votes = votes;
 
     if ($scope.currentUser){
+
+
+    	$scope.newVote = {};
+
 		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
 			console.log(votes)
 			$scope.userVotes = votes;
 		});
+
+		$scope.createVote = function(voteInteger, newVote) {
+	        if ($scope.currentUser == undefined){return null;}
+
+	        $scope.newVote.user = config.currentUser.id;
+	        $scope.newVote.bill = newVote.bill;
+	        $scope.newVote.vote = newVote.id;
+	        $scope.newVote.voteInteger = voteInteger;
+
+			//set vote as voted with style.. --
+			var index = $scope.votes.indexOf(newVote);
+			if (voteInteger == 1){$scope.votes[index].class = 'upVote'}
+			if (voteInteger == -1){$scope.votes[index].class = 'downVote'}
+
+	        VoteVoteModel.create($scope.newVote).then(function(model) {
+	            $scope.newVote = {};
+	        });
+	    }
+
+
 	}
+
 
 
 	$scope.skipBills = 10;
@@ -93,5 +118,66 @@ angular.module( 'voetr.home', [
 			Array.prototype.push.apply($scope.users, users);
 		});
 	};
+
+	$sailsSocket.subscribe('bill', function (envelope) {
+	    switch(envelope.verb) {
+	        case 'created':
+	            $scope.bills.unshift(envelope.data);
+				BillModel.getCount().then(function(billCount){
+					$scope.billCount = billCount.billCount;
+	            });
+	            break;
+	        case 'destroyed':
+	            lodash.remove($scope.bills, {id: envelope.id});
+	            break;
+	    }
+    });
+
+    $sailsSocket.subscribe('committee', function (envelope) {
+	    switch(envelope.verb) {
+	        case 'created':
+	            $scope.committees.unshift(envelope.data);
+				CommitteeModel.getCount().then(function(committeeCount){
+					$scope.committeeCount = committeeCount.committeeCount;
+	            });
+	            break;
+	        case 'destroyed':
+	            lodash.remove($scope.committees, {id: envelope.id});
+	            break;
+	    }
+    });
+
+    $sailsSocket.subscribe('user', function (envelope) {
+	    switch(envelope.verb) {
+	        case 'created':
+	            $scope.users.unshift(envelope.data);
+	            UserModel.getCount().then(function(userCount){
+					$scope.userCount = userCount.userCount;
+	            });
+	            break;
+	        case 'destroyed':
+	            lodash.remove($scope.users, {id: envelope.id});
+	            break;
+	    }
+    });
+
+    $sailsSocket.subscribe('vote', function (envelope) {
+	    switch(envelope.verb) {
+	        case 'created':
+	            $scope.votes.unshift(envelope.data);
+				//UserModel.getCount().then(function(userCount){
+				//	$scope.userCount = userCount.userCount;
+	            //});
+	            break;
+			case 'updated':
+				var index = $scope.votes.map(function(obj){return obj.id}).indexOf(envelope.data[0].id);
+				$scope.votes[index].voteCount = envelope.data[0].voteCount;
+				break;
+	        case 'destroyed':
+	            lodash.remove($scope.votes, {id: envelope.id});
+	            break;
+	    }
+    });
+
 
 });

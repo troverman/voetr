@@ -96,10 +96,13 @@ module.exports = {
 		var id = req.param('id');
 		var model = {
 			//email: req.param('email'),
-			//first_name : req.param('first_name'),
+			firstName : req.param('firstName'),
+			lastName : req.param('lastName'),
 			//username : req.param('username'),
 			avatarUrl: req.param('avatarUrl'),
 			coverUrl: req.param('coverUrl'),
+			identificationUrl: req.param('identificationUrl'),
+
 		};
 
 		User.update({id: id}, model)

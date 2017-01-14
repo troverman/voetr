@@ -13,7 +13,7 @@
 	<md-divider></md-divider>
 	<br><br><br>
 
-	<form name="acountForm" id="accountForm">
+	<form name="acountForm" id="accountForm" ng-submit="accountSave()" >
 		<div layout="column" layout-align="center stretch">
 			<md-input-container>
 				<label class="modal-label">Username</label>
@@ -25,14 +25,14 @@
 			</md-input-container>
 			<md-input-container>
 				<label class="modal-label">First Name</label>
-				<input ng-model="user.first_name" required name="firstName" type="text">
+				<input ng-model="user.firstName" required name="firstName" type="text">
 			</md-input-container>
 			<md-input-container>
 				<label class="modal-label">Last Name</label>
-				<input ng-model="user.last_name" required name="lastName" type="text">
+				<input ng-model="user.lastName" required name="lastName" type="text">
 			</md-input-container>
 		</div>
-		<button class="btn btn-primary">Save</button>
+		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 
 	<br><br><br>
@@ -58,7 +58,7 @@
 		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{coverPercentage}}%;"></div>
 	</div>
 
-	<h3>connected accounts</h3>
+	<h3>Connected Accounts</h3>
 	<md-divider></md-divider><br>
 	<button class="btn btn-primary" href="/auth/facebook">connect facebook</button>
 	<button class="btn btn-primary" href="/auth/twitter">connect twitter</button>
@@ -71,7 +71,19 @@
 	<md-divider></md-divider><br>
 	<p>email settings</p>
 	<p>verified account</p>
-	<p>drivers license</p>
+	<h4>government identification</h4>
+
+	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+		<div>Drag photos or click here to upload.</div>
+		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div><img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
+  
+	</div>
+	<p ng-show="identificationLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
+	<div ng-show="identificationLoading" class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{identificationPercentage}}%;"></div>
+	</div>
+	<br>
+
 	<p>ssn</p>
 
 	<div style="height:100px;"></div>

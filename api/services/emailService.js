@@ -1,4 +1,4 @@
-/*var fs = require("fs");
+var fs = require("fs");
 var Handlebars = require("handlebars");
 var mailgun = require('mailgun-js')({
 	apiKey: sails.config.mailgun.key,
@@ -48,6 +48,11 @@ module.exports = {
 		}
 
 		return utilsService.promisify(mailgun.send.bind(mailgun), sendData)
+	},
+
+	prepareTemplate: function(template, data){
+		var that = this;
+		return that.templates[template](data);
 	}
 
-}*/
+}

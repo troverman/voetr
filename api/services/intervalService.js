@@ -699,7 +699,7 @@ module.exports.intervalService = function(){
 	//recentBills();
 
 	//legislators();
-	stateLegislators();
+	//stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 
@@ -719,6 +719,6 @@ module.exports.intervalService = function(){
 	else {
 	    console.log('This is a worker!');
 		recentBills();
-	}*/
+	}*/ 
 
 };

@@ -38,4 +38,9 @@ module.exports = {
   //   level: "silent"
   // }
 
+  mailgun: {
+    key: 'key-397bc08f8c25719e64559f3fdb6a8743',
+    domain: 'mail.voetr.com'
+  },
+
 };

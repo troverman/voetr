@@ -1,7 +1,7 @@
 <div style="height:100vh">
-	<h1>Dear {{legislator}}</h1>
 
-	<p>I voted yes to pass {{bill}}. As your constituent, you knowing this information allows us to build a relationship and engage in policy-based dialog.</p>
+	<h1>Dear {{legislator}}</h1>
+	<p>I, {{user.firstName}} your constituent voted {{voteString}} on the question {{vote.title}} for the bill {{bill.title}}. As your constituent, you knowing this information allows us to build a relationship and engage in policy-based dialog.</p>
 
 	<p>Myself alongside with {{voteCount}} of your constituents with support of 20,723 of the general population agree the attached legislation is important.</p>
 
@@ -13,7 +13,7 @@
 
 	<p>I appreciate an open dialog.</p>
 
-	<p>{{member.firstName}} {{member.lastName}}</p>
+	<p>{{user.firstName}} {{user.lastName}}</p>
 </div>
 <div style="height:100vh">
 	{{bill.title}}
@@ -23,6 +23,8 @@
 
 	Vote Info
 	Member information
+	Government Identification
+	<img src="{{user.identificationUrl}}"></img>
 	Member vote
 	Legislators vote
 	Vote statistics – total votes, total constitutes vote, support %

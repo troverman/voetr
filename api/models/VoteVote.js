@@ -72,7 +72,9 @@ module.exports = {
 
     getOne: function(id) {
         return VoteVote.findOne(id)
+        .populate('bill')
         .populate('user')
+        .populate('vote')
         .then(function (model) {
             return [model];
         });

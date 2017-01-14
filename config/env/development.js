@@ -21,4 +21,9 @@ module.exports = {
   //   connection: 'someMongodbServer'
   // }
 
+	mailgun: {
+		key: 'key-397bc08f8c25719e64559f3fdb6a8743',
+		domain: 'mail.voetr.com'
+	},
+
 };

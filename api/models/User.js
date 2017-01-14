@@ -24,11 +24,11 @@ module.exports = {
         followers: {
             type: 'string',
         },
-        first_name: {
+        firstName: {
             type: 'string',
             required: true
         },
-        last_name: {
+        lastName: {
             type: 'string',
         },
         middleName: {

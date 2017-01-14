@@ -60,7 +60,7 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "	<md-divider></md-divider>\n" +
     "	<br><br><br>\n" +
     "\n" +
-    "	<form name=\"acountForm\" id=\"accountForm\">\n" +
+    "	<form name=\"acountForm\" id=\"accountForm\" ng-submit=\"accountSave()\" >\n" +
     "		<div layout=\"column\" layout-align=\"center stretch\">\n" +
     "			<md-input-container>\n" +
     "				<label class=\"modal-label\">Username</label>\n" +
@@ -72,14 +72,14 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "			</md-input-container>\n" +
     "			<md-input-container>\n" +
     "				<label class=\"modal-label\">First Name</label>\n" +
-    "				<input ng-model=\"user.first_name\" required name=\"firstName\" type=\"text\">\n" +
+    "				<input ng-model=\"user.firstName\" required name=\"firstName\" type=\"text\">\n" +
     "			</md-input-container>\n" +
     "			<md-input-container>\n" +
     "				<label class=\"modal-label\">Last Name</label>\n" +
-    "				<input ng-model=\"user.last_name\" required name=\"lastName\" type=\"text\">\n" +
+    "				<input ng-model=\"user.lastName\" required name=\"lastName\" type=\"text\">\n" +
     "			</md-input-container>\n" +
     "		</div>\n" +
-    "		<button class=\"btn btn-primary\">Save</button>\n" +
+    "		<button type=\"submit\" class=\"btn btn-primary\">Save</button>\n" +
     "	</form>\n" +
     "\n" +
     "	<br><br><br>\n" +
@@ -105,7 +105,7 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "		<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{coverPercentage}}%;\"></div>\n" +
     "	</div>\n" +
     "\n" +
-    "	<h3>connected accounts</h3>\n" +
+    "	<h3>Connected Accounts</h3>\n" +
     "	<md-divider></md-divider><br>\n" +
     "	<button class=\"btn btn-primary\" href=\"/auth/facebook\">connect facebook</button>\n" +
     "	<button class=\"btn btn-primary\" href=\"/auth/twitter\">connect twitter</button>\n" +
@@ -118,7 +118,19 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "	<md-divider></md-divider><br>\n" +
     "	<p>email settings</p>\n" +
     "	<p>verified account</p>\n" +
-    "	<p>drivers license</p>\n" +
+    "	<h4>government identification</h4>\n" +
+    "\n" +
+    "	<div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadIdentification($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
+    "		<div>Drag photos or click here to upload.</div>\n" +
+    "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div><img ng-show=\"user.identificationUrl\" src=\"{{user.identificationUrl}}\">\n" +
+    "  \n" +
+    "	</div>\n" +
+    "	<p ng-show=\"identificationLoading\" style=\"text-align:center\"><i class=\"fa fa-spin fa-spinner\"></i>&nbsp;{{pp}}%</p>\n" +
+    "	<div ng-show=\"identificationLoading\" class=\"progress\">\n" +
+    "		<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{identificationPercentage}}%;\"></div>\n" +
+    "	</div>\n" +
+    "	<br>\n" +
+    "\n" +
     "	<p>ssn</p>\n" +
     "\n" +
     "	<div style=\"height:100px;\"></div>\n" +
@@ -575,23 +587,62 @@ angular.module("footer/index.tpl.html", []).run(["$templateCache", function($tem
 
 angular.module("home/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("home/index.tpl.html",
+    "<style>\n" +
+    "\n" +
+    ".upVote:hover{\n" +
+    "  color:white;\n" +
+    "  background-color:#2ab996;\n" +
+    "}\n" +
+    ".downVote:hover{\n" +
+    "  color:white;\n" +
+    "  background-color:red;\n" +
+    "}\n" +
+    ".upVoted{\n" +
+    "  color:white;\n" +
+    "  background-color:#2ab996;\n" +
+    "}\n" +
+    ".downVoted{\n" +
+    "  color:white;\n" +
+    "  background-color:red;\n" +
+    "}\n" +
+    ".upVoted:focus{\n" +
+    "  color:white;\n" +
+    "  background-color:#2ab996;\n" +
+    "}\n" +
+    ".downVoted:focus{\n" +
+    "  color:white;\n" +
+    "  background-color:red;\n" +
+    "}\n" +
+    "\n" +
+    "</style>\n" +
+    "\n" +
     "<div id=\"wrapper\">\n" +
     "\n" +
     "  <!--if logged in-->\n" +
     "  <div ng-show=\"currentUser\">\n" +
     "    <div style=\"height:50px\"></div>\n" +
+    "\n" +
+    "    <!--\n" +
+    "    <div ng-show=\"!currentUser.isVerified\">\n" +
+    "      upload id, select representatives, enter location\n" +
+    "    </div>\n" +
+    "    -->\n" +
+    "\n" +
+    "\n" +
     "    <div class=\"container\">\n" +
     "      <div class=\"col-md-4\">\n" +
     "        <img class=\"avatar\" style=\"margin-top:0em\" src=\"{{currentUser.avatarUrl}}\"/>\n" +
     "        <h2><a href=\"/member/{{currentUser.username}}\">{{currentUser.username}}</a></h2>\n" +
+    "        <p>representatives - {{representatives.length}}</p>\n" +
+    "        <p>constituents - {{constituents.length}}</p>\n" +
     "      </div>\n" +
     "      <div class=\"col-md-8\">\n" +
     "        <h3>recommended votes</h3>\n" +
     "        <div ng-repeat=\"vote in votes\">\n" +
     "          <h4>\n" +
     "            {{vote.voteCount}}\n" +
-    "            <button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "            <button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "            <button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "            <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
     "            <a href=\"/vote/{{vote.id}}\">{{vote.title}}</a>\n" +
     "          </h4>\n" +
     "          <br><br>\n" +
@@ -637,8 +688,10 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          <i style=\"font-size:256px;\" class=\"fa fa-bullhorn\"></i>\n" +
     "          <hr>\n" +
     "          <h4>be part of the movement</h4>\n" +
+    "          <p>create commmunity consensus</p>\n" +
     "          <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->\n" +
     "          <p>with direct input on policy your voice counts</p>\n" +
+    "          <p>tell your reps how you feel about any piece of legislation</p>\n" +
     "          <p>continual open ballot elections - represent others at anytime</p>\n" +
     "\n" +
     "          <hr>\n" +
@@ -751,7 +804,7 @@ angular.module("intro/index.tpl.html", []).run(["$templateCache", function($temp
     "                <rect class=\"intro-rect\" x=\"0\" y=\"0\" width=\"1920px\" height=\"1080px\"></rect>\n" +
     "                <text x=\"960\" y=\"40%\" class=\"medium-text desktop\">build empowerment, change consensus</text>\n" +
     "                <text x=\"960\" y=\"38%\" class=\"medium-text mobile\">build empowerment, change consensus</text>\n" +
-    "                <text x=\"960\" y=\"45%\" class=\"small-text mantra\">with direct input on policy, become the voice of the internet</text>\n" +
+    "                <text x=\"960\" y=\"45%\" class=\"small-text mantra\">with direct input on policy, direct your impact</text>\n" +
     "                <text x=\"960\" y=\"67.5%\" class=\"small-text learn-more\">learn more</text>\n" +
     "                <a href=\"#about\" du-smooth-scroll>\n" +
     "                    <svg class=\"tri-before\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"883px\" y=\"68%\" width=\"150px\" height=\"150px\" viewBox=\"0 0 723 626\" enable-background=\"new 0 0 723 626\" xml:space=\"preserve\">\n" +
@@ -795,7 +848,6 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
   $templateCache.put("login/index.tpl.html",
     "<!--login-->\n" +
     "<div class=\"login-form container\" style=\"min-height:100%;\">\n" +
-    "\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-md-12\">\n" +
     "            <h3>Login</h3><hr>\n" +
@@ -821,6 +873,13 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function($temp
     "        </div>\n" +
     "    </div>\n" +
     "    <hr>\n" +
+    "    <!--<div class=\"row\">\n" +
+    "        <div style=\"text-align:center\">\n" +
+    "            <a href=\"/auth/facebook\">facebook</a>\n" +
+    "            <a href=\"/auth/twitter\">twitter</a>\n" +
+    "            <a href=\"/auth/google\">google</a>\n" +
+    "        </div>\n" +
+    "    </div>-->\n" +
     "    <div class=\"row\">\n" +
     "        <div style=\"text-align:center\">\n" +
     "            <a href=\"/register\">register an account</a>\n" +
@@ -998,7 +1057,6 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
   $templateCache.put("register/index.tpl.html",
     "<!--register-->\n" +
     "<div class=\"register-form container\">\n" +
-    "\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-md-12\">\n" +
     "            <h3>Create an Account</h3><hr>\n" +
@@ -1015,12 +1073,12 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "                        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "                <div class=\"form-group\">\n" +
+    "                <!--<div class=\"form-group\">\n" +
     "                    <label for=\"inputFirstName3\" class=\"col-sm-2 control-label\">First Name</label>\n" +
     "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"first_name\" placeholder=\"First Name\" value=\"\">\n" +
+    "                        <input type=\"text\" class=\"form-control\" id=\"inputFirstName3\" name=\"firstName\" placeholder=\"First Name\" value=\"\">\n" +
     "                    </div>\n" +
-    "                </div>\n" +
+    "                </div>-->\n" +
     "                <div class=\"form-group\">\n" +
     "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
     "                    <div class=\"col-sm-10\">\n" +
@@ -1033,16 +1091,16 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function($t
     "                    </div>\n" +
     "                </div>\n" +
     "            </form>\n" +
-    "\n" +
-    "            <!--\n" +
-    "            <p>facebook</p>\n" +
-    "            <p>google</p>\n" +
-    "            <p>twitter</p>\n" +
-    "            -->\n" +
-    "\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <hr>\n" +
+    "    <!--<div class=\"row\">\n" +
+    "        <div style=\"text-align:center\">\n" +
+    "            <a href=\"/auth/facebook\">facebook</a>\n" +
+    "            <a href=\"/auth/twitter\">twitter</a>\n" +
+    "            <a href=\"/auth/google\">google</a>\n" +
+    "        </div>\n" +
+    "    </div>-->\n" +
     "    <div class=\"row\">\n" +
     "        <div style=\"text-align:center\">\n" +
     "            <a href=\"/login\">already have an account?</a>\n" +
