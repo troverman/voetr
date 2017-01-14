@@ -39,7 +39,7 @@ module.exports = {
   // }
 
   mailgun: {
-    key: 'key-397bc08f8c25719e64559f3fdb6a8743',
+    key: 'key-b93391fa17454dc097c7b8418ff0c862',
     domain: 'mail.voetr.com'
   },
 

@@ -25,19 +25,20 @@ angular.module( 'voetr.home', [
             	else{return null}
             },
 			committees: function(CommitteeModel) {
-				return CommitteeModel.getSome(10,0);
+				return CommitteeModel.getSome(10, 0);
             },
 			committeeCount: function(CommitteeModel) {
 				return CommitteeModel.getCount();
             },
-            users: function(UserModel){
-				return UserModel.getSome(20,32);
+            users: function(UserModel, userCount){
+            	var rand = Math.floor(Math.random() * (userCount.userCount + 1));
+				return UserModel.getSome(32, rand);
             },
             userCount: function(UserModel){
 				return UserModel.getCount();
             },
             bills: function(BillModel){
-                return BillModel.getSome(10,0, 'createdAt DESC');
+                return BillModel.getSome(10, 0, 'createdAt DESC');
             },
 			billCount: function(BillModel){
 				return BillModel.getCount();
@@ -57,6 +58,7 @@ angular.module( 'voetr.home', [
 	$scope.committees = committees;
 	$scope.committeeCount = committeeCount.committeeCount;
 	$scope.users = users;
+	console.log(users)
 	$scope.userCount = userCount.userCount;
 	$scope.constituents = constituents;
     $scope.representatives = representatives;
