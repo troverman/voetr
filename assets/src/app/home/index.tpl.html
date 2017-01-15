@@ -48,6 +48,7 @@
           upload id, select representatives, enter location
           <button ng-click="getLatLng()" class="btn btn-default">get representatives</button>
           <div ng-repeat="representative in officialRepresentatives">
+            <!--<img class="avatar" style="margin-top:0em" src="{{representative.avatarUrl}}"/>-->
             <h4><a href="member/{{representative.username}}">{{representative.username}}</a></h4>
           </div>
         </div>
@@ -127,8 +128,7 @@
       <div id="bills">
         <div class="container">
           
-          <h2><a href="/bills">bills</a></h2><hr>
-          <h4>{{billCount}}</h4>
+          <h2><a href="/bills">{{billCount}} bills</a></h2><hr>
 
           <div class="container">
             <div class='md-padding' layout="row" layout-align="center" layout-wrap>
@@ -153,8 +153,7 @@
       <div id="committees">
         <div class="container">
 
-          <h2><a href="/committees">committees</a></h2><hr>
-          <h4>{{committeeCount}}</h4>
+          <h2><a href="/committees">{{committeeCount}} committees</a></h2><hr>
 
           <div class="container">
             <div class='md-padding' layout="row" layout-align="center" layout-wrap>
@@ -180,8 +179,7 @@
       <div id="members">
         <div class="container">
           <!--<p>local counties / search</p>-->
-          <h2>members</h2><hr>
-          <h4>{{userCount}}</h4>
+          <h2>{{userCount}} members</h2><hr>
           <div class='md-padding' layout="row" layout-align="center" layout-wrap>
             <md-card flex="20" ng-repeat="user in users">
               <a href="/member/{{user.username}}">

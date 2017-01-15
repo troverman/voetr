@@ -29,6 +29,23 @@ module.exports = {
         }
     },
 
+    beforeCreate: function(model, next){
+        VoteVote.find({user: model.user, bill:model.bill, vote:model.vote})
+        .then(function(voteVote){
+            if (voteVote.length == 0){
+                return next(null, voteVote);
+            }
+            else{
+                if(voteVote[0].voteInteger != model.voteInteger){  
+                    VoteVote.update({id: voteVote[0].id}, model)
+                    .then(function(model){
+                        VoteVote.publishUpdate(model[0].id, model);
+                    });
+                }
+            }
+        });
+    },
+
     getAll: function() {
         return VoteVote.find()
         .then(function (models) {

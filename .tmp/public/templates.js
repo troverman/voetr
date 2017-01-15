@@ -78,6 +78,10 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "				<label class=\"modal-label\">Last Name</label>\n" +
     "				<input ng-model=\"user.lastName\" required name=\"lastName\" type=\"text\">\n" +
     "			</md-input-container>\n" +
+    "			<!--<md-input-container>\n" +
+    "				<label class=\"modal-label\">Address</label>\n" +
+    "				<input ng-model=\"user.address\" required name=\"Address\" type=\"text\">\n" +
+    "			</md-input-container>-->\n" +
     "		</div>\n" +
     "		<button type=\"submit\" class=\"btn btn-primary\">Save</button>\n" +
     "	</form>\n" +
@@ -637,6 +641,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "          upload id, select representatives, enter location\n" +
     "          <button ng-click=\"getLatLng()\" class=\"btn btn-default\">get representatives</button>\n" +
     "          <div ng-repeat=\"representative in officialRepresentatives\">\n" +
+    "            <!--<img class=\"avatar\" style=\"margin-top:0em\" src=\"{{representative.avatarUrl}}\"/>-->\n" +
     "            <h4><a href=\"member/{{representative.username}}\">{{representative.username}}</a></h4>\n" +
     "          </div>\n" +
     "        </div>\n" +
@@ -716,8 +721,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div id=\"bills\">\n" +
     "        <div class=\"container\">\n" +
     "          \n" +
-    "          <h2><a href=\"/bills\">bills</a></h2><hr>\n" +
-    "          <h4>{{billCount}}</h4>\n" +
+    "          <h2><a href=\"/bills\">{{billCount}} bills</a></h2><hr>\n" +
     "\n" +
     "          <div class=\"container\">\n" +
     "            <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
@@ -742,8 +746,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div id=\"committees\">\n" +
     "        <div class=\"container\">\n" +
     "\n" +
-    "          <h2><a href=\"/committees\">committees</a></h2><hr>\n" +
-    "          <h4>{{committeeCount}}</h4>\n" +
+    "          <h2><a href=\"/committees\">{{committeeCount}} committees</a></h2><hr>\n" +
     "\n" +
     "          <div class=\"container\">\n" +
     "            <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
@@ -769,8 +772,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div id=\"members\">\n" +
     "        <div class=\"container\">\n" +
     "          <!--<p>local counties / search</p>-->\n" +
-    "          <h2>members</h2><hr>\n" +
-    "          <h4>{{userCount}}</h4>\n" +
+    "          <h2>{{userCount}} members</h2><hr>\n" +
     "          <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "            <md-card flex=\"20\" ng-repeat=\"user in users\">\n" +
     "              <a href=\"/member/{{user.username}}\">\n" +
