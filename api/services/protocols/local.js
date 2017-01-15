@@ -26,7 +26,6 @@ exports.register = function (req, res, next) {
   var email    = req.param('email')
     , username = req.param('username')
     , password = req.param('password')
-    //, firstName = req.param('firstName');
 
   if (!email) {
     req.flash('error', 'Error.Passport.Email.Missing');
@@ -46,7 +45,6 @@ exports.register = function (req, res, next) {
   User.create({
     username : username
   , email    : email
-  //, firstName: firstName
   }, function (err, user) {
     if (err) {
       if (err.code === 'E_VALIDATION') {

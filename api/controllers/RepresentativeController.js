@@ -62,7 +62,7 @@ module.exports = {
 	},
 
 	getByLocation: function(req, res) {
-		var deferred = Q.defer();
+		//TODO: get info from address + loggedIn userId
 		var lat = req.param('lat');
 		var lng = req.param('lng');
 		var stateModel= {
