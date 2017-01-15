@@ -50,7 +50,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes ) {
+.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -68,6 +68,7 @@ angular.module( 'voetr.home', [
 
 
     	$scope.newVote = {};
+    	$scope.officialRepresentatives = {};
 
 		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
 			console.log(votes)
@@ -91,6 +92,20 @@ angular.module( 'voetr.home', [
 	            $scope.newVote = {};
 	        });
 	    }
+
+	     $scope.getLatLng = function() {
+		    if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(function (position) {
+	                lat = position.coords.latitude; 
+	                lng = position.coords.longitude;
+					console.log(lat);
+		        	console.log(lng);
+		        	RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
+		        		$scope.officialRepresentatives = representatives;
+		        	});
+		        });
+		    }
+		}
 
 
 	}

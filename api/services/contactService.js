@@ -59,7 +59,7 @@ module.exports = {
 		//add auth token in headers.. 
 		var form = {
 			name: 'Trevor Overman',
-			email: 'troverman@gmail.com',
+			email: data.user.email,
 			faxContent: template,
 			legislatorList: ['formattedForFax...']
 		};

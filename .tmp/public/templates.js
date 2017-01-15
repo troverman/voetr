@@ -622,12 +622,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "  <div ng-show=\"currentUser\">\n" +
     "    <div style=\"height:50px\"></div>\n" +
     "\n" +
-    "    <!--\n" +
-    "    <div ng-show=\"!currentUser.isVerified\">\n" +
-    "      upload id, select representatives, enter location\n" +
-    "    </div>\n" +
-    "    -->\n" +
-    "\n" +
+    "    \n" +
     "\n" +
     "    <div class=\"container\">\n" +
     "      <div class=\"col-md-4\">\n" +
@@ -637,6 +632,16 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "        <p>constituents - {{constituents.length}}</p>\n" +
     "      </div>\n" +
     "      <div class=\"col-md-8\">\n" +
+    "\n" +
+    "        <div ng-show=\"!currentUser.isVerified\">\n" +
+    "          upload id, select representatives, enter location\n" +
+    "          <button ng-click=\"getLatLng()\" class=\"btn btn-default\">get representatives</button>\n" +
+    "          <div ng-repeat=\"representative in officialRepresentatives\">\n" +
+    "            <h4><a href=\"member/{{representative.username}}\">{{representative.username}}</a></h4>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "\n" +
     "        <h3>recommended votes</h3>\n" +
     "        <div ng-repeat=\"vote in votes\">\n" +
     "          <h4>\n" +

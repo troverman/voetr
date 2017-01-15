@@ -139,6 +139,7 @@ module.exports.routes = {
   'get /api/representative/:id': 'RepresentativeController.getOne',
   'get /api/representative/constituents/:id': 'RepresentativeController.getConstituents',
   'get /api/representative/representatives/:id': 'RepresentativeController.getRepresentatives',
+  'get /api/representative/:lat/:lng': 'RepresentativeController.getByLocation',
   'post /api/representative': 'RepresentativeController.create',
   'delete /api/representative/:id': 'RepresentativeController.destroy',
 

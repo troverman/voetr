@@ -16,6 +16,11 @@ angular.module('models.representative', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getByLocation = function(lat, lng) {
+        var url = utils.prepareUrl('representative/' + lat + '/' + lng);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.create = function(newModel) {
         var url = utils.prepareUrl('representative');
         return $sailsSocket.post(url, newModel).then(success, error);

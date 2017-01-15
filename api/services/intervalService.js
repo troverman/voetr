@@ -320,7 +320,7 @@ function stateLegislators(){
 					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg']
 					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
 					var coverUrl = coverUrlArray[randInt];
-
+					//get state and district
 
 					var model = {
 						username: username,
@@ -618,8 +618,44 @@ function proPublica(){
 	}
 };
 
-module.exports.intervalService = function(){
+function getLegislators(lat, lng){
 
+	var deferred = Q.defer();
+		var lat = req.param('lat');
+		var lng = req.param('lng');
+		var stateModel= {
+			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			json: true
+		};
+		var federalModel = {
+			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			json: true
+		};
+		rp(stateModel).then(function(stateRepresentatives){
+			return [rp(federalModel), stateRepresentatives];
+		}).spread(function(federalRepresentatives, stateRepresentatives) {
+			return [federalRepresentatives.results, stateRepresentatives];
+		}).then(function(representatives){
+			var federalRepresentatives = representatives[0];
+			var stateRepresentatives = representatives[1];
+			var bioguide_id = federalRepresentatives.map(function(obj){return obj.bioguide_id});
+			var leg_id = stateRepresentatives.map(function(obj){return obj.leg_id});
+			User.find({bioguide_id:bioguide_id}).then(function(federalRepresentatives){
+				var federalRepresentativesModel = federalRepresentatives;
+				representatives.concat(federalRepresentatives);
+				User.find({leg_id:leg_id}).then(function(stateRepresentatives){
+					var representatives = federalRepresentativesModel.concat(stateRepresentatives)
+					//res.json(representatives)
+		    	});
+	    	});
+		})
+		.catch(function(err) {
+			console.log(err);
+		});	
+
+};
+
+module.exports.intervalService = function(){
 
 	var states = Object.keys({
 	    "AL": "Alabama",
@@ -691,6 +727,8 @@ module.exports.intervalService = function(){
 			//stateBills(states[x])
 		}
 	}
+
+	//getLegislators(35.79, -78.78)
 
 	//proPublica();
 	//bills()

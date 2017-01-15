@@ -33,12 +33,7 @@
   <div ng-show="currentUser">
     <div style="height:50px"></div>
 
-    <!--
-    <div ng-show="!currentUser.isVerified">
-      upload id, select representatives, enter location
-    </div>
-    -->
-
+    
 
     <div class="container">
       <div class="col-md-4">
@@ -48,6 +43,16 @@
         <p>constituents - {{constituents.length}}</p>
       </div>
       <div class="col-md-8">
+
+        <div ng-show="!currentUser.isVerified">
+          upload id, select representatives, enter location
+          <button ng-click="getLatLng()" class="btn btn-default">get representatives</button>
+          <div ng-repeat="representative in officialRepresentatives">
+            <h4><a href="member/{{representative.username}}">{{representative.username}}</a></h4>
+          </div>
+        </div>
+
+
         <h3>recommended votes</h3>
         <div ng-repeat="vote in votes">
           <h4>
