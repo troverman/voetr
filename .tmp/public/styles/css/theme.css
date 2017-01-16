@@ -1,4 +1,4 @@
-@import "http://fonts.googleapis.com/css?family=Jura";
+@import url('https://fonts.googleapis.com/css?family=Jura:300,400,600');
 @import "http://fonts.googleapis.com/css?family=Cantarell";
 
 html, body {
@@ -24,12 +24,20 @@ body {
     min-height: 100%
 }
 
+.light {
+  font-weight: 100
+}
+
+.vBlue {
+  color:#2ab996;
+}
+
 .footer {
     padding:50px;
     background-color:#24242e;
     //#414141;
     color: gray;
-    font-family: Jura;
+    font-family: 'Jura', sans-serif;
 }
 
 .footer a{
@@ -222,11 +230,54 @@ hr {
   }
 }
 
-.nav {
-  font-family:Jura;
-  font-size:20px;
+@media only screen and (max-width: 767px) {
+  .navbar-form.pull-left {
+    float:none!important;
+    box-shadow: none!important;
+    border:none!important;
+    margin:0;
+  }
 }
 
+@media only screen and (max-width: 420px) {
+  .imageContainerDiv .intro-text {
+    top: 25%;
+    bottom: 50%;
+    left: 10%;
+    padding-right: 25px;
+  }
+}
+.dropdown-menu {
+  font-size: 16px
+}
+.dropdown-menu > li > a {
+  font-weight: 600;
+}
+.navbar-header {
+  max-width: 100%;
+}
+.nav {
+  font-family: "Jura"!important;
+  font-size:20px!important;
+}
+.nav input {
+  font-family: 'Jura', sans-serif;
+  font-weight: bold;
+  font-size: 80%;
+  border-radius: 5px;
+  margin-top: 3px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  padding: 3px;
+  padding-left: 10px;
+  max-width: 100%;
+}
+.nav input:focus {
+  -webkit-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.5);
+  -moz-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.5);
+  box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.5);
+}
 .navbar.center .navbar-inner {
     text-align: center;
 }
@@ -234,6 +285,10 @@ hr {
     float: none;
     display:inline-block;
     vertical-align: top;  
+}
+
+.intro-text h1 {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
 }
 
 .active span {
@@ -396,4 +451,122 @@ hr {
 .panel-default .panel-heading {
   background-color:#f9fafb;
   color:#555;
+}
+.inline-logo {
+  color:#fff;
+  text-transform: lowercase;
+}
+.inline-logo i {
+  font-size: 25px;
+}
+.log-background {
+  z-index: 1;
+  background: url(../../images/washington-dc.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+.blkoverlay {
+  z-index: 2;
+  position:absolute;
+  height: 100%;
+  width:100%;
+  background: rgba(0,0,0,0.5);
+}
+.log-form {
+  z-index: 3;
+  width: 40%;
+  min-width: 320px;
+  max-width: 475px;
+  background: #fff;
+  top: 25%;
+  position: relative;
+  margin: auto;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+}
+@media (max-width: 870px) {
+  .log-form {
+    width: 95%;
+    top: 25%;
+    position: relative;
+    margin: 2.5% auto 0 auto;
+    left: 0%;
+    -webkit-transform: translate(0%, 0%);
+    -moz-transform: translate(0%, 0%);
+    -o-transform: translate(0%, 0%);
+    -ms-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
+  }
+}
+.log-form form {
+  display: block;
+  width: 100%;
+  padding: 2em;
+}
+.log-form h2 {
+  color: #aeaeae;
+  font-size: 1.35em;
+  display: block;
+  background: #2a2a2a;
+  width: 100%;
+  text-transform: lowercase;
+  padding: .75em 1em .75em 1.5em;
+  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid #1d1d1d;
+  margin: 0;
+  font-weight: 200;
+}
+.log-form input {
+  display: block;
+  margin: auto auto;
+  width: 100%;
+  margin-bottom: 2em;
+  border: none;
+  border-bottom: 1px solid #eaeaea;
+  padding: 1.25em;
+  color: #757575;
+}
+.log-form input:focus {
+  outline: none;
+  -webkit-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
+  -moz-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
+  box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
+}
+.log-form .btn {
+  display: inline-block;
+  background: #2ab996;
+  border: 1px solid #1ba0a9;
+  padding: .5em 2em;
+  color: white;
+  margin-right: .5em;
+  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+.log-form .btn:hover {
+  background: #008564;
+}
+.log-form .btn:active {
+  background: #008564;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.log-form .btn:focus {
+  outline: none;
+}
+.log-form .already {
+  color: #2ab996;
+  line-height: .5em;
+  position: relative;
+  top: 2.5em;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: .85em;
+  margin: 0;
+  padding: 0;
+  float: right;
+}
+.log-form .already:hover {
+  color: #1ba0a9;
 }
