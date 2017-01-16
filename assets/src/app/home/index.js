@@ -63,6 +63,8 @@ angular.module( 'voetr.home', [
 	$scope.constituents = constituents;
     $scope.representatives = representatives;
     $scope.votes = votes;
+	if (window.location.hash && window.location.hash == '#_=_'){window.location.hash = '';}
+
 
     if ($scope.currentUser){
 

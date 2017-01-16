@@ -17,9 +17,4 @@ angular.module( 'voetr.login', [
 	titleService.setTitle('login - voetr');
 	$scope.currentUser = config.currentUser;
 	if ($scope.currentUser){$location.path('/')};
-
-	if (window.location.hash && window.location.hash == '#_=_'){
-		window.location.hash = '';
-	}
-
 });
