@@ -71,18 +71,18 @@
 
         <h3>my constituents</h3>
         <div ng-repeat="constituent in constituents">
-          <img class="avatar" style="margin-top:0em;" src="{{constituent.constituent.avatarUrl}}"/>
+          <!--<img class="avatar" style="margin-top:0em;" src="{{constituent.constituent.avatarUrl}}"/>-->
           <h4><a href="/member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h4>
         </div>
 
         <h3>my representatives</h3>
         <div ng-repeat="representative in representatives">
-          <img class="avatar" style="margin-top:0em;" src="{{representative.representative.avatarUrl}}"/>
+          <!--<img class="avatar" style="margin-top:0em;" src="{{representative.representative.avatarUrl}}"/>-->
           <h4><a href="/member/{{representative.representative.username}}">{{representative.representative.username}}</a></h4>
         </div>
 
         <div ng-repeat="vote in userVotes">
-          {{vote.vote}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+          {{vote.voteString}} | {{vote.vote.title}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
         </div>
       </div>
     </div>
@@ -109,8 +109,9 @@
           <i style="font-size:256px;" class="fa fa-bullhorn"></i>
           <hr>
           <h4>be part of the movement</h4>
-          <p>create commmunity consensus</p>
           <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->
+
+          <p>directly impact the creation of policy</p>
           <p>with direct input on policy your voice counts</p>
           <p>tell your reps how you feel about any piece of legislation</p>
           <p>continual open ballot elections - represent others at anytime</p>

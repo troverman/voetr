@@ -72,7 +72,7 @@ angular.module( 'voetr.home', [
     	$scope.newVote = {};
     	$scope.officialRepresentatives = {};
 
-		VoteModel.getByUser($scope.currentUser.id).then(function(votes){
+		VoteVoteModel.getByUser($scope.currentUser.id, 25, 0, 'createdAt desc').then(function(votes){
 			console.log(votes)
 			$scope.userVotes = votes;
 		});

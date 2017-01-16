@@ -22,6 +22,16 @@ module.exports = {
         }
     },
 
+    beforeCreate: function(model, next){
+        Representative.find({constituent: model.constituent, representative:model.representative})
+        .then(function(representative){
+            if (representative.length == 0){
+                return next(null, representative);
+            }
+        });
+    },
+
+
     getAll: function() {
         return Representative.find()
         .sort({createdAt: 'desc'})
