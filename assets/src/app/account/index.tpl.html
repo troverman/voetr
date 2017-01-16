@@ -64,10 +64,10 @@
 
 	<h3>Connected Accounts</h3>
 	<md-divider></md-divider><br>
-	<button class="btn btn-primary" href="/auth/facebook">connect facebook</button>
-	<button class="btn btn-primary" href="/auth/twitter">connect twitter</button>
-	<button class="btn btn-primary" href="/auth/google">connect google</button>
-	<button class="btn btn-primary" href="/auth/btc">connect btc wallet</button>
+	<a class="btn btn-primary" href="/auth/facebook">connect facebook</a>
+	<a class="btn btn-primary" href="/auth/twitter">connect twitter</a>
+	<a class="btn btn-primary" href="/auth/google">connect google</a>
+	<!--<a class="btn btn-primary" href="/auth/btc">connect btc wallet</a>-->
 	<br><br>
 	<div ng-repeat="passport in user.passports">
 		{{passport.protocol}}
