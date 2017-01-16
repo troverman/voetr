@@ -45,7 +45,11 @@
       <div class="col-md-8">
 
         <div ng-show="!currentUser.isVerified">
-          upload id, select representatives, enter location
+          <!--<h4>upload id</h4>
+          <p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>-->
+          <h4>enter location</h4>
+          <h4>select representatives</h4>
+          <h4>become verified</h4>
           <button ng-click="getLatLng()" class="btn btn-default">get representatives</button>
           <div ng-repeat="representative in officialRepresentatives">
             <!--<img class="avatar" style="margin-top:0em" src="{{representative.avatarUrl}}"/>-->

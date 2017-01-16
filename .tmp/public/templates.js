@@ -116,14 +116,16 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function($te
     "	<button class=\"btn btn-primary\" href=\"/auth/google\">connect google</button>\n" +
     "	<button class=\"btn btn-primary\" href=\"/auth/btc\">connect btc wallet</button>\n" +
     "	<br><br>\n" +
-    "	{{user.passports}}\n" +
+    "	<div ng-repeat=\"passport in user.passports\">\n" +
+    "		{{passport.protocol}}\n" +
+    "	</div>\n" +
     "\n" +
     "	<h3>settings</h3>\n" +
     "	<md-divider></md-divider><br>\n" +
     "	<p>email settings</p>\n" +
     "	<p>verified account</p>\n" +
     "	<h4>government identification</h4>\n" +
-    "\n" +
+    "	<p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>\n" +
     "	<div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadIdentification($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
     "		<div>Drag photos or click here to upload.</div>\n" +
     "		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div><img ng-show=\"user.identificationUrl\" src=\"{{user.identificationUrl}}\">\n" +
@@ -638,7 +640,11 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function($templ
     "      <div class=\"col-md-8\">\n" +
     "\n" +
     "        <div ng-show=\"!currentUser.isVerified\">\n" +
-    "          upload id, select representatives, enter location\n" +
+    "          <!--<h4>upload id</h4>\n" +
+    "          <p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>-->\n" +
+    "          <h4>enter location</h4>\n" +
+    "          <h4>select representatives</h4>\n" +
+    "          <h4>become verified</h4>\n" +
     "          <button ng-click=\"getLatLng()\" class=\"btn btn-default\">get representatives</button>\n" +
     "          <div ng-repeat=\"representative in officialRepresentatives\">\n" +
     "            <!--<img class=\"avatar\" style=\"margin-top:0em\" src=\"{{representative.avatarUrl}}\"/>-->\n" +
