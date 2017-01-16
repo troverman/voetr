@@ -40,7 +40,8 @@ module.exports.passport = {
     options: {
       clientID: '396532397104248',
       clientSecret: 'b9a7a7f3c8fdd25f24b5a32ce8498479',
-      scope: ['displayName', 'email', 'link', 'picture.type(small)', 'public_profile', 'user_friends'] /* email is necessary for login behavior */
+      //scope: ['displayName', 'email', 'link', 'picture.type(small)', 'public_profile', 'user_friends']
+      scope: ['email','link']
     }
   },
 
