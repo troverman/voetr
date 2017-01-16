@@ -39,8 +39,8 @@
       <div class="col-md-4">
         <img class="avatar" style="margin-top:0em" src="{{currentUser.avatarUrl}}"/>
         <h2><a href="/member/{{currentUser.username}}">{{currentUser.username}}</a></h2>
-        <p>representatives - {{representatives.length}}</p>
-        <p>constituents - {{constituents.length}}</p>
+        <h5>representatives - {{representatives.length}}</h5>
+        <h5>constituents - {{constituents.length}}</h5>
       </div>
       <div class="col-md-8">
 
@@ -74,13 +74,16 @@
           </md-card-title>
         </md-card>
         <br><br>
+        <div ng-click="loadMoreVotes()" style="text-align:center">
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
+        </div>
 
+        <!--
         <h3>my constituents</h3>
         <md-divider ></md-divider>
         <md-card ng-repeat="constituent in constituents">
           <md-card-title>
             <md-card-title-text>
-              <!--<img class="avatar" style="margin-top:0em;" src="{{constituent.constituent.avatarUrl}}"/>-->
               <h4><a href="/member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h4>
             </md-card-title-text>
           </md-card-title>
@@ -92,7 +95,6 @@
         <md-card ng-repeat="representative in representatives">
           <md-card-title>
             <md-card-title-text>
-              <!--<img class="avatar" style="margin-top:0em;" src="{{representative.representative.avatarUrl}}"/>-->
               <h4><a href="/member/{{representative.representative.username}}">{{representative.representative.username}}</a></h4>
             </md-card-title-text>
           </md-card-title>
@@ -110,6 +112,7 @@
             </md-card-title-text>
           </md-card-title>
         </md-card>
+        -->
 
       </div>
     </div>

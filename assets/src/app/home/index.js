@@ -68,12 +68,10 @@ angular.module( 'voetr.home', [
 
     if ($scope.currentUser){
 
-
     	$scope.newVote = {};
     	$scope.officialRepresentatives = {};
 
 		VoteVoteModel.getByUser($scope.currentUser.id, 25, 0, 'createdAt desc').then(function(votes){
-			console.log(votes)
 			$scope.userVotes = votes;
 		});
 
@@ -93,7 +91,7 @@ angular.module( 'voetr.home', [
 	        VoteVoteModel.create($scope.newVote).then(function(model) {
 	            $scope.newVote = {};
 	        });
-	    }
+	    };
 
 	     $scope.getLatLng = function() {
 		    if (navigator.geolocation) {
@@ -107,8 +105,7 @@ angular.module( 'voetr.home', [
 		        	});
 		        });
 		    }
-		}
-
+		};
 
 	}
 
@@ -135,6 +132,14 @@ angular.module( 'voetr.home', [
 		$scope.skipMembers = $scope.skipMembers + 20;
 		UserModel.getSome(20,$scope.skipMembers).then(function(users) {
 			Array.prototype.push.apply($scope.users, users);
+		});
+	};
+
+	$scope.skipVotes = 100;
+    $scope.loadMoreVotes = function() {
+		$scope.skipVotes = $scope.skipVotes + 100;
+		VoteModel.getSome(100,$scope.skipVotes).then(function(votes) {
+			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};
 
