@@ -59,31 +59,58 @@
 
 
         <h3>recommended votes</h3>
-        <div ng-repeat="vote in votes">
-          <h4>
-            {{vote.voteCount}}
-            <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
-            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
-            <a href="/vote/{{vote.id}}">{{vote.title}}</a>
-          </h4>
-          <br><br>
-        </div>
+        <md-divider ></md-divider>
+        <md-card ng-repeat="vote in votes">
+          <md-card-title>
+            <md-card-title-text>
+              <h4>
+                {{vote.voteCount}}
+                <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
+                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
+                <a href="/vote/{{vote.id}}">{{vote.title}}</a>
+              </h4>
+              <br><br>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        <br><br>
 
         <h3>my constituents</h3>
-        <div ng-repeat="constituent in constituents">
-          <!--<img class="avatar" style="margin-top:0em;" src="{{constituent.constituent.avatarUrl}}"/>-->
-          <h4><a href="/member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h4>
-        </div>
+        <md-divider ></md-divider>
+        <md-card ng-repeat="constituent in constituents">
+          <md-card-title>
+            <md-card-title-text>
+              <!--<img class="avatar" style="margin-top:0em;" src="{{constituent.constituent.avatarUrl}}"/>-->
+              <h4><a href="/member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h4>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        <br><br>
 
         <h3>my representatives</h3>
-        <div ng-repeat="representative in representatives">
-          <!--<img class="avatar" style="margin-top:0em;" src="{{representative.representative.avatarUrl}}"/>-->
-          <h4><a href="/member/{{representative.representative.username}}">{{representative.representative.username}}</a></h4>
-        </div>
+        <md-divider ></md-divider>
+        <md-card ng-repeat="representative in representatives">
+          <md-card-title>
+            <md-card-title-text>
+              <!--<img class="avatar" style="margin-top:0em;" src="{{representative.representative.avatarUrl}}"/>-->
+              <h4><a href="/member/{{representative.representative.username}}">{{representative.representative.username}}</a></h4>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        <br><br>
 
-        <div ng-repeat="vote in userVotes">
-          {{vote.voteString}} | {{vote.vote.title}} | <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
-        </div>
+        <h3>my votes</h3>
+        <md-divider ></md-divider>
+        <md-card ng-repeat="vote in userVotes">
+          <md-card-title>
+            <md-card-title-text>
+              {{vote.voteString}}<br><br>
+              <a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a><br>
+              <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a><br>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+
       </div>
     </div>
     <div style="height:50px;"></div>
