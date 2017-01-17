@@ -44,7 +44,7 @@ angular.module( 'voetr.home', [
 				return BillModel.getCount();
             },
 			votes: function(VoteModel) {
-				return VoteModel.getSome(100, 0, 'voteCount DESC');
+				return VoteModel.getSome(25, 0, 'voteCount DESC');
             }
 		}
 	});
@@ -135,10 +135,10 @@ angular.module( 'voetr.home', [
 		});
 	};
 
-	$scope.skipVotes = 100;
+	$scope.skipVotes = 25;
     $scope.loadMoreVotes = function() {
-		$scope.skipVotes = $scope.skipVotes + 100;
-		VoteModel.getSome(100,$scope.skipVotes).then(function(votes) {
+		$scope.skipVotes = $scope.skipVotes + 25;
+		VoteModel.getSome(25,$scope.skipVotes).then(function(votes) {
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};

@@ -54,7 +54,7 @@ angular.module( 'voetr.member', [
     $scope.constituents = constituents;
     $scope.representatives = representatives;
     $scope.skip = 0;
-    $scope.isFollowing = $scope.constituents.filter(function(e){return e.constituent.id == $scope.currentUser.id}).length > 0
+    //$scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0
 
     $scope.selectAsRepresentative = function(){
         $scope.newRepresentative = {};
