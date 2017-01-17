@@ -1,8 +1,10 @@
 <!--register-->
-<div class="register-form container">
+<!--<div class="register-form container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Create an Account</h3><hr>
+            <h3>Create an Account</h3>
+            <md-divider></md-divider><br>
+
             <form class="form-horizontal" role="form" action="/auth/local/register" method="post">
                 <div class="form-group">
                     <label for="inputUsername3" class="col-sm-2 control-label">Username</label>
@@ -16,12 +18,6 @@
                         <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="Email" value="">
                     </div>
                 </div>
-                <!--<div class="form-group">
-                    <label for="inputFirstName3" class="col-sm-2 control-label">First Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputFirstName3" name="firstName" placeholder="First Name" value="">
-                    </div>
-                </div>-->
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
@@ -36,7 +32,7 @@
             </form>
         </div>
     </div>
-    <hr>
+    <md-divider></md-divider><br>
     <div class="row">
         <div style="text-align:center">
             <a href="/auth/facebook">facebook</a>
@@ -49,21 +45,28 @@
             <a href="/login">already have an account?</a>
         </div>
     </div>
-</div>
+</div>-->
 
-<!--
 <div class="log-background">
     <div class="blkoverlay"></div>
     <div class="log-form">
         <h2><span class="inline-logo"><i style="color:#2ab996" class="fa fa-check"></i>oetr</span> - register</h2>
         <form role="form" action="/auth/local/register" method="post">
-            <input placeholder="username" title="username" type="text"> 
-            <input placeholder="password" title="username" type="password"> 
-            <button class="btn" type="submit">register</button> 
-            <a class="already" href="/login">have an account?</a>
+            <input name="email" placeholder="email" title="email" type="email"> 
+            <input name="username" placeholder="username" title="username" type="text"> 
+            <input name="password" placeholder="password" title="password" type="password"> 
+            <button style="width:100%" class="btn" type="submit">Sign up for Voetr</button>
         </form>
+        <div style="text-align:center">
+            <a class="" href="/login">or login</a>
+        </div>
+        <br><md-divider></md-divider>
+        <div style="text-align:center;padding:2em">
+            <a style="width:100%;margin:3px" class="btn" href="/auth/facebook">Facebook</a>
+            <a style="width:100%;margin:3px" class="btn" href="/auth/twitter">Twitter</a>
+            <a style="width:100%;margin:3px" class="btn" href="/auth/google">Google</a>
+        </div> 
     </div>
 </div>
--->
 
 

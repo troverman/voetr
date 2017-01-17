@@ -59,7 +59,7 @@
 
 
         <h3>recommended votes</h3>
-        <md-divider ></md-divider>
+        <md-divider></md-divider>
         <md-card ng-repeat="vote in votes">
           <md-card-title>
             <md-card-title-text>
@@ -80,7 +80,7 @@
 
         <!--
         <h3>my constituents</h3>
-        <md-divider ></md-divider>
+        <md-divider></md-divider>
         <md-card ng-repeat="constituent in constituents">
           <md-card-title>
             <md-card-title-text>
@@ -91,7 +91,7 @@
         <br><br>
 
         <h3>my representatives</h3>
-        <md-divider ></md-divider>
+        <md-divider></md-divider>
         <md-card ng-repeat="representative in representatives">
           <md-card-title>
             <md-card-title-text>
@@ -102,7 +102,7 @@
         <br><br>
 
         <h3>my votes</h3>
-        <md-divider ></md-divider>
+        <md-divider></md-divider>
         <md-card ng-repeat="vote in userVotes">
           <md-card-title>
             <md-card-title-text>
@@ -137,16 +137,18 @@
       <div id="information">
         <div class="container">
           <i style="font-size:256px;" class="fa fa-bullhorn"></i>
-          <hr>
+          <md-divider></md-divider>
           <h4>be part of the movement</h4>
           <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->
+          <!--<p>local counties / search</p>-->
 
           <p>directly impact the creation of policy</p>
           <p>with direct input on policy your voice counts</p>
           <p>tell your reps how you feel about any piece of legislation</p>
           <p>continual open ballot elections - represent others at anytime</p>
 
-          <hr>
+          <md-divider></md-divider>
+          <br><br>
           <a href="/about" class="btn btn-default">learn more</a>
           <div style="height:100px;"></div>
           <div style="height:100px;"></div>
@@ -162,8 +164,8 @@
 
       <div id="bills">
         <div class="container">
-          
-          <h2><a href="/bills">{{billCount}} bills</a></h2><hr>
+          <h2><a href="/bills">{{billCount}} bills</a></h2>
+          <md-divider></md-divider><br>
 
           <div class="container">
             <div class='md-padding' layout="row" layout-align="center" layout-wrap>
@@ -187,8 +189,8 @@
 
       <div id="committees">
         <div class="container">
-
-          <h2><a href="/committees">{{committeeCount}} committees</a></h2><hr>
+          <h2><a href="/committees">{{committeeCount}} committees</a></h2>
+          <md-divider></md-divider><br>
 
           <div class="container">
             <div class='md-padding' layout="row" layout-align="center" layout-wrap>
@@ -213,8 +215,9 @@
 
       <div id="members">
         <div class="container">
-          <!--<p>local counties / search</p>-->
-          <h2>{{userCount}} members</h2><hr>
+          <h2>{{userCount}} members</h2>
+          <md-divider></md-divider><br>
+
           <div class='md-padding' layout="row" layout-align="center" layout-wrap>
             <md-card flex="20" ng-repeat="user in users">
               <a href="/member/{{user.username}}">
