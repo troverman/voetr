@@ -28,6 +28,11 @@ angular.module( 'voetr.account', [
    	$scope.coverLoading = false;
     $scope.coverPercentage = 0;
 
+    $scope.localPassport = $scope.user.passports.filter(function(e){return e.protocol == 'local'});
+    $scope.facebookPassport = $scope.user.passports.filter(function(e){return e.provider == 'facebook'}).length>0;
+    $scope.twitterPassport = $scope.user.passports.filter(function(e){return e.provider == 'twitter'}).length>0;
+    $scope.googlePassport = $scope.user.passports.filter(function(e){return e.provider == 'google'}).length>0;
+
     $scope.uploadAvatar = function(file){
         $scope.avatarLoading = true;
         Upload.upload({
