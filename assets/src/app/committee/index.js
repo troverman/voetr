@@ -108,7 +108,7 @@ angular.module( 'voetr.committee', [
     $scope.committee = committee;
 })
 
-.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteVoteModel) {
+.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteVoteModel) {
     $scope.committee = committee;
     if (committee == undefined){
         $location.url('committees');
@@ -137,9 +137,7 @@ angular.module( 'voetr.committee', [
     };
 
     $scope.createVote = function(newVote, bill) {
-        if ($scope.currentUser == undefined){
-            return null;
-        }
+        if ($scope.currentUser == undefined){$location.path('/register');}
         $scope.newVote.bill = bill.id;
         $scope.newVote.user = config.currentUser.id;
         $scope.newVote.vote = newVote;
@@ -147,10 +145,6 @@ angular.module( 'voetr.committee', [
             $scope.newVote = {};
         });
     };
-
-	$scope.changeVote = function(vote, flag){
-		$scope.vote = vote==flag?'None':flag;
-	};
 
     $sailsSocket.subscribe('bill', function (envelope) {
         switch(envelope.verb) {

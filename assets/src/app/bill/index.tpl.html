@@ -63,13 +63,13 @@
 			</div>
 			<!--/if logged in-->
 			<div class="commentContainer" ng-repeat="comment in comments | orderBy:'-createdAt'">
-				<a href="/comment/{{comment.id}}">link</a>
+				<!--<a href="/comment/{{comment.id}}">link</a>-->
 				<a href="/member/{{comment.user.username}}">
-					<img src="{{comment.user.avatarUrl}}">
+					<img style="height:64px;" src="{{comment.user.avatarUrl}}">
 					<p>{{comment.user.username}}</p>
 				</a>
 				<p>{{comment.comment}}</p>
-				<md-divider></md-divider>
+				<md-divider></md-divider><br>
 			</div>
 		</div>
 		<div style="height:100px;"></div>

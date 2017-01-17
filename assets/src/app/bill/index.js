@@ -38,7 +38,7 @@ angular.module( 'voetr.bill', [
 
 })
 
-.controller( 'BillCtrl', function BillController( $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel, VoteVoteModel ) {
+.controller( 'BillCtrl', function BillController( $location, $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
@@ -50,9 +50,7 @@ angular.module( 'voetr.bill', [
     console.log(votes)
 
     $scope.createVote = function(voteInteger, newVote) {
-        if ($scope.currentUser == undefined){
-            return null;
-        }
+        if ($scope.currentUser == undefined){$location.path('/register');}
         $scope.newVote.user = config.currentUser.id;
         $scope.newVote.bill = bill.id;
         $scope.newVote.vote = newVote.id;
