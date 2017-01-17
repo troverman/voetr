@@ -1,6 +1,6 @@
 
 <!--login-->
-<div class="login-form container" style="min-height:100%;">
+<!--<div class="login-form container" style="min-height:100%;">
     <div class="row">
         <div class="col-md-12">
             <h3>Login</h3>
@@ -43,20 +43,26 @@
             <a href="/register">register an account</a>
         </div>
     </div>
-</div>
+</div>-->
 <!--<div ng-include="'footer/index.tpl.html'"></div>-->
 
-<!--
 <div class="log-background">
     <div class="blkoverlay"></div>
     <div class="log-form">
         <h2><span class="inline-logo"><i style="color:#2ab996" class="fa fa-check"></i>oetr</span> - login</h2>
         <form role="form" action="/auth/local" method="post">
-            <input placeholder="username" title="username" type="text"> 
+            <input name="identifier" placeholder="email or username" title="username" type="text"> 
             <input placeholder="password" title="username" type="password"> 
-            <button class="btn" type="submit">sign in</button> 
-            <a class="already" href="/register">register an account</a>
+            <button style="width:100%" class="btn" type="submit">Sign in</button> 
         </form>
+        <div style="text-align:center">
+            <a class="" href="/register">Sign up for Voetr</a>
+        </div>
+        <br><md-divider></md-divider>
+        <div style="text-align:center;padding:2em">
+            <a style="width:100%;margin:3px" class="btn" href="/auth/facebook">Facebook</a>
+            <a style="width:100%;margin:3px" class="btn" href="/auth/twitter">Twitter</a>
+            <a style="width:100%;margin:3px" class="btn" href="/auth/google">Google</a>
+        </div> 
     </div>
 </div>
--->
