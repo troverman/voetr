@@ -50,7 +50,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($location, $sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel ) {
+.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -63,11 +63,6 @@ angular.module( 'voetr.home', [
 	$scope.constituents = constituents;
     $scope.representatives = representatives;
     $scope.votes = votes;
-	if (window.location.hash == "#_=_"){
-		//window.location = '/';
-		$location.hash = '#';
-	}
-
 
     if ($scope.currentUser){
 

@@ -32,6 +32,10 @@ angular.module( 'voetr', [
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
 
+
+    if (window.location.hash && window.location.hash == '#_=_') {
+        window.location.hash = '';
+    }
     $urlRouterProvider.when('/about/', '/about');
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
