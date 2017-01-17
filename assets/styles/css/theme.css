@@ -63,7 +63,6 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  //width: 20%;
   border-top: 1px solid #2AB996;
 }
 
@@ -475,7 +474,7 @@ hr {
   min-width: 320px;
   max-width: 475px;
   background: #fff;
-  top: 20%;
+  top: 25%;
   position: relative;
   margin: auto;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
