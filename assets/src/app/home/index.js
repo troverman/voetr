@@ -64,7 +64,7 @@ angular.module( 'voetr.home', [
     $scope.representatives = representatives;
     $scope.votes = votes;
 	if (window.location.hash == "#_=_"){
-		window.location.hash = '!';
+		window.location = '/';
 	}
 
 
