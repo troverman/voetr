@@ -3,15 +3,9 @@
 </div>
 <div class="container">
 	<a href="/member/{{currentUser.username}}"><img class="avatar" src="{{user.avatarUrl}}"/></a>
-
 	<h3><a href="/member/{{currentUser.username}}">{{user.username}}</a></h3>
-	<!--
-	<p>{{user.email}}</p>
-	<p>{{user.first_name}}</p>
-	-->
-
 	<md-divider></md-divider>
-	<br><br><br>
+	<br><br>
 
 	<form name="acountForm" id="accountForm" ng-submit="accountSave()" >
 		<div layout="column" layout-align="center stretch">
@@ -79,7 +73,7 @@
 	<br><br>
 
 
-	<h3>settings</h3>
+	<h3>Settings</h3>
 	<md-divider></md-divider><br>
 	<h4>email settings</h4>
 	<a ng-show="localPassport.length==0" class="btn btn-primary" href="/auth/facebook">connect email</a>
