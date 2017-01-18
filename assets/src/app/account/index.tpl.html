@@ -61,7 +61,7 @@
 	<h3>Verified Account</h3>
 	<md-divider></md-divider>
 	<h4>government identification</h4>
-	<p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>
+	<p>by providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>
 	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
 		<img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
 	</div>
@@ -70,7 +70,10 @@
 		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{identificationPercentage}}%;"></div>
 	</div>
 	<br>
-	<p>address</p>
+	<md-input-container>
+		<label class="modal-label">Address</label>
+		<input ng-model="user.address" required name="address" type="text">
+	</md-input-container>
 	<!--<p>ssn</p>-->
 
 	<h3>Connected Accounts</h3>

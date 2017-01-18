@@ -101,22 +101,20 @@ passport.connect = function (req, query, profile, next) {
   console.log(profile)
 
   if (provider == 'facebook'){
-    console.log("HELLO!!!!! FACEBOOK")
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
-    user.socialAccounts.facebook.profilePic = profile.photos[0].value;
-    console.log("HELLO!!!!! FACEBOOK")
+    user.socialAccounts.facebook.profilePic = 'https://graph.facebook.com/' + profile.id + '/picture?type=large'
   }
   if (provider == 'google'){
     user.socialAccounts.google = {};
     user.socialAccounts.google.profileUrl = profile._json.url;
     user.socialAccounts.google.displayName = profile.displayName;
-    user.socialAccounts.google.profilePic = profile.photos[0].value;
+    //user.socialAccounts.google.profilePic = profile.photos[0].value;
   }
   if (provider == 'twitter'){
     user.socialAccounts.twitter = {};
-    user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.username;
+    user.socialAccounts.twitter.profileUrl = 'https://twitter.com/' + profile.username;
     user.socialAccounts.twitter.displayName = profile.displayName;
     user.socialAccounts.twitter.handle = profile.username;
     user.socialAccounts.twitter.profilePic = profile._json.profile_image_url_https;
