@@ -42,6 +42,11 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.post(url, newModel).then(success, error);
     };
 
+    this.removePassport = function(model) {
+        var url = '/auth/providers/' + model;
+        return $sailsSocket.delete(url).then(success, error);
+    };
+
     var success = function(response) {
         return response.data;
     };

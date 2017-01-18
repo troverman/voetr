@@ -96,7 +96,7 @@ passport.connect = function (req, query, profile, next) {
   else {
     user.socialAccounts = req.user.socialAccounts
   }
-
+  console.log(provider)
   switch (provider) {
     case 'facebook':
       user.socialAccounts.facebook = {};

@@ -62,13 +62,13 @@
 	{{user}}
 	<a ng-show="!facebookPassport" class="btn btn-primary" href="/auth/facebook">connect facebook</a>
 	<!--information about profile here... socialAccount connection... load this for the backend.. use bidio as ex..{{socialAccount['facebook']}}-->
-	<a ng-show="facebookPassport" class="btn btn-primary" href="/auth/facebook">disconnect facebook</a>
+	<a ng-show="facebookPassport" class="btn btn-primary" ng-click="removePassport('facebook')">disconnect facebook</a>
 	<a ng-show="!twitterPassport"class="btn btn-primary" href="/auth/twitter">connect twitter</a>
 	<!--information about profile here... socialAccount connection... load this for the backend.. use bidio as ex..{{socialAccount['facebook']}}-->
-	<a ng-show="twitterPassport"class="btn btn-primary" href="/auth/twitter">disconnect twitter</a>
+	<a ng-show="twitterPassport"class="btn btn-primary" ng-click="removePassport('twitter')">disconnect twitter</a>
 	<a ng-show="!googlePassport"class="btn btn-primary" href="/auth/google">connect google</a>
 	<!--information about profile here... socialAccount connection... load this for the backend.. use bidio as ex..{{socialAccount['facebook']}}-->
-	<a ng-show="googlePassport"class="btn btn-primary" href="/auth/google">disconnect google</a>
+	<a ng-show="googlePassport"class="btn btn-primary" ng-click="removePassport('google')">disconnect google</a>
 
 	<!--<a class="btn btn-primary" href="/auth/btc">connect btc wallet</a>-->
 	<br><br>

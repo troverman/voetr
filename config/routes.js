@@ -66,6 +66,7 @@ module.exports.routes = {
   'post /auth/local/:action': 'AuthController.callback',
   'get /auth/:provider': 'AuthController.provider',
   'get /auth/:provider/callback': 'AuthController.callback',
+  'delete /auth/providers/:provider': 'UserController.removePassport',
 
   /**
    * Bill routes

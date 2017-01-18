@@ -71,7 +71,6 @@ module.exports = {
 		});
 	},
 
-
 	create: function (req, res) {
 		var model = {
 			username: req.param('username'),
@@ -146,8 +145,56 @@ module.exports = {
 		    return res.json({amazonUrl: amazonUrl});
 		});
 
+	},
+
+	removePassport: function(req,res){
+		var id = req.user.id;
+		var provider = req.param("provider");
+		Passport.destroy({user: id, provider: provider})
+		.then(function(passport){
+			//User.find(id).then(function(model){
+				//model.socialAccounts[(passport[0].provider).toString()] = {};
+				//User.update({id:id}, model);
+			//})
+			res.json(passport);
+		})
+		.fail(function(err){
+			res.json(err);
+		});
+	},
+
+	reset: function(req,res){
+		var token = req.param("token");
+		var newPassword = req.param("password");
+		User.find({passwordResetToken: token, resetTokenExpiresAfter: {">": Date.now() }})
+		.populate("passports")
+		.then(function(user){
+			if (!user.length){
+				req.flash("error", "Reset token is invalid or expired");
+				res.redirect("/reset/" + token);
+			}
+
+			/*shouldnt have to throw an error here but make sure only users who have
+			local auth setup can get here*/
+			var localPassport = user[0].passports.filter(function(passport){
+				return passport.protocol == "local";
+			})[0];
+
+			Passport.update({id: localPassport.id}, {password: newPassword})
+			.then(function(user){
+				if (!user.length){
+					req.flash("error", "Password was not reset");
+					res.redirect("/reset/" + token);
+				}
+				return res.redirect("/reset-success");
+			})
+			.fail(function(err){
+				res.negotiate(err);
+			});
+		})
+		.fail(function(err){
+			res.negotiate(err);
+		});
 	}
-
-
 
 };

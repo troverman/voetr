@@ -93,6 +93,21 @@ angular.module( 'voetr.account', [
         })
     };
 
+    $scope.removePassport = function(provider) {
+        UserModel.removePassport(provider)
+        .then(function(result) {
+            $scope.user.passports = $scope.passports.filter(function(val, ind, arr) {
+                return !(arr[ind].identifier === result[0].identifier);
+            });
+            $scope.user.socialAccounts[(result[0].provider).toString()] = {}
+            //UserModel.update(user)
+        });
+    }
+
+    $scope.hasSinglePassport = function() {
+        return $scope.user.passports.length <= 1;
+    }
+
     $scope.accountSave = function(){
         $scope.saving = true;
         var model = {
