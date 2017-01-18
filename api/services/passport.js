@@ -137,7 +137,6 @@ passport.connect = function (req, query, profile, next) {
     provider   : provider
   , identifier : query.identifier.toString()
   }, function (err, passport) {
-    console.log(err); console.log(passport);
     if (err) {
       return next(err);
     }
@@ -205,7 +204,8 @@ passport.connect = function (req, query, profile, next) {
           }
           next(err, req.user);
         });
-
+        
+        console.log('HELLO!!!!!!!!')
         User.update({id: req.user.id}, user).exec(function (err, updated){
           if (err) {
             console.log(err)

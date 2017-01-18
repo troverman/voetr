@@ -1,8 +1,10 @@
-<div style="height:25em;width: 100%;overflow: hidden;">
-<img style="width:100%;min-height:35em;" src="{{user.coverUrl}}">
+<!--we need some hover css here... we have on click editing-->
+<div style="height:25em;width: 100%;overflow: hidden;" ngf-accept="'image/*'" ngf-drop ngf-select="uploadCover($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true" href="#">
+	<img style="width:100%;min-height:35em;" src="{{user.coverUrl}}">
 </div>
 <div class="container">
-	<a href="/member/{{currentUser.username}}"><img class="avatar" src="{{user.avatarUrl}}"/></a>
+	<!--we need some hover css here... we have on click editing-->
+	<a ngf-accept="'image/*'" ngf-drop ngf-select="uploadAvatar($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true" href="#"><img class="avatar" src="{{user.avatarUrl}}"/></a>
 	<h3><a href="/member/{{currentUser.username}}">{{user.username}}</a></h3>
 	<md-divider></md-divider>
 	<br><br>
@@ -39,7 +41,6 @@
 	<h3>Update Avatar</h3>
 	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadAvatar($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
 		<div>Drag photos or click here to upload.</div>
-		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  		
 	</div>
 	<p ng-show="avatarLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
 	<div ng-show="avatarLoading" class="progress">
@@ -49,7 +50,6 @@
 	<h3>Update Cover</h3>
 	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadCover($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
 		<div>Drag photos or click here to upload.</div>
-		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>  
 	</div>
 	<p ng-show="coverLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
 	<div ng-show="coverLoading" class="progress">
@@ -89,18 +89,15 @@
 	<h4>verified account</h4>
 	<h4>government identification</h4>
 	<p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>
-	<div 
-	>
-		<div>Drag photos or click here to upload.</div>
-		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div><img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
-  
+	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+		<img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
 	</div>
 	<p ng-show="identificationLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
 	<div ng-show="identificationLoading" class="progress">
 		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{identificationPercentage}}%;"></div>
 	</div>
 	<br>
-	<p>ssn</p>
+	<!--<p>ssn</p>-->
 
 	<div style="height:100px;"></div>
 

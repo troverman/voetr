@@ -19,7 +19,7 @@ angular.module( 'voetr.account', [
 	});
 })
 
-.controller( 'AccountCtrl', function AccountController( $scope, config, titleService, user, UserModel, Upload ) {
+.controller( 'AccountCtrl', function AccountController( $location, $scope, config, titleService, user, UserModel, Upload ) {
 	titleService.setTitle('account - voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.user = user;
@@ -99,6 +99,9 @@ angular.module( 'voetr.account', [
             $scope.user.passports = $scope.passports.filter(function(val, ind, arr) {
                 return !(arr[ind].identifier === result[0].identifier);
             });
+            $scope.facebookPassport = $scope.user.passports.filter(function(e){return e.provider == 'facebook'}).length>0;
+            $scope.twitterPassport = $scope.user.passports.filter(function(e){return e.provider == 'twitter'}).length>0;
+            $scope.googlePassport = $scope.user.passports.filter(function(e){return e.provider == 'google'}).length>0;
             $scope.user.socialAccounts[(result[0].provider).toString()] = {}
             //UserModel.update(user)
         });

@@ -66,6 +66,30 @@ hr {
   border-top: 1px solid #2AB996;
 }
 
+.upVote:hover{
+  color:white;
+  background-color:#2ab996;
+}
+.downVote:hover{
+  color:white;
+  background-color:red;
+}
+.upVoted{
+  color:white;
+  background-color:#2ab996;
+}
+.downVoted{
+  color:white;
+  background-color:red;
+}
+.upVoted:focus{
+  color:white;
+  background-color:#2ab996;
+}
+.downVoted:focus{
+  color:white;
+  background-color:red;
+}
 
 .flex {
     display: flex;
