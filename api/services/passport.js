@@ -187,7 +187,6 @@ passport.connect = function (req, query, profile, next) {
           if (err) {
             return next(err);
           }
-
           // Fetch the user associated with the Passport
           User.findOne(passport.user.id, next);
         });
@@ -204,16 +203,18 @@ passport.connect = function (req, query, profile, next) {
           if (err) {
             return next(err);
           }
-
           next(err, req.user);
         });
 
         User.update({id: req.user.id}, user).exec(function (err, updated){
           if (err) {
+            console.log(err)
+            console.log(updated)
+            console.log('IN USER UPDATE SOCIALACCOUNT')
             return;
           }
         });
-        
+
       }
       // Scenario: The user is a nutjob or spammed the back-button.
       // Action:   Simply pass along the already established session.
