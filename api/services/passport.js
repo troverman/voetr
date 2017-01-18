@@ -97,14 +97,14 @@ passport.connect = function (req, query, profile, next) {
     if (user.socialAccounts === undefined){user.socialAccounts = {};}
     else{user.socialAccounts = req.user.socialAccounts}
   }
+
   console.log(profile)
   console.log(provider);
   console.log(user);
   console.log(user.username)
   console.log(user.email)
 
-
-  /*if (provider == 'facebook'){
+  if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
@@ -115,16 +115,16 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.google.profileUrl = profile._json.url;
     user.socialAccounts.google.displayName = profile.displayName;
     user.socialAccounts.google.profilePic = profile.photos[0].value;
-  }*/
+  }
   if (provider == 'twitter'){
     user.socialAccounts.twitter = {};
     user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.username;
     user.socialAccounts.twitter.displayName = profile.displayName;
     user.socialAccounts.twitter.handle = profile.username;
     user.socialAccounts.twitter.profilePic = profile._json.profile_image_url_https;
-    console.log(user.socialAccounts);
   }
 
+  console.log(user.socialAccounts);
   console.log('BELOW THE FOLD')
   // If neither an email or a username was available in the profile, we don't
   // have a way of identifying the user in the future. Throw an error and let
@@ -207,6 +207,13 @@ passport.connect = function (req, query, profile, next) {
 
           next(err, req.user);
         });
+
+        User.update({id: req.user.id}, user).exec(function (err, updated){
+          if (err) {
+            return;
+          }
+        });
+        
       }
       // Scenario: The user is a nutjob or spammed the back-button.
       // Action:   Simply pass along the already established session.
