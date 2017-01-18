@@ -102,7 +102,7 @@ passport.connect = function (req, query, profile, next) {
   console.log(user.username)
   console.log(user.email)
 
-  if (provider == 'facebook'){
+  /*if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
@@ -120,8 +120,8 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.twitter.displayName = profile.displayName;
     user.socialAccounts.twitter.handle = profile.username;
     user.socialAccounts.twitter.profilePic = profile.photos[0].value;
-  }
-  
+  }*/
+
   console.log('BELOW THE FOLD')
   // If neither an email or a username was available in the profile, we don't
   // have a way of identifying the user in the future. Throw an error and let
