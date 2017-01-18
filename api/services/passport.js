@@ -96,6 +96,7 @@ passport.connect = function (req, query, profile, next) {
   else {
     user.socialAccounts = req.user.socialAccounts
   }
+  console.log(profile)
   console.log(provider);
   console.log(user);
   console.log(user.username)
