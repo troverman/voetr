@@ -95,8 +95,8 @@ passport.connect = function (req, query, profile, next) {
   }
   else {
     console.log(req.user.socialAccounts)
-    if (user.socialAccounts === undefined){user.socialAccounts = {};}
-    else{user.socialAccounts = req.user.socialAccounts}
+    if (user.socialAccounts === undefined){console.log('ok');user.socialAccounts = {};}
+    else{console.log('should be here');user.socialAccounts = req.user.socialAccounts;console.log(user.socialAccounts)}
   }
 
   console.log(profile)
