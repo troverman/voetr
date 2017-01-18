@@ -209,10 +209,8 @@ passport.connect = function (req, query, profile, next) {
         console.log(req.user.id)
         console.log(user)
         User.update({id: req.user.id}, user).exec(function (err, updated){
+          console.log('HELLOOO!OO!O!O!@O!O@!O@O!@OO@!O@O!@O!O@!O@O!@O!@O')
           if (err) {
-            console.log(err)
-            console.log(updated)
-            console.log('IN USER UPDATE SOCIALACCOUNT')
             return;
           }
         });
