@@ -75,6 +75,7 @@
 
 	<h3>Connected Accounts</h3>
 	<md-divider></md-divider><br>
+	{{user.socialAccounts}}
 	<a ng-show="!facebookPassport" class="btn btn-primary" href="/auth/facebook">connect facebook</a>
 	<a ng-show="facebookPassport" class="btn btn-primary" ng-click="removePassport('facebook')">disconnect facebook</a>
 	<!--information about profile here... socialAccount connection... load this for the backend.. use bidio as ex..{{socialAccount['facebook']}}-->
