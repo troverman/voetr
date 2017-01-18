@@ -241,11 +241,9 @@ function legislators(){
 					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
 					var email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
 					var socialAccounts = {
-						twitter: twitter_id,
-						facebook: facebook_id
+						twitter: {profileUrl: 'https://www.twitter.com/' + twitter_id},
+						facebook: {profileUrl: 'https://www.facebook.com/' + facebook_id}
 					};
-
-					//console.log(first_name + last_name + state + fax)
 					//console.log(bioguide_id)
 					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
 					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg', 'images/nature.jpg']
@@ -300,7 +298,7 @@ function stateLegislators(){
 					//		console.log(stateData[x])
 					//	}
 					//}
-
+					console.log(stateData[x])
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
 					var photo_url = stateData[x].photo_url;
@@ -321,7 +319,7 @@ function stateLegislators(){
 					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
 					var coverUrl = coverUrlArray[randInt];
 					//get state and district
-
+					//socialAccounts
 					var model = {
 						username: username,
 						email: email,

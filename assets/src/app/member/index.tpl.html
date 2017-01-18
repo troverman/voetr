@@ -39,9 +39,12 @@
 	      <button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button><br>
 	      <button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button><br>
 
-	      <button class="btn btn-default">contact</button><br>
+	      <br><button class="btn btn-default">contact</button><br>
 
-	      {{member.socialAccounts}}
+	      <br>
+	      <a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}">facebook</a>
+	      <a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}">twitter</a>
+	      <a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}">google</a>
 
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->

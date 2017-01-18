@@ -15,8 +15,8 @@
   color: rgba(255,255,255,0.9);
   font-size: 50px;
   font-weight: 400;
-  margin: auto;
-  margin-left:10%;
+  margin-top:auto;
+  margin-bottom:auto;
 }
 .flexible {
   max-height:500px;
