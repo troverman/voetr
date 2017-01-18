@@ -99,16 +99,12 @@ passport.connect = function (req, query, profile, next) {
   }
 
   console.log(profile)
-  console.log(provider);
-  console.log(user);
-  console.log(user.username)
-  console.log(user.email)
 
   if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
-    //user.socialAccounts.facebook.profilePic = profile.photos[0].value;
+    user.socialAccounts.facebook.profilePic = profile.photos[0].value;
   }
   if (provider == 'google'){
     user.socialAccounts.google = {};
@@ -125,7 +121,6 @@ passport.connect = function (req, query, profile, next) {
   }
 
   console.log(user.socialAccounts);
-  console.log('BELOW THE FOLD')
   // If neither an email or a username was available in the profile, we don't
   // have a way of identifying the user in the future. Throw an error and let
   // whoever's next in the line take care of it.
@@ -205,16 +200,11 @@ passport.connect = function (req, query, profile, next) {
           next(err, req.user);
         });
 
-        console.log('HELLO!!!!!!!!')
-        console.log(req.user.id)
-        console.log(user)
         User.update({id: req.user.id}, user).exec(function (err, updated){
-          console.log('HELLOOO!OO!O!O!@O!O@!O@O!@OO@!O@O!@O!O@!O@O!@O!@O')
           if (err) {
             return;
           }
         });
-
       }
       // Scenario: The user is a nutjob or spammed the back-button.
       // Action:   Simply pass along the already established session.
