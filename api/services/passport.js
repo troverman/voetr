@@ -101,10 +101,12 @@ passport.connect = function (req, query, profile, next) {
   console.log(profile)
 
   if (provider == 'facebook'){
+    console.log("HELLO!!!!! FACEBOOK")
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
     user.socialAccounts.facebook.profilePic = profile.photos[0].value;
+    console.log("HELLO!!!!! FACEBOOK")
   }
   if (provider == 'google'){
     user.socialAccounts.google = {};
