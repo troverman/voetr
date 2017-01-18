@@ -125,11 +125,12 @@ passport.connect = function (req, query, profile, next) {
     default:
       console.log('provider not caught')
   }
-  
+  console.log('BELOW THE FOLD')
   // If neither an email or a username was available in the profile, we don't
   // have a way of identifying the user in the future. Throw an error and let
   // whoever's next in the line take care of it.
   if (!user.username && !user.email) {
+    console.log('the only other spot')
     return next(new Error('Neither a username nor email was available'));
   }
 
