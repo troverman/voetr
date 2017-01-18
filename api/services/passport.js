@@ -98,7 +98,8 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts = {};
   }
   else {
-    user.socialAccounts = req.user.socialAccounts
+    if (user.socialAccounts === undefined){user.socialAccounts = {};}
+    else{user.socialAccounts = req.user.socialAccounts}
   }
   console.log(profile)
   console.log(provider);
@@ -125,7 +126,7 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.twitter.displayName = profile.name;
     user.socialAccounts.twitter.handle = profile.screen_name;
     user.socialAccounts.twitter.profilePic = profile.profile_image_url_https;
-    console.log(user.socialAccounts)
+    console.log(user.socialAccounts);
   }
 
   console.log('BELOW THE FOLD')

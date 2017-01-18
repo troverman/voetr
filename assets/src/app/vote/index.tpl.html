@@ -13,15 +13,22 @@
 		<md-divider></md-divider>
 		<br><br>
 		<div class="voteVoteContainer">
-			<div class="voteVote" ng-repeat="vote in votes">
-				{{vote.voteCount}}
-				<a href="/member/{{vote.user.username}}">
-					<img src="{{vote.user.avatarUrl}}" style="height:64px;">
-					{{vote.user.username}}
-				</a>
-				<h4>{{vote.voteString}}</h4>
-				<md-divider></md-divider>
-			</div>
+
+			<md-card class="voteVote" ng-repeat="vote in votes">
+				<md-card-title>
+					<md-card-title-text>
+						<a href="/member/{{vote.user.username}}">
+							<!--<img src="{{vote.user.avatarUrl}}" style="height:64px;">-->
+							{{vote.user.username}}
+						</a>
+						<h4>{{vote.voteString}}</h4>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-title-media>
+					<div class="md-media-lg card-media"><img class="avatar" src="{{vote.user.username}}"/></div>
+				</md-card-title-media>
+			</md-card>
+
 		</div>
 	<div>
 
