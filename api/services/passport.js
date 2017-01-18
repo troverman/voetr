@@ -125,6 +125,7 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.twitter.displayName = profile.name;
     user.socialAccounts.twitter.handle = profile.screen_name;
     user.socialAccounts.twitter.profilePic = profile.profile_image_url_https;
+    console.log(user.socialAccounts)
   }
 
   console.log('BELOW THE FOLD')
@@ -132,7 +133,6 @@ passport.connect = function (req, query, profile, next) {
   // have a way of identifying the user in the future. Throw an error and let
   // whoever's next in the line take care of it.
   if (!user.username && !user.email) {
-    console.log('the only other spot')
     return next(new Error('Neither a username nor email was available'));
   }
 
