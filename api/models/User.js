@@ -52,7 +52,7 @@ module.exports = {
             type: 'boolean',
             defaultsTo: false
         },
-        socialMedia: {
+        socialAccounts: {
             type: 'json',
         },
         party: {

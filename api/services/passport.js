@@ -89,6 +89,38 @@ passport.connect = function (req, query, profile, next) {
     user.username = profile.username;
   }
 
+  // If new user set socialAccounts to empty object, else set to preexisting
+  if (req.user === undefined) {
+    user.socialAccounts = {};
+  }
+  else {
+    user.socialAccounts = req.user.socialAccounts
+  }
+
+  switch (provider) {
+    case 'facebook':
+      user.socialAccounts.facebook = {};
+      user.socialAccounts.facebook.profileUrl = profile.profileUrl;
+      user.socialAccounts.facebook.displayName = profile.displayName;
+      user.socialAccounts.facebook.profilePic = profile.photos[0].value;
+      break;
+    case 'google':
+      user.socialAccounts.google = {};
+      user.socialAccounts.google.profileUrl = profile._json.url;
+      user.socialAccounts.google.displayName = profile.displayName;
+      user.socialAccounts.google.profilePic = profile.photos[0].value;
+      break;
+    case 'twitter':
+      user.socialAccounts.twitter = {};
+      user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.username;
+      user.socialAccounts.twitter.displayName = profile.displayName;
+      user.socialAccounts.twitter.handle = profile.username;
+      user.socialAccounts.twitter.profilePic = profile.photos[0].value;
+      break;
+    default:
+      console.log('provider not caught')
+  }
+  
   // If neither an email or a username was available in the profile, we don't
   // have a way of identifying the user in the future. Throw an error and let
   // whoever's next in the line take care of it.

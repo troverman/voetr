@@ -59,6 +59,7 @@
 	<h3>Connected Accounts</h3>
 	<md-divider></md-divider><br>
 
+	{{user}}
 	<a ng-show="!facebookPassport" class="btn btn-primary" href="/auth/facebook">connect facebook</a>
 	<!--information about profile here... socialAccount connection... load this for the backend.. use bidio as ex..{{socialAccount['facebook']}}-->
 	<a ng-show="facebookPassport" class="btn btn-primary" href="/auth/facebook">disconnect facebook</a>
@@ -88,7 +89,8 @@
 	<h4>verified account</h4>
 	<h4>government identification</h4>
 	<p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>
-	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+	<div 
+	>
 		<div>Drag photos or click here to upload.</div>
 		<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div><img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
   

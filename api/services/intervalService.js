@@ -240,7 +240,7 @@ function legislators(){
 
 					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
 					var email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
-					var socialMedia = {
+					var socialAccounts = {
 						twitter: twitter_id,
 						facebook: facebook_id
 					};
@@ -257,7 +257,7 @@ function legislators(){
 						email: email,
 						first_name: first_name,
 						last_name: last_name,
-						socialMedia: socialMedia,
+						socialAccounts: socialAccounts,
 						leadership_role:leadership_role,
 						phone: phone,
 						party: party,
