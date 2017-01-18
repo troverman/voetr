@@ -89,10 +89,6 @@ passport.connect = function (req, query, profile, next) {
     user.username = profile.username;
   }
 
-  if (!user.username && profile.hasOwnProperty('screen_name')) {
-    user.username = profile.screen_name;
-  }
-
   // If new user set socialAccounts to empty object, else set to preexisting
   if (req.user === undefined) {
     user.socialAccounts = {};
@@ -122,10 +118,10 @@ passport.connect = function (req, query, profile, next) {
   }*/
   if (provider == 'twitter'){
     user.socialAccounts.twitter = {};
-    user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.screen_name;
-    user.socialAccounts.twitter.displayName = profile.name;
-    user.socialAccounts.twitter.handle = profile.screen_name;
-    user.socialAccounts.twitter.profilePic = profile.profile_image_url_https;
+    user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.username;
+    user.socialAccounts.twitter.displayName = profile.displayName;
+    user.socialAccounts.twitter.handle = profile.username;
+    user.socialAccounts.twitter.profilePic = profile._json.profile_image_url_https;
     console.log(user.socialAccounts);
   }
 
