@@ -132,6 +132,7 @@ passport.connect = function (req, query, profile, next) {
     provider   : provider
   , identifier : query.identifier.toString()
   }, function (err, passport) {
+    console.log(err); console.log(passport);
     if (err) {
       return next(err);
     }
