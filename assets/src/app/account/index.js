@@ -96,7 +96,7 @@ angular.module( 'voetr.account', [
     $scope.removePassport = function(provider) {
         UserModel.removePassport(provider)
         .then(function(result) {
-            $scope.user.passports = $scope.passports.filter(function(val, ind, arr) {
+            $scope.user.passports = $scope.user.passports.filter(function(val, ind, arr) {
                 return !(arr[ind].identifier === result[0].identifier);
             });
             $scope.facebookPassport = $scope.user.passports.filter(function(e){return e.provider == 'facebook'}).length>0;

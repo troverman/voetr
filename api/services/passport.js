@@ -204,8 +204,10 @@ passport.connect = function (req, query, profile, next) {
           }
           next(err, req.user);
         });
-        
+
         console.log('HELLO!!!!!!!!')
+        console.log(req.user.id)
+        console.log(user)
         User.update({id: req.user.id}, user).exec(function (err, updated){
           if (err) {
             console.log(err)
