@@ -94,6 +94,7 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts = {};
   }
   else {
+    console.log(req.user.socialAccounts)
     if (user.socialAccounts === undefined){user.socialAccounts = {};}
     else{user.socialAccounts = req.user.socialAccounts}
   }
@@ -200,10 +201,12 @@ passport.connect = function (req, query, profile, next) {
           next(err, req.user);
         });
 
+        console.log(user);
         User.update({id: req.user.id}, user).exec(function (err, updated){
           if (err) {
             return;
           }
+          console.log('UPDATE SOCIAL ACCOUNTS....')
         });
       }
       // Scenario: The user is a nutjob or spammed the back-button.
