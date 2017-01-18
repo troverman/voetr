@@ -259,6 +259,7 @@ function legislators(){
 						leadership_role:leadership_role,
 						phone: phone,
 						party: party,
+						state: state,
 						term_end: term_end,
 						term_start: term_start,
 						bioguide_id: bioguide_id,
@@ -734,8 +735,8 @@ module.exports.intervalService = function(){
 	//committees();
 	//recentBills();
 
-	//legislators();
-	//stateLegislators();
+	legislators();
+	stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 

@@ -7,6 +7,7 @@
       <h2><a href="/member/{{currentUser.username}}">{{currentUser.username}}</a></h2>
       <h5>representatives - {{representatives.length}}</h5>
       <h5>constituents - {{constituents.length}}</h5>
+      <!--activity, recommended votes-->
     </div>
     <div class="col-md-8">
 
@@ -186,7 +187,23 @@
     <div id="members">
       <div class="container">
         <h2>{{userCount}} members</h2>
+        <button ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
         <md-divider></md-divider><br>
+
+        <div class='md-padding' layout="row" layout-align="center" layout-wrap>
+          <md-card flex="20" ng-repeat="user in officialRepresentatives">
+            <a href="/member/{{user.username}}">
+              <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
+            </a>
+            <md-card-title>
+              <md-card-title-text>
+                <a href="/member/{{user.username}}">
+                  <span class="">{{user.username}}</span>
+                </a>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
+        </div>
 
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card flex="20" ng-repeat="user in users">
