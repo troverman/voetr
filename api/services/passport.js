@@ -94,9 +94,8 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts = {};
   }
   else {
-    console.log(req.user.socialAccounts)
-    if (user.socialAccounts === undefined){console.log('ok');user.socialAccounts = {};}
-    else{console.log('should be here');user.socialAccounts = req.user.socialAccounts;console.log(user.socialAccounts)}
+    if (req.user.socialAccounts === undefined){user.socialAccounts = {};}
+    else{user.socialAccounts = req.user.socialAccounts;}
   }
 
   console.log(profile)
@@ -203,7 +202,7 @@ passport.connect = function (req, query, profile, next) {
 
         console.log(user);
         User.update({id: req.user.id}, user).exec(function (err, updated){
-          if (err) {
+          if (err) {console.log(err);
             return;
           }
           console.log('UPDATE SOCIAL ACCOUNTS....')
