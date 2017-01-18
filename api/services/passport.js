@@ -89,6 +89,10 @@ passport.connect = function (req, query, profile, next) {
     user.username = profile.username;
   }
 
+  if (!user.username && profile.hasOwnProperty('screen_name')) {
+    user.username = profile.screen_name;
+  }
+
   // If new user set socialAccounts to empty object, else set to preexisting
   if (req.user === undefined) {
     user.socialAccounts = {};
@@ -102,27 +106,26 @@ passport.connect = function (req, query, profile, next) {
   console.log(user.username)
   console.log(user.email)
 
-  console.log(profile.photos[0].value)
 
   /*if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
-    user.socialAccounts.facebook.profilePic = profile.photos[0].value;
+    //user.socialAccounts.facebook.profilePic = profile.photos[0].value;
   }
   if (provider == 'google'){
     user.socialAccounts.google = {};
     user.socialAccounts.google.profileUrl = profile._json.url;
     user.socialAccounts.google.displayName = profile.displayName;
     user.socialAccounts.google.profilePic = profile.photos[0].value;
-  }
+  }*/
   if (provider == 'twitter'){
     user.socialAccounts.twitter = {};
-    user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.username;
-    user.socialAccounts.twitter.displayName = profile.displayName;
-    user.socialAccounts.twitter.handle = profile.username;
-    user.socialAccounts.twitter.profilePic = profile.photos[0].value;
-  }*/
+    user.socialAccounts.twitter.profileUrl = 'http://twitter.com/' + profile.screen_name;
+    user.socialAccounts.twitter.displayName = profile.name;
+    user.socialAccounts.twitter.handle = profile.screen_name;
+    user.socialAccounts.twitter.profilePic = profile.profile_image_url_https;
+  }
 
   console.log('BELOW THE FOLD')
   // If neither an email or a username was available in the profile, we don't

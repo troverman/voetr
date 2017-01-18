@@ -41,7 +41,7 @@ module.exports.passport = {
       clientID: '396532397104248',
       clientSecret: 'b9a7a7f3c8fdd25f24b5a32ce8498479',
       //scope: ['displayName', 'email', 'link', 'picture.type(small)', 'public_profile', 'user_friends']
-      scope: ['email','public_profile', 'picture.type(small)']
+      scope: ['email','public_profile']
     }
   },
 
