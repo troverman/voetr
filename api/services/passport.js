@@ -102,6 +102,8 @@ passport.connect = function (req, query, profile, next) {
   console.log(user.username)
   console.log(user.email)
 
+  console.log(profile.photos[0].value)
+
   /*if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
