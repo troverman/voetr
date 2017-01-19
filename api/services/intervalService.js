@@ -14,7 +14,8 @@ function bills(){
     	if (!error) {
         	var billData = body.results;
         	for (i in billData){
-        		console.log(billData[i])
+        		console.log(billData[i]);
+
         		/*
 				console.log(billData[i]);
         		sails.log(billData[i].bill_id);
@@ -66,6 +67,7 @@ function bills(){
 						console.log(bill);
 					}
 				});*/
+
         	}
     	}
 	});
@@ -84,8 +86,9 @@ function recentBills(){
 				var fullLink = 'http://api.fdsys.gov/link?collection=bills&billtype='+type+'&billnum='+number+'&congress='+congress+'&link-type=html';
 				(function(fullLink, bills,x) {
 				request(fullLink, function (error, response, body) {
-
-
+				if (body){
+					if (body.trim().substring(0, 2)=="<!"){body = null;}
+				}
 				//console.log(bills[x])
 				var title = bills[x].title_without_number;
 				var billContent = bills[x].display_number;
@@ -101,7 +104,7 @@ function recentBills(){
 					displayId: bills[x].id,
 					user: 1
 				};
-				console.log(model)
+				//console.log(model)
 				Bill.findOrCreate({displayNumber:displayNumber}, model)
 				.exec(function(err, billModel) {
 					if (!err) {
