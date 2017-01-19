@@ -38,7 +38,7 @@ angular.module( 'voetr.bill', [
 
 })
 
-.controller( 'BillCtrl', function BillController( $location, $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel, VoteVoteModel ) {
+.controller( 'BillCtrl', function BillController( $location, $sce, $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
@@ -46,6 +46,9 @@ angular.module( 'voetr.bill', [
     $scope.votes = votes;
     $scope.comments = comments;
     $scope.currentUser = config.currentUser;
+
+    $scope.billContent = $sce.trustAsHtml($scope.bill.fullLink);
+    console.log($scope.billContent)
 
     console.log(votes)
 

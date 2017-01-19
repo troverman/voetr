@@ -5,79 +5,70 @@ var _ = require('lodash');
 
 function bills(){
 
-	var url = "http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70"
-	request({
-			    url: url,
-			    json: true
-			}, function (error, response, body) {
+	var model= {
+		url: 'http://congress.api.sunlightfoundation.com/bills?apikey=c16a6c623ee54948bac2a010ea6fab70',
+		json: true,
+	};
 
-				//sails.log(body);
+	request(model, function (error, response, body) {
+    	if (!error) {
+        	var billData = body.results;
+        	for (i in billData){
+        		console.log(billData[i])
+        		/*
+				console.log(billData[i]);
+        		sails.log(billData[i].bill_id);
+        		sails.log(billData[i].bill_type);
+        		sails.log(billData[i].chamber);
+        		sails.log(billData[i].committee_ids);
+        		sails.log(billData[i].congress);
+				sails.log(billData[i].cosponsors_count);
+        		sails.log(billData[i].enacted_as);
+        		sails.log(billData[i].history);
+				sails.log(billData[i].history.active);
+        		sails.log(billData[i].history.awaiting_signature);
+        		sails.log(billData[i].history.enacted);
+				sails.log(billData[i].history.vetoed);
+        		sails.log(billData[i].introduced_on);
+        		sails.log(billData[i].last_action_at);
+        		sails.log(billData[i].last_version_on);
+        		sails.log(billData[i].last_vote_at);
+				sails.log(billData[i].official_title);
+				sails.log(billData[i].popular_title);
+				sails.log(billData[i].related_bill_ids);
+				sails.log(billData[i].short_title);
+				sails.log(billData[i].sponsor);
+				sails.log(billData[i].sponsor.first_name);
+				sails.log(billData[i].sponsor.last_name);
+				sails.log(billData[i].sponsor.title);
+				sails.log(billData[i].sponsor_id);
+				sails.log(billData[i].urls);
+				sails.log(billData[i].urls.congress);
+				*/
 
-		    	if (!error) {
+				var title = billData[i].official_title;
+				var billContent = billData[i].bill_id + ' : ' + billData[i].official_title + ' : ' + billData[i].sponsor + ' : ' + billData[i].introduced_on + ' : ' + billData[i].urls.congress
+				var model = {
+					billContent: billContent,
+					committee: 1,
+					title: title,
+					urlTitle: title.replace(/ /g,"-").toLowerCase(),
+					user: 1
+				};
 
-		        	var billData = body.results;
-		        	for (i in billData){
-		        		//console.log(billData[i].summary);
-		        		console.log(billData[i]);
-		        		/*
-		        		sails.log(billData[i].bill_id);
-		        		sails.log(billData[i].bill_type);
-		        		sails.log(billData[i].chamber);
-		        		sails.log(billData[i].committee_ids);
-		        		sails.log(billData[i].congress);
-						sails.log(billData[i].cosponsors_count);
-		        		sails.log(billData[i].enacted_as);
-		        		sails.log(billData[i].history);
-						sails.log(billData[i].history.active);
-		        		sails.log(billData[i].history.awaiting_signature);
-		        		sails.log(billData[i].history.enacted);
-						sails.log(billData[i].history.vetoed);
-		        		sails.log(billData[i].introduced_on);
-		        		sails.log(billData[i].last_action_at);
-		        		sails.log(billData[i].last_version_on);
-		        		sails.log(billData[i].last_vote_at);
-						sails.log(billData[i].official_title);
-						sails.log(billData[i].popular_title);
-						sails.log(billData[i].related_bill_ids);
-						sails.log(billData[i].short_title);
-						sails.log(billData[i].sponsor);
-						sails.log(billData[i].sponsor.first_name);
-						sails.log(billData[i].sponsor.last_name);
-						sails.log(billData[i].sponsor.title);
-						sails.log(billData[i].sponsor_id);
-						sails.log(billData[i].urls);
-						sails.log(billData[i].urls.congress);
-						*/
-
-
-						var title = billData[i].official_title;
-						var billContent = billData[i].bill_id + ' : ' + billData[i].official_title + ' : ' + billData[i].sponsor + ' : ' + billData[i].introduced_on + ' : ' + billData[i].urls.congress
-						//console.log(billData[i].bill_id);
-						var model = {
-							billContent: billContent,
-							committee: 1,
-							title: title,
-							urlTitle: title.replace(/ /g,"-").toLowerCase(),
-							user: 1
-						};
-
-
-						/*Bill.findOrCreate(model, model)
-						.exec(function(err, bill) {
-							if (err) {
-								return console.log(err);
-							}
-							else {
-								Bill.publishCreate(bill);
-								console.log(bill);
-							}
-						});*/
-		        	}
-
-
-		    	}
-		});
-
+				/*Bill.findOrCreate(model, model)
+				.exec(function(err, bill) {
+					if (err) {
+						return console.log(err);
+					}
+					else {
+						Bill.publishCreate(bill);
+						console.log(bill);
+					}
+				});*/
+        	}
+    	}
+	});
 };
 
 function recentBills(){
@@ -86,11 +77,23 @@ function recentBills(){
 		if (!err) {
 			var bills = res.objects;
 			for (x in bills){
+				//maybe store the full html vs an api link
+				var congress = bills[x].congress;
+				var type = bills[x].bill_type_label.replace(/[,.]/g , '').toLowerCase();
+				var number = bills[x].display_number.split(" ")[1];
+				var fullLink = 'http://api.fdsys.gov/link?collection=bills&billtype='+type+'&billnum='+number+'&congress='+congress+'&link-type=html';
+				(function(fullLink, bills,x) {
+				request(fullLink, function (error, response, body) {
+
+
+				//console.log(bills[x])
 				var title = bills[x].title_without_number;
 				var billContent = bills[x].display_number;
 				var displayNumber = bills[x].display_number;
+				//console.log(fullLink);
 				var model = {
 					billContent: bills[x],
+					fullLink: body,
 					displayNumber: displayNumber,
 					committee: 1,
 					title: title,
@@ -98,6 +101,7 @@ function recentBills(){
 					displayId: bills[x].id,
 					user: 1
 				};
+				console.log(model)
 				Bill.findOrCreate({displayNumber:displayNumber}, model)
 				.exec(function(err, billModel) {
 					if (!err) {
@@ -149,11 +153,11 @@ function recentBills(){
 																			};
 
 																			//console.log(model);
-																			VoteVote.find({bill: billModel, vote:voteModel, user:userModel[0]})
+																			/*VoteVote.find({bill: billModel, vote:voteModel, user:userModel[0]})
 																			.then(function(voteVoteModel) {
 																				console.log('...')
 																				if(voteVoteModel.length >0){console.log(voteVoteModel)}
-																			});
+																			});*/
 
 																			VoteVote.findOrCreate({bill: billModel.id, vote:voteModel.id, user: user}, model)
 																			.exec(function(err, voteVoteModel) {
@@ -187,17 +191,14 @@ function recentBills(){
 						})(billModel);
 					}
 				});
+				Bill.update({displayNumber: displayNumber}, model).then(function(){console.log('UPDATED THE BILL!')});
+				});
+				})(fullLink, bills, x);
+
 			}
 		}
 	});
 };
-
-
-function recentVotes(){
-
-};
-
-
 
 function legislators(){
 
@@ -484,66 +485,15 @@ function stateBills(state){
 
 };
 
-function stateBillVotes(state){
-
-};
-
-
 function govTracker(){
 
-	/*govTrack.findRole({ current: true }, function(err, res) {
-	  if (!err) {
-	  	for (x in res.objects){
-	  		console.log(res.objects[x].person);
-	  	}
-	  }
-	});*/
-
-	//govTrack.findBill({congress:114}, function(err, res) {
-		//console.log(res)
-		//var billArray = res.objects;
-		//for (x in billArray){
-		//	console.log( billArray[x].congress);
-		//}
-	//});
-
 	govTrack.findVote({sort: '-created', limit:1000}, function(err, res) {
-
 		for (x in res.objects){
-			//console.log(res.objects[x])
 			if (res.objects[x].related_bill != null){
 				console.log(res.objects[x].related_bill)// --> cre8
 			}
-			//govTrack.findVoteVoter({vote: res.objects[x].id}, function(err, res) {
-				//if (!err) {console.log(res)}
-			//});
 		}
-
 	});
-
-	/*govTrack.findBill({sort: '-introduced_date', limit:1000}, function(err, res) {
-		if (!err) {
-			for (x in res.objects){
-				console.log(res.objects[x].introduced_date)
-				var relatedBill = res.objects[x].title_without_number;
-				govTrack.findVote({related_bill: res.objects[x].id}, function(err, res) {
-					if (!err) {
-						for (x in res.objects){
-							govTrack.findVoteVoter({vote: res.objects[x].id}, function(err, res) {
-								if (!err) {
-									for (x in res.objects){
-										console.log(res.objects[x].person.firstname + ' ' + res.objects[x].person.lastname + ' : ' + relatedBill + ' : ' + res.objects[x].option.value);
-									}
-								}
-							});
-						}
-					}
-				});
-			}
-		}
-	});*/
-
-
 
 };
 
@@ -618,38 +568,37 @@ function proPublica(){
 
 function getLegislators(lat, lng){
 
-	var deferred = Q.defer();
-		var lat = req.param('lat');
-		var lng = req.param('lng');
-		var stateModel= {
-			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
-			json: true
-		};
-		var federalModel = {
-			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
-			json: true
-		};
-		rp(stateModel).then(function(stateRepresentatives){
-			return [rp(federalModel), stateRepresentatives];
-		}).spread(function(federalRepresentatives, stateRepresentatives) {
-			return [federalRepresentatives.results, stateRepresentatives];
-		}).then(function(representatives){
-			var federalRepresentatives = representatives[0];
-			var stateRepresentatives = representatives[1];
-			var bioguide_id = federalRepresentatives.map(function(obj){return obj.bioguide_id});
-			var leg_id = stateRepresentatives.map(function(obj){return obj.leg_id});
-			User.find({bioguide_id:bioguide_id}).then(function(federalRepresentatives){
-				var federalRepresentativesModel = federalRepresentatives;
-				representatives.concat(federalRepresentatives);
-				User.find({leg_id:leg_id}).then(function(stateRepresentatives){
-					var representatives = federalRepresentativesModel.concat(stateRepresentatives)
-					//res.json(representatives)
-		    	});
+	var lat = req.param('lat');
+	var lng = req.param('lng');
+	var stateModel= {
+		url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
+		json: true
+	};
+	var federalModel = {
+		url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+		json: true
+	};
+	rp(stateModel).then(function(stateRepresentatives){
+		return [rp(federalModel), stateRepresentatives];
+	}).spread(function(federalRepresentatives, stateRepresentatives) {
+		return [federalRepresentatives.results, stateRepresentatives];
+	}).then(function(representatives){
+		var federalRepresentatives = representatives[0];
+		var stateRepresentatives = representatives[1];
+		var bioguide_id = federalRepresentatives.map(function(obj){return obj.bioguide_id});
+		var leg_id = stateRepresentatives.map(function(obj){return obj.leg_id});
+		User.find({bioguide_id:bioguide_id}).then(function(federalRepresentatives){
+			var federalRepresentativesModel = federalRepresentatives;
+			representatives.concat(federalRepresentatives);
+			User.find({leg_id:leg_id}).then(function(stateRepresentatives){
+				var representatives = federalRepresentativesModel.concat(stateRepresentatives)
+				//res.json(representatives)
 	    	});
-		})
-		.catch(function(err) {
-			console.log(err);
-		});	
+    	});
+	})
+	.catch(function(err) {
+		console.log(err);
+	});	
 
 };
 
@@ -726,7 +675,6 @@ module.exports.intervalService = function(){
 		}
 	}
 
-	//getLegislators(35.79, -78.78)
 
 	//proPublica();
 	//bills()
@@ -734,7 +682,10 @@ module.exports.intervalService = function(){
 	//committees();
 	//recentBills();
 
-	legislators();
+	//dataService.federalBills();
+	//dataService.federalVotes();
+
+	//legislators();
 	//stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);

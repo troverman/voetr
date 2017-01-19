@@ -100,7 +100,6 @@ module.exports = {
 							user: 1
 						};
 
-
 						console.log(billData[key])
 						//console.log(model);
 						/*Bill.create(model)
@@ -117,34 +116,6 @@ module.exports = {
 			    }
 		});
 
-	},
-
-	votes: function(req, res) {
-		console.log('ok')
-		var govTrack = require('govtrack-node');
-
-		/*var url = "http://congress.api.sunlightfoundation.com/votes?apikey=c16a6c623ee54948bac2a010ea6fab70";
-		console.log(url);
-
-		request({
-			    url: url,
-			    json: true
-			}, function (error, response, body) {
-
-			    if (!error && response.statusCode === 200) {
-
-			        var voteData = body.results;
-			        console.log('ok');
-			        console.log(voteData);
-					for (var key in voteData) {
-						var vote = voteData[key];
-						var bill_id = vote.bill_id;
-						var question = vote.question;
-						var voters = vote.voters;
-						console.log(voters);
-					}
-			    }
-		});*/
 	},
 
 	addCongress: function(req, res) {
@@ -237,12 +208,9 @@ module.exports = {
 				    url: url,
 				    json: true
 				}, function (error, response, body) {
-
 				    if (!error && response.statusCode === 200) {
-
 				        var tickerData = body;
 				        console.log(tickerData);
-
 				    }
 			});
 
@@ -256,32 +224,23 @@ module.exports = {
 	currency: function(req, res) {
 
 		function ticker(){
-
 			var url = "http://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=json"
-
 			request({
 					    url: url,
 					    json: true
 					}, function (error, response, body) {
 
 					    if (!error && response.statusCode === 200) {
-
 					        var currencyData = body.list.resources;
-
 							for (var key in currencyData) {
-
 					        	var pairData = currencyData[key].resource.fields;
-
 								var name = pairData.name;
 								var price = pairData.price;
 								var symbol = pairData.symbol;
 								var timeStamp = pairData.ts;
 								var utctime = pairData.utctime;
-
 								sails.log(name);
 								sails.log(price);
-								//sails.log(timeStamp);
-
 					    	}
 
 					    }
@@ -292,8 +251,6 @@ module.exports = {
 		setInterval(ticker, 2000);
 
 	}
-
-
 
 
 };

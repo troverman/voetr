@@ -152,10 +152,10 @@ module.exports = {
 		var provider = req.param("provider");
 		Passport.destroy({user: id, provider: provider})
 		.then(function(passport){
-			//User.find(id).then(function(model){
-				//model.socialAccounts[(passport[0].provider).toString()] = {};
-				//User.update({id:id}, model);
-			//})
+			User.find(id).then(function(model){
+				model.socialAccounts[(passport[0].provider).toString()] = {};
+				User.update({id:id}, model);
+			})
 			res.json(passport);
 		})
 		.fail(function(err){

@@ -26,7 +26,8 @@
 			<p class="lead">{{bill.billContent.display_number}}</p>
 			<!--<p class="lead">{{bill.billContent.introduced_date}}</p>-->
 			<!--<p class="lead">{{bill.billContent.is_alive}}</p>-->
-			<p class="lead"><a href="{{bill.billContent.link}}">Full Text Link</a></p>
+			<!--<p class="lead"><a href="{{bill.fullLink}}">Full Text Link</a></p>-->
+			<div ng-bind-html="billContent"></div>
 			<!--<p class="lead">{{bill.billContent.major_actions}}</p>-->
 			<!--<p class="lead">{{bill.billContent.sponsor}}</p>-->
 			<!--<p class="lead">{{bill.billContent.titles}}</p>-->
