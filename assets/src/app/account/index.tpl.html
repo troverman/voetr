@@ -97,7 +97,7 @@
 	<br><br>
 	<a href="{{user.socialAccounts.google.profileUrl}}">
 		<img src="{{user.socialAccounts.google.profilePic}}">
-		<span>{{user.socialAccounts.google.handle}}</span>
+		<span>{{user.socialAccounts.google.displayName}}</span>
 	</a>
 	<a ng-show="!googlePassport"class="btn btn-primary" href="/auth/google">connect google</a>
 	<a ng-show="googlePassport"class="btn btn-primary" ng-click="removePassport('google')">disconnect google</a>
