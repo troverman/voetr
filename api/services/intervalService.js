@@ -240,10 +240,9 @@ function legislators(){
 
 					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
 					var email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
-					var socialAccounts = {
-						twitter: {profileUrl: 'https://www.twitter.com/' + twitter_id},
-						facebook: {profileUrl: 'https://www.facebook.com/' + facebook_id}
-					};
+					var socialAccounts = {};
+					if (twitter_id != null){socialAccounts.twitter = {profileUrl: 'https://www.twitter.com/' + twitter_id}};
+					if (facebook_id != null){socialAccounts.facebook = {profileUrl: 'https://www.facebook.com/' + facebook_id}};
 					//console.log(bioguide_id)
 					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
 					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg', 'images/nature.jpg']
@@ -735,7 +734,7 @@ module.exports.intervalService = function(){
 	//committees();
 	//recentBills();
 
-	//legislators();
+	legislators();
 	//stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
