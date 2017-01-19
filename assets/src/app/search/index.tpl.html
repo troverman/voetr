@@ -15,7 +15,10 @@
 		
 		</div>
 		<div ng-show="searchQuery">
-			<div><h1>{{searchQuery}}</h1><md-divider></md-divider></div>
+			<div>
+				<h1>{{searchQuery}}</h1>
+				<md-divider></md-divider>
+			</div>
 
 			<md-card ng-repeat="searchResult in searchResults">
 				<!--<img ng-show="searchResult.username" src="{{searchResult.avatarUrl}}" class="md-card-image" alt="{{searchResult.username}}" style="">-->

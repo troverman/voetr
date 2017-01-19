@@ -735,8 +735,8 @@ module.exports.intervalService = function(){
 	//committees();
 	//recentBills();
 
-	legislators();
-	stateLegislators();
+	//legislators();
+	//stateLegislators();
     //setInterval(recentBills, 86400000);
     //setInterval(legislators, 86400000);
 

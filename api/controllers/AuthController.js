@@ -1,9 +1,6 @@
 /**
  * Authentication Controller
  *
- * This is merely meant as an example of how your Authentication controller
- * should look. It currently includes the minimum amount of functionality for
- * the basics of Passport.js to work.
  */
 var AuthController = {
   /**
@@ -19,13 +16,6 @@ var AuthController = {
    *
    * You could optionally add CSRF-protection as outlined in the documentation:
    * http://sailsjs.org/#!documentation/config.csrf
-   *
-   * A simple example of automatically listing all available providers in a
-   * Handlebars template would look like this:
-   *
-      {{#each providers}}
-        <a href="/auth/{{slug}}" role="button">{{name}}</a>
-      {{/each}}
    *
    * @param {Object} req
    * @param {Object} res
@@ -98,6 +88,7 @@ var AuthController = {
    * @param {Object} res
    */
   provider: function (req, res) {
+    console.log('PROVIDER')
     passport.endpoint(req, res);
   },
 
@@ -118,7 +109,9 @@ var AuthController = {
    * @param {Object} res
    */
   callback: function (req, res) {
+    console.log("WERE HERE")
     passport.callback(req, res, function (err, user) {
+      console.log(err);console.log(user)
       req.login(user, function (err) {
         // If an error was thrown, redirect the user to the login which should
         // take care of rendering the error messages.

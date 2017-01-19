@@ -70,8 +70,6 @@ angular.module( 'voetr.home', [
 	        navigator.geolocation.getCurrentPosition(function (position) {
                 lat = position.coords.latitude; 
                 lng = position.coords.longitude;
-				console.log(lat);
-	        	console.log(lng);
 	        	RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
 	        		$scope.officialRepresentatives = representatives;
 	        	});

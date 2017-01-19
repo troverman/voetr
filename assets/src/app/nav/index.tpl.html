@@ -17,14 +17,12 @@
       <ul class="nav navbar-nav">
         <li ng-show="!currentUser"><a href="/about">about</a></li>
         <li><a href="/search">discover</a></li>
-
         <form class="navbar-form pull-left" role="search" action="/search/" onSubmit=" location.href = 'search/' + document.getElementById('search-link').value; return false;">
           <div class="form-group">
             <input ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
           </div>
         </form>
         <li ng-show="currentUser"><a href="/account">{{currentUser.username}}</a></li>
-
         <li ng-show="currentUser"><a href="/logout">signout</a></li>
         <li ng-show="!currentUser"><a href="/register">register</a></li>
         <li ng-show="!currentUser"><a href="/login">login</a></li>
