@@ -18,10 +18,22 @@
         <h4>select representatives</h4>
         <h4>become verified</h4>
         <button ng-click="getLatLng()" class="btn btn-default">get representatives</button>
-        <div ng-repeat="representative in officialRepresentatives">
-          <!--<img class="avatar" style="margin-top:0em" src="{{representative.avatarUrl}}"/>-->
-          <h4><a href="member/{{representative.username}}">{{representative.username}}</a></h4>
+
+        <div class='md-padding' layout="row" layout-align="center" layout-wrap>
+          <md-card flex="20" ng-repeat="user in officialRepresentatives">
+            <a href="/member/{{user.username}}">
+              <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
+            </a>
+            <md-card-title>
+              <md-card-title-text>
+                <a href="/member/{{user.username}}">
+                  <span class="">{{user.username}}</span>
+                </a>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
         </div>
+
       </div>
 
 
@@ -32,8 +44,8 @@
           <md-card-title-text>
             <h4>
               {{vote.voteCount}}
-              <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
-              <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
+              <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
+              <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
               <a href="/vote/{{vote.id}}">{{vote.title}}</a>
             </h4>
             <br><br>

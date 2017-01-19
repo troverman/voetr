@@ -94,6 +94,11 @@
 
 	<uib-tabset class="container">
 		<uib-tab heading="Activity" active="active">
+			<div class="profileDiscussion">
+				<md-input-container class="md-block">
+		          <textarea ng-model="discussion" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+				</md-input-container>
+			</div>
 			<md-card ng-repeat="vote in votes">
 				<md-card-title>
 					<md-card-title-text>

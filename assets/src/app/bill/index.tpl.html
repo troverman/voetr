@@ -1,10 +1,6 @@
 <style>
 
-	.bill-container{
-		padding:50px;
-		padding-top:35px;
-	}
-	.bill-content{
+	.billContent{
 		padding:20px;
 		border:1px solid grey;
 	}
@@ -12,14 +8,14 @@
 </style>
 
 <div ui-view="bill">
-	<div class="bill-container">
+	<div class="billContainer container">
 		<h3>{{bill.title}}</h3>
 		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
 
 		<!--<p><a href="">{{bill.committee}}</a></p>-->
 		<md-divider></md-divider>
 		
-		<div id="bill-content">
+		<div id="billContent">
 			<br>
 			<p class="lead">{{bill.billContent.current_status_description}}</p>
 			<p class="lead">{{bill.billContent.current_status_label}}</p>
@@ -49,7 +45,7 @@
 			</div>
 		</div>
 
-		<div class="commentsContainer" ng-show="comments.length!=0">
+		<div class="commentsContainer" ng-hide="comments.length==0 && !currentUser">
 			<h3>comments</h3>
 			<md-divider></md-divider>
 			<!--if logged in-->
@@ -60,8 +56,8 @@
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
-				<md-divider></md-divider>
 			</div>
+			<br><br>
 			<!--/if logged in-->
 			<div class="commentContainer" ng-repeat="comment in comments | orderBy:'-createdAt'">
 				<!--<a href="/comment/{{comment.id}}">link</a>-->
