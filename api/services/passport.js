@@ -110,7 +110,7 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.google = {};
     user.socialAccounts.google.profileUrl = profile._json.url;
     user.socialAccounts.google.displayName = profile.displayName;
-    //user.socialAccounts.google.profilePic = profile.photos[0].value;
+    user.socialAccounts.google.profilePic = profile.photos[0].value;
   }
   if (provider == 'twitter'){
     user.socialAccounts.twitter = {};
@@ -120,7 +120,6 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.twitter.profilePic = profile._json.profile_image_url_https;
   }
 
-  console.log(user.socialAccounts);
   // If neither an email or a username was available in the profile, we don't
   // have a way of identifying the user in the future. Throw an error and let
   // whoever's next in the line take care of it.
@@ -230,8 +229,6 @@ passport.endpoint = function (req, res) {
     , provider   = req.param('provider')
     , options    = {};
 
-  console.log('hello')
-  console.log(provider)
   // If a provider doesn't exist for this endpoint, send the user back to the
   // login page
   if (!strategies.hasOwnProperty(provider)) {

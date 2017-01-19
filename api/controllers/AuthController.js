@@ -88,7 +88,6 @@ var AuthController = {
    * @param {Object} res
    */
   provider: function (req, res) {
-    console.log('PROVIDER')
     passport.endpoint(req, res);
   },
 
@@ -109,9 +108,7 @@ var AuthController = {
    * @param {Object} res
    */
   callback: function (req, res) {
-    console.log("WERE HERE")
     passport.callback(req, res, function (err, user) {
-      console.log(err);console.log(user)
       req.login(user, function (err) {
         // If an error was thrown, redirect the user to the login which should
         // take care of rendering the error messages.

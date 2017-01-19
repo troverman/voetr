@@ -95,17 +95,15 @@
 	<a ng-show="twitterPassport"class="btn btn-primary" ng-click="removePassport('twitter')">disconnect twitter</a>
 
 	<br><br>
-	<!--
-	<a href="{{user.socialAccounts.twitter.profileUrl}}">
-		<img src="{{user.socialAccounts.twitter.profilePic}}">
+	<a href="{{user.socialAccounts.google.profileUrl}}">
+		<img src="{{user.socialAccounts.google.profilePic}}">
 		<span>{{user.socialAccounts.google.handle}}</span>
 	</a>
-	-->
 	<a ng-show="!googlePassport"class="btn btn-primary" href="/auth/google">connect google</a>
 	<a ng-show="googlePassport"class="btn btn-primary" ng-click="removePassport('google')">disconnect google</a>
 
-	<!--<a class="btn btn-primary" href="/auth/btc">connect btc wallet</a>-->
 	<br><br>
+	<!--<a class="btn btn-primary" href="/auth/btc">connect btc wallet</a>-->
 
 
 	<h3>Settings</h3>
