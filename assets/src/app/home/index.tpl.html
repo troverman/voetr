@@ -135,7 +135,6 @@
         <a href="/about" class="btn btn-default">learn more</a>
         <div style="height:100px;"></div>
         <div style="height:100px;"></div>
-        <div style="height:100px;"></div>
       </div>
     </div>
 
@@ -151,13 +150,15 @@
         <md-divider></md-divider><br>
 
         <div class="container">
-          <div class='md-padding' layout="row" layout-align="center" layout-wrap>
-            <md-card flex="30" ng-repeat="bill in bills">
+          <div class='md-padding'>
+            <md-card ng-repeat="bill in bills">
               <md-card-title>
                 <md-card-title-text>
-                  <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">
-                    <span class="">{{bill.title}}</span>
-                  </a>
+                  <h4>
+                    <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
+                    <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
+                    <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+                  </h4>
                 </md-card-title-text>
               </md-card-title>
             </md-card>
@@ -177,7 +178,7 @@
 
         <div class="container">
           <div class='md-padding' layout="row" layout-align="center" layout-wrap>
-            <md-card flex="15" ng-repeat="committee in committees">
+            <md-card flex="20" ng-repeat="committee in committees">
               <md-card-title>
                 <md-card-title-text>
                   <a href="/committee/{{committee.urlTitle}}">
@@ -202,7 +203,7 @@
         <button ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
         <md-divider></md-divider><br>
 
-        <div class='md-padding' layout="row" layout-align="center" layout-wrap>
+        <div class='md-padding' layout="row" layout-align="left" layout-wrap>
           <md-card flex="20" ng-repeat="user in officialRepresentatives">
             <a href="/member/{{user.username}}">
               <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
