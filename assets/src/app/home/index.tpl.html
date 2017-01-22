@@ -17,8 +17,8 @@
         <h4>enter location</h4>
         <h4>select representatives</h4>
         <h4>become verified</h4>
-        <button ng-click="getLatLng()" class="btn btn-default">get representatives</button>
-
+        <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">get representatives</button>
+        <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card flex="20" ng-repeat="user in officialRepresentatives">
             <a href="/member/{{user.username}}">
@@ -29,6 +29,7 @@
                 <a href="/member/{{user.username}}">
                   <span class="">{{user.username}}</span>
                 </a>
+                <!--<button class="btn btn-green">select as representative</button>-->
               </md-card-title-text>
             </md-card-title>
           </md-card>
@@ -200,10 +201,11 @@
     <div id="members">
       <div class="container">
         <h2>{{userCount}} members</h2>
-        <button ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
         <md-divider></md-divider><br>
+        <button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
+        <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 
-        <div class='md-padding' layout="row" layout-align="left" layout-wrap>
+        <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card flex="20" ng-repeat="user in officialRepresentatives">
             <a href="/member/{{user.username}}">
               <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">

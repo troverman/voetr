@@ -64,14 +64,17 @@ angular.module( 'voetr.home', [
     $scope.representatives = representatives;
     $scope.votes = votes;
     $scope.officialRepresentatives = {};
+    $scope.gettingRepresentatives = false;
 
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
+	    	$scope.gettingRepresentatives = true;
 	        navigator.geolocation.getCurrentPosition(function (position) {
                 lat = position.coords.latitude; 
                 lng = position.coords.longitude;
 	        	RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
 	        		$scope.officialRepresentatives = representatives;
+					$scope.gettingRepresentatives = false;
 	        	});
 	        });
 	    }

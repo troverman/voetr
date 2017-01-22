@@ -37,7 +37,7 @@ module.exports = {
 
 	},
 
-	federalVotes: function(){
+	federalVotes: function(bill){
 
 		var model = {
 			url: 'http://congress.api.sunlightfoundation.com/votes?apikey=' + openCongressApiKey,
@@ -57,7 +57,7 @@ module.exports = {
 
 	},
 
-	federalVoteVotes: function(){
+	federalVoteVotes: function(vote){
 
 		var model = {
 			//url: 'http://congress.api.sunlightfoundation.com/votes?apikey=' + openCongressApiKey,
@@ -84,9 +84,9 @@ module.exports = {
 
 	},
 
-	stateVotes: function(state){
+	stateVotes: function(state, bill){
 	},
 
-	stateVoteVotes: function(state){
+	stateVoteVotes: function(state, vote){
 	}
 }

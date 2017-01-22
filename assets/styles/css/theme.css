@@ -485,7 +485,7 @@ hr {
   -moz-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
   box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
 }
-.log-form .btn {
+.btn-green{
   display: inline-block;
   background: #2ab996;
   border: 1px solid #1ba0a9;
@@ -494,15 +494,18 @@ hr {
   margin-right: .5em;
   box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
 }
-.log-form .btn:hover {
+.btn-green:hover {
   background: #008564;
+  color:white;
 }
-.log-form .btn:active {
+.btn-green:active {
   background: #008564;
+  color:white;
   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
-.log-form .btn:focus {
+.btn-green:focus {
   outline: none;
+  color:white;
 }
 .log-form .already {
   color: #2ab996;
