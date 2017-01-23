@@ -69,19 +69,25 @@
 	    </div>
 	    <div class="user-profile-data container">
 	      <h2>{{member.username}}</h2>
+	      <h5 ng-show="member.title">{{member.title}}</h5>
+	      <h5 ng-show="member.district">District {{member.district}}</h5>
+	      <h5 ng-show="member.state">{{member.state}}</h5>
 
-	      <!--<button class="btn btn-default">follow</button><br>-->
-	      <button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button><br>
-	      <button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button><br>
-	      <br><button class="btn btn-default">contact</button><br>
-
-	      <br><p>{{member.state}}</p><br>
-	      <!--member title?-->
-	      
 	      <a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}">facebook</a>
 	      <a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}">twitter</a>
 	      <a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}">google</a>
 
+
+	      <!--<button class="btn btn-default">follow</button><br>-->
+	      <br>
+	      <button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
+	      <br>
+	      <button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button>
+	      <br>
+	      <br>
+	      <button class="btn btn-default">contact</button>
+	      <br>
+	      
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
 	      <div ng-show="currentUser.id == member.id">

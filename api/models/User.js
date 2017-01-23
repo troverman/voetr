@@ -73,6 +73,12 @@ module.exports = {
         phone: {
             type: 'string',
         },
+        title: {
+            type: 'string',
+        },
+        district: {
+            type: 'string',
+        },
         committees: {
             collection: 'committeemember',
             via: 'user'

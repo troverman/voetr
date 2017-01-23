@@ -3,6 +3,69 @@ var govTrack = require('govtrack-node');
 var Q = require('q');
 var _ = require('lodash');
 
+var states = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AS": "American Samoa",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District Of Columbia",
+    "FM": "Federated States Of Micronesia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "GU": "Guam",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MH": "Marshall Islands",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "MP": "Northern Mariana Islands",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PW": "Palau",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VI": "Virgin Islands",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+};
+
+
 function bills(){
 
 	var model= {
@@ -219,7 +282,9 @@ function legislators(){
 
 					var bioguide_id = congressData[key].bioguide_id;
 					var birthday = congressData[key].birthday;
+					var chamber = congressData[key].chamber
 					var crp_id = congressData[key].crp_id;
+					var district = congressData[key].district;
 					var facebook_id = congressData[key].facebook_id;
 					var fax = congressData[key].fax;
 					var fec_ids = congressData[key].fec_ids;
@@ -238,7 +303,6 @@ function legislators(){
 					var term_end = congressData[key].term_end;
 					var term_start = congressData[key].term_start;
 					var thomas_id = congressData[key].thomas_id;
-					var title = congressData[key].title;
 					var twitter_id = congressData[key].twitter_id;
 					var website = congressData[key].website;
 
@@ -252,7 +316,9 @@ function legislators(){
 					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg', 'images/nature.jpg']
 					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
 					var coverUrl = coverUrlArray[randInt];
-
+					var title ='';
+					if (chamber == 'senate'){title = 'US Senator'}
+					if (chamber == 'house'){title = 'US Representative'}
 					var model = {
 						username: username,
 						email: email,
@@ -262,7 +328,9 @@ function legislators(){
 						leadership_role:leadership_role,
 						phone: phone,
 						party: party,
-						state: state,
+						state: state_name,
+						title: title,
+						district: district,
 						term_end: term_end,
 						term_start: term_start,
 						bioguide_id: bioguide_id,
@@ -302,24 +370,30 @@ function stateLegislators(){
 					//		console.log(stateData[x])
 					//	}
 					//}
-					console.log(stateData[x])
+					//console.log(stateData[x])
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
 					var photo_url = stateData[x].photo_url;
 					var offices = stateData[x].offices;
-					var state = stateData[x].state;
+					var district = stateData[x].district;
+					var chamber = stateData[x].chamber;
+					var title = '';
+					if (chamber == 'lower'){title = 'State Representative'}
+					if (chamber == 'upper'){title = 'State Senator'}
+					//var state = {abbreviation: stateData[x].state, state: states[stateData[x].state.toUpperCase()]}
+					var state = states[stateData[x].state.toUpperCase()];
 					var party = stateData[x].party;
 					var leg_id = stateData[x].leg_id;
-
 					//console.log(offices[0].fax)
 
-					var username = first_name.trim().replace('.','').replace(' ','.') + '.' + last_name.trim().replace(' ','.');
+					var username = first_name.trim().replace('.','').replace(' ','.').replace(/"/g,'') + '.' + last_name.trim().replace(' ','.').replace(' ','.').replace(/"/g,'');
 					var email =  stateData[x].email;
 					if( typeof email === 'undefined' || email === null || typeof email === 'string' ){
 						email = username + '@gmail.com';
 					}
+					email.replace(' ', '');
 
-					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg']
+					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/brasil.jpg']
 					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
 					var coverUrl = coverUrlArray[randInt];
 					//get state and district
@@ -329,10 +403,10 @@ function stateLegislators(){
 						email: email,
 						first_name: first_name,
 						last_name: last_name,
-
+						title: title,
+						district: district,
 						//phone: offices[0].phone,
 						//fax: offices[0].fax,
-
 						leg_id: leg_id,
 						party: party,
 						avatarUrl: photo_url,
@@ -340,9 +414,7 @@ function stateLegislators(){
 						state : state
 					};
 
-					//console.log(model);
-
-					/*User.findOrCreate({leg_id: leg_id}, model)
+					User.findOrCreate({leg_id: leg_id}, model)
 					.exec(function(err, user) {
 						if (err) {
 							return console.log(err);
@@ -351,7 +423,7 @@ function stateLegislators(){
 							User.publishCreate(user);
 						}
 					});
-					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})*/
+					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})
 				}
 
 		    }
@@ -607,69 +679,7 @@ function getLegislators(lat, lng){
 
 module.exports.intervalService = function(){
 
-	var states = Object.keys({
-	    "AL": "Alabama",
-	    "AK": "Alaska",
-	    "AS": "American Samoa",
-	    "AZ": "Arizona",
-	    "AR": "Arkansas",
-	    "CA": "California",
-	    "CO": "Colorado",
-	    "CT": "Connecticut",
-	    "DE": "Delaware",
-	    "DC": "District Of Columbia",
-	    "FM": "Federated States Of Micronesia",
-	    "FL": "Florida",
-	    "GA": "Georgia",
-	    "GU": "Guam",
-	    "HI": "Hawaii",
-	    "ID": "Idaho",
-	    "IL": "Illinois",
-	    "IN": "Indiana",
-	    "IA": "Iowa",
-	    "KS": "Kansas",
-	    "KY": "Kentucky",
-	    "LA": "Louisiana",
-	    "ME": "Maine",
-	    "MH": "Marshall Islands",
-	    "MD": "Maryland",
-	    "MA": "Massachusetts",
-	    "MI": "Michigan",
-	    "MN": "Minnesota",
-	    "MS": "Mississippi",
-	    "MO": "Missouri",
-	    "MT": "Montana",
-	    "NE": "Nebraska",
-	    "NV": "Nevada",
-	    "NH": "New Hampshire",
-	    "NJ": "New Jersey",
-	    "NM": "New Mexico",
-	    "NY": "New York",
-	    "NC": "North Carolina",
-	    "ND": "North Dakota",
-	    "MP": "Northern Mariana Islands",
-	    "OH": "Ohio",
-	    "OK": "Oklahoma",
-	    "OR": "Oregon",
-	    "PW": "Palau",
-	    "PA": "Pennsylvania",
-	    "PR": "Puerto Rico",
-	    "RI": "Rhode Island",
-	    "SC": "South Carolina",
-	    "SD": "South Dakota",
-	    "TN": "Tennessee",
-	    "TX": "Texas",
-	    "UT": "Utah",
-	    "VT": "Vermont",
-	    "VI": "Virgin Islands",
-	    "VA": "Virginia",
-	    "WA": "Washington",
-	    "WV": "West Virginia",
-	    "WI": "Wisconsin",
-	    "WY": "Wyoming"
-	});
-
-	for (x in states){
+	for (x in Object.keys(states)){
 		//if(x<=7){
 		if( (x >= 0) && (x < 5) ){
 		//if(x >= 40){

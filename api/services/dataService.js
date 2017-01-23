@@ -2,9 +2,6 @@ var request = require('request');
 var openCongressApiKey = 'c16a6c623ee54948bac2a010ea6fab70';
 module.exports = {
 
-	federalCommittees: function(){
-	},
-
 	federalBills: function(){
 
 		var model = {
@@ -35,6 +32,12 @@ module.exports = {
         	}
         });
 
+	},
+
+	federalLegislators: function(){
+	},
+
+	federalCommittees: function(){
 	},
 
 	federalVotes: function(bill){
@@ -82,6 +85,12 @@ module.exports = {
 			}
         });
 
+	},
+
+	stateCommittees: function(state){
+	},
+
+	stateLegislators: function(state){
 	},
 
 	stateVotes: function(state, bill){
