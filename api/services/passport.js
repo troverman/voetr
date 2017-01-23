@@ -342,7 +342,7 @@ passport.loadStrategies = function () {
       Strategy = strategies[key].strategy;
 
       var baseUrl = sails.getBaseurl();
-      baseUrl = 'http://www.voetr.com'
+      baseUrl = 'https://www.voetr.com'
 
       switch (protocol) {
         case 'oauth':
