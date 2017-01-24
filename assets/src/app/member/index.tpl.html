@@ -77,7 +77,6 @@
 	      <a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}">twitter</a>
 	      <a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}">google</a>
 
-
 	      <!--<button class="btn btn-default">follow</button><br>-->
 	      <br>
 	      <button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
@@ -100,11 +99,28 @@
 
 	<uib-tabset class="container">
 		<uib-tab heading="Activity" active="active">
-			<div class="profileDiscussion">
-				<md-input-container class="md-block">
-		          <textarea ng-model="discussion" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-				</md-input-container>
+			<div class="profilePost">
+				<form role="form">
+					<md-input-container class="md-block">
+			          <textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+					</md-input-container>
+					<!--connect legislators-->
+					<button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
+				</form>
 			</div>
+
+			<md-card ng-repeat="post in posts">
+				<md-card-title>
+					<md-card-title-text>
+					<a href="member/{{post.user.username}}">
+						<img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+						<p>{{post.user.username}}</p>
+					</a>
+					<p>{{post.post}}</p>
+					</md-card-title-text>
+				</md-card-title>
+			</md-card>
+
 			<md-card ng-repeat="vote in votes">
 				<md-card-title>
 					<md-card-title-text>
@@ -128,7 +144,7 @@
 		              <img ng-src="{{constituent.constituent.avatarUrl}}" class="md-card-image" alt="{{constituent.constituent.username}}">
 		            </a>
 					<md-card-title-text>
-						<a href="/member/{{constituent.constituent.username}}/"><h4>{{constituent.constituent.username}}</h4></a>
+						<a href="/member/{{constituent.constituent.username}}"><h4>{{constituent.constituent.username}}</h4></a>
 					</md-card-title-text>
 				</md-card>
 			</div>
@@ -140,7 +156,7 @@
 		              <img ng-src="{{representative.representative.avatarUrl}}" class="md-card-image" alt="{{representative.representative.username}}">
 		            </a>
 					<md-card-title-text>
-						<a href="/member/{{representative.representative.username}}/"><h4>{{representative.representative.username}}</h4></a>
+						<a href="/member/{{representative.representative.username}}"><h4>{{representative.representative.username}}</h4></a>
 					</md-card-title-text>
 				</md-card>
 			</div>

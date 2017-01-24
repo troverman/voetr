@@ -73,6 +73,9 @@ module.exports = {
         phone: {
             type: 'string',
         },
+        fax: {
+            type: 'string',
+        },
         title: {
             type: 'string',
         },
@@ -84,6 +87,9 @@ module.exports = {
             via: 'user'
         },
         bioguide_id:{
+            type: 'string'
+        },
+        leg_id:{
             type: 'string'
         },
         representatives: {

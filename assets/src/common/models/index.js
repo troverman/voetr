@@ -3,6 +3,7 @@ angular.module('models', [
 	'models.comment',
 	'models.committee',
 	'models.follower',
+	'models.post',
 	'models.representative',
 	'models.search',
 	'models.user',

@@ -30,13 +30,20 @@ angular.module( 'voetr', [
     'voetr.votes',
 ])
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
+.config( function appConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
 
+    $urlRouterProvider.rule(function($injector, $location) {
+        var path = $location.path();
+        var hasTrailingSlash = path[path.length-1] === '/';
+        if(hasTrailingSlash) {
+            var newPath = path.substr(0, path.length - 1); 
+            return newPath; 
+        } 
+    });
 
     if (window.location.hash && window.location.hash == '#_=_') {
         window.location.hash = '';
     }
-    $urlRouterProvider.when('/about/', '/about');
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
         if ($location.$$url === '/') {

@@ -313,8 +313,8 @@ function legislators(){
 					if (facebook_id != null){socialAccounts.facebook = {profileUrl: 'https://www.facebook.com/' + facebook_id}};
 					//console.log(bioguide_id)
 					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
-					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg', 'images/nature.jpg']
-					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
+					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg']
+					var randInt = Math.floor(Math.random() * (coverUrlArray.length));
 					var coverUrl = coverUrlArray[randInt];
 					var title ='';
 					if (chamber == 'senate'){title = 'US Senator'}
@@ -364,49 +364,60 @@ function stateLegislators(){
 		    if (!error && response.statusCode === 200) {
 				var stateData = body;
 				for (x in stateData) {
-
-					//if (stateData[x].offices.map(function(obj){return obj.fax})){
-					//	if (stateData[x].state == 'nc'){
-					//		console.log(stateData[x])
-					//	}
-					//}
-					//console.log(stateData[x])
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
 					var photo_url = stateData[x].photo_url;
 					var offices = stateData[x].offices;
 					var district = stateData[x].district;
 					var chamber = stateData[x].chamber;
+					var fax = offices.map(function(obj){return obj.fax});
+					var phone = offices.map(function(obj){return obj.phone});
+					var address = offices.map(function(obj){return obj.address});
 					var title = '';
 					if (chamber == 'lower'){title = 'State Representative'}
 					if (chamber == 'upper'){title = 'State Senator'}
-					//var state = {abbreviation: stateData[x].state, state: states[stateData[x].state.toUpperCase()]}
 					var state = states[stateData[x].state.toUpperCase()];
 					var party = stateData[x].party;
 					var leg_id = stateData[x].leg_id;
-					//console.log(offices[0].fax)
 
-					var username = first_name.trim().replace('.','').replace(' ','.').replace(/"/g,'') + '.' + last_name.trim().replace(' ','.').replace(' ','.').replace(/"/g,'');
+					var trim_first_name = first_name
+					.trim()
+					.replace(/\s+/g, '.')
+					.replace(/"/g,'')
+					.replace(/,/g, '')
+					.replace(/\\/g, '')
+
+					var trim_last_name = last_name
+					.trim()
+					.replace(/\s+/g, '.')
+					.replace(/"/g,'')
+					.replace(/,/g, '')
+					.replace(/\\/g, '');
+
+					var username = trim_first_name + '.' + trim_last_name;
+					
+					var trim_username = username
+					.replace(/[()]/g, '')
+					.replace('/../g', '.')
+
 					var email =  stateData[x].email;
-					if( typeof email === 'undefined' || email === null || typeof email === 'string' ){
-						email = username + '@gmail.com';
+					if( typeof email === 'undefined' || email === null || email===''){
+						email = trim_username + '@gmail.com';
 					}
-					email.replace(' ', '');
-
-					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/brasil.jpg']
-					var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
+					
+					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/natural.jpg']
+					var randInt = Math.floor(Math.random() * (coverUrlArray.length));
 					var coverUrl = coverUrlArray[randInt];
-					//get state and district
-					//socialAccounts
 					var model = {
-						username: username,
+						username: trim_username,
 						email: email,
 						first_name: first_name,
 						last_name: last_name,
 						title: title,
 						district: district,
-						//phone: offices[0].phone,
-						//fax: offices[0].fax,
+						address: address,
+						phone: phone,
+						fax: fax,
 						leg_id: leg_id,
 						party: party,
 						avatarUrl: photo_url,
@@ -423,9 +434,8 @@ function stateLegislators(){
 							User.publishCreate(user);
 						}
 					});
-					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})
+					User.update({leg_id: leg_id}, model).then(function(err, user){console.log('updated state')})
 				}
-
 		    }
 	});
 
@@ -697,6 +707,8 @@ module.exports.intervalService = function(){
 
 	//dataService.federalBills();
 	//dataService.federalVotes();
+	//dataService.federalCommittees();
+	//dataService.stateCommittees();
 
 	//legislators();
 	//stateLegislators();

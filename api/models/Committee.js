@@ -28,8 +28,9 @@ module.exports = {
         });
     },
 
-    getSome: function(limiting, skipping) {
+    getSome: function(limiting, skipping, sort) {
         return Committee.find()
+        .sort(sort)
         .limit(limiting)
         .skip(skipping)
         .then(function (models) {

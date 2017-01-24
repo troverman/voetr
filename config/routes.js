@@ -105,7 +105,7 @@ module.exports.routes = {
   'get /api/committee/count': 'CommitteeController.getCount',
   'get /api/committee/:id': 'CommitteeController.getOne',
   'get /api/committee/url/:path': 'CommitteeController.getByUrl',
-  'get /api/committee/filter/:limit/:skip': 'CommitteeController.getSome',
+  'get /api/committee/filter/:limit/:skip/:sort': 'CommitteeController.getSome',
   'post /api/committee': 'CommitteeController.create',
   'delete /api/committee/:id': 'CommitteeController.destroy',
 
@@ -134,6 +134,18 @@ module.exports.routes = {
   'get /api/follower/following/:id': 'FollowerController.getFollowing',
   'post /api/follower': 'FollowerController.create',
   'delete /api/follower/:id': 'FollowerController.destroy',
+
+  /**
+   * Post routes
+   */
+  'get /api/post/:id': 'PostController.getOne',
+  'get /api/post/filter/profile/:profile/:limit/:skip/:sort': 'PostController.getByProfile',
+  'get /api/post/filter/user/:user/:limit/:skip/:sort': 'PostController.getByUser',
+  'get /api/post/filter/:limit/:skip/:sort': 'PostController.getSome',
+  'get /api/post/filter/:limit/:skip/:sort': 'PostController.getByUser',
+  'post /api/post': 'PostController.create',
+  'delete /api/post/:id': 'PostController.destroy',
+  'post /api/post/:id': 'PostController.update',
 
   /**
    * Representative routes

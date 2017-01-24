@@ -29,6 +29,9 @@ angular.module( 'voetr.member', [
             constituents: function(RepresentativeModel, member) {
                 return RepresentativeModel.getConstituents(member);
             },
+            posts: function(PostModel, member) {
+                return PostModel.getByUser(member.id, 100, 0, 'createdAt desc');
+            },
             representatives: function(RepresentativeModel, member) {
                 return RepresentativeModel.getRepresentatives(member);
             },
@@ -42,11 +45,12 @@ angular.module( 'voetr.member', [
     });
 })
 
-.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel ) {
+.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, posts, PostModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
 	$scope.votes = votes;
+    $scope.posts = posts;
     $scope.voteCount = voteCount.voteCount;
     $scope.following = votes;
     $scope.followers = votes;
@@ -54,7 +58,18 @@ angular.module( 'voetr.member', [
     $scope.constituents = constituents;
     $scope.representatives = representatives;
     $scope.skip = 0;
+    $scope.newPost = {};
     //$scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0
+
+
+    $scope.createPost = function(){
+        console.log($scope.newPost);
+        $scope.newPost.user = $scope.currentUser.id;
+        $scope.newPost.profile = $scope.currentUser.id
+        PostModel.create($scope.newPost).then(function(model){
+            console.log(model);
+        })
+    };
 
     $scope.selectAsRepresentative = function(){
         $scope.newRepresentative = {};
@@ -81,6 +96,17 @@ angular.module( 'voetr.member', [
             console.log($scope.committees);
         });
     };
+
+    $sailsSocket.subscribe('post', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                $scope.posts.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.posts, {id: envelope.id});
+                break;
+        }
+    });
 
     $sailsSocket.subscribe('representative', function (envelope) {
         switch(envelope.verb) {

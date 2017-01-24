@@ -1,7 +1,8 @@
 angular.module( 'voetr.home', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(function config( $stateProvider, $urlMatcherFactoryProvider ) {
+	//$urlMatcherFactoryProvider.strictMode(false);
 	$stateProvider.state( 'home', {
 		url: '/',
 		views: {
@@ -25,7 +26,7 @@ angular.module( 'voetr.home', [
             	else{return null}
             },
 			committees: function(CommitteeModel) {
-				return CommitteeModel.getSome(10, 0);
+				return CommitteeModel.getSome(10, 0, 'createdAt DESC');
             },
 			committeeCount: function(CommitteeModel) {
 				return CommitteeModel.getCount();
@@ -50,7 +51,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel ) {
+.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -58,13 +59,17 @@ angular.module( 'voetr.home', [
 	$scope.committees = committees;
 	$scope.committeeCount = committeeCount.committeeCount;
 	$scope.users = users;
-	console.log(users)
+	//console.log(users)
 	$scope.userCount = userCount.userCount;
 	$scope.constituents = constituents;
     $scope.representatives = representatives;
     $scope.votes = votes;
     $scope.officialRepresentatives = {};
     $scope.gettingRepresentatives = false;
+    $scope.newVote = {};
+    $scope.newPost = {};
+    $scope.posts = {};
+
 
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
@@ -80,14 +85,24 @@ angular.module( 'voetr.home', [
 	    }
 	};
 
-
     if ($scope.currentUser){
 
-    	$scope.newVote = {};
+    	PostModel.getByUser($scope.currentUser.id, 100, 0, 'createdAt DESC').then(function(posts){
+    		$scope.posts = posts;
+    	});
 
-		VoteVoteModel.getByUser($scope.currentUser.id, 25, 0, 'createdAt desc').then(function(votes){
+		VoteVoteModel.getByUser($scope.currentUser.id, 25, 0, 'createdAt DESC').then(function(votes){
 			$scope.userVotes = votes;
 		});
+
+    	$scope.createPost = function(){
+    		console.log($scope.newPost);
+    		$scope.newPost.user = $scope.currentUser.id;
+    		$scope.newPost.profile = $scope.currentUser.id
+    		PostModel.create($scope.newPost).then(function(model){
+    			console.log(model);
+    		})
+    	};
 
 		$scope.createVote = function(voteInteger, newVote) {
 	        if ($scope.currentUser == undefined){return null;}
@@ -167,6 +182,17 @@ angular.module( 'voetr.home', [
 	            break;
 	        case 'destroyed':
 	            lodash.remove($scope.committees, {id: envelope.id});
+	            break;
+	    }
+    });
+
+    $sailsSocket.subscribe('post', function (envelope) {
+	    switch(envelope.verb) {
+	        case 'created':
+	            $scope.posts.unshift(envelope.data);
+	            break;
+	        case 'destroyed':
+	            lodash.remove($scope.posts, {id: envelope.id});
 	            break;
 	    }
     });

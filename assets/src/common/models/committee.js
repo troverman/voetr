@@ -6,9 +6,8 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getSome = function(limit, skip) {
-        var url = utils.prepareUrl('committee/filter/' + limit + '/' + skip);
-        console.log(url)
+    this.getSome = function(limit, skip, sort) {
+        var url = utils.prepareUrl('committee/filter/' + limit + '/' + skip + '/' + sort);
         return $sailsSocket.get(url).then(success, error);
     };
 
