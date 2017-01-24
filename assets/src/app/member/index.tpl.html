@@ -79,20 +79,22 @@
 
 	      <!--<button class="btn btn-default">follow</button><br>-->
 	      <br>
-	      <button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
+	      <div ng-show="currentUser.id != member.id">
+	      	<button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
+	      	<br>
+	      	<button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button>
+	  	  </div>
 	      <br>
-	      <button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button>
-	      <br>
-	      <br>
-	      <button class="btn btn-default">contact</button>
-	      <br>
-	      
+	 
 	      <!--can have dif reps per committee-->
 	      <!--represented by (list of reps with each committee)-->
 	      <div ng-show="currentUser.id == member.id">
 			<a href="/account"><button class="btn btn-default">settings</button></a>
 		  </div>
-	      <br><br>
+		   <br>
+	       <button class="btn btn-default">contact</button>
+	       <br>
+	       <br>
 	    </div>
 	  </div>
 	</div>

@@ -8,10 +8,49 @@
         <button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i></button>
 		<h4><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h4>
 		<md-divider></md-divider>
-		<br><br>
+		<br>
 		<!--UI/UX - break out into YES / NO - show representative votes -->
-		<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
+		<uib-tabset>
+			<uib-tab heading="{{vote.plusCount}}  Yes" active="active">
+				<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
+				    <md-card flex="30" class="voteVote" ng-repeat="vote in yesVotes">
+						<a href="/member/{{vote.user.username}}">
+				        	<img ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
+				        </a>
+						<md-card-title>
+							<md-card-title-text>
+								<a href="/member/{{vote.user.username}}">
+									<!--<img src="{{vote.user.avatarUrl}}" style="height:64px;">-->
+									<h4>{{vote.user.username}}</h4>
+								</a>
+								<h4>{{vote.voteString}}</h4>
+							</md-card-title-text>
+						</md-card-title>
+					</md-card>
+				</div>
+		    </uib-tab>
+		    <uib-tab heading="{{vote.minusCount}}  No">
+		    	<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
+			    	<md-card flex="30" class="voteVote" ng-repeat="vote in noVotes">
+						<a href="/member/{{vote.user.username}}">
+				        	<img ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
+				        </a>
+						<md-card-title>
+							<md-card-title-text>
+								<a href="/member/{{vote.user.username}}">
+									<!--<img src="{{vote.user.avatarUrl}}" style="height:64px;">-->
+									<h4>{{vote.user.username}}</h4>
+								</a>
+								<h4>{{vote.voteString}}</h4>
+							</md-card-title-text>
+						</md-card-title>
+					</md-card>
+				</div>
+		    </uib-tab>
+		</uib-tabset>
 
+		<!--
+		<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
 			<md-card flex="30" class="voteVote" ng-repeat="vote in votes">
 				<a href="/member/{{vote.user.username}}">
 	            	<img ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
@@ -19,15 +58,14 @@
 				<md-card-title>
 					<md-card-title-text>
 						<a href="/member/{{vote.user.username}}">
-							<!--<img src="{{vote.user.avatarUrl}}" style="height:64px;">-->
 							<h4>{{vote.user.username}}</h4>
 						</a>
 						<h4>{{vote.voteString}}</h4>
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
-
 		</div>
+		-->
 	<div>
 
 

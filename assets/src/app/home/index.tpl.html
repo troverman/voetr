@@ -11,14 +11,21 @@
     </div>
     <div class="col-md-8">
 
-      <div ng-show="!currentUser.isVerified">
-        <!--<h4>upload id</h4>
-        <p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>-->
-        <h4>enter location</h4>
+      <div class="alert alert-success verificationNotice" ng-show="!currentUser.isVerified">
+        <h2>Become Verified</h2>
+        <br>
+        <h4>identification</h4><button class="btn btn-default">upload</button>
+        <p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>
+        <br>
+        <h4>location</h4>
+        <md-input-container class="md-block">
+          <textarea ng-model="address" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+        </md-input-container>
         <h4>select representatives</h4>
-        <h4>become verified</h4>
-        <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">get representatives</button>
+        <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default btn-lg">get representatives</button>
         <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <!--<div ng-show="gettingRepresentatives" class="loader loaderSquare"></div>-->
+
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card flex="20" ng-repeat="user in officialRepresentatives">
             <a href="/member/{{user.username}}">
@@ -129,14 +136,6 @@
       <h1>build empowerment, change consensus</h1>
     </div>
   </div>
-  <!--
-  <div class="imageContainer">
-    <video class='flexible' autoplay="autoplay" muted="muted" preload="auto" loop="loop"><source src="https://s3-us-west-2.amazonaws.com/voetr/washington.mp4" type="video/mp4"></video>
-    <div class="imageContainerDiv">  
-      <h1>build empowerment, change consensus</h1>
-    </div>
-  </div>
-  -->
   <div id="about">
     <div id="information">
       <div class="container">
@@ -145,10 +144,17 @@
         <h4>be part of the movement</h4>
         <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->
         <!--<p>local counties / search</p>-->
-
+        <h4>direct your impact though real time input on policy</h4>
         <p>directly impact the creation of policy</p>
         <p>with direct input on policy your voice matters</p>
-        <p>tell your reps how you feel about specifc legislation</p>
+
+        <p>contact your reps by mail, fax, and email with a single click</p>
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <i class="fa fa-print" aria-hidden="true"></i>
+        <i class="fa fa-files-o" aria-hidden="true"></i>
+
+        <p>tell them how you feel about specifc legislation</p>
+
         <p>with open ballot elections - represent others at anytime</p>
 
         <md-divider></md-divider>
@@ -163,7 +169,6 @@
       <div ng-include="'register/index.tpl.html'">
       </div>
     </div>
-
 
     <div id="bills">
       <div class="container">

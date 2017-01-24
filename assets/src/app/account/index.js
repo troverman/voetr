@@ -34,63 +34,69 @@ angular.module( 'voetr.account', [
     $scope.googlePassport = $scope.user.passports.filter(function(e){return e.provider == 'google'}).length>0;
 
     $scope.uploadAvatar = function(file){
-        $scope.avatarLoading = true;
-        Upload.upload({
-            url: '/api/user/upload',
-            method: 'POST',
-            data: {picture: file}
-        })
-        .then(function(response){
-            $scope.avatarLoading = false;
-			$scope.user.avatarUrl = response.data.amazonUrl;
-            $scope.accountSave();
-        },
-        function(err){
-            $scope.avatarLoading = false;
-        },
-        function (evt) {
-            $scope.avatarPercentage = parseInt(100.0 * evt.loaded / evt.total);
-        })
+        if (file){
+            $scope.avatarLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $scope.avatarLoading = false;
+    			$scope.user.avatarUrl = response.data.amazonUrl;
+                $scope.accountSave();
+            },
+            function(err){
+                $scope.avatarLoading = false;
+            },
+            function (evt) {
+                $scope.avatarPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
     };
 
     $scope.uploadCover = function(file){
-        $scope.coverLoading = true;
-        Upload.upload({
-            url: '/api/user/upload',
-            method: 'POST',
-            data: {picture: file}
-        })
-        .then(function(response){
-            $scope.coverLoading = false;
-			$scope.user.coverUrl = response.data.amazonUrl;
-            $scope.accountSave();//probably should have a save button here -- if not save delete failed file
-        },
-        function(err){
-            $scope.coverLoading = false;
-        },
-        function (evt) {
-            $scope.coverPercentage = parseInt(100.0 * evt.loaded / evt.total);
-        })
+        if (file){
+            $scope.coverLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $scope.coverLoading = false;
+    			$scope.user.coverUrl = response.data.amazonUrl;
+                $scope.accountSave();//probably should have a save button here -- if not save delete failed file
+            },
+            function(err){
+                $scope.coverLoading = false;
+            },
+            function (evt) {
+                $scope.coverPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
     };
 
     $scope.uploadIdentification = function(file){
-        $scope.identificationLoading = true;
-        Upload.upload({
-            url: '/api/user/upload',
-            method: 'POST',
-            data: {picture: file}
-        })
-        .then(function(response){
-            $scope.identificationLoading = false;
-            $scope.user.identificationUrl = response.data.amazonUrl;
-            $scope.accountSave();//probably should have a save button here -- if not save delete failed file
-        },
-        function(err){
-            $scope.identificationLoading = false;
-        },
-        function (evt) {
-            $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);
-        })
+        if (file){
+            $scope.identificationLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $scope.identificationLoading = false;
+                $scope.user.identificationUrl = response.data.amazonUrl;
+                $scope.accountSave();//probably should have a save button here -- if not save delete failed file
+            },
+            function(err){
+                $scope.identificationLoading = false;
+            },
+            function (evt) {
+                $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
     };
 
     $scope.removePassport = function(provider) {

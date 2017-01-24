@@ -703,7 +703,7 @@ module.exports.intervalService = function(){
 	//bills()
 	//openStates();
 	//committees();
-	//recentBills();
+	recentBills();
 
 	//dataService.federalBills();
 	//dataService.federalVotes();

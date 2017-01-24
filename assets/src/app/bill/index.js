@@ -46,11 +46,15 @@ angular.module( 'voetr.bill', [
     $scope.votes = votes;
     $scope.comments = comments;
     $scope.currentUser = config.currentUser;
-
     $scope.billContent = $sce.trustAsHtml($scope.bill.fullLink);
-    console.log($scope.billContent)
 
-    console.log(votes)
+    $scope.createComment = function(newComment) {
+        newComment.user = config.currentUser;
+        newComment.bill = bill;
+        CommentModel.create(newComment).then(function(model) {
+            $scope.newComment = {};
+        });
+    };
 
     $scope.createVote = function(voteInteger, newVote) {
         if ($scope.currentUser == undefined){$location.path('/register');}
@@ -87,11 +91,4 @@ angular.module( 'voetr.bill', [
 	    }
     });
 
-	$scope.createComment = function(newComment) {
-        newComment.user = config.currentUser;
-        newComment.bill = bill;
-        CommentModel.create(newComment).then(function(model) {
-            $scope.newComment = {};
-        });
-    };
 });

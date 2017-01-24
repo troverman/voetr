@@ -27,21 +27,30 @@ angular.module( 'voetr.vote', [
 		resolve: {
             votes: function(VoteVoteModel, $stateParams, vote) {
                 return VoteVoteModel.getByVote(vote.id);
-            }
+            },
+             myRepresentatives: function(RepresentativeModel, config) {
+                if(config.currentUser){
+                    return RepresentativeModel.getRepresentatives(config.currentUser);
+                }
+                else{return null}
+            },
         }
     })
 
 })
 
-.controller( 'VoteCtrl', function VoteController( $sailsSocket, $scope, config, lodash, $sailsSocket, titleService, vote, votes, VoteVoteModel) {
+.controller( 'VoteCtrl', function VoteController( $sailsSocket, $scope, config, lodash, $sailsSocket, titleService, vote, votes, VoteVoteModel, myRepresentatives) {
 	titleService.setTitle(vote.title + '- voetr');
     $scope.currentUser = config.currentUser;
     $scope.newComment = {};
     $scope.newVote = {};
 	$scope.vote = vote;
 	$scope.votes = votes;
+    $scope.yesVotes = votes.filter(function(obj){return obj.voteInteger == 1});
+    $scope.noVotes = votes.filter(function(obj){return obj.voteInteger == -1});
+    $scope.myRepresentatives = myRepresentatives;
 
-	$scope.createVote = function(newVote) {
+	$scope.creatseVote = function(newVote) {
         if ($scope.currentUser == undefined){
             return null;
         }

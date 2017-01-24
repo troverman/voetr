@@ -29,6 +29,12 @@ angular.module( 'voetr.member', [
             constituents: function(RepresentativeModel, member) {
                 return RepresentativeModel.getConstituents(member);
             },
+            myRepresentatives: function(RepresentativeModel, config) {
+                if(config.currentUser){
+                    return RepresentativeModel.getRepresentatives(config.currentUser);
+                }
+                else{return null}
+            },
             posts: function(PostModel, member) {
                 return PostModel.getByUser(member.id, 100, 0, 'createdAt desc');
             },
@@ -45,7 +51,7 @@ angular.module( 'voetr.member', [
     });
 })
 
-.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, posts, PostModel) {
+.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, posts, PostModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
@@ -57,11 +63,13 @@ angular.module( 'voetr.member', [
     $scope.committees = votes;
     $scope.constituents = constituents;
     $scope.representatives = representatives;
+    $scope.myRepresentatives = myRepresentatives;
     $scope.skip = 0;
     $scope.newPost = {};
-    //$scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0
-
-
+    if(config.currentUser){
+        $scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0
+    }
+    
     $scope.createPost = function(){
         console.log($scope.newPost);
         $scope.newPost.user = $scope.currentUser.id;

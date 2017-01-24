@@ -2,9 +2,26 @@
 	<div class="container">
 		<div ng-show="!searchQuery">
 			<h1>discover members / legislators</h1>
-
-			<button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
 	        <md-divider></md-divider><br>
+
+	        <button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br><br>
+
+	        <md-card>
+				<md-card-title>
+					<input style="width:100%" ng-keyup="keyPress(searchValue)" ng-model="searchValue">
+				</md-card-title>
+			</md-card>
+
+			<div class='md-padding'>
+	            <md-card ng-repeat="searchResult in searchResults">
+	              <md-card-title>
+	                <md-card-title-text>
+						<a href="/project/{{searchResult.urlTitle}}">{{searchResult.title}}</a>
+					</md-card-title-text>
+	              </md-card-title>
+	            </md-card>
+	        </div>
+
 	        <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 	        <div class='md-padding' layout="row" layout-align="left" layout-wrap>
 	          <md-card flex="20" ng-repeat="user in officialRepresentatives">
@@ -21,52 +38,32 @@
 	          </md-card>
 	        </div>
 
-			<input ng-keyup="keyPress(searchValue)" ng-model="searchValue">
-			<div class='md-padding'>
-	            <md-card ng-repeat="searchResult in searchResults">
-	              <md-card-title>
-	                <md-card-title-text>
-						<a href="/project/{{searchResult.urlTitle}}">{{searchResult.title}}</a>
-					</md-card-title-text>
-	              </md-card-title>
-	            </md-card>
-	        </div>
-			<div style="height:20px"></div>
 			<!--search with member filter-->
-			<p>trending</p>
+			<h3>trending</h3>
+			<h3>bills</h3>
+			<h3>committees</h3>
+			<h3>members</h3>
+			<h3>votes</h3>
 
 		    <div id="bills">
-		      <div class="container">
-		        <h2><a href="/bills">bills</a></h2>
-		        <md-divider></md-divider><br>
-
-		        <div class="container">
-		          <div class='md-padding'>
-		            <md-card ng-repeat="bill in bills">
-		              <md-card-title>
-		                <md-card-title-text>
-		                  <h4>
-		                    <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
-		                    <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
-		                    <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
-		                  </h4>
-		                </md-card-title-text>
-		              </md-card-title>
-		            </md-card>
-		          </div>
-		        </div>
-
+			    <div class='md-padding'>
+			    	<md-card ng-repeat="bill in bills">
+			        	<md-card-title>
+			            	<md-card-title-text>
+				            	<h4>
+					                <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
+					                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
+					                <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+				            	</h4>
+			            	</md-card-title-text>
+			            </md-card-title>
+			        </md-card>
+			    </div>
 		        <div ng-click="loadMoreBills()" style="text-align:center">
 		          <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
 		        </div>
-		      </div>
 		    </div>
-
-
-
-			<h4>committees</h4>
-			<h4>votes</h4>
-		
+		    <div style="height:100px;"></div>
 		</div>
 		<div ng-show="searchQuery">
 			<div>
