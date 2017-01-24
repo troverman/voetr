@@ -193,6 +193,7 @@ function recentBills(){
 											};
 											Vote.findOrCreate({displayId:votes[y].id, title: votes[y].question}, model)
 											.exec(function(err, voteModel) {
+												console.log(voteModel)
 												if (!err){
 													Vote.publishCreate(voteModel);
 													(function(voteModel) {
@@ -217,7 +218,6 @@ function recentBills(){
 																				bill: billModel.id,
 																				user: user
 																			};
-
 																			//console.log(model);
 																			/*VoteVote.find({bill: billModel, vote:voteModel, user:userModel[0]})
 																			.then(function(voteVoteModel) {
@@ -703,9 +703,9 @@ module.exports.intervalService = function(){
 	//bills()
 	//openStates();
 	//committees();
-	recentBills();
+	//recentBills();
 
-	//dataService.federalBills();
+	//dataService.federalBills(1000);
 	//dataService.federalVotes();
 	//dataService.federalCommittees();
 	//dataService.stateCommittees();

@@ -2,35 +2,52 @@ var request = require('request');
 var openCongressApiKey = 'c16a6c623ee54948bac2a010ea6fab70';
 module.exports = {
 
-	federalBills: function(){
+	federalBills: function(pageCount){
 
-		var model = {
-			url: 'http://congress.api.sunlightfoundation.com/bills?apikey=' + openCongressApiKey,
-			json: true,
-		};
-		request(model, function (error, response, body) {
-			if (!error) {
-        		var billData = body.results;
-				for (x in billData){
-					var congress = billData[x].congress;
-					var type = billData[x].bill_type;
-					var number = billData[x].bill_id.replace(type, "").split("-")[0];
-					var fullLink = 'http://api.fdsys.gov/link?collection=bills&billtype='+type+'&billnum='+number+'&congress='+congress+'&link-type=html';
-					console.log(fullLink)
-					//request(fullLink, function (error, response, body) {
-						//console.log(body)
-						//if (body){
-							//if (body.trim().substring(0, 2)=="<!"){body = null;}
-						//}
-						//var model={};
+		var pageCount = pageCount;
+		for (var page = 1; page < pageCount; page++){
+			var model = {
+				url: 'https://congress.api.sunlightfoundation.com/bills?&per_page=1&page='+page+'&apikey=' + openCongressApiKey,
+				json: true,
+			};
+			request(model, function (error, response, body) {
+				if (!error) {
+					var billData;
+					if (body.results[0]){billData = body.results[0]}
+					var congress = billData.congress;
+					var type = billData.bill_type;
+					var number = billData.bill_id.replace(type, "").split("-")[0]
+					var fullLink = 'https://api.fdsys.gov/link?collection=bills&billtype='+type+'&billnum='+number+'&congress='+congress+'&link-type=html';
+
+					var billId = billData.bill_id;
+					var title = billData.short_title;
+					var urlTitle = '';
+					if (title){urlTitle = title.replace(/ /g,"-").toLowerCase()}
+
+					var sponsor = billData.sponsor;
+
+					request(fullLink, function (error, response, body) {
+						if (body){
+							if (body.trim().substring(0, 2)=="<!"){body = null;}
+						}
+						console.log(body)
+						var model = {
+							title: title,
+							urlTitle: urlTitle,
+							billContent: billData,
+							fullLink: body,
+							billId: billId,
+							committee: 1,
+							user: 1 //sponsor
+						};
 						//Bill.findOrCreate({bill_id:bill_id}, model)
 						//.exec(function(err, billModel) {
 						//});
 						//Bill.update({bill_id: bill_id}, model).then(function(){console.log('UPDATED THE BILL!')});
-					//});
-				}		
-        	}
-        });
+					});
+	        	}
+	        });
+		}
 
 	},
 
@@ -39,7 +56,7 @@ module.exports = {
 
 	federalCommittees: function(){
 		var model = {
-			url: 'http://congress.api.sunlightfoundation.com/committees?apikey=' + openCongressApiKey,
+			url: 'https://congress.api.sunlightfoundation.com/committees?apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
@@ -78,7 +95,7 @@ module.exports = {
 	federalVotes: function(bill){
 
 		var model = {
-			url: 'http://congress.api.sunlightfoundation.com/votes?apikey=' + openCongressApiKey,
+			url: 'https://congress.api.sunlightfoundation.com/votes?apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
