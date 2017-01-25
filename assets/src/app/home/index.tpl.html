@@ -20,12 +20,13 @@
       <div class="alert alert-success verificationNotice" ng-show="!currentUser.isVerified">
         <h2>Become Verified</h2>
         <br>
-        <h4>identification</h4><button class="btn btn-default">upload</button>
+        <h4>Identification</h4><button class="btn btn-default">upload</button>
         <p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>
         <br>
-        <h4>location</h4>
+        <h4>Adress</h4>
+
         <md-input-container class="md-block">
-          <textarea ng-model="address" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+          <textarea g-places-autocomplete ng-model="address" rows="5" md-select-on-focus aria-label="address"></textarea>
         </md-input-container>
         <h4>select representatives</h4>
         <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default btn-lg">get representatives</button>
@@ -82,7 +83,7 @@
               <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
               <a href="/vote/{{vote.id}}">{{vote.title}}</a>
             </h4>
-            <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}<a>
+            <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
             <br><br>
           </md-card-title-text>
         </md-card-title>
@@ -150,19 +151,17 @@
         <md-divider></md-divider>
         <h4>be part of the movement</h4>
         <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->
-        <!--<p>local counties / search</p>-->
-        <h4>direct your impact though real time input on policy</h4>
+        <h4>direct your impact though input on policy</h4>
         <p>directly impact the creation of policy</p>
-        <p>with direct input on policy your voice matters</p>
+        <!--<p>with direct input on policy your voice matters</p>-->
 
         <p>contact your reps by mail, fax, and email with a single click</p>
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
         <i class="fa fa-print" aria-hidden="true"></i>
         <i class="fa fa-files-o" aria-hidden="true"></i>
-
         <p>tell them how you feel about specifc legislation</p>
 
-        <p>with open ballot elections - represent others at anytime</p>
+        <!--<p>with continual open ballot elections - represent others at anytime</p>-->
 
         <md-divider></md-divider>
         <br><br>

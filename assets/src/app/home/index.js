@@ -51,7 +51,7 @@ angular.module( 'voetr.home', [
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel ) {
+.controller( 'HomeCtrl', function HomeController($rootScope, $sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel, $q ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -70,15 +70,42 @@ angular.module( 'voetr.home', [
     $scope.newPost = {};
     $scope.posts = {};
 
+    /*var vm = this;
+    vm.gmapsService = new google.maps.places.AutocompleteService();
+    vm.search = search;
+
+    function getResults(address) {
+	  var deferred = $q.defer();
+	  vm.gmapsService.getQueryPredictions({input: address}, function (data) {
+	    deferred.resolve(data);
+	  });
+	  return deferred.promise;
+	}
+
+	function search(address) {
+	  var deferred = $q.defer();
+	  getResults(address).then(
+	    function (predictions) {
+	      var results = [];
+	      for (var i = 0, prediction; prediction = predictions[i]; i++) {
+	        results.push(prediction.description);
+	      }
+	      deferred.resolve(results);
+	    }
+	  );
+	 return deferred.promise;
+	}*/
 
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
 	    	$scope.gettingRepresentatives = true;
+	    	$rootScope.stateIsLoading = true;
 	        navigator.geolocation.getCurrentPosition(function (position) {
                 lat = position.coords.latitude; 
                 lng = position.coords.longitude;
 	        	RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
 	        		$scope.officialRepresentatives = representatives;
+	        		$rootScope.stateIsLoading = false;
 					$scope.gettingRepresentatives = false;
 	        	});
 	        });
@@ -222,6 +249,8 @@ angular.module( 'voetr.home', [
 			case 'updated':
 				var index = $scope.votes.map(function(obj){return obj.id}).indexOf(envelope.data[0].id);
 				$scope.votes[index].voteCount = envelope.data[0].voteCount;
+				$scope.votes[index].plusCount = envelope.data[0].plusCount;
+				$scope.votes[index].minusCount = envelope.data[0].minusCount;
 				break;
 	        case 'destroyed':
 	            lodash.remove($scope.votes, {id: envelope.id});

@@ -16,7 +16,8 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'styles/**/*.css',
-  'bower_components/angular-material/angular-material.css'
+  'bower_components/angular-material/angular-material.css',
+  //'bower_components/angular-google-places-autocomplete/src/autocomplete.css',
 ];
 
 // Client-side javascript files to inject in order
@@ -39,6 +40,8 @@ var jsFilesToInject = [
   'bower_components/angular-aria/angular-aria.min.js',
   'bower_components/angular-material/angular-material.js',
   'bower_components/ng-file-upload/ng-file-upload.min.js',
+  //'bower_components/angular-google-places-autocomplete/src/autocomplete.js',
+
 
 
   // All of the rest of your app scripts

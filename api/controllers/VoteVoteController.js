@@ -108,7 +108,6 @@ module.exports = {
 					Vote.find({id: req.param('vote')}).then(function(voteModel){
 						if (req.param('voteInteger') == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
 						if (req.param('voteInteger') == -1){voteModel[0].minusCount = voteModel[0].minusCount - 1;}
-						console.log(voteModel[0].plusCount);
 						voteModel[0].voteCount = VoteVoteCount;
 						Vote.update({id: req.param('vote')}, voteModel[0]).exec(function afterwards(err, updated){
 							Vote.publishUpdate(req.param('vote'), updated);
