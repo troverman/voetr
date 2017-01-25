@@ -63,6 +63,12 @@ angular.module( 'voetr', [
     moment.locale('en');
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, config ) {
+.controller( 'AppCtrl', function AppCtrl ( $rootScope, $scope, config ) {
     config.currentUser = window.currentUser;
+    $rootScope.$on('$stateChangeStart',function(){
+        $rootScope.stateIsLoading = true;
+    });
+    $rootScope.$on('$stateChangeSuccess',function(){
+        $rootScope.stateIsLoading = false;
+    });
 });

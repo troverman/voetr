@@ -24,15 +24,31 @@
         </form>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-show="currentUser"><a href="/account">{{currentUser.username}}</a></li>
-        <li ng-show="currentUser"><a href="/logout">signout</a></li>
+        <!--<li ng-show="currentUser"><a href="/account">{{currentUser.username}}</a></li>-->
+        <li class="dropdown" ng-show="currentUser">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{currentUser.username}} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/member/{{currentUser.username}}">
+                <img style="max-height:32px" src="{{currentUser.avatarUrl}}"/>
+                {{currentUser.username}}
+              </a>
+            </li>
+            <li><a href="/account">account</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout">log out</a></li>
+          </ul>
+        </li>
+        <!--<li ng-show="currentUser"><a class="" href="#">+ message</a></li>-->
         <li ng-show="!currentUser"><a href="/register">register</a></li>
         <li ng-show="!currentUser"><a href="/login">login</a></li>
       </ul>
     </div>
   </div>
+  <md-progress-linear ng-if="stateIsLoading" md-mode="indeterminate"></md-progress-linear>
 </div>
-
 <!--
 <style>
 .navbar-inverse{background-color:rgb(26,26,26);}
