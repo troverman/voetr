@@ -8,25 +8,38 @@
 module.exports = {
 
 	attributes: {
-        result: {
-            type: 'string'
+        bill: {
+            model: 'bill',
+            required: true
         },
-        required: {
-            type: 'string'
-        },
-        type: {
-            type: 'string'
-        },
-        voteCount:{
+        minusCount:{
             type: 'integer'
         },
         plusCount:{
             type: 'integer'
         },
-        minusCount:{
-            type: 'integer'
+        officialId: {
+            type: 'string'
+        },
+        officialUrl: {
+            type: 'string'
         },
         otherCount:{
+            type: 'integer'
+        },
+        required: {
+            type: 'string'
+        },
+        result: {
+            type: 'string'
+        },
+        type: {
+            type: 'string'
+        },
+        officialUrl: {
+            type: 'string',
+        },
+        voteCount:{
             type: 'integer'
         },
         title: {
@@ -35,13 +48,6 @@ module.exports = {
         },
         urlTitle: {
             type: 'string',
-            required: true
-        },
-        displayId: {
-            type: 'string',
-        },
-        bill: {
-            model: 'bill',
             required: true
         },
         user: {

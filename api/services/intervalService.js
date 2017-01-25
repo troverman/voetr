@@ -705,7 +705,9 @@ module.exports.intervalService = function(){
 	//committees();
 	//recentBills();
 
-	//dataService.federalBills(1000);
+	//setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
+	//dataService.federalBills(1, 1000);
+	//dataService.federalBills(999, 1999);
 	//dataService.federalVotes();
 	//dataService.federalCommittees();
 	//dataService.stateCommittees();

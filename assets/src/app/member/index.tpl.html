@@ -77,6 +77,11 @@
 	      <a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}">twitter</a>
 	      <a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}">google</a>
 
+	      <p ng-show="member.phone">{{member.phone}}</p>
+	      <p ng-show="member.fax">{{member.fax}}</p>
+	      <!--<p ng-show="member.email">{{member.email}}</p>-->
+
+
 	      <!--<button class="btn btn-default">follow</button><br>-->
 	      <br>
 	      <div ng-show="currentUser.id != member.id">
@@ -134,7 +139,7 @@
 			</md-card>
 			<br><br>	
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
-			  <button class="btn btn-default col-xs-10 col-xs-offset-1">LOAD MORE</button>
+			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
 			</div>
 		</uib-tab>
 		<uib-tab heading="Committees">
@@ -179,7 +184,7 @@
 			</md-card>
 			<br><br>	
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
-			  <button class="btn btn-default col-xs-10 col-xs-offset-1">LOAD MORE</button>
+			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
 			</div>
 		</uib-tab>
 		<!--<uib-tab heading="Follow">

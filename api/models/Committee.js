@@ -6,6 +6,12 @@
 module.exports = {
 
 	attributes: {
+        parent: {
+            model: 'committee'
+        },
+        officialId: {
+            type: 'string',
+        },
         title: {
             type: 'string',
             required: true,
@@ -16,9 +22,6 @@ module.exports = {
             required: true,
             unique: true
         },
-        parent: {
-            model: 'committee'
-        }
     },
 
     getAll: function() {

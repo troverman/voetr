@@ -1,6 +1,9 @@
 <!--we need some hover css here... we have on click editing-->
 <div style="height:25em;width: 100%;overflow: hidden;" ngf-accept="'image/*'" ngf-drop ngf-select="uploadCover($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true" href="#">
+	<i ng-show="avatarLoading" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 	<img style="width:100%;min-height:35em;" src="{{user.coverUrl}}">
+	<i ng-show="coverLoading" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
 </div>
 <div class="container">
 	<!--we need some hover css here... we have on click editing-->

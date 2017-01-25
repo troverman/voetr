@@ -46,7 +46,7 @@ angular.module( 'voetr.bill', [
     $scope.votes = votes;
     $scope.comments = comments;
     $scope.currentUser = config.currentUser;
-    $scope.billContent = $sce.trustAsHtml($scope.bill.fullLink);
+    $scope.billContent = $sce.trustAsHtml($scope.bill.fullText);
 
     $scope.createComment = function(newComment) {
         newComment.user = config.currentUser;

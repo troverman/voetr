@@ -7,6 +7,12 @@
       <h2><a href="/member/{{currentUser.username}}">{{currentUser.username}}</a></h2>
       <h5>representatives - {{representatives.length}}</h5>
       <h5>constituents - {{constituents.length}}</h5>
+      <h5>votes - {{votes.length}}</h5>
+      <br><br><br>
+      <p>activity</p>
+      <p>reccomended votes</p>
+      <p>message</p>
+
       <!--activity, recommended votes-->
     </div>
     <div class="col-md-8">
@@ -71,11 +77,12 @@
         <md-card-title>
           <md-card-title-text>
             <h4>
-              {{vote.voteCount}}
+              {{vote.voteCount}} ({{vote.plusCount-vote.minusCount}})
               <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
               <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
               <a href="/vote/{{vote.id}}">{{vote.title}}</a>
             </h4>
+            <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}<a>
             <br><br>
           </md-card-title-text>
         </md-card-title>
@@ -181,11 +188,11 @@
               <md-card-title>
                 <md-card-title-text>
                   <h4>
-                    <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
-                    <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
                     <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
                   </h4>
                 </md-card-title-text>
+                 <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
+                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
               </md-card-title>
             </md-card>
           </div>
@@ -244,6 +251,14 @@
             </md-card-title>
           </md-card>
         </div>
+
+        <h3>message your reps</h3>
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <i class="fa fa-print" aria-hidden="true"></i>
+        <i class="fa fa-files-o" aria-hidden="true"></i>
+        <md-input-container class="md-block">
+          <textarea ng-model="message" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+        </md-input-container>
 
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card flex="20" ng-repeat="user in users">

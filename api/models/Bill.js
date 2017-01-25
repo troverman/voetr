@@ -8,6 +8,30 @@
 module.exports = {
 
 	attributes: {
+        billContent: {
+            type: 'json',
+            required: true
+        },
+        comments: {
+            collection: 'comment',
+            via: 'bill'
+        },
+        //committees
+        committee: {
+            model: 'committee',
+        },
+        fullText: {
+            type: 'string',
+        },
+        officialId: {
+            type: 'string',
+        },
+        summary: {
+            type: 'string',
+        },
+        summaryShort: {
+            type: 'string',
+        },
         title: {
             type: 'string',
             required: true
@@ -16,16 +40,8 @@ module.exports = {
             type: 'string',
             required: true
         },
-        displayNumber: {
+        upcoming: {
             type: 'string',
-        },
-        billContent: {
-            type: 'json',
-            required: true
-        },
-        committee: {
-            model: 'committee'//,
-            //required: true
         },
         user: {
             model: 'user',
@@ -33,10 +49,6 @@ module.exports = {
         },
         votes: {
             collection: 'vote',
-            via: 'bill'
-        },
-        comments: {
-            collection: 'comment',
             via: 'bill'
         },
         voteCount: {

@@ -1,15 +1,24 @@
 <div ui-view="bill">
 	<div class="billContainer container">
-		<h3>{{bill.title}}</h3>
+		<h3>0 - {{bill.title}}</h3>
 		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
 		<!--<p><a href="{{bill.committee.urlTitle}}">{{bill.committee.title}}</a></p>-->
 		<md-divider></md-divider>
+		<div class="row">
+			<button class="col-xs-6 btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
+        	<button class="col-xs-6 btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
+    	</div>
 		<uib-tabset>
 			<uib-tab heading="Info" active="active">
 				<div class="billContent">
 					<br>
 					<p>{{bill.billContent.current_status_description}}</p>
 					<p>{{bill.billContent.current_status_label}}</p>
+
+					<p>{{bill.summary}}</p><br><br>
+					
+					<p>{{bill.summaryShort}}</p>
+
 					<!--<p class="lead">{{bill.billContent.display_number}}</p>-->
 					<!--<p class="lead">{{bill.billContent.introduced_date}}</p>-->
 					<!--<p class="lead">{{bill.billContent.is_alive}}</p>-->

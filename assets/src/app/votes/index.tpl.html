@@ -6,19 +6,20 @@
 	<md-list class="container">
 		<md-list-item ng-repeat="vote in votes">
 			<div class="md-list-item-text" layout="column">
-				<h3 class="committees title" style="font-size:25px">
+				<h3 class="" style="font-size:25px">
 					{{vote.voteCount}}
           			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i></button>
           			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
 					<a href="/vote/{{vote.id}}">{{vote.title}}</a>
 				</h3>
+				<h5><a href="/bill/{{vote.bill.id}}">{{vote.bill.title}}</a></h5>
 			</div>
 		</md-list-item>
 	</md-list>
 	<md-divider ></md-divider>
 	<br><br>
 	<div ng-click="loadMore()" style="text-align:center">
-	  <button class="btn btn-default col-xs-10 col-xs-offset-1">LOAD MORE</button>
+	  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
 	</div>
 </md-content>
 

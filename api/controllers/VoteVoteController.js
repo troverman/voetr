@@ -101,21 +101,19 @@ module.exports = {
 				return console.log(err);
 			}
 			else {
-				//this is total not up plus down
-				//need to restructure this
 				VoteVote.count()
 				.where({vote: req.param('vote')})
 				.exec(function(err, VoteVoteCount) {
-					console.log(VoteVoteCount)
-
-					//do a getOne --> then update, plusCount:plusCount, minusCount --> if for this yee.... ....
-
-					Vote.update({id: req.param('vote')}, {voteCount:VoteVoteCount}).exec(function afterwards(err, updated){
-					  Vote.publishUpdate(req.param('vote'), updated);
-					  if (err) {
-					    return;
-					  }
-					});
+					console.log(VoteVoteCount);
+					Vote.find({id: req.param('vote')}).then(function(voteModel){
+						if (req.param('voteInteger') == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
+						if (req.param('voteInteger') == -1){voteModel[0].minusCount = voteModel[0].minusCount - 1;}
+						console.log(voteModel[0].plusCount);
+						voteModel[0].voteCount = VoteVoteCount;
+						Vote.update({id: req.param('vote')}, voteModel[0]).exec(function afterwards(err, updated){
+							Vote.publishUpdate(req.param('vote'), updated);
+						});
+					})
 				});
 				VoteVote.getOne(model.id).then(function(votevote){
 					VoteVote.publishCreate(votevote[0]);
