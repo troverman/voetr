@@ -7,7 +7,7 @@ angular.module( 'voetr', [
     'lodash',
     'ui.bootstrap',
     'uiGmapgoogle-maps',
-    //'google.places',
+    'google.places',
     'templates-app',
     'services',
     'models',
