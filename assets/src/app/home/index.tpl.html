@@ -1,137 +1,163 @@
 <!--if logged in-->
 <div ng-show="currentUser">
-  <div style="height:50px"></div>
+  <div class="spacing-50"></div>
   <div class="container">
-    <div class="col-md-4">
-      <img class="avatar" style="margin-top:0em" src="{{currentUser.avatarUrl}}"/>
-      <h2><a href="/member/{{currentUser.username}}">{{currentUser.username}}</a></h2>
-      <h5>representatives - {{representatives.length}}</h5>
-      <h5>constituents - {{constituents.length}}</h5>
-      <h5>votes - {{votes.length}}</h5>
-      <br><br><br>
-      <p>activity</p>
-      <p>reccomended votes</p>
-      <p>message</p>
+    <div class="row">
+      <div class="col-md-4">
+        <img class="avatar" style="margin-top:0em" src="{{currentUser.avatarUrl}}"/>
+        <h2><a href="/member/{{currentUser.username}}"><b>{{currentUser.username}}</a></b></h2>
+        <div class="spacing-5"></div>
+        <h5><b class="vBlue">Representatives</b> - <b>{{representatives.length}}</b></h5>
+        <h5><b class="vBlue">Constituents</b> - <b>{{constituents.length}}</b></h5>
+        <h5><b class="vBlue">Votes</b> - <b>{{votes.length}}</b></h5>
+        <div class="spacing-25"></div>
+      </div>
+      <div class="col-md-8">
+        <div class="alert alert-success verificationNotice spacing-25" ng-show="!currentUser.isVerified">
+          <h2>Become Verified!</h2>
+          <hr>
+            <div class="spacing-15">
+              <h4><b>Official ID</b></h4>
+              <div class="spacing-10"></div>
+              <p>By providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>
+              <div class="spacing-10"></div>
+              <button class="btn btn-default"><i class="fa fa-upload"></i> Upload</button>
+              <div class="spacing-25"></div>
+              <h4><b>Official Address</b></h4>
+              <div class="spacing-10"></div>
+              <md-input-container class="md-block">
+                <textarea g-places-autocomplete ng-model="address" rows="5" md-select-on-focus aria-label="address" placeholder="+ Add Location"></textarea>
+              </md-input-container>
+            </div>
+        </div>
+        <!--
+        <h3>my constituents</h3>
+        <md-divider></md-divider>
+        <md-card ng-repeat="constituent in constituents">
+          <md-card-title>
+            <md-card-title-text>
+              <h4><a href="/member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h4>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        <br><br>
 
-      <!--activity, recommended votes-->
+        <h3>my representatives</h3>
+        <md-divider></md-divider>
+        <md-card ng-repeat="representative in representatives">
+          <md-card-title>
+            <md-card-title-text>
+              <h4><a href="/member/{{representative.representative.username}}">{{representative.representative.username}}</a></h4>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        <br><br>
+
+        <h3>my votes</h3>
+        <md-divider></md-divider>
+        <md-card ng-repeat="vote in userVotes">
+          <md-card-title>
+            <md-card-title-text>
+              {{vote.voteString}}<br><br>
+              <a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a><br>
+              <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a><br>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        -->
+      </div>
     </div>
-    <div class="col-md-8">
-
-      <div class="alert alert-success verificationNotice" ng-show="!currentUser.isVerified">
-        <h2>Become Verified</h2>
-        <br>
-        <h4>Identification</h4><button class="btn btn-default">upload</button>
-        <p>by providing official identification, government officials have more of an inventive to respond and your voice carries more weight.</p>
-        <br>
-        <h4>Adress</h4>
-
-        <md-input-container class="md-block">
-          <textarea g-places-autocomplete ng-model="address" rows="5" md-select-on-focus aria-label="address"></textarea>
-        </md-input-container>
-        <h4>select representatives</h4>
-        <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default btn-lg">get representatives</button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="spacing-25"></div>
+      <div class="col-md-7">
+        <h4><b>Your Representatives</b></h4>
+        <hr>
+        <div class="spacing-5"></div>
+        <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default btn-lg"><i class="fa fa-map-marker"></i> Local Reps</button>
         <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <!--<div ng-show="gettingRepresentatives" class="loader loaderSquare"></div>-->
-
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
-          <md-card flex="20" ng-repeat="user in officialRepresentatives">
+          <md-card class="col-md-4" ng-repeat="user in officialRepresentatives">
             <a href="/member/{{user.username}}">
               <img ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
             </a>
-            <md-card-title>
+            <md-card-title class="text-center" style="padding:15px 0">
               <md-card-title-text>
-                <a href="/member/{{user.username}}">
-                  <span class="">{{user.username}}</span>
-                </a>
+                <a href="/member/{{user.username}}">{{user.username}}</a>
                 <!--<button class="btn btn-green">select as representative</button>-->
               </md-card-title-text>
             </md-card-title>
           </md-card>
         </div>
+        <div class="spacing-25"></div>
+        <h4><b>Submit Post</b></h4>
+        <hr>
+        <div class="spacing-15"></div>
+        <div class="profilePost">
+          <form role="form">
+            <md-input-container class="md-block">
+              <textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post" placeholder="+ Add Text"></textarea>
+            </md-input-container>
+            <!--connect legislators-->
+          </form>
+          <button ng-click="createPost()" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+        </div>
+        <div class="spacing-25"></div>
+        <h4><b>Your Posts</b></h4>
+        <hr>
+        <div class="spacing-15"></div>
+        <md-card ng-repeat="post in posts" class="col-md-6 margin-25">
+          <md-card-title>
+            <md-card-title-text>
+              <a href="member/{{post.user.username}}" class="text-left">
+                <img ng-src="{{post.user.avatarUrl}}" class="postImg" alt="{{post.user.username}}">
+              </a>
+              <div class="margin-5"></div>
+              <span class="subtitle">User:</span>
+              <a href="member/{{post.user.username}}" class="text-left">{{post.user.username}}</a>
+              <div class="margin-10"></div>
+              <span class="subtitle">Text:</span>
+              <p>{{post.post}}</p>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
       </div>
-
-      <div class="profilePost">
-        <form role="form">
-          <md-input-container class="md-block">
-            <textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
-          </md-input-container>
-          <!--connect legislators-->
-        </form>
-        <button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
+      <div class="col-md-5">
+        <h4><b>Recommended Votes</b></h4>
+        <hr>
+        <div class="spacing-15"></div>
+        <md-card ng-repeat="vote in votes">
+          <md-card-title>
+            <md-card-title-text>
+              <h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
+              <div class="margin-5"></div>
+              <h4>
+                <b>+ {{vote.plusCount-vote.minusCount}}</b>
+                <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
+                  <i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
+                </button>
+                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
+                  <i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
+                </button>
+                <br><br>
+                <span class="subtitle">({{vote.voteCount}} total votes)</span>
+              </h4>
+              <div class="margin-10"></div>
+              <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+              <br><br>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        <br><br>
+        <div ng-click="loadMoreVotes()" style="text-align:center">
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">load more</button>
+        </div>
       </div>
-
-      <md-card ng-repeat="post in posts">
-        <md-card-title>
-          <md-card-title-text>
-            <a href="member/{{post.user.username}}">
-              <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-              {{post.user.username}}
-            </a>
-            <p>{{post.post}}</p>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-
-      <h3>recommended votes</h3>
-      <md-divider></md-divider>
-      <md-card ng-repeat="vote in votes">
-        <md-card-title>
-          <md-card-title-text>
-            <h4>
-              {{vote.voteCount}} ({{vote.plusCount-vote.minusCount}})
-              <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
-              <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
-              <a href="/vote/{{vote.id}}">{{vote.title}}</a>
-            </h4>
-            <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
-            <br><br>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-      <br><br>
-      <div ng-click="loadMoreVotes()" style="text-align:center">
-        <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
-      </div>
-
-      <!--
-      <h3>my constituents</h3>
-      <md-divider></md-divider>
-      <md-card ng-repeat="constituent in constituents">
-        <md-card-title>
-          <md-card-title-text>
-            <h4><a href="/member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h4>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-      <br><br>
-
-      <h3>my representatives</h3>
-      <md-divider></md-divider>
-      <md-card ng-repeat="representative in representatives">
-        <md-card-title>
-          <md-card-title-text>
-            <h4><a href="/member/{{representative.representative.username}}">{{representative.representative.username}}</a></h4>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-      <br><br>
-
-      <h3>my votes</h3>
-      <md-divider></md-divider>
-      <md-card ng-repeat="vote in userVotes">
-        <md-card-title>
-          <md-card-title-text>
-            {{vote.voteString}}<br><br>
-            <a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a><br>
-            <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a><br>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-      -->
-
     </div>
   </div>
-  <div style="height:50px;"></div>
+  <div class="spacing-50"></div>
 </div>
 <!--/if logged in-->
 
@@ -166,8 +192,7 @@
         <md-divider></md-divider>
         <br><br>
         <a href="/about" class="btn btn-default">learn more</a>
-        <div style="height:100px;"></div>
-        <div style="height:100px;"></div>
+        <div class="spacing-200"></div>
       </div>
     </div>
 
