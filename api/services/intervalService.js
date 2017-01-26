@@ -366,7 +366,9 @@ function stateLegislators(){
 				for (x in stateData) {
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
-					var photo_url = stateData[x].photo_url;
+					var photo_url;
+					if(stateData[x].photo_url){photo_url = stateData[x].photo_url/*.replace(/^http:\/\//i, 'https://')*/}
+					if(!stateData[x].photo_url){photo_url = 'images/avatar.png'}
 					var offices = stateData[x].offices;
 					var district = stateData[x].district;
 					var chamber = stateData[x].chamber;
@@ -398,7 +400,8 @@ function stateLegislators(){
 					
 					var trim_username = username
 					.replace(/[()]/g, '')
-					.replace('/../g', '.')
+					.replace('..', '.')
+					.replace(/'/g, '.')
 
 					var email =  stateData[x].email;
 					if( typeof email === 'undefined' || email === null || email===''){
@@ -427,10 +430,9 @@ function stateLegislators(){
 
 					User.findOrCreate({leg_id: leg_id}, model)
 					.exec(function(err, user) {
-						if (err) {
-							return console.log(err);
-						}
+						if (err) {console.log(err);}
 						else {
+							console.log('created state');
 							User.publishCreate(user);
 						}
 					});
@@ -680,22 +682,21 @@ function getLegislators(lat, lng){
 				//res.json(representatives)
 	    	});
     	});
-	})
-	.catch(function(err) {
-		console.log(err);
-	});	
+	}).catch(function(err) {console.log(err)});	
 
 };
 
 module.exports.intervalService = function(){
 
 	for (x in Object.keys(states)){
+		//console.log(Object.keys(states)[x])
+		dataService.stateBills(Object.keys(states)[x],1,88);
 		//if(x<=7){
-		if( (x >= 0) && (x < 5) ){
+		//if( (x >= 0) && (x < 5) ){
 		//if(x >= 40){
 			//console.log(states[x])
 			//stateBills(states[x])
-		}
+		//}
 	}
 
 

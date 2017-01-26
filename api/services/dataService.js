@@ -126,7 +126,6 @@ module.exports = {
 						console.log('created state committee')
 					})
 					Committee.update({committee_id: committee_id}, model).then(function(){console.log('updated state committee')})
-
 				}
         	}
         });
@@ -158,7 +157,8 @@ module.exports = {
 							var urlTitle = voteData[x].question.replace(' ','-').toLowerCase();
 							var model = {
 								bill: bill.id,
-								minusCount :minusCount,
+								committee: 1,
+								minusCount: minusCount,
 								plusCount: plusCount,
 								officialId: officialId,
 								officialUrl: officialUrl,
@@ -195,7 +195,6 @@ module.exports = {
 	        	}
 	        });
 		})(bill)	
-
 	},
 
 	federalVoteVotes: function(vote){
@@ -245,27 +244,75 @@ module.exports = {
 									});
 
 								});
-							})(vote, voteVoteModel)	
+							})(vote, voteVoteModel);
 						}
 					}
 	        	}
 	        });
-		})(vote)	
-
+		})(vote);	
 	},
 
-	stateBills: function(state){
+	stateBills: function(state, pageStart, pageEnd){
 
-		var model = {
-			url: 'http://openstates.org/api/v1/bills/?state=' + state + '&apikey=' + openCongressApiKey,
-			json: true,
-		};
-		request(model, function (error, response, body) {
-			if (!error) {
-        		var billData = body;
-			}
-        });
+		for (var page = pageStart; page <= pageEnd; page++){
+			var model = {
+				url: 'http://openstates.org/api/v1/bills/?state=' + state + '&per_page=1&page=' + page + '&apikey=' + openCongressApiKey,
+				json: true,
+			};
+			request(model, function (error, response, body) {
+				if (!error && body) {
+					if (body.length>0){
+	        			var billData = body[0];
+	        			var officialId = billData.id;
+						var model = {
+							url: 'http://openstates.org/api/v1/bills/' + officialId + '?apikey=' + openCongressApiKey,
+							json: true,
+						};
+						request(model, function (error, response, body) {
+							if (!error && body) {
+								//console.log(body)
+			        			var billData = body;
+			        			var officialId = billData.id;
+			        			var state = billData.state;
+								var title = billData.title;
+								var urlTitle;
+								if (body.title){urlTitle = body.title.replace(/ /g,"-").toLowerCase();}
+								if (!body.title){urlTitle = ''}
+								//mb add session
 
+								var model = {
+									billContent: body,
+									officialId: officialId,
+									committee: 1, //-->multiple committees, or in the most granular, we need state here tho..
+									title: title,
+									urlTitle: urlTitle,
+									user: 1
+								};
+								
+								Bill.find({officialId:officialId})
+								.then(function(billModel) {
+									if (billModel.length === 0){
+										Bill.create(model)
+										.then(function(billModel) {
+											console.log('BILL CREATED');
+											dataService.stateVotes(state, billModel, billData.votes);
+											Bill.publishCreate(billModel);
+										});
+									}
+									else{
+										Bill.update({officialId: officialId}, model)
+										.then(function(billModel){
+											console.log('BILL UPDATED');
+											dataService.stateVotes(state, billModel[0], billData.votes);
+										});
+									}
+								});
+							}
+						});
+	        		}
+				}
+	        });
+		}
 	},
 
 	stateCommittees: function(state){
@@ -399,9 +446,113 @@ module.exports = {
 		});
 	},
 
-	stateVotes: function(state, bill){
+	stateVotes: function(state, bill, votes){
+
+		//state, billModel[0], billData.votes
+		for (x in votes){
+		    var billId = bill.id;
+		    var committee = 1;
+			var minusCount = votes[x].no_count;
+			var officialId = votes[x].id;
+			var officialUrl;
+			if (votes[x].sources.length > 0){officialUrl = votes[x].sources[0].url}
+			var otherCount = votes[x].other_count;
+			var plusCount = votes[x].yes_count;
+		 	var required = '';
+			var result;
+			if(result){var result = 'Passed'}
+			if(!result){var result = 'Did Not Pass'}
+			var title = votes[x].motion;
+			var type = votes[x].type;
+			var urlTitle = votes[x].motion.replace(' ','-').toLowerCase();
+			var user = 1;
+
+			var model = {
+				bill: bill.id,
+				committee: committee,
+				minusCount: minusCount,
+				officialId: officialId,
+				officialUrl: officialUrl,
+				otherCount: otherCount,
+				plusCount: plusCount,
+				required: required,
+				result: result,
+				title: title,
+				type: type,
+				urlTitle: urlTitle,
+				user: user,
+			};
+
+			var yesVotesArray = _.map(votes[x].yes_votes, function(element) { 
+			     return _.extend({}, element, {vote: 1, voteString: 'Yea'});
+			});
+			var noVotesArray = _.map(votes[x].no_votes, function(element) { 
+			     return _.extend({}, element, {vote: -1, voteString: 'Nay'});
+			});
+			var otherVotesArray = _.map(votes[x].other_votes, function(element) { 
+			     return _.extend({}, element, {vote: 0, voteString: 'No Vote'});
+			});
+			var votesArray = [];
+			var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
+
+			(function(votesArray) {
+				Vote.find({officialId:officialId})
+				.then(function(voteModel) {
+					if (voteModel.length === 0){
+						Vote.create(model)
+						.then(function(voteModel) {
+							console.log('VOTE CREATED');
+							dataService.stateVoteVotes(state, voteModel, votesArray);
+							Vote.publishCreate(voteModel);
+						});
+					}
+					else{
+						Vote.update({officialId: officialId}, model)
+						.then(function(voteModel){
+							console.log('VOTE UPDATED');
+							dataService.stateVoteVotes(state, voteModel, votesArray);
+						});
+					}
+				});
+			})(votesArray);
+		}
 	},
 
-	stateVoteVotes: function(state, vote){
+	stateVoteVotes: function(state, vote, votes){
+		for (x in votes){
+			var voteVoteModel = votes[x];
+			(function(vote, voteVoteModel) {
+				User.find({leg_id: voteVoteModel.leg_id})
+				.then(function(userModel){
+					var user = userModel;
+					if(user[0]){user = userModel[0].id}
+					var model = {
+						voteInteger: voteVoteModel.vote,
+						voteString: voteVoteModel.voteString,
+						vote: vote.id,
+						bill: vote.bill,
+						user: user
+					};
+
+					VoteVote.findOrCreate({bill: model.bill, vote: model.vote, user: model.user}, model)
+					.exec(function(err, voteVoteModel) {
+						if (!err) {
+							VoteVote.publishCreate(voteVoteModel);
+							//break into positive and negative..!
+							VoteVote.count()
+							.where({vote:vote.id})
+							.exec(function(err, voteCount) {
+								console.log(voteCount)
+								Vote.update({id: vote.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
+								  if (err) {
+								    return;
+								  }
+								});
+							});
+						}
+					});
+				});
+			})(vote, voteVoteModel);
+		}
 	}
 }

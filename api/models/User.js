@@ -13,7 +13,6 @@ module.exports = {
         avatarUrl: {
             type: 'string',
             defaultsTo: 'images/avatar.png'
-
         },
         coverUrl: {
             type: 'string',
