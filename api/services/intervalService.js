@@ -690,7 +690,7 @@ module.exports.intervalService = function(){
 
 	for (x in Object.keys(states)){
 		//console.log(Object.keys(states)[x])
-		dataService.stateBills(Object.keys(states)[x],1,88);
+		//dataService.stateBills(Object.keys(states)[x],1,88);
 		//if(x<=7){
 		//if( (x >= 0) && (x < 5) ){
 		//if(x >= 40){
