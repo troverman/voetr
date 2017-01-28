@@ -6,7 +6,7 @@ module.exports = {
             unique: true
         },
         email: {
-            type: 'email',
+            type: 'string',
             required: true,
             unique: true
         },

@@ -1,6 +1,133 @@
 var request = require('request');
 var openCongressApiKey = 'c16a6c623ee54948bac2a010ea6fab70';
+var states = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AS": "American Samoa",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District Of Columbia",
+    "FM": "Federated States Of Micronesia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "GU": "Guam",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MH": "Marshall Islands",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "MP": "Northern Mariana Islands",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PW": "Palau",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VI": "Virgin Islands",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+};
+
+
 module.exports = {
+
+	getLegislators: function(lat, lng){
+
+		var lat = req.param('lat');
+		var lng = req.param('lng');
+		var stateModel= {
+			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			json: true
+		};
+		var federalModel = {
+			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			json: true
+		};
+		rp(stateModel).then(function(stateRepresentatives){
+			return [rp(federalModel), stateRepresentatives];
+		}).spread(function(federalRepresentatives, stateRepresentatives) {
+			return [federalRepresentatives.results, stateRepresentatives];
+		}).then(function(representatives){
+			var federalRepresentatives = representatives[0];
+			var stateRepresentatives = representatives[1];
+			var bioguide_id = federalRepresentatives.map(function(obj){return obj.bioguide_id});
+			var leg_id = stateRepresentatives.map(function(obj){return obj.leg_id});
+			User.find({bioguide_id:bioguide_id}).then(function(federalRepresentatives){
+				var federalRepresentativesModel = federalRepresentatives;
+				representatives.concat(federalRepresentatives);
+				User.find({leg_id:leg_id}).then(function(stateRepresentatives){
+					var representatives = federalRepresentativesModel.concat(stateRepresentatives)
+					//res.json(representatives)
+		    	});
+	    	});
+		}).catch(function(err) {console.log(err)});	
+
+	},
+
+	cityCommittees: function(){
+		var model = {
+			url: 'https://gist.githubusercontent.com/mayurah/5f4a6b18b1aa8c26910f/raw/8dd2b9486874d283141cad8cccc5916e48c75dcd/countriesToCities.json',
+			json: true,
+		};
+		request(model, function (error, response, body) {
+		    if (!error && response.statusCode === 200) {
+		        var cityData = body;
+		        for (var key in cityData) {
+					if (cityData.hasOwnProperty(key)) {
+				  		if(key == "United States"){
+							var cityArray = cityData[key];
+			        		for (var key in cityArray) {
+			        			var title = cityArray[key];
+								var urlTitle = cityArray[key].replace(/ /g,"-").toLowerCase();
+								var model = {
+									title: title,
+									urlTitle: urlTitle,
+								};
+								Committee.findOrCreate({urlTitle: urlTitle},model).exec(function createCB(err, created){
+									console.log('city committee created')
+								});
+
+							}
+				  		}
+				  	}
+				}
+		    }
+		});
+	},
 
 	federalBills: function(pageStart, pageEnd){
 
@@ -91,6 +218,91 @@ module.exports = {
 	},
 
 	federalLegislators: function(){
+
+		var model = {
+			url: 'http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			json: true,
+		};
+		request(model, function (error, response, body) {
+
+		    if (!error && response.statusCode === 200) {
+
+				var congressData = body.results;
+
+				for (var key in congressData) {
+
+					var bioguide_id = congressData[key].bioguide_id;
+					var birthday = congressData[key].birthday;
+					var chamber = congressData[key].chamber
+					var crp_id = congressData[key].crp_id;
+					var district = congressData[key].district;
+					var facebook_id = congressData[key].facebook_id;
+					var fax = congressData[key].fax;
+					var fec_ids = congressData[key].fec_ids;
+					var first_name = congressData[key].first_name;
+					var gender = congressData[key].gender;
+					var govtrack_id = congressData[key].govtrack_id;
+					var in_office = congressData[key].in_office;
+					var last_name = congressData[key].last_name;
+					var leadership_role = congressData[key].leadership_role;
+					var middle_name = congressData[key].middle_name;
+					var office = congressData[key].office;
+					var party = congressData[key].party;
+					var phone = congressData[key].phone;
+					var state = congressData[key].state;
+					var state_name = congressData[key].state_name;
+					var term_end = congressData[key].term_end;
+					var term_start = congressData[key].term_start;
+					var thomas_id = congressData[key].thomas_id;
+					var twitter_id = congressData[key].twitter_id;
+					var website = congressData[key].website;
+
+					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
+					var email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
+					var socialAccounts = {};
+					if (twitter_id != null){socialAccounts.twitter = {profileUrl: 'https://www.twitter.com/' + twitter_id}};
+					if (facebook_id != null){socialAccounts.facebook = {profileUrl: 'https://www.facebook.com/' + facebook_id}};
+					//console.log(bioguide_id)
+					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
+					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg']
+					var randInt = Math.floor(Math.random() * (coverUrlArray.length));
+					var coverUrl = coverUrlArray[randInt];
+					var title ='';
+					if (chamber == 'senate'){title = 'US Senator'}
+					if (chamber == 'house'){title = 'US Representative'}
+					var model = {
+						username: username,
+						email: email,
+						first_name: first_name,
+						last_name: last_name,
+						socialAccounts: socialAccounts,
+						leadership_role:leadership_role,
+						phone: phone,
+						party: party,
+						state: state_name,
+						title: title,
+						district: district,
+						term_end: term_end,
+						term_start: term_start,
+						bioguide_id: bioguide_id,
+						avatarUrl: avatarUrl,
+						coverUrl : coverUrl
+					};
+
+					User.findOrCreate({bioguide_id: bioguide_id}, model)
+					.exec(function(err, user) {
+						if (err) {
+							return console.log(err);
+						}
+						else {
+							User.publishCreate(user);
+						}
+					});
+					User.update({bioguide_id: bioguide_id}, model).then(function(){console.log('updated')});
+				}
+		    }
+		});
+
 	},
 
 	federalCommittees: function(){
@@ -99,16 +311,14 @@ module.exports = {
 			json: true,
 		};
 		request(model, function (error, response, body) {
-			if (!error) {
+			if (!error && body.results) {
         		var committeeData = body.results;
 				for (x in committeeData){
-
-					//console.log(committeeData[x]);
 
 					var chamber = committeeData[x].chamber;
 					var officialId = committeeData[x].committee_id;
 					var title = committeeData[x].name;
-					var urlTitle = name.toLowerCase().replace(/ /g,"-");
+					var urlTitle = title.toLowerCase().replace(/ /g,"-");
 					var parent_committee_id = committeeData[x].parent_committee_id;
 					var subcommittee = committeeData[x].subcommittee;
 
@@ -121,11 +331,10 @@ module.exports = {
 						user: 1,
 					};
 
-					Committee.findOrCreate({committee_id: committee_id},model).exec(function createCB(err, created){
-						//if find - update, if not, create
-						console.log('created state committee')
+					Committee.findOrCreate({officialId: officialId},model).exec(function createCB(err, created){
+						console.log('created federal committee')
 					})
-					Committee.update({committee_id: committee_id}, model).then(function(){console.log('updated state committee')})
+					Committee.update({officialId: officialId}, model).then(function(){console.log('updated federal committee')})
 				}
         	}
         });
@@ -281,7 +490,7 @@ module.exports = {
 								//mb add session
 
 								var model = {
-									billContent: body,
+									billContent: 'billData',
 									officialId: officialId,
 									committee: 1, //-->multiple committees, or in the most granular, we need state here tho..
 									title: title,
@@ -327,7 +536,7 @@ module.exports = {
 
 					//console.log(committeeData[x]);
 
-					var id = committeeData[x].id;
+					var officialId = committeeData[x].id;
 					var state = committeeData[x].state;
 					var committee = committeeData[x].committee;
 					var urlTitle = committee.toLowerCase().replace(/ /g,"-");
@@ -337,8 +546,10 @@ module.exports = {
 
 					//var parent = chamber --> each state house, senate..
 
+					//also need each state
+
 					var model = {
-						committee_id: id,
+						officialId: officialId,
 						state: state,
 						title: committee,
 						urlTitle: urlTitle,
@@ -348,10 +559,10 @@ module.exports = {
 						user: 1,
 					};
 
-					Committee.findOrCreate({committee_id: id},model).exec(function createCB(err, created){
+					Committee.findOrCreate({officialId: officialId},model).exec(function createCB(err, created){
 						console.log('created state committee')
 					});
-					Committee.update({committee_id: id}, model).then(function(){console.log('updated state committee')});
+					Committee.update({officialId: officialId}, model).then(function(){console.log('updated state committee')});
 
 				}
 			}

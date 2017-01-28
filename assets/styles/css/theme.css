@@ -120,7 +120,7 @@ body {
   margin:0;
 }
 
-md-card > :not(md-card-content) img {
+/*md-card > :not(md-card-content) img {
     max-height: 280px!important;
     max-width: 100%!important;
     width: auto!important;
@@ -131,7 +131,7 @@ md-card > :not(md-card-content) img {
 md-card > :not(md-card-content) .postImg {
   display: inline-block!important;
   max-width: 100px!important;
-}
+}*/
 
 .light {
   font-weight: 100
