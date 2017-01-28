@@ -117,7 +117,7 @@ module.exports = {
 									title: title,
 									urlTitle: urlTitle,
 								};
-								Committee.findOrCreate({urlTitle: urlTitle},model).exec(function createCB(err, created){
+								Committee.findOrCreate({urlTitle: urlTitle}, model).exec(function createCB(err, created){
 									console.log('city committee created')
 								});
 
@@ -302,6 +302,7 @@ module.exports = {
 							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
 							User.publishCreate(userModel);
 							//user.chamber
+							//hmmm y repreat
 							var committeeModel = {title: 'United States', urlTitle: 'united-states'}
 							Committee.findOrCreate({urlTitle: 'united-states'}, committeeModel)
 							.exec(function(err, committee) {

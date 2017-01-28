@@ -82,8 +82,8 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            members: function(BillModel) {
-                return [{username:'troverman', avatarUrl:'/images/trevor.jpg'}];
+            members: function(CommitteeMemberModel, committee) {
+                return CommitteeMemberModel.getByCommittee(committee.id);
             }
          }
     })
@@ -187,6 +187,7 @@ angular.module( 'voetr.committee', [
 .controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, members, committee) {
     $scope.committee = committee;
     $scope.members = members;
+    console.log(members)
 })
 
 .controller( 'CommitteeVoteCtrl', function CommitteeVoteCtrl( $scope, $sailsSocket, votes, committee) {

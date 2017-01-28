@@ -46,12 +46,15 @@ angular.module( 'voetr.member', [
             },
             voteCount: function(VoteVoteModel, member) {
                 return VoteVoteModel.getUserCount(member.id);
+            },
+            committees: function(CommitteeMemberModel, member){
+                return CommitteeMemberModel.getByMember(member.id);
             }
         }
     });
 })
 
-.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, posts, PostModel) {
+.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, posts, PostModel, committees) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
@@ -60,7 +63,7 @@ angular.module( 'voetr.member', [
     $scope.voteCount = voteCount.voteCount;
     $scope.following = votes;
     $scope.followers = votes;
-    $scope.committees = votes;
+    $scope.committees = committees;
     $scope.constituents = constituents;
     $scope.representatives = representatives;
     $scope.myRepresentatives = myRepresentatives;
@@ -69,6 +72,8 @@ angular.module( 'voetr.member', [
     if(config.currentUser){
         $scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0
     }
+
+    console.log(committees)
     
     $scope.createPost = function(){
         console.log($scope.newPost);

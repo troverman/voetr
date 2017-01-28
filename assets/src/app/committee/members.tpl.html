@@ -19,15 +19,20 @@
   <md-divider ></md-divider>
   <h2>members</h2>
   <md-divider ></md-divider>
-  <div class="committeeMembersContainer">
-    <div class="committeeMember" ng-repeat="member in members">
-      <a href="/member/{{member.username}}">
-        <img src="{{member.avatarUrl}}" style="height:64px;">
-        <h4>{{member.username}}</h4>
+  <div class='md-padding' layout="row" layout-align="center" layout-wrap>
+    <md-card flex="20" ng-repeat="member in members">
+      <a href="/member/{{member.user.username}}">
+        <img src="{{member.user.avatarUrl}}" err-src="/images/avatar.png" class="md-card-image" alt="{{member.user.username}}">
       </a>
-      <p>{{member}}</p>
-      <button class="btn btn-primary">select as representative</button>
-    </div>
+      <md-card-title-text>
+        <a href="/member/{{member.user.username}}">
+          <h3>{{member.user.username}}</h3>
+        </a>
+        <h4>{{member.title}}</h4>
+        <button class="btn btn-primary">select as representative</button>
+        <!--number of reps?-->
+      </md-card-title-text>
+    </md-card>
   </div>
 </div>
 <div ng-include="'footer/index.tpl.html'"></div>

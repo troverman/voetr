@@ -126,11 +126,14 @@ passport.connect = function (req, query, profile, next) {
   if (!user.username && !user.email) {
     return next(new Error('Neither a username nor email was available'));
   }
+  console.log('made it ')
 
   Passport.findOne({
     provider   : provider
   , identifier : query.identifier.toString()
   }, function (err, passport) {
+    console.log('googleupdating-----_~~~');
+    console.log()
     if (err) {
       return next(err);
     }
@@ -140,6 +143,7 @@ passport.connect = function (req, query, profile, next) {
       //           authentication provider.
       // Action:   Create a new user and assign them a passport.
       if (!passport) {
+        console.log(user)
         User.create(user, function (err, user) {
           if (err) {
             if (err.code === 'E_VALIDATION') {

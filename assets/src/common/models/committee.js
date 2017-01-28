@@ -11,6 +11,16 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getMembersByCommittee = function(model) {
+        var url = utils.prepareUrl('committeemember/committee/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+    this.getMembersByMember = function(model) {
+        var url = utils.prepareUrl('committeemember/committee/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getCount = function() {
         var url = utils.prepareUrl('committee/count');
         return $sailsSocket.get(url).then(success, error);

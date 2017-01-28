@@ -5,35 +5,17 @@
 	      <div style="height:25em;width: 100%;overflow: hidden;">
 	      	<img class="profile-bgHome" src="{{member.coverUrl}}" err-src="/images/avatar.png" />
 	      </div>
-		  <!--
-		  <ul class="data-user">
-			<li><a><strong>{{committees.length}}</strong><span>Committees</span></a></li>
-			<li><a><strong>{{constituents.length || 0}}</strong><span>Constituents</span></a></li>
-			<li><a><strong>{{representatives.length || 0}}</strong><span>Representatives</span></a></li>
-			<li><a><strong>{{voteCount}}</strong><span>Votes</span></a></li>
-			<li><a><strong>{{followers.length}}</strong><span>Followers</span></a></li>
-			<li><a><strong>{{following.length}}</strong><span>Following</span></a></li>
-		  </ul>
-		  -->
-		  <!--
-		  <div class="container">
-			<ul class="nav nav-tabs" style="margin-left:11em">
-				<li><a href="#">Activity</a></li>
-				<li><a href="#">Committees</a></li>
-				<li><a href="#">Representing</a></li>
-				<li><a href="#">Followers</a></li>
-				<li><a href="#">Following</a></li>
-				<li><a href="#">Votes</a></li>
-				<li><a href="#">Follow</a></li>
-				<li ng-show="currentUser.id == member.id"><a href="#">Edit Profile</a></li>
-		  	</ul>
-		  </div>
-		  -->
 		  <uib-tabset class="container">
 			<uib-tab heading="Activity" active="active" style="margin-left:11em">
 			</uib-tab>
 			<uib-tab heading="Committees">
-			</uib-tab>
+				<md-card ng-repeat="committee in committees">
+					<h3>{{committee.title}}</h4>
+					<!--number of reps?-->
+					<md-card-title-text>
+						<a href="/committee/{{committee.committee.urlTitle}}/">{{committee.committee.title}}</a>
+					</md-card-title-text>
+				</md-card>
 			<uib-tab heading="Constituents">
 				<md-card ng-repeat="constituent in constituents">
 					<md-card-title-text>
@@ -141,6 +123,13 @@
 			</div>
 		</uib-tab>
 		<uib-tab heading="Committees">
+			<md-card ng-repeat="committee in committees">
+				<md-card-title-text>
+					<a href="/committee/{{committee.committee.urlTitle}}/"><h3>{{committee.committee.title}}</h3></a>
+					<h5>{{committee.title}}</h5>
+					<!--number of reps?-->
+				</md-card-title-text>
+			</md-card>
 		</uib-tab>
 		<uib-tab heading="Constituents">
 		 	<div class='md-padding' layout="row" layout-align="center" layout-wrap>
