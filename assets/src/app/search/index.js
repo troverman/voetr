@@ -48,7 +48,7 @@ angular.module( 'voetr.search', [
     });
 })
 
-.controller( 'SearchController', function SearchController( $scope, $stateParams, lodash, config, titleService, searchResults, SearchModel, RepresentativeModel, bills ) {
+.controller( 'SearchController', function SearchController( $rootScope, $scope, $stateParams, lodash, config, titleService, searchResults, SearchModel, RepresentativeModel, bills ) {
     $scope.searchQuery = $stateParams.searchQuery;
     if (typeof $scope.searchQuery != "undefined" && $scope.searchQuery != ''){titleService.setTitle($scope.searchQuery + ' - voetr');}
     else{titleService.setTitle('search - voetr');}
@@ -57,7 +57,9 @@ angular.module( 'voetr.search', [
     $scope.gettingRepresentatives = false;
     
     $scope.keyPress = function(searchValue){
+        $rootScope.stateIsLoading = true;
         SearchModel.search(searchValue).then(function(models){
+            $rootScope.stateIsLoading = false;
             $scope.searchResults = models;
         });
     };
@@ -67,12 +69,14 @@ angular.module( 'voetr.search', [
     $scope.getLatLng = function() {
         if (navigator.geolocation) {
             $scope.gettingRepresentatives = true;
+            $rootScope.stateIsLoading = true;
             navigator.geolocation.getCurrentPosition(function (position) {
                 lat = position.coords.latitude; 
                 lng = position.coords.longitude;
                 RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
                     $scope.officialRepresentatives = representatives;
                     $scope.gettingRepresentatives = false;
+                    $rootScope.stateIsLoading = false;
                 });
             });
         }

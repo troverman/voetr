@@ -9,8 +9,8 @@ module.exports = {
 
 	attributes: {
         billContent: {
-            type: 'json',
-            required: true
+            type: 'string',
+            //required: true
         },
         comments: {
             collection: 'comment',

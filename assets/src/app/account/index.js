@@ -19,7 +19,7 @@ angular.module( 'voetr.account', [
 	});
 })
 
-.controller( 'AccountCtrl', function AccountController( $location, $scope, config, titleService, user, UserModel, Upload ) {
+.controller( 'AccountCtrl', function AccountController( $location, $rootScope, $scope, config, titleService, user, UserModel, Upload ) {
 	titleService.setTitle('account - voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.user = user;
@@ -36,6 +36,7 @@ angular.module( 'voetr.account', [
     $scope.uploadAvatar = function(file){
         if (file){
             $scope.avatarLoading = true;
+            $rootScope.stateIsLoading = true;
             Upload.upload({
                 url: '/api/user/upload',
                 method: 'POST',
@@ -43,11 +44,13 @@ angular.module( 'voetr.account', [
             })
             .then(function(response){
                 $scope.avatarLoading = false;
+                $rootScope.stateIsLoading = false;
     			$scope.user.avatarUrl = response.data.amazonUrl;
                 $scope.accountSave();
             },
             function(err){
                 $scope.avatarLoading = false;
+                $rootScope.stateIsLoading = false;
             },
             function (evt) {
                 $scope.avatarPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -58,6 +61,7 @@ angular.module( 'voetr.account', [
     $scope.uploadCover = function(file){
         if (file){
             $scope.coverLoading = true;
+            $rootScope.stateIsLoading = true;
             Upload.upload({
                 url: '/api/user/upload',
                 method: 'POST',
@@ -65,11 +69,13 @@ angular.module( 'voetr.account', [
             })
             .then(function(response){
                 $scope.coverLoading = false;
+                $rootScope.stateIsLoading = false;
     			$scope.user.coverUrl = response.data.amazonUrl;
                 $scope.accountSave();//probably should have a save button here -- if not save delete failed file
             },
             function(err){
                 $scope.coverLoading = false;
+                $rootScope.stateIsLoading = false;
             },
             function (evt) {
                 $scope.coverPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -80,6 +86,7 @@ angular.module( 'voetr.account', [
     $scope.uploadIdentification = function(file){
         if (file){
             $scope.identificationLoading = true;
+            $rootScope.stateIsLoading = true;
             Upload.upload({
                 url: '/api/user/upload',
                 method: 'POST',
@@ -87,11 +94,13 @@ angular.module( 'voetr.account', [
             })
             .then(function(response){
                 $scope.identificationLoading = false;
+                $rootScope.stateIsLoading = false;
                 $scope.user.identificationUrl = response.data.amazonUrl;
                 $scope.accountSave();//probably should have a save button here -- if not save delete failed file
             },
             function(err){
                 $scope.identificationLoading = false;
+                $rootScope.stateIsLoading = false;
             },
             function (evt) {
                 $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);

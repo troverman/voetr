@@ -192,6 +192,9 @@ module.exports = {
 								user: 1 //sponsor
 							};
 
+							console.log(model.title)
+							console.log(model.urlTitle)
+
 							Bill.find({officialId:officialId})
 							.then(function(billModel) {
 								if (billModel.length === 0){
@@ -286,16 +289,44 @@ module.exports = {
 						term_start: term_start,
 						bioguide_id: bioguide_id,
 						avatarUrl: avatarUrl,
-						coverUrl : coverUrl
+						coverUrl : coverUrl,
+						chamber: chamber,
 					};
 
 					User.findOrCreate({bioguide_id: bioguide_id}, model)
-					.exec(function(err, user) {
+					.exec(function(err, userModel) {
 						if (err) {
 							return console.log(err);
 						}
 						else {
-							User.publishCreate(user);
+							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
+							User.publishCreate(userModel);
+							//user.chamber
+							var committeeModel = {title: 'United States', urlTitle: 'united-states'}
+							Committee.findOrCreate({urlTitle: 'united-states'}, committeeModel)
+							.exec(function(err, committee) {
+								if (err) {return console.log(err);}
+								else {
+									Committee.publishCreate(committee);
+
+									var committeeMemberModel = {
+										committee: committee.id,
+										title: userModel.title,
+										user: userModel.id
+									};
+
+									CommitteeMember.findOrCreate({committee: committee.id, user: userModel.id}, committeeMemberModel)
+									.exec(function(err, committeeMember) {
+										if (err) {return console.log(err);}
+										else {
+											console.log('COMMITTEE MEMBER CREATED')
+											CommitteeMember.publishCreate(committeeMember);
+										}
+									});
+
+								}
+							});
+
 						}
 					});
 					User.update({bioguide_id: bioguide_id}, model).then(function(){console.log('updated')});
@@ -497,7 +528,10 @@ module.exports = {
 									urlTitle: urlTitle,
 									user: 1
 								};
-								
+
+								console.log(model.title)
+								console.log(model.urlTitle)
+
 								Bill.find({officialId:officialId})
 								.then(function(billModel) {
 									if (billModel.length === 0){
@@ -559,7 +593,7 @@ module.exports = {
 						user: 1,
 					};
 
-					Committee.findOrCreate({officialId: officialId},model).exec(function createCB(err, created){
+					Committee.findOrCreate({officialId: officialId}, model).exec(function createCB(err, created){
 						console.log('created state committee')
 					});
 					Committee.update({officialId: officialId}, model).then(function(){console.log('updated state committee')});
@@ -613,7 +647,7 @@ module.exports = {
 					
 					var trim_username = username
 					.replace(/[()]/g, '')
-					.replace('/../g', '.')
+					.replace(/\.\./g, '.')
 
 					var email =  stateData[x].email;
 					if( typeof email === 'undefined' || email === null || typeof email === 'string' ){
@@ -643,12 +677,50 @@ module.exports = {
 					};
 
 					User.findOrCreate({leg_id: leg_id}, model)
-					.exec(function(err, user) {
+					.exec(function(err, userModel) {
 						if (err) {
 							return console.log(err);
 						}
 						else {
-							User.publishCreate(user);
+							User.publishCreate(userModel);
+
+							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
+							//STATE HOUSE, SENATE ETC --> SPECIFIC COMMITTEES, WORK WITH PARENT COMMITTEE...
+							var committeeModel = {title: userModel.state, urlTitle: userModel.state.replace(' ','-').toLowerCase()}
+							//SHOULD BE IN STATECOMMITTEE AREA.. --> THIS CREATED DUPLICATED
+							Committee.findOrCreate({urlTitle: userModel.state.replace(' ','-').toLowerCase()}, committeeModel)
+							.exec(function(err, committee) {
+								if (err) {return console.log(err);}
+								else {
+									Committee.publishCreate(committee);
+
+
+									//GOTTA SCOPE AND FIND UNITED STATES AS PARENT COMMITTEE.. ETC ETC
+									//--> THIS IS BIG
+									//THIS IS HOW WE CAN 'VALIDATE' REPS,, by the commites that they serve in ---- COMMITTEEMEMBER...
+									var committeeMemberModel = {
+										committee: committee.id,
+										title: userModel.title,
+										user: userModel.id
+									};
+
+									CommitteeMember.findOrCreate({
+										committee: committee.id,
+										title: userModel.title,
+										user: userModel.id
+									}, committeeMemberModel)
+									.exec(function(err, committeeMember) {
+										if (err) {return console.log(err);}
+										else {
+											console.log('COMMITTEE MEMBER CREATED');
+											CommitteeMember.publishCreate(committeeMember);											
+										}
+									});
+
+								}
+							});
+
+
 						}
 					});
 					User.update({leg_id: leg_id}, model).then(function(){console.log('updated state')})
@@ -707,6 +779,7 @@ module.exports = {
 			var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
 
 			(function(votesArray) {
+				//APPARENTLY VOTES ARE BEING REPEATED...
 				Vote.find({officialId:officialId})
 				.then(function(voteModel) {
 					if (voteModel.length === 0){

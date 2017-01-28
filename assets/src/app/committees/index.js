@@ -24,7 +24,7 @@ angular.module( 'voetr.committees', [
 	$urlRouterProvider.when('/committees/', '/committees');
 })
 
-.controller( 'CommitteesCtrl', function CommitteesController( $scope, $sailsSocket, lodash, titleService, config, CommitteeModel, committees) {
+.controller( 'CommitteesCtrl', function CommitteesController( $rootScope, $scope, $sailsSocket, lodash, titleService, config, CommitteeModel, committees) {
 	titleService.setTitle('committees - voetr');
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
@@ -38,10 +38,10 @@ angular.module( 'voetr.committees', [
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
-		console.log($scope.skip);
+		$rootScope.stateIsLoading = true;
 		CommitteeModel.getSome(100,$scope.skip).then(function(committees) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.committees, committees);
-			console.log($scope.committees);
 		});
 	};
 

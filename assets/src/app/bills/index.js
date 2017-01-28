@@ -19,7 +19,7 @@ angular.module( 'voetr.bills', [
 	$urlRouterProvider.when('/bills/', '/bills');
 })
 
-.controller( 'BillsCtrl', function BillsCtrl( $scope, $sailsSocket, lodash, titleService, config, BillModel, bills) {
+.controller( 'BillsCtrl', function BillsCtrl( $rootScope, $scope, $sailsSocket, lodash, titleService, config, BillModel, bills) {
 	titleService.setTitle('bills - voetr');
 	$scope.currentUser = config.currentUser;
     $scope.bills = bills;
@@ -27,8 +27,9 @@ angular.module( 'voetr.bills', [
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
-		console.log($scope.skip);
+		$rootScope.stateIsLoading = true;
 		BillModel.getSome(100,$scope.skip,'voteCount DESC').then(function(bills) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.bills, bills);
 		});
 	};

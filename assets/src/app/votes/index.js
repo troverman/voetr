@@ -19,7 +19,7 @@ angular.module( 'voetr.votes', [
 	$urlRouterProvider.when('/votes/', '/votes');
 })
 
-.controller( 'VotesCtrl', function VotesCtrl( $location, $scope, $sailsSocket, lodash, titleService, config, votes, VoteModel, VoteVoteModel) {
+.controller( 'VotesCtrl', function VotesCtrl( $location, $rootScope, $scope, $sailsSocket, lodash, titleService, config, votes, VoteModel, VoteVoteModel) {
 	titleService.setTitle('votes - voetr');
 	$scope.currentUser = config.currentUser;
     $scope.votes = votes;
@@ -39,7 +39,9 @@ angular.module( 'voetr.votes', [
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
+		$rootScope.stateIsLoading = true;
 		VoteModel.getSome(100,$scope.skip,'voteCount DESC').then(function(votes) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};

@@ -155,32 +155,40 @@ angular.module( 'voetr.home', [
 
 	$scope.skipBills = 10;
     $scope.loadMoreBills = function() {
+		$rootScope.stateIsLoading = true;
 		$scope.skipBills = $scope.skipBills + 20;
 		BillModel.getSome(10,$scope.skipBills).then(function(bills) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.bills, bills);
 		});
 	};
 
 	$scope.skipCommittees = 10;
     $scope.loadMoreCommittees = function() {
+		$rootScope.stateIsLoading = true;
 		$scope.skipCommittees = $scope.skipCommittees + 100;
 		CommitteeModel.getSome(100,$scope.skipCommittees).then(function(committees) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.committees, committees);
 		});
 	};
 
 	$scope.skipMembers = 32;
     $scope.loadMoreMembers = function() {
+		$rootScope.stateIsLoading = true;
 		$scope.skipMembers = $scope.skipMembers + 20;
 		UserModel.getSome(20,$scope.skipMembers).then(function(users) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.users, users);
 		});
 	};
 
 	$scope.skipVotes = 25;
     $scope.loadMoreVotes = function() {
+    	$rootScope.stateIsLoading = true;
 		$scope.skipVotes = $scope.skipVotes + 25;
 		VoteModel.getSome(25,$scope.skipVotes).then(function(votes) {
+			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};
