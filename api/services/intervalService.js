@@ -230,10 +230,10 @@ function proPublica(){
 
 module.exports.intervalService = function(){
 
-	//for (x in Object.keys(states)){
-	//	dataService.stateBills(Object.keys(states)[x], 1, 1000);
-	//}
-	//dataService.federalBills(1, 5000);
+	for (x in Object.keys(states)){
+		dataService.stateBills(Object.keys(states)[x], 1, 1000);
+	}
+	dataService.federalBills(1, 5000);
 
 	//dataService.cityCommittees();
 	//dataService.federalCommittees();

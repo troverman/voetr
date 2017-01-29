@@ -64,8 +64,8 @@
 	<h3>Verified Account</h3>
 	<md-divider></md-divider>
 	<h4>government identification</h4>
-	<p>by providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>
 	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+		<p>by providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>
 		<img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
 	</div>
 	<p ng-show="identificationLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>

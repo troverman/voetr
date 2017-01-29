@@ -25,7 +25,10 @@
             <div class="spacing-10"></div>
             <p>By providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>
             <div class="spacing-10"></div>
-            <button class="btn btn-default"><i class="fa fa-upload"></i> Upload</button>
+            <div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
+              <button class="btn btn-default"><i class="fa fa-upload"></i> Upload</button>
+              <img ng-show="user.identificationUrl" src="{{user.identificationUrl}}">
+            </div>
             <div class="spacing-25"></div>
             <h4><b>Official Address</b></h4>
             <div class="spacing-10"></div>
@@ -173,12 +176,10 @@
         <h4>direct your impact though input on policy</h4>
         <p>directly impact the creation of policy</p>
         <!--<p>with direct input on policy your voice matters</p>-->
-
-        <p>contact your reps by mail, fax, and email with a single click</p>
-        <!--<i class="fa fa-envelope-o" aria-hidden="true"></i>
-        <i class="fa fa-print" aria-hidden="true"></i>
-        <i class="fa fa-files-o" aria-hidden="true"></i>-->
+        <p>contact your reps</p>
         <p>tell them how you feel about specifc legislation</p>
+
+        <!--organizing a coalition of reps for reps-->
 
         <!--<p>with continual open ballot elections - represent others at anytime</p>-->
 

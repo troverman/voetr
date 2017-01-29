@@ -46,12 +46,16 @@ angular.module( 'voetr.home', [
             },
 			votes: function(VoteModel) {
 				return VoteModel.getSome(25, 0, 'voteCount DESC');
-            }
+            },
+            UserModel: 'UserModel',
+            user: function(UserModel){
+                return UserModel.getMine();
+        	},
 		}
 	});
 })
 
-.controller( 'HomeCtrl', function HomeController($rootScope, $sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel, $q ) {
+.controller( 'HomeCtrl', function HomeController($rootScope, $sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel, $q, Upload, user ) {
 	titleService.setTitle('voetr - home');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -59,6 +63,7 @@ angular.module( 'voetr.home', [
 	$scope.committees = committees;
 	$scope.committeeCount = committeeCount.committeeCount;
 	$scope.users = users;
+	$scope.user = user;
 	//console.log(users)
 	$scope.userCount = userCount.userCount;
 	$scope.constituents = constituents;
@@ -95,6 +100,42 @@ angular.module( 'voetr.home', [
 	  );
 	 return deferred.promise;
 	}*/
+
+	$scope.uploadIdentification = function(file){
+        if (file){
+            $rootScope.stateIsLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $rootScope.stateIsLoading = false;
+                $scope.user.identificationUrl = response.data.amazonUrl;
+                $scope.accountSave();//probably should have a save button here -- if not save delete failed file
+            },
+            function(err){
+                $rootScope.stateIsLoading = false;
+            },
+            function (evt) {
+                $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
+    };
+
+     $scope.accountSave = function(){
+        $scope.saving = true;
+        var model = {
+            id: $scope.user.id,
+            firstName: $scope.user.firstName,
+            lastName: $scope.user.lastName,
+            avatarUrl: $scope.user.avatarUrl,
+			coverUrl: $scope.user.coverUrl,
+            identificationUrl: $scope.user.identificationUrl,
+        };
+        console.log(model)
+        return UserModel.update(model);
+    };
 
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
