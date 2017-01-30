@@ -56,7 +56,7 @@ angular.module( 'voetr.home', [
 })
 
 .controller( 'HomeCtrl', function HomeController($rootScope, $sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel, $q, Upload, user ) {
-	titleService.setTitle('voetr - home');
+	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
 	$scope.billCount = billCount.billCount;
