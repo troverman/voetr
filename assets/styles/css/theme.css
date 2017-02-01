@@ -133,6 +133,15 @@ md-card > :not(md-card-content) .postImg {
   max-width: 100px!important;
 }*/
 
+md-progress-linear .md-container {
+  //background-color: rgba(42, 185, 150, 0.5)!important;
+  background-color: rgba(0, 0, 0, 1)!important;
+}
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+ background-color: #2ab996!important;
+}
+
 .light {
   font-weight: 100
 }

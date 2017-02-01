@@ -242,7 +242,7 @@ module.exports.intervalService = function(){
 	//dataService.federalLegislators();
 	//dataService.stateLegislators();
 
-	setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
+	//setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
 
     //multithreading...
     /*var cluster = require('cluster'),

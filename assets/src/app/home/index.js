@@ -49,7 +49,10 @@ angular.module( 'voetr.home', [
             },
             UserModel: 'UserModel',
             user: function(UserModel){
-                return UserModel.getMine();
+				if(config.currentUser){
+                	return UserModel.getMine();
+				}
+            	else{return null}
         	},
 		}
 	});

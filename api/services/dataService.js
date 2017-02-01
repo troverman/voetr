@@ -265,7 +265,6 @@ module.exports = {
 					var socialAccounts = {};
 					if (twitter_id != null){socialAccounts.twitter = {profileUrl: 'https://www.twitter.com/' + twitter_id}};
 					if (facebook_id != null){socialAccounts.facebook = {profileUrl: 'https://www.facebook.com/' + facebook_id}};
-					//console.log(bioguide_id)
 					var avatarUrl = 'https://theunitedstates.io/images/congress/original/'+bioguide_id+'.jpg'
 					var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg']
 					var randInt = Math.floor(Math.random() * (coverUrlArray.length));
@@ -299,10 +298,10 @@ module.exports = {
 							return console.log(err);
 						}
 						else {
-							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
 							User.publishCreate(userModel);
+							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
 							//user.chamber
-							//hmmm y repreat
+							//hmmm y repeat
 							var committeeModel = {title: 'United States', urlTitle: 'united-states'}
 							Committee.findOrCreate({urlTitle: 'united-states'}, committeeModel)
 							.exec(function(err, committee) {
@@ -331,6 +330,33 @@ module.exports = {
 						}
 					});
 					User.update({bioguide_id: bioguide_id}, model).then(function(){console.log('updated')});
+
+
+
+
+					/*
+					Vote.find({officialId:officialId})
+					.then(function(voteModel) {
+						if (voteModel.length === 0){
+							Vote.create(model)
+							.then(function(voteModel) {
+								console.log('VOTE CREATED');
+								dataService.federalVoteVotes(voteModel);
+								Vote.publishCreate(voteModel);
+							});
+						}
+						else{
+							Vote.update({officialId: officialId}, model)
+							.then(function(voteModel){
+								console.log('VOTE UPDATED');
+								dataService.federalVoteVotes(voteModel);
+							});
+						}
+					});
+					*/	
+
+
+
 				}
 		    }
 		});
@@ -338,6 +364,8 @@ module.exports = {
 	},
 
 	federalCommittees: function(){
+
+		//find or create United States -- then all the nested are children of the US committee
 		var model = {
 			url: 'https://congress.api.sunlightfoundation.com/committees?apikey=' + openCongressApiKey,
 			json: true,
@@ -560,6 +588,7 @@ module.exports = {
 	},
 
 	stateCommittees: function(state){
+		//find of create the State --> all nested are the child of the state
 		var model = {
 			url: 'https://openstates.org/api/v1//committees/?apikey=' + openCongressApiKey,
 			json: true,

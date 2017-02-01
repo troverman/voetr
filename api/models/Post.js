@@ -22,6 +22,8 @@ module.exports = {
         }
     },
 
+    //afterCreate --> tag users? or save as an attribute. 
+
     getBySome: function(limiting, skipping, sort) {
         return Post.find()
         .sort(sort)
