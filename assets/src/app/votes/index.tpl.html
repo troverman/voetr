@@ -12,7 +12,7 @@
           			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i></button>
 					<a href="/vote/{{vote.id}}">{{vote.title}}</a>
 				</h3>
-				<h5><a href="/bill/{{vote.bill.id}}">{{vote.bill.title}}</a></h5>
+				<h5><a href="/bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h5>
 			</div>
 		</md-list-item>
 	</md-list>

@@ -231,9 +231,9 @@ function proPublica(){
 module.exports.intervalService = function(){
 
 	//for (x in Object.keys(states)){
-	//	dataService.stateBills(Object.keys(states)[x], 1, 1000);
+		//dataService.stateBills(Object.keys(states)[x], 1, 50);
 	//}
-	//dataService.federalBills(1, 5000);
+	//dataService.federalBills(1, 500);
 
 	//dataService.cityCommittees();
 	//dataService.federalCommittees();
@@ -242,7 +242,7 @@ module.exports.intervalService = function(){
 	//dataService.federalLegislators();
 	//dataService.stateLegislators();
 
-	//setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
+	setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
 
     //multithreading...
     /*var cluster = require('cluster'),

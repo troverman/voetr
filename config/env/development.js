@@ -26,4 +26,7 @@ module.exports = {
 		domain: 'mail.voetr.com'
 	},
 
+  hookTimeout: 10000000
+
+
 };

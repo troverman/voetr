@@ -1,3 +1,4 @@
+var async = require('async');
 var request = require('request');
 var openCongressApiKey = 'c16a6c623ee54948bac2a010ea6fab70';
 var states = {
@@ -108,6 +109,7 @@ module.exports = {
 		        var cityData = body;
 		        for (var key in cityData) {
 					if (cityData.hasOwnProperty(key)) {
+						console.log(key)
 				  		if(key == "United States"){
 							var cityArray = cityData[key];
 			        		for (var key in cityArray) {
@@ -192,8 +194,6 @@ module.exports = {
 								user: 1 //sponsor
 							};
 
-							console.log(model.title)
-							console.log(model.urlTitle)
 
 							Bill.find({officialId:officialId})
 							.then(function(billModel) {
@@ -218,6 +218,76 @@ module.exports = {
 	        	}
 	        });
 		}
+	},
+
+	federalCommittees: function(){
+
+		//find or create United States -- then all the nested are children of the US committee
+		var model = {
+			url: 'https://congress.api.sunlightfoundation.com/committees?apikey=' + openCongressApiKey,
+			json: true,
+		};
+		request(model, function (error, response, body) {
+			if (!error && body.results) {
+        		var committeeDataArray = body.results;
+				async.eachSeries(committeeDataArray, function (committeeData, next){ 
+
+					var chamber = committeeData.chamber;
+					var officialId = committeeData.committee_id;
+					var title = committeeData.name;
+					var urlTitle = title.toLowerCase().replace(/ /g,"-");
+					var parent_committee_id = committeeData.parent_committee_id;
+					var subcommittee = committeeData.subcommittee;
+
+					var unitedStatesModel = {
+						title: 'United States',
+						urlTitle: 'united-states',
+						parent: null
+					};
+
+					var newCommittee;
+					if (chamber == 'lower'){newCommittee = 'United States House of Representatives'}
+					if (chamber == 'upper'){newCommittee = 'United States Sentate'}
+
+					Committee.findOrCreate({urlTitle: unitedStatesModel.urlTitle}, unitedStatesModel)
+					.then(function(committeeModel){
+						if (newCommittee){
+							var newStateLegCommitteeModel = {
+								title: newCommittee,
+								urlTitle: newCommittee.toLowerCase().replace(/ /g,"-"),
+								parent: committeeModel.id
+							};
+
+							Committee.findOrCreate({officialId: officialId},model)
+							.then(function(newCommitteeModel){
+
+								var model = {
+									chamber: chamber,
+									officialId: officialId,
+									parent: newCommitteeModel.id,//-->parent_committee_id, subcommittee...
+									title: title,
+									urlTitle: urlTitle,
+									user: 1,
+								};
+
+								//if(parent_committee_id){Committee.find({officialId:parent_committee_id}).then(function(committee){model.parent = committee.id})}
+								//else
+
+								Committee.findOrCreate({officialId: officialId}, model).then(function(committee){
+									console.log(committee)
+									process.nextTick(next);
+								});
+								Committee.update({officialId: officialId}, model);
+
+							});
+
+						}
+						else{process.nextTick(next);}
+					});
+					Committee.update({urlTitle: unitedStatesModel.urlTitle}, unitedStatesModel);
+				});
+			}
+        });
 	},
 
 	federalLegislators: function(){
@@ -302,8 +372,7 @@ module.exports = {
 							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
 							//user.chamber
 							//hmmm y repeat
-							var committeeModel = {title: 'United States', urlTitle: 'united-states'}
-							Committee.findOrCreate({urlTitle: 'united-states'}, committeeModel)
+							Committee.find({urlTitle: 'united-states'})
 							.exec(function(err, committee) {
 								if (err) {return console.log(err);}
 								else {
@@ -330,74 +399,10 @@ module.exports = {
 						}
 					});
 					User.update({bioguide_id: bioguide_id}, model).then(function(){console.log('updated')});
-
-
-
-
-					/*
-					Vote.find({officialId:officialId})
-					.then(function(voteModel) {
-						if (voteModel.length === 0){
-							Vote.create(model)
-							.then(function(voteModel) {
-								console.log('VOTE CREATED');
-								dataService.federalVoteVotes(voteModel);
-								Vote.publishCreate(voteModel);
-							});
-						}
-						else{
-							Vote.update({officialId: officialId}, model)
-							.then(function(voteModel){
-								console.log('VOTE UPDATED');
-								dataService.federalVoteVotes(voteModel);
-							});
-						}
-					});
-					*/	
-
-
-
 				}
 		    }
 		});
 
-	},
-
-	federalCommittees: function(){
-
-		//find or create United States -- then all the nested are children of the US committee
-		var model = {
-			url: 'https://congress.api.sunlightfoundation.com/committees?apikey=' + openCongressApiKey,
-			json: true,
-		};
-		request(model, function (error, response, body) {
-			if (!error && body.results) {
-        		var committeeData = body.results;
-				for (x in committeeData){
-
-					var chamber = committeeData[x].chamber;
-					var officialId = committeeData[x].committee_id;
-					var title = committeeData[x].name;
-					var urlTitle = title.toLowerCase().replace(/ /g,"-");
-					var parent_committee_id = committeeData[x].parent_committee_id;
-					var subcommittee = committeeData[x].subcommittee;
-
-					var model = {
-						chamber: chamber,
-						officialId: officialId,
-						parent: parent_committee_id,
-						title: title,
-						urlTitle: urlTitle,
-						user: 1,
-					};
-
-					Committee.findOrCreate({officialId: officialId},model).exec(function createCB(err, created){
-						console.log('created federal committee')
-					})
-					Committee.update({officialId: officialId}, model).then(function(){console.log('updated federal committee')})
-				}
-        	}
-        });
 	},
 
 	federalVotes: function(bill){
@@ -440,24 +445,15 @@ module.exports = {
 								user: 1,
 							};
 
-							Vote.find({officialId:officialId})
+							Vote.findOrCreate({officialId: officialId}, model)
 							.then(function(voteModel) {
-								if (voteModel.length === 0){
-									Vote.create(model)
-									.then(function(voteModel) {
-										console.log('VOTE CREATED');
-										dataService.federalVoteVotes(voteModel);
-										Vote.publishCreate(voteModel);
-									});
-								}
-								else{
-									Vote.update({officialId: officialId}, model)
-									.then(function(voteModel){
-										console.log('VOTE UPDATED');
-										dataService.federalVoteVotes(voteModel);
-									});
-								}
-							});
+								console.log('VOTE FIND OR CREATE');
+								dataService.federalVoteVotes(voteModel)
+							})
+							Vote.update({officialId: officialId}, model)
+							.then(function(voteModel) {
+								console.log('VOTE UPDATED');
+							})
 
 						}
 					}
@@ -558,9 +554,6 @@ module.exports = {
 									user: 1
 								};
 
-								console.log(model.title)
-								console.log(model.urlTitle)
-
 								Bill.find({officialId:officialId})
 								.then(function(billModel) {
 									if (billModel.length === 0){
@@ -587,48 +580,74 @@ module.exports = {
 		}
 	},
 
-	stateCommittees: function(state){
-		//find of create the State --> all nested are the child of the state
+	//DISCTRICT OF COLUMBIA IS LEFT OUT?
+	stateCommittees: function(){
 		var model = {
 			url: 'https://openstates.org/api/v1//committees/?apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
 		    if (!error && response.statusCode === 200) {
-				var committeeData = body;
-				for (x in committeeData) {
-
-					//console.log(committeeData[x]);
-
-					var officialId = committeeData[x].id;
-					var state = committeeData[x].state;
-					var committee = committeeData[x].committee;
+				var committeeDataArray = body;
+				async.eachSeries(committeeDataArray, function (committeeData, next){ 
+					var officialId = committeeData.id;
+					var state = committeeData.state;
+					var committee = committeeData.committee;
 					var urlTitle = committee.toLowerCase().replace(/ /g,"-");
-					var chamber = committeeData[x].chamber;
-					var parent_id = committeeData[x].parent_id;
-					var subcommittee = committeeData[x].parent_id;
+					var chamber = committeeData.chamber;
+					var parent_id = committeeData.parent_id;
+					var subcommittee = committeeData.parent_id;
 
-					//var parent = chamber --> each state house, senate..
+					var newCommittee;
+					if (chamber == 'lower'){newCommittee = states[state.toUpperCase()] + ' House of Representatives'}
+					if (chamber == 'upper'){newCommittee = states[state.toUpperCase()] + ' Sentate'}
 
-					//also need each state
-
-					var model = {
-						officialId: officialId,
-						state: state,
-						title: committee,
-						urlTitle: urlTitle,
-						chamber: chamber,
-						parent: parent_id,
-						//subcommittee: subcommittee,
-						user: 1,
+					//THIS IS THE STATE
+					var newStateCommitteeModel = {
+						title: states[state.toUpperCase()],
+						urlTitle: states[state.toUpperCase()].toLowerCase().replace(/ /g,"-").
+						parent: 1 //united-states --> do a find LUL
 					};
+					//console.log(newCommittee);
+					Committee.findOrCreate({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel)
+					.then(function(committeeModel){
+						//THESE ARE THE STATE HOUSES... --> PARENT IS THE STATE
+						if (newCommittee){
+							var newStateLegCommitteeModel = {
+								title: newCommittee,
+								urlTitle: newCommittee.toLowerCase().replace(/ /g,"-"),
+								parent: committeeModel.id
+							};
 
-					Committee.findOrCreate({officialId: officialId}, model).exec(function createCB(err, created){
-						console.log('created state committee')
+							Committee.findOrCreate({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel)
+							.then(function(newCommitteeModel){
+
+								//NEXT ARE THE INDIV COMMITTEES
+								//if(parent_id){console.log('parent_id: ', parent_id)}
+								//if(subcommittee){console.log('subcommittee: ', subcommittee)}
+								//parent committees via if(parent_id)-->else parent is state house or senate etc. 
+
+								var model = {
+									officialId: officialId,
+									title: committee,
+									urlTitle: urlTitle,
+									parent: newCommitteeModel.id,
+									user: 1,
+								};
+
+								Committee.findOrCreate({officialId: officialId}, model).then(function(committee){
+									console.log(committee)
+									process.nextTick(next);
+								});
+								Committee.update({officialId: officialId}, model);
+
+							});
+							Committee.update({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel);
+						}
+						else{process.nextTick(next)}
 					});
-					Committee.update({officialId: officialId}, model).then(function(){console.log('updated state committee')});
-
-				}
+					Committee.update({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel);
+				});
 			}
 		});
 	},
@@ -708,22 +727,17 @@ module.exports = {
 
 					User.findOrCreate({leg_id: leg_id}, model)
 					.exec(function(err, userModel) {
-						if (err) {
-							return console.log(err);
-						}
+						if (err) {return console.log(err);}
 						else {
 							User.publishCreate(userModel);
 
+							//GOTTA DO BOTH STATE AND HOUSE / SENTATE ETC --> as well as specific committees
 							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
-							//STATE HOUSE, SENATE ETC --> SPECIFIC COMMITTEES, WORK WITH PARENT COMMITTEE...
-							var committeeModel = {title: userModel.state, urlTitle: userModel.state.replace(' ','-').toLowerCase()}
-							//SHOULD BE IN STATECOMMITTEE AREA.. --> THIS CREATED DUPLICATED
-							Committee.findOrCreate({urlTitle: userModel.state.replace(' ','-').toLowerCase()}, committeeModel)
+							Committee.find({urlTitle: userModel.state.replace(' ','-').toLowerCase()})
 							.exec(function(err, committee) {
 								if (err) {return console.log(err);}
 								else {
 									Committee.publishCreate(committee);
-
 
 									//GOTTA SCOPE AND FIND UNITED STATES AS PARENT COMMITTEE.. ETC ETC
 									//--> THIS IS BIG
@@ -758,6 +772,49 @@ module.exports = {
 		    }
 		});
 	},
+
+	//OK
+	stateLegislatorsCommitteeMembers: function(state){
+
+		//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
+		//STATE HOUSE, SENATE ETC --> SPECIFIC COMMITTEES, WORK WITH PARENT COMMITTEE...
+		var committeeModel = {title: userModel.state, urlTitle: userModel.state.replace(' ','-').toLowerCase()}
+		//SHOULD BE IN STATECOMMITTEE AREA.. --> THIS CREATED DUPLICATED
+
+		Committee.findOrCreate({urlTitle: userModel.state.replace(' ','-').toLowerCase()}, committeeModel)
+		.exec(function(err, committee) {
+			if (err) {return console.log(err);}
+			else {
+				Committee.publishCreate(committee);
+
+
+				//GOTTA SCOPE AND FIND UNITED STATES AS PARENT COMMITTEE.. ETC ETC
+				//--> THIS IS BIG
+				//THIS IS HOW WE CAN 'VALIDATE' REPS,, by the commites that they serve in ---- COMMITTEEMEMBER...
+				var committeeMemberModel = {
+					committee: committee.id,
+					title: userModel.title,
+					user: userModel.id
+				};
+
+				CommitteeMember.findOrCreate({
+					committee: committee.id,
+					title: userModel.title,
+					user: userModel.id
+				}, committeeMemberModel)
+				.exec(function(err, committeeMember) {
+					if (err) {return console.log(err);}
+					else {
+						console.log('COMMITTEE MEMBER CREATED');
+						CommitteeMember.publishCreate(committeeMember);											
+					}
+				});
+
+			}
+		});
+
+	},
+
 
 	stateVotes: function(state, bill, votes){
 
@@ -809,25 +866,15 @@ module.exports = {
 			var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
 
 			(function(votesArray) {
-				//APPARENTLY VOTES ARE BEING REPEATED...
-				Vote.find({officialId:officialId})
+				Vote.findOrCreate({officialId: officialId}, model)
 				.then(function(voteModel) {
-					if (voteModel.length === 0){
-						Vote.create(model)
-						.then(function(voteModel) {
-							console.log('VOTE CREATED');
-							dataService.stateVoteVotes(state, voteModel, votesArray);
-							Vote.publishCreate(voteModel);
-						});
-					}
-					else{
-						Vote.update({officialId: officialId}, model)
-						.then(function(voteModel){
-							console.log('VOTE UPDATED');
-							dataService.stateVoteVotes(state, voteModel, votesArray);
-						});
-					}
-				});
+					console.log('VOTE FIND OR CREATE');
+					dataService.stateVoteVotes(state, voteModel, votesArray)
+				})
+				Vote.update({officialId: officialId}, model)
+				.then(function(voteModel) {
+					console.log('VOTE UPDATED');
+				})
 			})(votesArray);
 		}
 	},

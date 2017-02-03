@@ -135,7 +135,7 @@ md-card > :not(md-card-content) .postImg {
 
 md-progress-linear .md-container {
   //background-color: rgba(42, 185, 150, 0.5)!important;
-  background-color: rgba(0, 0, 0, 1)!important;
+  background-color: rgba(36,36,46, 1)!important;
 }
 
 md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
@@ -554,7 +554,7 @@ hr {
 }
 .log-background {
   z-index: 1;
-  //background: url(../../images/washington-dc.jpg) no-repeat center center fixed;
+  background: url(../../images/crowd1.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -578,7 +578,7 @@ hr {
   min-width: 320px;
   max-width: 475px;
   background: #fff;
-  top: 25%;
+  top: 20%;
   position: relative;
   margin: auto;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
