@@ -221,10 +221,8 @@ module.exports = {
 	},
 
 	federalCommittees: function(){
-
-		//find or create United States -- then all the nested are children of the US committee
 		var model = {
-			url: 'https://congress.api.sunlightfoundation.com/committees?apikey=' + openCongressApiKey,
+			url: 'https://congress.api.sunlightfoundation.com/committees?per_page=all&apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
@@ -235,10 +233,9 @@ module.exports = {
 					var chamber = committeeData.chamber;
 					var officialId = committeeData.committee_id;
 					var title = committeeData.name;
-					var urlTitle = title.toLowerCase().replace(/ /g,"-");
+					var urlTitle = title.toLowerCase().replace(/ /g,'-').replace(/,/g , '');
 					var parent_committee_id = committeeData.parent_committee_id;
 					var subcommittee = committeeData.subcommittee;
-
 					var unitedStatesModel = {
 						title: 'United States',
 						urlTitle: 'united-states',
@@ -246,39 +243,43 @@ module.exports = {
 					};
 
 					var newCommittee;
-					if (chamber == 'lower'){newCommittee = 'United States House of Representatives'}
-					if (chamber == 'upper'){newCommittee = 'United States Sentate'}
+					if (chamber == 'house'){newCommittee = 'United States House of Representatives'}
+					if (chamber == 'senate'){newCommittee = 'United States Sentate'}
+					if (chamber == 'joint'){newCommittee = 'United States'}
 
 					Committee.findOrCreate({urlTitle: unitedStatesModel.urlTitle}, unitedStatesModel)
 					.then(function(committeeModel){
 						if (newCommittee){
 							var newStateLegCommitteeModel = {
 								title: newCommittee,
-								urlTitle: newCommittee.toLowerCase().replace(/ /g,"-"),
+								urlTitle: newCommittee.toLowerCase().replace(/ /g,'-'),
 								parent: committeeModel.id
 							};
 
-							Committee.findOrCreate({officialId: officialId},model)
+							Committee.findOrCreate({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel)
 							.then(function(newCommitteeModel){
 
 								var model = {
 									chamber: chamber,
 									officialId: officialId,
-									parent: newCommitteeModel.id,//-->parent_committee_id, subcommittee...
+									parent: newCommitteeModel.id,
 									title: title,
 									urlTitle: urlTitle,
 									user: 1,
 								};
 
-								//if(parent_committee_id){Committee.find({officialId:parent_committee_id}).then(function(committee){model.parent = committee.id})}
-								//else
-
-								Committee.findOrCreate({officialId: officialId}, model).then(function(committee){
-									console.log(committee)
-									process.nextTick(next);
+								Committee.find({officialId:parent_committee_id})
+								.then(function(committee){
+									if (committee.length == 1){
+										model.parent = committee[0].id;
+									}
+									Committee.findOrCreate({officialId: officialId}, model).then(function(committeeModel){
+										Committee.update({officialId: officialId}, model).then(function(){
+											console.log(committeeModel)
+											process.nextTick(next);
+										});
+									});
 								});
-								Committee.update({officialId: officialId}, model);
-
 							});
 
 						}
@@ -293,7 +294,7 @@ module.exports = {
 	federalLegislators: function(){
 
 		var model = {
-			url: 'http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			url: 'http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
@@ -580,7 +581,6 @@ module.exports = {
 		}
 	},
 
-	//DISCTRICT OF COLUMBIA IS LEFT OUT?
 	stateCommittees: function(){
 		var model = {
 			url: 'https://openstates.org/api/v1//committees/?apikey=' + openCongressApiKey,
@@ -589,11 +589,12 @@ module.exports = {
 		request(model, function (error, response, body) {
 		    if (!error && response.statusCode === 200) {
 				var committeeDataArray = body;
+				committeeDataArray.push({state:'dc'})
 				async.eachSeries(committeeDataArray, function (committeeData, next){ 
 					var officialId = committeeData.id;
 					var state = committeeData.state;
 					var committee = committeeData.committee;
-					var urlTitle = committee.toLowerCase().replace(/ /g,"-");
+					var urlTitle = state.toLowerCase().replace(/ /g,"-") + committee.toLowerCase().replace(/ /g,"-");
 					var chamber = committeeData.chamber;
 					var parent_id = committeeData.parent_id;
 					var subcommittee = committeeData.parent_id;
@@ -602,51 +603,54 @@ module.exports = {
 					if (chamber == 'lower'){newCommittee = states[state.toUpperCase()] + ' House of Representatives'}
 					if (chamber == 'upper'){newCommittee = states[state.toUpperCase()] + ' Sentate'}
 
-					//THIS IS THE STATE
-					var newStateCommitteeModel = {
-						title: states[state.toUpperCase()],
-						urlTitle: states[state.toUpperCase()].toLowerCase().replace(/ /g,"-").
-						parent: 1 //united-states --> do a find LUL
-					};
-					//console.log(newCommittee);
-					Committee.findOrCreate({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel)
-					.then(function(committeeModel){
-						//THESE ARE THE STATE HOUSES... --> PARENT IS THE STATE
-						if (newCommittee){
-							var newStateLegCommitteeModel = {
-								title: newCommittee,
-								urlTitle: newCommittee.toLowerCase().replace(/ /g,"-"),
-								parent: committeeModel.id
-							};
-
-							Committee.findOrCreate({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel)
-							.then(function(newCommitteeModel){
-
-								//NEXT ARE THE INDIV COMMITTEES
-								//if(parent_id){console.log('parent_id: ', parent_id)}
-								//if(subcommittee){console.log('subcommittee: ', subcommittee)}
-								//parent committees via if(parent_id)-->else parent is state house or senate etc. 
-
-								var model = {
-									officialId: officialId,
-									title: committee,
-									urlTitle: urlTitle,
-									parent: newCommitteeModel.id,
-									user: 1,
+					Committee.find({urlTitle:'united-states'})
+					.then(function(unitedStatesModel){
+						//THIS IS THE STATE
+						var newStateCommitteeModel = {
+							title: states[state.toUpperCase()],
+							urlTitle: states[state.toUpperCase()].toLowerCase().replace(/ /g,"-"),
+							parent: unitedStatesModel.id 
+						};
+						//console.log(newCommittee);
+						Committee.findOrCreate({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel)
+						.then(function(committeeModel){
+							//THESE ARE THE STATE HOUSES... --> PARENT IS THE STATE
+							if (newCommittee){
+								var newStateLegCommitteeModel = {
+									title: newCommittee,
+									urlTitle: newCommittee.toLowerCase().replace(/ /g,"-"),
+									parent: committeeModel.id
 								};
 
-								Committee.findOrCreate({officialId: officialId}, model).then(function(committee){
-									console.log(committee)
-									process.nextTick(next);
-								});
-								Committee.update({officialId: officialId}, model);
+								Committee.findOrCreate({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel)
+								.then(function(newCommitteeModel){
 
-							});
-							Committee.update({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel);
-						}
-						else{process.nextTick(next)}
+									//NEXT ARE THE INDIV COMMITTEES
+									//if(parent_id){console.log('parent_id: ', parent_id)}
+									//if(subcommittee){console.log('subcommittee: ', subcommittee)}
+									//parent committees via if(parent_id)-->else parent is state house or senate etc. 
+
+									var model = {
+										officialId: officialId,
+										title: committee,
+										urlTitle: urlTitle,
+										parent: newCommitteeModel.id,
+										user: 1,
+									};
+
+									Committee.findOrCreate({officialId: officialId}, model).then(function(committee){
+										console.log(committee)
+										process.nextTick(next);
+									});
+									Committee.update({officialId: officialId}, model);
+
+								});
+								Committee.update({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel);
+							}
+							else{process.nextTick(next)}
+						});
+						Committee.update({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel);
 					});
-					Committee.update({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel);
 				});
 			}
 		});
