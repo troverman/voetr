@@ -8,6 +8,7 @@
         <h2><a href="/member/{{currentUser.username}}"><b>{{currentUser.username}}</a></b></h2>
         <div class="spacing-5"></div>
         <h5>Representatives - {{representatives.length}}</h5>
+        <h5>Committees - {{committees.length}}</h5>
         <h5>Constituents - {{constituents.length}}</h5>
         <h5>Votes - {{votes.length}}</h5>
         <div class="spacing-25"></div>
@@ -289,7 +290,10 @@
             <md-card-title>
               <md-card-title-text>
                 <a href="/member/{{user.username}}">
-                  <span class="">{{user.username}}</span>
+                  <span class="">{{user.username}}</span><br>
+                  <span class="">{{user.title}}</span><br><!--too much-->
+                  <span class="">{{user.state}}</span><br>
+                  <!--member card css?-->
                 </a>
               </md-card-title-text>
             </md-card-title>

@@ -54,8 +54,10 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            committees: function() {
-                return [1,2,3,4,5,6,7,8];
+            committees: function(committeeModel, committee) {
+                return [1,2,3,4];
+                //return committeeModel.getParents(committee.id);
+                //return committeeModel.getChildren(committee.id);
             }
          }
     })
@@ -129,6 +131,10 @@ angular.module( 'voetr.committee', [
         $scope.editCommitteeToggle = $scope.editCommitteeToggle ? false : true;
     }
 
+    $scope.goToPath = function(path){
+        $location.path('committee/' + $scope.committee.urlTitle + '/' + path)
+    }
+
     $scope.createBill = function(newBill) {
         newBill.user = config.currentUser.id;
         BillModel.create(newBill).then(function(model) {
@@ -187,7 +193,8 @@ angular.module( 'voetr.committee', [
 .controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, members, committee) {
     $scope.committee = committee;
     $scope.members = members;
-    console.log(members)
+    console.log(members);
+
 })
 
 .controller( 'CommitteeVoteCtrl', function CommitteeVoteCtrl( $scope, $sailsSocket, votes, committee) {

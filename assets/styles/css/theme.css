@@ -24,6 +24,10 @@ body {
     min-height: 100%
 }
 
+md-card{
+  overflow:hidden;
+}
+
 .spacing-5 {
     padding: 5px;
 }

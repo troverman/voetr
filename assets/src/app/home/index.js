@@ -48,7 +48,7 @@ angular.module( 'voetr.home', [
 				return VoteModel.getSome(25, 0, 'voteCount DESC');
             },
             UserModel: 'UserModel',
-            user: function(UserModel){
+            user: function(UserModel, config){
 				if(config.currentUser){
                 	return UserModel.getMine();
 				}

@@ -131,6 +131,8 @@ module.exports = {
 		});
 	},
 
+
+	//COMMITTEE IDS HERE LUL
 	federalBills: function(pageStart, pageEnd){
 
 		for (var page = pageStart; page <= pageEnd; page++){
@@ -147,6 +149,7 @@ module.exports = {
 						//Committee.find({officalId:committee_ids})
 						//committees.activity
 						var committees = billData.committee_ids;
+						console.log(committees);
 
 						var congress = billData.congress;
 						var keywords = billData.keywords;
@@ -222,43 +225,38 @@ module.exports = {
 
 	federalCommittees: function(){
 		var model = {
-			url: 'https://congress.api.sunlightfoundation.com/committees?per_page=all&apikey=' + openCongressApiKey,
+			url: 'https://congress.api.sunlightfoundation.com/committees?fields=chamber,committee_id,members,name,parent_committee_id&per_page=all&apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
 			if (!error && body.results) {
         		var committeeDataArray = body.results;
-				async.eachSeries(committeeDataArray, function (committeeData, next){ 
-
+				async.eachSeries(committeeDataArray, function (committeeData, nextCommittee){ 
 					var chamber = committeeData.chamber;
 					var officialId = committeeData.committee_id;
+					var members = committeeData.members;
 					var title = committeeData.name;
-					var urlTitle = title.toLowerCase().replace(/ /g,'-').replace(/,/g , '');
+					var urlTitle = title.toLowerCase().replace(/ /g,'-').replace(/,/g , '').replace(/'/g , '');
 					var parent_committee_id = committeeData.parent_committee_id;
-					var subcommittee = committeeData.subcommittee;
 					var unitedStatesModel = {
 						title: 'United States',
 						urlTitle: 'united-states',
 						parent: null
 					};
-
 					var newCommittee;
 					if (chamber == 'house'){newCommittee = 'United States House of Representatives'}
 					if (chamber == 'senate'){newCommittee = 'United States Sentate'}
 					if (chamber == 'joint'){newCommittee = 'United States'}
-
 					Committee.findOrCreate({urlTitle: unitedStatesModel.urlTitle}, unitedStatesModel)
 					.then(function(committeeModel){
 						if (newCommittee){
-							var newStateLegCommitteeModel = {
+							var newLegCommitteeModel = {
 								title: newCommittee,
 								urlTitle: newCommittee.toLowerCase().replace(/ /g,'-'),
 								parent: committeeModel.id
 							};
-
-							Committee.findOrCreate({urlTitle: newStateLegCommitteeModel.urlTitle}, newStateLegCommitteeModel)
+							Committee.findOrCreate({urlTitle: newLegCommitteeModel.urlTitle}, newLegCommitteeModel)
 							.then(function(newCommitteeModel){
-
 								var model = {
 									chamber: chamber,
 									officialId: officialId,
@@ -267,30 +265,121 @@ module.exports = {
 									urlTitle: urlTitle,
 									user: 1,
 								};
-
 								Committee.find({officialId:parent_committee_id})
 								.then(function(committee){
 									if (committee.length == 1){
 										model.parent = committee[0].id;
 									}
 									Committee.findOrCreate({officialId: officialId}, model).then(function(committeeModel){
-										Committee.update({officialId: officialId}, model).then(function(){
-											console.log(committeeModel)
-											process.nextTick(next);
-										});
+										console.log(members.length);
+										if(members.length != 0){
+											async.eachSeries(members, function (member, nextMember){
+												User.find({bioguide_id:member.legislator.bioguide_id})
+												.then(function(userModel){
+													var title = member.title;
+													if (title == null){title = 'Committee Member'}
+													var committeeMemberModel = {
+														committee: committeeModel.id,
+														title: title,
+														user: userModel[0].id
+													};
+													CommitteeMember.findOrCreate({committee: committee.id, user: userModel[0].id}, committeeMemberModel)
+													.exec(function(err, committeeMember) {
+														if (err) {return console.log(err);}
+														else {
+															console.log('COMMITTEE MEMBER CREATED')
+															CommitteeMember.publishCreate(committeeMember);
+
+															Committee.find({urlTitle: 'united-states'})
+															.exec(function(err, committee) {
+																if (err) {return console.log(err);}
+																else {
+																	var committeeMemberModel = {
+																		committee: committee[0].id,
+																		title: userModel[0].title,
+																		user: userModel[0].id
+																	};
+																	CommitteeMember.findOrCreate({committee: committee[0].id, user: userModel[0].id}, committeeMemberModel)
+																	.exec(function(err, committeeMember) {
+																		if (err) {return console.log(err);}
+																		else {
+																			console.log('COMMITTEE MEMBER CREATED US');
+																			CommitteeMember.publishCreate(committeeMember);
+																			if (userModel[0].chamber == 'senate'){
+																				Committee.find({urlTitle: 'united-states-sentate'})
+																				.exec(function(err, committee) {
+																					if (err) {return console.log(err);}
+																					else {
+																						var committeeMemberModel = {
+																							committee: committee[0].id,
+																							title: userModel[0].title,
+																							user: userModel[0].id
+																						};
+																						CommitteeMember.findOrCreate({committee: committee[0].id, user: userModel[0].id}, committeeMemberModel)
+																						.exec(function(err, committeeMember) {
+																							if (err) {return console.log(err);}
+																							else {
+																								console.log('COMMITTEE MEMBER CREATED SENATE')
+																								CommitteeMember.publishCreate(committeeMember);
+																								process.nextTick(nextMember);
+																							}
+																						});
+																					}
+																				});
+																			}
+																			if (userModel[0].chamber == 'house'){
+																				Committee.find({urlTitle: 'united-states-house-of-representatives'})
+																				.exec(function(err, committee) {
+																					if (err) {return console.log(err);}
+																					else {
+																						var committeeMemberModel = {
+																							committee: committee[0].id,
+																							title: userModel[0].title,
+																							user: userModel[0].id
+																						};
+																						CommitteeMember.findOrCreate({committee: committee[0].id, user: userModel[0].id}, committeeMemberModel)
+																						.exec(function(err, committeeMember) {
+																							if (err) {return console.log(err);}
+																							else {
+																								console.log('COMMITTEE MEMBER CREATED HOUSE')
+																								CommitteeMember.publishCreate(committeeMember);
+																								process.nextTick(nextMember);
+																							}
+																						});
+																					}
+																				});
+																			}
+																		}
+																	});
+																}
+															});
+														}
+													});	
+												});
+											}, 
+											function(err, results) {
+												Committee.update({officialId: officialId}, model).then(function(){
+													process.nextTick(nextCommittee);
+												});
+											});
+										}
+										else{
+											Committee.update({officialId: officialId}, model).then(function(){
+												process.nextTick(nextCommittee);
+											});
+										}
 									});
 								});
 							});
-
 						}
-						else{process.nextTick(next);}
+						else{process.nextTick(nextCommittee);}
 					});
-					Committee.update({urlTitle: unitedStatesModel.urlTitle}, unitedStatesModel);
 				});
 			}
         });
 	},
 
+	//if dups --> resync to async
 	federalLegislators: function(){
 
 		var model = {
@@ -304,7 +393,7 @@ module.exports = {
 				var congressData = body.results;
 
 				for (var key in congressData) {
-
+					console.log(congressData[key])
 					var bioguide_id = congressData[key].bioguide_id;
 					var birthday = congressData[key].birthday;
 					var chamber = congressData[key].chamber
@@ -353,7 +442,7 @@ module.exports = {
 						phone: phone,
 						party: party,
 						state: state_name,
-						title: title,
+						title: title,//--> this is on a committee basis
 						district: district,
 						term_end: term_end,
 						term_start: term_start,
@@ -365,39 +454,8 @@ module.exports = {
 
 					User.findOrCreate({bioguide_id: bioguide_id}, model)
 					.exec(function(err, userModel) {
-						if (err) {
-							return console.log(err);
-						}
-						else {
-							User.publishCreate(userModel);
-							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
-							//user.chamber
-							//hmmm y repeat
-							Committee.find({urlTitle: 'united-states'})
-							.exec(function(err, committee) {
-								if (err) {return console.log(err);}
-								else {
-									Committee.publishCreate(committee);
-
-									var committeeMemberModel = {
-										committee: committee.id,
-										title: userModel.title,
-										user: userModel.id
-									};
-
-									CommitteeMember.findOrCreate({committee: committee.id, user: userModel.id}, committeeMemberModel)
-									.exec(function(err, committeeMember) {
-										if (err) {return console.log(err);}
-										else {
-											console.log('COMMITTEE MEMBER CREATED')
-											CommitteeMember.publishCreate(committeeMember);
-										}
-									});
-
-								}
-							});
-
-						}
+						if (err) {return console.log(err);}
+						else {User.publishCreate(userModel);}
 					});
 					User.update({bioguide_id: bioguide_id}, model).then(function(){console.log('updated')});
 				}
@@ -581,6 +639,30 @@ module.exports = {
 		}
 	},
 
+	nationalCommittees: function(){
+		var model = {
+			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=troverman',
+			json: true,
+		};
+		request(model, function (error, response, body) {
+			var countryData = body.geonames;
+			for(x in countryData){
+				var title = countryData[x].countryName;
+				var urlTitle = title.replace(/ /g,"-").toLowerCase();
+				var model = {
+					parent: null,
+					title: title,
+					urlTitle: urlTitle
+				};
+				Committee.findOrCreate({urlTitle: urlTitle}, model).exec(function createCB(err, created){
+					console.log('national committee created')
+				});
+			}
+		});
+	},
+
+
+	//TO GET COMMITTEE MEMBERS... PERFORM A COMMITTEE DETAIL GET --> WOOP
 	stateCommittees: function(){
 		var model = {
 			url: 'https://openstates.org/api/v1//committees/?apikey=' + openCongressApiKey,
@@ -591,10 +673,26 @@ module.exports = {
 				var committeeDataArray = body;
 				committeeDataArray.push({state:'dc'})
 				async.eachSeries(committeeDataArray, function (committeeData, next){ 
+
+
 					var officialId = committeeData.id;
+
+					/*
+					var model = {
+						url: 'http://openstates.org/api/v1/bills/' + officialId + '?apikey=' + openCongressApiKey,
+						json: true,
+					};
+					request(model, function (error, response, body) {
+
+
+					});
+					*/
+
+
+
 					var state = committeeData.state;
 					var committee = committeeData.committee;
-					var urlTitle = state.toLowerCase().replace(/ /g,"-") + committee.toLowerCase().replace(/ /g,"-");
+					var urlTitle = states[state.toUpperCase()].replace(/ /g,"-") + '-' + committee.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/'/g,"");
 					var chamber = committeeData.chamber;
 					var parent_id = committeeData.parent_id;
 					var subcommittee = committeeData.parent_id;
@@ -656,6 +754,7 @@ module.exports = {
 		});
 	},
 
+	//CAN ALSO GET COMMITTEE MEMBER HERE -----~~~~
 	stateLegislators: function(){
 		var model = {
 			url: 'http://openstates.org/api/v1//legislators/?active=true&apikey=' + openCongressApiKey,
@@ -665,7 +764,6 @@ module.exports = {
 		    if (!error && response.statusCode === 200) {
 				var stateData = body;
 				for (x in stateData) {
-					console.log(stateData[x])
 					var first_name = stateData[x].first_name;
 					var last_name = stateData[x].last_name;
 					var photo_url = stateData[x].photo_url;
@@ -737,23 +835,23 @@ module.exports = {
 
 							//GOTTA DO BOTH STATE AND HOUSE / SENTATE ETC --> as well as specific committees
 							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
+
 							Committee.find({urlTitle: userModel.state.replace(' ','-').toLowerCase()})
 							.exec(function(err, committee) {
 								if (err) {return console.log(err);}
 								else {
-									Committee.publishCreate(committee);
-
+									console.log(committee)
 									//GOTTA SCOPE AND FIND UNITED STATES AS PARENT COMMITTEE.. ETC ETC
 									//--> THIS IS BIG
 									//THIS IS HOW WE CAN 'VALIDATE' REPS,, by the commites that they serve in ---- COMMITTEEMEMBER...
-									var committeeMemberModel = {
-										committee: committee.id,
+									/*var committeeMemberModel = {
+										committee: committee[0].id,
 										title: userModel.title,
 										user: userModel.id
 									};
 
 									CommitteeMember.findOrCreate({
-										committee: committee.id,
+										committee: committee[0].id,
 										title: userModel.title,
 										user: userModel.id
 									}, committeeMemberModel)
@@ -763,11 +861,10 @@ module.exports = {
 											console.log('COMMITTEE MEMBER CREATED');
 											CommitteeMember.publishCreate(committeeMember);											
 										}
-									});
+									});*/
 
 								}
 							});
-
 
 						}
 					});
