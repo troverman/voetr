@@ -282,6 +282,7 @@
         </md-input-container>
         -->
 
+        <!--member card css?-->
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card flex="20" ng-repeat="user in users">
             <a href="/member/{{user.username}}">
@@ -291,10 +292,9 @@
               <md-card-title-text>
                 <a href="/member/{{user.username}}">
                   <span class="">{{user.username}}</span><br>
-                  <span class="">{{user.title}}</span><br><!--too much-->
-                  <span class="">{{user.state}}</span><br>
-                  <!--member card css?-->
                 </a>
+                <span class="">{{user.title}}</span><br><!--too much-->
+                <span class="">{{user.state}}</span><br>
               </md-card-title-text>
             </md-card-title>
           </md-card>

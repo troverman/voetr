@@ -237,13 +237,13 @@ module.exports.intervalService = function(){
 
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
-	//dataService.federalCommittees();
+	dataService.federalCommittees();
 	//dataService.nationalCommittees();
 
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
+	//setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
 
 
 
