@@ -576,6 +576,28 @@ module.exports = {
 		})(vote);	
 	},
 
+	nationalCommittees: function(){
+		var model = {
+			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=troverman',
+			json: true,
+		};
+		request(model, function (error, response, body) {
+			var countryData = body.geonames;
+			for(x in countryData){
+				var title = countryData[x].countryName;
+				var urlTitle = title.replace(/ /g,"-").toLowerCase();
+				var model = {
+					parent: null,
+					title: title,
+					urlTitle: urlTitle
+				};
+				Committee.findOrCreate({urlTitle: urlTitle}, model).exec(function createCB(err, created){
+					console.log('national committee created')
+				});
+			}
+		});
+	},
+
 	stateBills: function(state, pageStart, pageEnd){
 
 		for (var page = pageStart; page <= pageEnd; page++){
@@ -639,28 +661,6 @@ module.exports = {
 		}
 	},
 
-	nationalCommittees: function(){
-		var model = {
-			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=troverman',
-			json: true,
-		};
-		request(model, function (error, response, body) {
-			var countryData = body.geonames;
-			for(x in countryData){
-				var title = countryData[x].countryName;
-				var urlTitle = title.replace(/ /g,"-").toLowerCase();
-				var model = {
-					parent: null,
-					title: title,
-					urlTitle: urlTitle
-				};
-				Committee.findOrCreate({urlTitle: urlTitle}, model).exec(function createCB(err, created){
-					console.log('national committee created')
-				});
-			}
-		});
-	},
-
 	//TO GET COMMITTEE MEMBERS... PERFORM A COMMITTEE DETAIL GET --> WOOP
 	stateCommittees: function(){
 		var model = {
@@ -685,7 +685,7 @@ module.exports = {
 						var parent_committee_id = committeeData.parent_id;
 						var state = committeeData.state;
 						var subcommittee = committeeData.parent_id;
-						var urlTitle = states[state.toUpperCase()].replace(/ /g,"-") + '-' + committee.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/'/g,"");
+						var urlTitle = states[state.toUpperCase()].toLowerCase().replace(/ /g,"-") + '-' + committee.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/'/g,"");
 
 						var newCommittee;
 						if (chamber == 'lower'){newCommittee = states[state.toUpperCase()] + ' House of Representatives'}
@@ -735,7 +735,7 @@ module.exports = {
 															if (title == null){title = 'Committee Member'}
 															if (userModel.length != 0){
 																var committeeMemberModel = {
-																	committee: committeeModel.id,
+																	committee: committee.id,
 																	title: title,
 																	user: userModel[0].id
 																};
@@ -762,7 +762,7 @@ module.exports = {
 																						console.log('COMMITTEE MEMBER CREATED US');
 																						CommitteeMember.publishCreate(committeeMember);
 
-																						Committee.find({urlTitle: urlTitle})
+																						Committee.find({urlTitle: states[state.toUpperCase()].replace(/ /g,"-")})
 																						.exec(function(err, committee) {
 																							if (err) {return console.log(err);}
 																							else {
@@ -778,7 +778,7 @@ module.exports = {
 																										console.log('COMMITTEE MEMBER CREATED STATE');
 																										CommitteeMember.publishCreate(committeeMember);		
 																										if (userModel[0].chamber == 'lower'){
-																											var stateChamber = userModel[0].state + ' House of Representatives';																							console.log(userModel[0].chamber)
+																											var stateChamber = userModel[0].state + ' House of Representatives';
 																											var stateChamberUrl = stateChamber.toLowerCase().replace(/ /g,"-");
 																											Committee.find({urlTitle: stateChamberUrl})
 																											.exec(function(err, committee) {
@@ -802,7 +802,7 @@ module.exports = {
 																											});
 																										}
 																										if (userModel[0].chamber == 'upper'){
-																											var stateChamber = userModel[0].state + ' Senate';																							console.log(userModel[0].chamber)
+																											var stateChamber = userModel[0].state + ' Senate';
 																											var stateChamberUrl = stateChamber.toLowerCase().replace(/ /g,"-");
 																											Committee.find({urlTitle: stateChamberUrl})
 																											.exec(function(err, committee) {
@@ -825,6 +825,7 @@ module.exports = {
 																												}
 																											});
 																										}
+																										if (userModel[0].chamber != 'upper' && userModel[0].chamber != 'lower'){process.nextTick(nextMember)}
 																									}
 																								});
 																							}
