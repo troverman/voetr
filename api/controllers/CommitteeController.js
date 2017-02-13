@@ -34,6 +34,19 @@ module.exports = {
 		});
 	},
 
+	getChildren: function(req, res) {
+		Committee.find()
+		.where({parent: req.param('id')})
+		.then(function(model) {
+			console.log(model)
+			Committee.subscribe(req, model);
+			res.json(model);
+		})
+		.fail(function(err) {
+			res.send(404);
+		});
+	},
+
 	getOne: function(req, res) {
 		Committee.getOne(req.param('id'))
 		.spread(function(model) {

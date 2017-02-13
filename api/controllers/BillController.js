@@ -36,15 +36,44 @@ module.exports = {
 		var limit = req.param('limit');
 		var skip = req.param('skip');
 		var sort = req.param('sort');
-		Bill.getSome(limit, skip, sort)
+
+
+		//--> needs to go n deep? filter by children
+		/*Committee.find({id:id})
+        .then(function(committees){
+			console.log(committees)
+        	Committee.find({id:committees[0].parent}).then(function(committees){
+        		console.log(committees)
+        	})
+        })*/
+
+  	 	//{ results: { $elemMatch: { product: "xyz", score: { $gte: 8 } } } }
+
+		Bill.native(function(err, collection){
+			if (err){return res.negotiate(err)}
+
+			collection
+			.find({committees:{ $elemMatch:{id: id}}})
+			.sort({ voteCount: -1 })
+			.skip(parseInt(skip))
+			.limit(parseInt(limit))
+			.toArray(function(err, result){
+				if (err){return res.negotiate(err)}
+				console.log(result)
+				return res.json(result);
+			});
+		});
+
+		/*Bill.getByCommittee(id, limit, skip, sort)
 		.then(function(models) {
+			console.log(models.length)
 			Bill.watch(req);
 			Bill.subscribe(req, models);
 			res.json(models);
 		})
 		.fail(function(err) {
 			// An error occured
-		});
+		});*/
 	},
 
 	getCount: function(req, res) {

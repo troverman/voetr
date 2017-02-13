@@ -46,6 +46,9 @@ module.exports = {
         });
     },
 
+    //afterCreate --> update voteCount on bill model
+
+
     getAll: function() {
         return VoteVote.find()
         .then(function (models) {

@@ -17,12 +17,12 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
     };
 
     this.getChildren = function(model) {
-        var url = utils.prepareUrl('committeemember/committee/children/' + model);
+        var url = utils.prepareUrl('committee/children/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 
     this.getParents = function(model) {
-        var url = utils.prepareUrl('committeemember/committee/parent/' + model);
+        var url = utils.prepareUrl('committee/committee/parent/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 

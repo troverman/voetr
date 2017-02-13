@@ -8,7 +8,7 @@
 		  <uib-tabset class="container">
 			<uib-tab heading="Activity" active="active" style="margin-left:11em">
 			</uib-tab>
-			<uib-tab heading="Committees">
+			<uib-tab heading="{{committees.length}} Committees">
 				<md-card ng-repeat="committee in committees">
 					<h3>{{committee.title}}</h4>
 					<!--number of reps?-->
@@ -17,21 +17,21 @@
 					</md-card-title-text>
 				</md-card>
 			</uib-tab>
-			<uib-tab heading="Constituents">
+			<uib-tab heading="{{constituents.length}} Constituents">
 				<md-card ng-repeat="constituent in constituents">
 					<md-card-title-text>
 						<a href="/member/{{constituent.constituent.username}}/">{{constituent.constituent.username}}</a>
 					</md-card-title-text>
 				</md-card>
 			</uib-tab>
-			<uib-tab heading="Representatives">
+			<uib-tab heading="{{representatives.length}} Representatives">
 				<md-card ng-repeat="representative in representatives">
 					<md-card-title-text>
 						<a href="/member/{{representative.representative.username}}/">{{representative.representative.username}}</a>
 					</md-card-title-text>
 				</md-card>
 			</uib-tab>
-			<uib-tab heading="Votes">
+			<uib-tab heading="{{voteCount}} Votes">
 				<md-card ng-repeat="vote in votes">
 					<md-card-title>
 						<md-card-title-text>
@@ -51,34 +51,36 @@
 	  	  </div>
 	    </div>
 	    <div class="user-profile-data container">
-	      <h2>{{member.username}}</h2>
-	      <h5 ng-show="member.title">{{member.title}}</h5>
-	      <h5 ng-show="member.district">District {{member.district}}</h5>
-	      <h5 ng-show="member.state">{{member.state}}</h5>
-
-	      <a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}">facebook</a>
-	      <a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}">twitter</a>
-	      <a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}">google</a>
-
-	      <h5 ng-show="member.phone">phone: {{member.phone}}</h5>
-	      <h5 ng-show="member.fax">fax: {{member.fax}}</h5>
-	      <!--<h5 ng-show="member.email">email: {{member.email}}</h5>-->
-	      <button class="btn btn-default">contact</button>
-
-	      <!--<button class="btn btn-default">follow</button><br>-->
-	      <br>
-	      <div ng-show="currentUser.id != member.id">
-	      	<button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
-	      	<br>
-	      	<button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button>
-	  	  </div>
-	      <br>
-	 
-	      <!--can have dif reps per committee-->
-	      <!--represented by (list of reps with each committee)-->
-	      <div ng-show="currentUser.id == member.id">
-			<a href="/account"><button class="btn btn-default">settings</button></a>
-		  </div>
+	    	<div class="pull-left">
+	      		<h2>{{member.username}}</h2>
+	      		<h5 ng-show="member.title"><span style="color:grey">{{member.title}}</span></h5>
+	      		<h5 ng-show="member.district"><span style="color:grey">District {{member.district}}</span></h5>
+	      		<h5 ng-show="member.state"><span style="color:grey">{{member.state}}</span></h5>
+	      	 	<a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}"  target="_blank"><span class="fa fa-facebook"></span> facebook</a>
+		     	<a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}"  target="_blank"><span class="fa fa-twitter"></span> twitter</a>
+		     	<a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}"  target="_blank"><span class="fa fa-google"></span> google</a>
+		      	<br><br>
+	  		</div>
+	  		<div class="pull-right">
+				<button class="btn btn-default">contact</button>
+				<!--<h5 ng-show="member.phone">phone: {{member.phone}}</h5>
+		     	<h5 ng-show="showFax">fax: {{member.fax}}</h5>-->
+		      	<!--<h5 ng-show="member.email">email: {{member.email}}</h5>-->
+		      <button class="btn btn-default">follow</button>
+		      <br>
+			  <!--can have dif reps per committee-->
+		      <!--represented by (list of reps with each committee)-->
+		      <div ng-show="currentUser.id != member.id">
+		      	<button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
+		      	<br>
+		      	<button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button>
+		  	  </div>
+		      <br>
+		      <div ng-show="currentUser.id == member.id">
+				<a href="/account"><button class="btn btn-default">settings</button></a>
+			  </div>
+			  <div style="clear:both;height:15px"></div>
+		  <div>
 	       <br>
 	       <br>
 	    </div>
@@ -112,9 +114,11 @@
 			<md-card ng-repeat="vote in votes">
 				<md-card-title>
 					<md-card-title-text>
-						<p>{{vote.voteString}}</p> on behalf of {{constituents.length}} constituents about
-						<a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a> for 
-						<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+						<p style="white-space: nowrap">
+							{{vote.voteString}} on behalf of {{constituents.length}} constituents about
+							<a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a> for 
+							<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+						</p>
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
@@ -123,16 +127,18 @@
 			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
 			</div>
 		</uib-tab>
-		<uib-tab heading="Committees">
-			<md-card ng-repeat="committee in committees">
+		<uib-tab heading="{{committees.length}} Committees">
+			<div class="container">
+			<md-card ng-repeat="committee in committees" class="">
 				<md-card-title-text>
 					<a href="/committee/{{committee.committee.urlTitle}}/"><h3>{{committee.committee.title}}</h3></a>
 					<h5>{{committee.title}}</h5>
 					<!--number of reps?-->
 				</md-card-title-text>
 			</md-card>
+			</div>
 		</uib-tab>
-		<uib-tab heading="Constituents">
+		<uib-tab heading="{{constituents.length}} Constituents">
 		 	<div class='md-padding' layout="row" layout-align="center" layout-wrap>
 				<md-card flex="20" ng-repeat="constituent in constituents">
 					<a href="/member/{{constituent.constituent.username}}">
@@ -144,7 +150,7 @@
 				</md-card>
 			</div>
 		</uib-tab>
-		<uib-tab heading="Representatives">
+		<uib-tab heading="{{representatives.length}} Representatives">
  			<div class='md-padding' layout="row" layout-align="center" layout-wrap>
 				<md-card flex="20" ng-repeat="representative in representatives">
 				    <a href="/member/{{representative.representative.username}}">
@@ -160,12 +166,12 @@
 		</uib-tab>
 		<uib-tab heading="Following">
 		</uib-tab>-->
-		<uib-tab heading="Votes">
+		<uib-tab heading="{{voteCount}} Votes">
 			<md-card ng-repeat="vote in votes">
 				<md-card-title>
 					<md-card-title-text>
-						<p>{{vote.voteString}}</p> on behalf of {{constituents.length}} constituents about
-						<a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a> for 
+						<p style="white-space: nowrap">{{vote.voteString}} on behalf of {{constituents.length}} constituents</p>
+						<a href="/vote/{{vote.vote.id}}">{{vote.vote.title}}</a>
 						<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
 					</md-card-title-text>
 				</md-card-title>

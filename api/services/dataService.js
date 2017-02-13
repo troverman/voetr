@@ -137,84 +137,80 @@ module.exports = {
 
 		for (var page = pageStart; page <= pageEnd; page++){
 			var model = {
-				url: 'https://congress.api.sunlightfoundation.com/bills?&per_page=1&page=' + page + '&fields=actions,bill_id,bill_type,committee_ids,congress,keywords,number,official_title,related_bill_ids,short_title,summary,summary_short,urls,upcoming&apikey=' + openCongressApiKey,
+				url: 'https://congress.api.sunlightfoundation.com/bills?&per_page=1&page=' + page + '&fields=actions,bill_id,bill_type,committee_ids,congress,keywords,number,official_title,related_bill_ids,short_title,sponsor,summary,summary_short,urls,upcoming&apikey=' + openCongressApiKey,
 				json: true,
 			};
 			request(model, function (error, response, body) {
 				if (!error && body.results) {
 					if (body.results.length>0){
 						var billData = body.results[0];
-
 						var actions = billData.actions;
-						//Committee.find({officalId:committee_ids})
-						//committees.activity
-						var committees = billData.committee_ids;
-						console.log(committees);
-
+						var committees = billData.committee_ids;						
 						var congress = billData.congress;
 						var keywords = billData.keywords;
 						var number = billData.number;
 						var officialId = billData.bill_id;
 						var officialUrl = billData.urls.congress;
-
-						//Bill.find({officialId:related_bill_ids})
 						var relatedBills = billData.related_bill_ids;
-
 						var summary = billData.summary;
 						var summaryShort = billData.summary_short;
-
-						//User.find()
 						var sponsor = billData.sponsor;
-
 						var title;
 						if (billData.short_title){title = billData.short_title}
 						else{title = billData.official_title}
 						var type = billData.bill_type;
 						var urlTitle;
-						if (title){urlTitle = title.replace(/ /g,"-").toLowerCase()}
+						if (title){urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase()}
 						var upcoming = billData.upcoming;
-
-						//console.log(upcoming);
-						//console.log(actions)
-
 						var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
 						request(fullTextLink, function (error, response, body) {
-							if (body){
-								if (body.trim().substring(0, 2)=="<!"){body = null;}
-							}
-							var model = {
-								actions: actions,
-								billContent: 'billData',
-								committee: 1,
-								fullText: body,
-								keywords: keywords,
-								officialId: officialId,
-								summary: summary,
-								summaryShort: summaryShort,
-								title: title,
-								urlTitle: urlTitle,
-								//upcoming: upcoming,
-								user: 1 //sponsor
-							};
-
-
-							Bill.find({officialId:officialId})
-							.then(function(billModel) {
-								if (billModel.length === 0){
-									Bill.create(model)
-									.then(function(billModel) {
-										console.log('BILL CREATED');
-										dataService.federalVotes(billModel);
-										Bill.publishCreate(billModel);
+							if (body){if (body.trim().substring(0, 2)=="<!"){body = null;}}
+							User.find({bioguide_id:sponsor.bioguide_id})
+							.then(function(sponsor){
+								Committee.find({officialId: committees})
+								.then(function(committees){
+									Bill.find({officialId:relatedBills})
+									.then(function(relatedBills){
+										var user = 1;
+										if (sponsor.length != 0){var user = sponsor[0].id}
+										var relatedBillIds = relatedBills.map(function(obj){return obj.id});
+										var committeeIds = committees.map(function(obj){return obj.id});
+										var model = {
+											actions: actions,
+											//committee: committeeIds, //testing
+											committees: committees,
+											fullText: body,
+											keywords: keywords,
+											officialId: officialId,
+											relatedBills: relatedBills,
+											summary: summary,
+											summaryShort: summaryShort,
+											title: title,
+											urlTitle: urlTitle,
+											upcoming: upcoming,
+											user: user
+										};
+										
+										Bill.find({officialId:officialId})
+										.then(function(billModel) {
+											if (billModel.length === 0){
+												Bill.create(model)
+												.then(function(billModel) {
+													console.log('BILL CREATED');
+													dataService.federalVotes(billModel);
+													Bill.publishCreate(billModel);
+												});
+											}
+											else{
+												Bill.update({officialId: officialId}, model)
+												.then(function(billModel){
+													console.log('BILL UPDATED');
+													dataService.federalVotes(billModel[0]);
+												});
+											}
+										});
 									});
-								}
-								else{
-									Bill.update({officialId: officialId}, model)
-									.then(function(billModel){
-										console.log('BILL UPDATED');
-										dataService.federalVotes(billModel[0]);
-									});
-								}
+								});
 							});
 						});
 		        	}
@@ -616,7 +612,6 @@ module.exports = {
 						};
 						request(model, function (error, response, body) {
 							if (!error && body) {
-								//console.log(body)
 			        			var billData = body;
 			        			var officialId = billData.id;
 			        			var state = billData.state;
@@ -624,7 +619,6 @@ module.exports = {
 								var urlTitle;
 								if (body.title){urlTitle = body.title.replace(/ /g,"-").toLowerCase();}
 								if (!body.title){urlTitle = ''}
-								//mb add session
 
 								var model = {
 									billContent: 'billData',

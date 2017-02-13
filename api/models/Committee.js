@@ -9,6 +9,15 @@ module.exports = {
         parent: {
             model: 'committee'
         },
+        //bills: {
+        //    collection: 'bill',
+        //    via: 'committee',
+        //    dominant: true
+        //},
+        memberCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
         officialId: {
             type: 'string',
         },
@@ -43,6 +52,7 @@ module.exports = {
 
     getOne: function(id) {
         return Committee.findOne(id)
+        .populate('bills')
         .then(function (model) {
             return [model];
         });

@@ -72,13 +72,13 @@ angular.module( 'voetr.member', [
     if(config.currentUser){
         $scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0
     }
-
-    console.log(committees)
+    $scope.showFax = false;
+    if (member.fax && member.fax != ','){$scope.showFax = true}
     
     $scope.createPost = function(){
         console.log($scope.newPost);
         $scope.newPost.user = $scope.currentUser.id;
-        $scope.newPost.profile = $scope.currentUser.id
+        $scope.newPost.profile = $scope.member.id
         PostModel.create($scope.newPost).then(function(model){
             console.log(model);
         })

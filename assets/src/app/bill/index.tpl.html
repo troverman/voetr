@@ -2,7 +2,9 @@
 	<div class="billContainer container">
 		<h3>0 - {{bill.title}}</h3>
 		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
-		<!--<p><a href="{{bill.committee.urlTitle}}">{{bill.committee.title}}</a></p>-->
+		<div ng-repeat="committee in bill.committees">
+			<p><a href="committee/{{committee.urlTitle}}">{{committee.title}}</a></p>
+		</div>
 		<md-divider></md-divider>
 		<div class="row">
 			<button class="col-xs-6 btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
@@ -10,6 +12,12 @@
     	</div>
 		<uib-tabset>
 			<uib-tab heading="Info" active="active">
+				<br><br>
+				<a href="member/{{bill.user.username}}">
+					<img src="{{bill.user.avatarUrl}}" style="height:100px;">
+					{{bill.user.username}}
+				</a>
+				<br><br>
 				<div class="billContent">
 					<br>
 					<p>{{bill.billContent.current_status_description}}</p>
@@ -28,6 +36,7 @@
 				</div>
 		    </uib-tab>
 		    <uib-tab heading="Activity">
+		    	{{actions}}
 		    </uib-tab>
 			<uib-tab heading="Discussion">
 				<div class="commentsContainer" ng-hide="comments.length==0 && !currentUser">
@@ -59,7 +68,7 @@
 		    </uib-tab>
 		    <uib-tab heading="Votes">
 			    <div class="voteContainer" ng-show="votes.length!=0">
-					<div ng-repeat="vote in votes">
+					<div ng-repeat="vote in bill.votes">
 						<h4>
 			      			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
 			      			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
@@ -71,6 +80,11 @@
 						<p>{{vote.plusCount}} - {{vote.minusCount}} - {{vote.otherCount}}</p>
 						<md-divider></md-divider>
 					</div>
+				</div>
+		    </uib-tab>
+			<uib-tab heading="Related">
+				<div ng-repeat="bill in bill.relatedBills">
+					<p><a href="bill/{{bill.urlTitle}}">{{bill.title}}</a></p>
 				</div>
 		    </uib-tab>
 		</uib-tabset>

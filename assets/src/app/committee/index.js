@@ -26,8 +26,21 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: function(BillModel) {
-                return BillModel.getByCommittee(1, 100, 0, 'voteCount DESC');
+            bills: function(BillModel, committee) {
+                return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
+            },
+            committees: function(CommitteeModel, committee) {
+                //return CommitteeModel.getParents(committee.id);
+                return CommitteeModel.getChildren(committee.id);
+            },
+            members: function(CommitteeMemberModel, committee) {
+                return CommitteeMemberModel.getByCommittee(committee.id);
+            },
+            posts: function() {
+                return [1,2,3,4,5,6,7,8];
+            },
+            votes: function(VoteModel) {
+                return VoteModel.getSome(10, 0, 'voteCount DESC');
             }
          }
     })
@@ -40,24 +53,23 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: function(BillModel) {
-                return BillModel.getByCommittee(1, 100, 0, 'createdAt DESC');
+            bills: function(BillModel, committee) {
+                return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
             }
          }
     })
-    .state( 'committee.committees', {
+    .state( 'committee.committeeCommittees', {
         url: '/committees',
         views: {
-            "committees": {
+            "committeeCommittees": {
                 controller: 'CommitteeCommitteesCtrl',
                 templateUrl: 'committee/committees.tpl.html'
             }
         },
         resolve: {
-            committees: function(committeeModel, committee) {
-                return [1,2,3,4];
-                //return committeeModel.getParents(committee.id);
-                //return committeeModel.getChildren(committee.id);
+            committees: function(CommitteeModel, committee) {
+                //return CommitteeModel.getParents(committee.id);
+                return CommitteeModel.getChildren(committee.id);
             }
          }
     })
@@ -112,9 +124,7 @@ angular.module( 'voetr.committee', [
 
 .controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, CommitteeModel, committee, VoteVoteModel) {
     $scope.committee = committee;
-    if (committee == undefined){
-        $location.url('committees');
-    };
+    if (committee == undefined){$location.url('committees');};
     titleService.setTitle(committee.title + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;
@@ -122,6 +132,8 @@ angular.module( 'voetr.committee', [
     $scope.newVote = {};
     $scope.createBillToggle = false;
     $scope.editCommitteeToggle = false;
+
+    console.log(committee)
 
     $scope.toggleCreateBill = function(){
         $scope.createBillToggle = $scope.createBillToggle ? false : true;
@@ -178,9 +190,11 @@ angular.module( 'voetr.committee', [
 .controller( 'CommitteeBillCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, bills) {
     $scope.committee = committee;
     $scope.bills = bills;
+    console.log(bills)
 })
 
 .controller( 'CommitteeCommitteesCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, committees) {
+    console.log('hello')
     $scope.committee = committee;
     $scope.committees = committees;
 })
@@ -190,10 +204,16 @@ angular.module( 'voetr.committee', [
     $scope.posts = posts;
 })
 
-.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, members, committee) {
+.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $scope, $sailsSocket, members, config, committee) {
+    $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.members = members;
-    console.log(members);
+    $scope.newMember = {}
+    $scope.createMember = function(){
+        $scope.newMember.user = $scope.currentUser.id;
+        $scope.newMember.committee = $scope.committee.id;
+        $scope.newMember.title = 'Member'
+    }
 
 })
 

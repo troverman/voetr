@@ -9,6 +9,9 @@
     <li><a href="committee/{{committee.urlTitle}}/votes">votes</a></li>
   </ul>
 </div>-->
+<div style="overflow:hidden;max-height:300px;">
+  <img style="width:100%;min-height:10em;" src="images/congress1.jpg">
+</div>
 <div class="container">
   <div class="committee-title">
     <h1>{{committee.title}}</h1>
@@ -45,11 +48,11 @@
                 {{bill.voteCount}}
                 <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
                 <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>
-                <a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a>
+                <a href="bill/{{bill._id}}/{{bill.urlTitle}}">{{bill.title}}</a>
               </h4>
             </div>
             <div>
-              <a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>
+              <a href="bill/{{bill._id}}/{{bill.title}}">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>
             </div>
             <br>
           </div>
