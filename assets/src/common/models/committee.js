@@ -21,8 +21,8 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getParents = function(model) {
-        var url = utils.prepareUrl('committee/committee/parent/' + model);
+    this.getParent = function(model) {
+        var url = utils.prepareUrl('committee/parent/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 

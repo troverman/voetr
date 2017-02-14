@@ -279,7 +279,7 @@ module.exports = {
 														title: title,
 														user: userModel[0].id
 													};
-													CommitteeMember.findOrCreate({committee: committee.id, user: userModel[0].id}, committeeMemberModel)
+													CommitteeMember.findOrCreate({committee: committeeModel.id, user: userModel[0].id}, committeeMemberModel)
 													.exec(function(err, committeeMember) {
 														if (err) {return console.log(err);}
 														else {

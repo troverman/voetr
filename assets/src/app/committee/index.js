@@ -30,7 +30,7 @@ angular.module( 'voetr.committee', [
                 return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
             },
             committees: function(CommitteeModel, committee) {
-                //return CommitteeModel.getParents(committee.id);
+                //return CommitteeModel.getParent(committee.id);
                 return CommitteeModel.getChildren(committee.id);
             },
             members: function(CommitteeMemberModel, committee) {
@@ -68,7 +68,6 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             committees: function(CommitteeModel, committee) {
-                //return CommitteeModel.getParents(committee.id);
                 return CommitteeModel.getChildren(committee.id);
             }
          }

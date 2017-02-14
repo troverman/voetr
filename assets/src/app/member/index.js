@@ -36,7 +36,7 @@ angular.module( 'voetr.member', [
                 else{return null}
             },
             posts: function(PostModel, member) {
-                return PostModel.getByUser(member.id, 100, 0, 'createdAt desc');
+                return PostModel.getByProfile(member.id, 100, 0, 'createdAt desc');
             },
             representatives: function(RepresentativeModel, member) {
                 return RepresentativeModel.getRepresentatives(member);

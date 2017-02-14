@@ -1,7 +1,5 @@
 <div ui-view="vote">
-
 	<div class="voteContainer container">
-
 		<h3>
 			{{vote.voteCount}} ({{vote.plusCount-vote.minusCount}}) - 
 			<!--<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
@@ -9,7 +7,6 @@
 			{{vote.title}}
 		</h3>
 		<h4><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h4>
-
 		<!--<h3>{{vote.otherCount}}</h3>-->
 		<md-divider></md-divider>
 		<div class="row">
@@ -17,65 +14,48 @@
         	<button class="col-xs-6 btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
     	</div>
     	<br>
-
 		<!--UI/UX - break out into YES / NO - show representative votes -->
 		<uib-tabset>
 			<uib-tab heading="{{vote.plusCount}}  Yes" active="active">
-				<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
-				    <md-card flex="30" class="voteVote" ng-repeat="vote in yesVotes">
-						<a href="/member/{{vote.user.username}}">
-				        	<img ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
-				        </a>
-						<md-card-title>
-							<md-card-title-text>
-								<a href="/member/{{vote.user.username}}">
-									<!--<img src="{{vote.user.avatarUrl}}" style="height:64px;">-->
-									<h4>{{vote.user.username}}</h4>
-								</a>
-								<h4>{{vote.voteString}}</h4>
-							</md-card-title-text>
-						</md-card-title>
-					</md-card>
-				</div>
+			    <div class="col-lg-4 col-sm-6" ng-repeat="vote in yesVotes">
+			      <div style="margin:10px; box-shadow: 2px 2px 10px #999;">
+			        <div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
+			          <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" class="avatar" src="{{vote.user.avatarUrl}}" err-src="/images/avatar.png">
+			        </div>
+			        <div class="info">
+			          <h2 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h2>
+			          <h3 class="position"><a href="member/{{vote.user.username}}">{{vote.user.title}}</a></h3>
+			          <p>YES</p>
+			          <p>Large bet on myself in round one pansy i more, but you go</p>
+			        </div>
+			        <div class="social">
+			          <a ng-show="vote.user.socialAccounts.facebook.profileUrl" href="{{vote.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+			          <a ng-show="vote.user.socialAccounts.twitter.profileUrl" href="{{vote.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+			          <a ng-show="vote.user.socialAccounts.google.profileUrl" href="{{vote.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+			        </div>
+			      </div>
+			    </div>
 		    </uib-tab>
 		    <uib-tab heading="{{vote.minusCount}}  No">
-		    	<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
-			    	<md-card flex="30" class="voteVote" ng-repeat="vote in noVotes">
-						<a href="/member/{{vote.user.username}}">
-				        	<img ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
-				        </a>
-						<md-card-title>
-							<md-card-title-text>
-								<a href="/member/{{vote.user.username}}">
-									<!--<img src="{{vote.user.avatarUrl}}" style="height:64px;">-->
-									<h4>{{vote.user.username}}</h4>
-								</a>
-								<h4>{{vote.voteString}}</h4>
-							</md-card-title-text>
-						</md-card-title>
-					</md-card>
-				</div>
+		    	<div class="col-lg-4 col-sm-6" ng-repeat="vote in noVotes">
+			      <div style="margin:10px; box-shadow: 2px 2px 10px #999;">
+			        <div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
+			          <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" class="avatar" src="{{vote.user.avatarUrl}}" err-src="/images/avatar.png">
+			        </div>
+			        <div class="info">
+			          <h2 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h2>
+			          <h3 class="position"><a href="member/{{vote.user.username}}">{{vote.user.title}}</a></h3>
+						<p>NO</p>
+			          <p>Large bet on myself in round one pansy i more, but you go</p>
+			        </div>
+			        <div class="social">
+			          <a ng-show="vote.user.socialAccounts.facebook.profileUrl" href="{{vote.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+			          <a ng-show="vote.user.socialAccounts.twitter.profileUrl" href="{{vote.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+			          <a ng-show="vote.user.socialAccounts.google.profileUrl" href="{{vote.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+			        </div>
+			      </div>
+			    </div>
 		    </uib-tab>
 		</uib-tabset>
-
-		<!--
-		<div class="voteVoteContainer md-padding" layout="row" layout-align="center" layout-wrap>
-			<md-card flex="30" class="voteVote" ng-repeat="vote in votes">
-				<a href="/member/{{vote.user.username}}">
-	            	<img ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
-	            </a>
-				<md-card-title>
-					<md-card-title-text>
-						<a href="/member/{{vote.user.username}}">
-							<h4>{{vote.user.username}}</h4>
-						</a>
-						<h4>{{vote.voteString}}</h4>
-					</md-card-title-text>
-				</md-card-title>
-			</md-card>
-		</div>
-		-->
 	<div>
-
-
 </div>

@@ -38,7 +38,6 @@ module.exports = {
 		Committee.find()
 		.where({parent: req.param('id')})
 		.then(function(model) {
-			console.log(model)
 			Committee.subscribe(req, model);
 			res.json(model);
 		})

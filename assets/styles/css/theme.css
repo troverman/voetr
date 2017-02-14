@@ -161,6 +161,42 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
  background-color: #2ab996!important;
 }
 
+.image {
+  height: 250px;
+  background: center center no-repeat;
+  background-size: cover;
+}
+
+.image img{
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background: #fff;
+  height: 15em;
+  padding: 0.25em;
+  border-radius: .4em;
+}
+
+.info {
+  height: 175px;
+  background: #FAFAFA;
+  text-align: center;
+}
+
+.info p{
+  color: #666;
+  padding: 0px 60px;
+}
+
+.social {
+  height: 40px;
+  background: #DAE0DE;
+  text-align: center;
+  padding-top: 20px;
+}
+.social a i{font-size:20px};
+
+
 .light {
   font-weight: 100
 }
@@ -573,7 +609,7 @@ hr {
 }
 .log-background {
   z-index: 1;
-  background: url(../../images/crowd1.jpg) no-repeat center center fixed;
+  background: url(../../images/congress.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
