@@ -3,11 +3,11 @@
     <br>
     <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
     <hr>
-    <li><a href="committee/{{committee.urlTitle}}">bylaws</a></li>
+    <li><a href="#">bylaws</a></li>
     <li><a href="committee/{{committee.urlTitle}}/bills">bills</a></li>
     <li><a href="committee/{{committee.urlTitle}}/committees">committees</a></li>
-    <li><a href="committee/{{committee.urlTitle}}">discussion</a></li>
-    <li><a href="committee/{{committee.urlTitle}}">elections</a></li>
+    <li><a href="committee/{{committee.urlTitle}}/discussion">discussion</a></li>
+    <li><a href="#">elections</a></li>
     <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/members">members</a></li>
     <li><a href="committee/{{committee.urlTitle}}/votes">votes</a></li>
   </ul>
@@ -30,6 +30,7 @@
           <h2 class="name"><a href="member/{{member.user.username}}">{{member.user.username}}</a></h2>
           <h3 class="position" style="text-transform:capitalize"><a href="member/{{member.user.username}}">{{member.title}}</a></h3>
           <p>{{member.user.title}}</p>
+          <!--<button class="btn btn-default">follow</button>-->
         </div>
         <div class="social">
           <a ng-show="member.user.socialAccounts.facebook.profileUrl" href="{{member.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
@@ -39,7 +40,6 @@
       </div>
     </div>
   </div>  
-
 </div>
 <div ng-include="'footer/index.tpl.html'"></div>
 
