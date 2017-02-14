@@ -126,21 +126,21 @@
         <md-card ng-repeat="vote in votes">
           <md-card-title>
             <md-card-title-text>
-              <h4><a href="/vote/{{id}}">{{title}}</a></h4>
+              <h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
               <div class="margin-5"></div>
               <h4>
-                <b>+ {{plusCount-minusCount}}</b>
+                <b>+ {{vote.plusCount-vote.minusCount}}</b>
                 <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
-                  <i class="fa fa-caret-up vBlue"></i> <b>{{plusCount}}</b>
+                  <i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
                 </button>
                 <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
-                  <i class="fa fa-caret-down red-color"></i>  <b>{{minusCount}}</b>
+                  <i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
                 </button>
                 <br><br>
-                <span class="subtitle">({{voteCount}} total votes)</span>
+                <span class="subtitle">({{vote.voteCount}} total votes)</span>
               </h4>
               <div class="margin-10"></div>
-              <a href="/bill/{{bill.id}}/{{bill.title}}">{{bill.title}}</a>
+              <a href="/bill/{{bill.id}}/{{bill.title}}">{{vote.bill.title}}</a>
               <br><br>
             </md-card-title-text>
           </md-card-title>
