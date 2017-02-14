@@ -73,6 +73,7 @@ module.exports = {
 		console.log(req.param('path'));
 		Committee.find()
 		.where({urlTitle: req.param('path')})
+		.populate('parent')
 		.spread(function(model) {
 			Committee.subscribe(req, model);
 			res.json(model);

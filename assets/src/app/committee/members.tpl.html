@@ -28,9 +28,8 @@
         </div>
         <div class="info">
           <h2 class="name"><a href="member/{{member.user.username}}">{{member.user.username}}</a></h2>
-          <h3 class="position"><a href="member/{{member.user.username}}">{{member.user.title}}</a></h3>
-          <h4>{{member.title}}</h4>
-          <p>Large bet on myself in round one pansy i more, but you go</p>
+          <h3 class="position" style="text-transform:capitalize"><a href="member/{{member.user.username}}">{{member.title}}</a></h3>
+          <p>{{member.user.title}}</p>
         </div>
         <div class="social">
           <a ng-show="member.user.socialAccounts.facebook.profileUrl" href="{{member.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>

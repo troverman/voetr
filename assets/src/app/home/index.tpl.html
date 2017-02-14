@@ -283,6 +283,7 @@
         -->
 
         <!--member card css?-->
+        <!--
         <div class='md-padding' layout="row" layout-align="center" layout-wrap>
           <md-card class="col-lg-3 col-sm-6" ng-repeat="user in users">
             <a href="/member/{{user.username}}">
@@ -293,12 +294,13 @@
                 <a href="/member/{{user.username}}">
                   <span class="">{{user.username}}</span><br>
                 </a>
-                <span class="">{{user.title}}</span><!--too much-->
+                <span class="">{{user.title}}</span>
                 <span class="">{{user.state}}</span>
               </md-card-title-text>
             </md-card-title>
           </md-card>
         </div>
+        -->
 
         <div class="col-lg-4 col-sm-6" ng-repeat="user in users">
           <div style="margin:10px; box-shadow: 2px 2px 10px #999;">
@@ -309,7 +311,6 @@
               <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
               <h3 class="position"><a href="member/{{user.username}}">{{user.title}}</a></h3>
               <p>{{user.state}}</p>
-              <p>Large bet on myself in round one pansy i more, but you go</p>
             </div>
             <div class="social">
               <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>

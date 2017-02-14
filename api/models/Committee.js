@@ -52,7 +52,6 @@ module.exports = {
 
     getOne: function(id) {
         return Committee.findOne(id)
-        .populate('bills')
         .populate('parent')
         .then(function (model) {
             return [model];
