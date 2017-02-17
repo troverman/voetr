@@ -81,6 +81,10 @@ module.exports = {
         district: {
             type: 'string',
         },
+        //bills: {
+        //    collection: 'bill',
+        //    via: 'user'
+        //},
         committees: {
             collection: 'committeemember',
             via: 'user'

@@ -55,6 +55,9 @@ module.exports = {
         user: {
             model: 'user',
             required: true
+            //collection: 'user',
+            //via: 'bills',
+
         },
         votes: {
             collection: 'vote',

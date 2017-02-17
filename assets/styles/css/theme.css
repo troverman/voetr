@@ -615,7 +615,8 @@ hr {
   -o-background-size: cover;
   background-size: cover;
   //height: 100vh;
-  padding:5%;
+  padding-top:5%;
+  padding-bottom:5%;
   width: 100%;
   position: relative;
 }

@@ -190,6 +190,9 @@ module.exports = {
 											upcoming: upcoming,
 											user: user
 										};
+
+										//BillCommitteeModel = {bill:BillModel.id, committee:committeeIds[index]}
+										//BillCommittee.findOrCreate()
 										
 										Bill.find({officialId:officialId})
 										.then(function(billModel) {
@@ -613,40 +616,57 @@ module.exports = {
 						request(model, function (error, response, body) {
 							if (!error && body) {
 			        			var billData = body;
+			        			var actions = billData.actions;
 			        			var officialId = billData.id;
+			        			var sponsors = billData.sponsors;
 			        			var state = billData.state;
 								var title = billData.title;
 								var urlTitle;
 								if (body.title){urlTitle = body.title.replace(/ /g,"-").toLowerCase();}
 								if (!body.title){urlTitle = ''}
 
-								var model = {
-									billContent: 'billData',
-									officialId: officialId,
-									committee: 1, //-->multiple committees, or in the most granular, we need state here tho..
-									title: title,
-									urlTitle: urlTitle,
-									user: 1
-								};
 
-								Bill.find({officialId:officialId})
-								.then(function(billModel) {
-									if (billModel.length === 0){
-										Bill.create(model)
-										.then(function(billModel) {
-											console.log('BILL CREATED');
-											dataService.stateVotes(state, billModel, billData.votes);
-											Bill.publishCreate(billModel);
-										});
-									}
-									else{
-										Bill.update({officialId: officialId}, model)
-										.then(function(billModel){
-											console.log('BILL UPDATED');
-											dataService.stateVotes(state, billModel[0], billData.votes);
-										});
-									}
-								});
+								//var actionsAction = actions.map(function(obj){return obj.action});
+								//for (x in actionsAction){
+								//	var searchQ = actionsAction[x]//.replace(/Ref/g,'').replace(/Com/g,'');
+								//	console.log(searchQ)
+								//	Committee.find({title:{contains:searchQ}})
+								//	.then(function(committee){
+								//		console.log(committee)
+								//	})
+								//}
+								//console.log(actions[0].type)
+
+								var sponsorIds = sponsors.map(function(obj){if (obj.leg_id!=null){return obj.leg_id}else{return []}});
+								User.find({leg_id:sponsorIds})
+								.then(function(userModel) {
+									var userModelIds = userModel.map(function(obj){return obj.id})
+									var model = {
+										officialId: officialId,
+										committee: 1, //-->multiple committees, or in the most granular, we need state here tho..
+										title: title,
+										urlTitle: urlTitle,
+										user: userModelIds[0]
+									};
+									Bill.find({officialId:officialId})
+									.then(function(billModel) {
+										if (billModel.length === 0){
+											Bill.create(model)
+											.then(function(billModel) {
+												console.log('BILL CREATED');
+												dataService.stateVotes(state, billModel, billData.votes);
+												Bill.publishCreate(billModel);
+											});
+										}
+										else{
+											Bill.update({officialId: officialId}, model)
+											.then(function(billModel){
+												console.log('BILL UPDATED');
+												dataService.stateVotes(state, billModel[0], billData.votes);
+											});
+										}
+									});
+								});								
 							}
 						});
 	        		}
@@ -679,8 +699,10 @@ module.exports = {
 						var parent_committee_id = committeeData.parent_id;
 						var state = committeeData.state;
 						var subcommittee = committeeData.parent_id;
-						var urlTitle = states[state.toUpperCase()].toLowerCase().replace(/ /g,"-") + '-' + committee.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/'/g,"");
-
+						var urlTitle;
+						if (states[state.toUpperCase()]){
+							urlTitle = states[state.toUpperCase()].toLowerCase().replace(/ /g,"-") + '-' + committee.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/'/g,"");
+						}
 						var newCommittee;
 						if (chamber == 'lower'){newCommittee = states[state.toUpperCase()] + ' House of Representatives'}
 						if (chamber == 'upper'){newCommittee = states[state.toUpperCase()] + ' Senate'}

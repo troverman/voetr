@@ -147,7 +147,7 @@
         </md-card>
         <br><br>
         <div ng-click="loadMoreVotes()" style="text-align:center">
-          <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">more <i class="fa fa-caret-down"></i></button>
         </div>
         <div class="spacing-50"></div>
 
@@ -203,23 +203,21 @@
         <md-divider></md-divider><br>
 
         <div class="container">
-          <div class='md-padding'>
-            <md-card ng-repeat="bill in bills">
-              <md-card-title>
-                <md-card-title-text>
-                  <h4>
-                    <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
-                  </h4>
-                </md-card-title-text>
-                 <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{plusCount}}</button>
-                <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{minusCount}}</button>
-              </md-card-title>
-            </md-card>
-          </div>
+          <md-card ng-repeat="bill in bills">
+            <md-card-title>
+              <md-card-title-text>
+                <h4>
+                  <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{plusCount}}</button>
+                  <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{minusCount}}</button>
+                  <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+                </h4>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
         </div>
 
         <div ng-click="loadMoreBills()" style="text-align:center">
-          <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">more <i class="fa fa-caret-down"></i></button>
         </div>
       </div>
     </div>
@@ -244,7 +242,7 @@
         </div>
 
         <div ng-click="loadMoreCommittees()" style="text-align:center">
-          <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">more <i class="fa fa-caret-down"></i></button>
         </div>
 
       </div>
@@ -321,7 +319,7 @@
         </div>
 
         <div ng-click="loadMoreMembers()" style="text-align:center">
-          <button class="btn btn-default col-xs-10 col-xs-offset-1">more</button>
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">more <i class="fa fa-caret-down"></i></button>
         </div>
       </div>
 

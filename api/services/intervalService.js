@@ -233,6 +233,8 @@ module.exports.intervalService = function(){
 	for (x in Object.keys(states)){
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
+	//dataService.stateBills('nc', 1, 25);
+
 	//dataService.federalBills(1, 500);
 
 	//dataService.cityCommittees();
