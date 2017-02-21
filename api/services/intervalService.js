@@ -235,17 +235,17 @@ module.exports.intervalService = function(){
 	}
 	//dataService.stateBills('nc', 1, 25);
 
-	//dataService.federalBills(1, 500);
+	//dataService.federalBills(1, 50);
 
 	//dataService.cityCommittees();
-	//dataService.stateCommittees();
+	dataService.stateCommittees();
 	//dataService.federalCommittees();
 	//dataService.nationalCommittees();
 
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	//setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
+	setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
 
 
 

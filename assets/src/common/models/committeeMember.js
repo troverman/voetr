@@ -3,13 +3,15 @@ angular.module('models.committeeMember', ['lodash', 'services', 'sails.io',])
 .service('CommitteeMemberModel', function(lodash, utils, $sailsSocket) {
 
     this.getSome = function(limit, skip, sort) {
+        //this could be master function, pass json filter obj eg. {member: member.id, committee: committee.id}
         var url = utils.prepareUrl('committeemember/filter/' + limit + '/' + skip + '/' + sort);
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getByCommittee = function(model) {
+    this.getByCommittee = function(limit, skip, model) {
         var url = utils.prepareUrl('committeemember/committee/' + model);
-        return $sailsSocket.get(url).then(success, error);
+        var params = {limit: limit, skip: skip}
+        return $sailsSocket.get(url, params).then(success, error);
     };
 
     this.getByMember = function(model) {

@@ -692,7 +692,7 @@ module.exports = {
 						json: true,
 					};
 					request(model, function (error, response, body) {
-						if (body.id){committeeData = body}
+						if (body){committeeData = body}
 						var chamber = committeeData.chamber;
 						var committee = committeeData.committee;
 						var members = committeeData.members
@@ -716,6 +716,7 @@ module.exports = {
 							};
 							Committee.findOrCreate({urlTitle: newStateCommitteeModel.urlTitle}, newStateCommitteeModel)
 							.then(function(committeeModel){
+								console.log(committeeModel.urlTitle)
 								if (newCommittee){
 									var newStateLegCommitteeModel = {
 										title: newCommittee,
@@ -737,8 +738,10 @@ module.exports = {
 
 										Committee.find({officialId:parent_committee_id})
 										.then(function(committee){
-											if (committee.length == 1){
-												model.parent = committee[0].id;
+											if (committee){
+												if (committee.length == 1){
+													model.parent = committee[0].id;
+												}
 											}
 
 											Committee.findOrCreate({officialId: officialId}, model).then(function(committee){

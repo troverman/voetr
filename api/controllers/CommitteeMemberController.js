@@ -9,8 +9,11 @@ var _ = require('lodash');
 module.exports = {
 
 	getByCommittee: function(req, res) {
+		req.param('limit')
 		CommitteeMember.find()
 		.where({committee: req.param('id')})
+		.limit(req.param('limit'))
+		.skip(req.param('skip'))
 		.populate('user')
 		.then(function(models) {
 			CommitteeMember.watch(req);
@@ -41,7 +44,7 @@ module.exports = {
 		var user = req.param('user');
 
 		var model = {
-			title: 'member',
+			title: 'Committee Member',
 			committee: committee,
 			user: user
 		};

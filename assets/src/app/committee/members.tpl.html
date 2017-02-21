@@ -3,23 +3,22 @@
     <br>
     <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
     <hr>
-    <li><a href="#">bylaws</a></li>
+    <!--<li><a href="#">bylaws</a></li>-->
     <li><a href="committee/{{committee.urlTitle}}/bills">bills</a></li>
     <li><a href="committee/{{committee.urlTitle}}/committees">committees</a></li>
     <li><a href="committee/{{committee.urlTitle}}/discussion">discussion</a></li>
-    <li><a href="#">elections</a></li>
+    <!--<li><a href="#">elections</a></li>-->
     <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/members">members</a></li>
     <li><a href="committee/{{committee.urlTitle}}/votes">votes</a></li>
   </ul>
 </div>
 
 <div id="main-container">
-  <div class="committee-title">
-    <h1>{{committee.title}}</h1>
-  </div>
-  <md-divider ></md-divider>
   <h2>{{members.length}} members</h2>
   <md-divider ></md-divider>
+  <div ng-show="currentUser">
+    <button class="btn btn-default" ng-click="createMember()">Join Committee</button>
+  </div>
   <div class="container">
     <div class="col-lg-4 col-sm-6" ng-repeat="member in members">
       <div style="margin:10px; box-shadow: 2px 2px 10px #999;">
