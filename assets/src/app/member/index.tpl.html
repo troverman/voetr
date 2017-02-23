@@ -9,12 +9,14 @@
 			<uib-tab heading="Activity" active="active" style="margin-left:11em">
 			</uib-tab>
 			<uib-tab heading="{{committees.length}} Committees">
-				<md-card ng-repeat="committee in committees">
-					<h3>{{committee.title}}</h4>
-					<!--number of reps?-->
-					<md-card-title-text>
-						<a href="/committee/{{committee.committee.urlTitle}}/">{{committee.committee.title}}</a>
-					</md-card-title-text>
+				<md-card ng-repeat="committee in committees" class="">
+					<md-card-title>
+						<md-card-title-text>
+							<a href="/committee/{{committee.committee.urlTitle}}/"><h3>{{committee.committee.title}}</h3></a>
+							<h5>{{committee.title}}</h5>
+							<!--number of reps?-->
+						</md-card-title-text>
+					<md-card-title>
 				</md-card>
 			</uib-tab>
 			<uib-tab heading="{{constituents.length}} Constituents">
@@ -130,11 +132,13 @@
 		<uib-tab heading="{{committees.length}} Committees">
 			<div class="container">
 			<md-card ng-repeat="committee in committees" class="">
-				<md-card-title-text>
-					<a href="/committee/{{committee.committee.urlTitle}}/"><h3>{{committee.committee.title}}</h3></a>
-					<h5>{{committee.title}}</h5>
-					<!--number of reps?-->
-				</md-card-title-text>
+				<md-card-title>
+					<md-card-title-text>
+						<a href="/committee/{{committee.committee.urlTitle}}/"><h3>{{committee.committee.title}}</h3></a>
+						<h5>{{committee.title}}</h5>
+						<!--number of reps?-->
+					</md-card-title-text>
+				<md-card-title>
 			</md-card>
 			</div>
 		</uib-tab>

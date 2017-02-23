@@ -14,15 +14,11 @@ angular.module( 'voetr.home', [
 		resolve:{
 			config: "config",
 			constituents: function(RepresentativeModel, config) {
-				if(config.currentUser){
-                	return RepresentativeModel.getConstituents(config.currentUser);
-            	}
+				if(config.currentUser){return RepresentativeModel.getConstituents(config.currentUser);}
             	else{return null}
             },
             representatives: function(RepresentativeModel, config) {
-				if(config.currentUser){
-                	return RepresentativeModel.getRepresentatives(config.currentUser);
-                }
+				if(config.currentUser){return RepresentativeModel.getRepresentatives(config.currentUser);}
             	else{return null}
             },
 			committees: function(CommitteeModel) {
@@ -44,14 +40,13 @@ angular.module( 'voetr.home', [
 			billCount: function(BillModel){
 				return BillModel.getCount();
             },
-			votes: function(VoteModel) {
-				return VoteModel.getSome(25, 0, 'voteCount DESC');
+			votes: function(VoteModel, config) {
+				if(config.currentUser){return VoteModel.getSome(25, 0, 'voteCount DESC')}
+            	else{return null}
             },
             UserModel: 'UserModel',
             user: function(UserModel, config){
-				if(config.currentUser){
-                	return UserModel.getMine();
-				}
+				if(config.currentUser){return UserModel.getMine();}
             	else{return null}
         	},
 		}
