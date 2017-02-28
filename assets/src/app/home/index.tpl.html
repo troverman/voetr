@@ -7,15 +7,15 @@
         <img class="avatar" style="margin-top:0em" src="{{currentUser.avatarUrl}}"/>
         <h2><a href="/member/{{currentUser.username}}"><b>{{currentUser.username}}</a></b></h2>
         <div class="spacing-5"></div>
-        <h5>Representatives - {{representatives.length}}</h5>
+        <h5>Bills - {{committees.length}}</h5>
         <h5>Committees - {{committees.length}}</h5>
         <h5>Constituents - {{constituents.length}}</h5>
+        <h5>Representatives - {{representatives.length}}</h5>
         <h5>Votes - {{votes.length}}</h5>
         <div class="spacing-25"></div>
         <p>activity</p>
         <p>reccomended votes</p>
         <p>message</p>
-        <!--activity, recommended votes-->
       </div>
       <div class="col-md-8">
         <div class="alert alert-success verificationNotice spacing-25" ng-show="!currentUser.isVerified">
@@ -112,9 +112,10 @@
             <md-card-title-text>
               <a href="member/{{post.user.username}}">
                 <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-                {{post.user.username}}
+                <h3>{{post.user.username}}</h3>
               </a>
               <p>{{post.post}}</p>
+              <p>like, comment</p>
             </md-card-title-text>
           </md-card-title>
         </md-card>
