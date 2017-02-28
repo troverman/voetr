@@ -83,7 +83,15 @@
 				<!--<img ng-show="searchResult.username" src="{{searchResult.avatarUrl}}" class="md-card-image" alt="{{searchResult.username}}" style="">-->
 				<md-card-title>
 					<md-card-title-text>
-						<h4 ng-show="searchResult.username"><a href="/member/{{searchResult.username}}">{{searchResult.username}}</a></h4>
+						<div ng-show="searchResult.username">
+
+
+							<a href="/member/{{searchResult.username}}">{{searchResult.username}}</a>
+
+							
+
+
+						</div>
 						<h4 ng-show="searchResult.billContent"><a href="/bill/{{searchResult.id}}/{{searchResult.title}}">{{searchResult.title}}</a></h4>
 						<h4 ng-show="!searchResult.billContent"><a href="/committee/{{searchResult.urlTitle}}">{{searchResult.title}}</a></h4>
 					</md-card-title-text>

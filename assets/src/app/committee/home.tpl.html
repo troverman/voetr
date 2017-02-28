@@ -22,28 +22,24 @@
 </div>
 <div ng-show="currentUser" class="container">
   <br>
-  <button ng-click="toggleEditCommittee()" class="btn btn-primary">edit committee</button>
+  <button ng-click="toggleEditCommittee()" class="btn btn-default">Edit</button>
   <br>
-  <div style="margin-left:20%;margin-right:20%;" ng-show="editCommitteeToggle">edit committee for</div>
-  <br>
-  <button ng-click="toggleCreateBill()" class="btn btn-primary">+ bill</button>
-  <br>
-  <div style="margin-left:20%;margin-right:20%;" ng-show="createBillToggle">
-    <form class="committee-input" role="form" ng-submit="createBill(newBill)">
-      <div class="form-group">
-        <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
-        <input type="text" placeholder= "bill content" ng-model="newBill.billContent" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+  <div style="margin-left:20%;margin-right:20%;" ng-show="editCommitteeToggle">edit committee form</div>
   <br>
 </div>
 <div class="container">
   <uib-tabset>
     <uib-tab heading="Activity" active="active">
-      <div class="container bill-list-container" style="min-height:100vh">
-        <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
+      <div class="container" style="min-height:100vh">
+        <div class="profilePost">
+          <form role="form">
+            <md-input-container class="md-block">
+              <textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+            </md-input-container>
+            <!--<button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>-->
+          </form>
+        </div>
+        <div class="billContainer" ng-repeat="bill in bills | orderBy:'-voteCount'">
           <div class="bill-item">
             <div>
               <h4>
@@ -63,6 +59,19 @@
       </div>
     </uib-tab>
     <uib-tab heading="{{bills.length}} Bills">
+      <div ng-show="currentUser" class="container">
+        <button ng-click="toggleCreateBill()" class="btn btn-default">+ bill</button>
+        <br>
+        <div style="margin-left:20%;margin-right:20%;" ng-show="createBillToggle">
+          <form class="committee-input" role="form" ng-submit="createBill(newBill)">
+            <div class="form-group">
+              <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
+              <input type="text" placeholder= "bill content" ng-model="newBill.billContent" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
       <div class="container bill-list-container" style="min-height:100vh">
         <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
           <div class="bill-item">
@@ -79,7 +88,7 @@
             </div>
             <br>
           </div>
-          <md-divider ></md-divider>
+          <md-divider></md-divider>
         </div>
       </div>
     </uib-tab>
