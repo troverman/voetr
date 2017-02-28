@@ -1,5 +1,5 @@
 <div ui-view="bill">
-	<div class="billContainer container">
+	<div class="billContainer container" style="min-height:100vh">
 		<h3>0 - {{bill.title}}</h3>
 		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
 		<div ng-repeat="committee in bill.committees">
@@ -102,4 +102,5 @@
 		</uib-tabset>
 		<div style="height:100px;"></div>
 	</div>
+	<div ng-include="'footer/index.tpl.html'"></div>
 </div>
