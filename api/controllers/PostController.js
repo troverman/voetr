@@ -19,6 +19,22 @@ module.exports = {
 		});
 	},
 
+	getByCommittee: function(req, res) {
+		var committee = req.param('committee');
+		var limit = req.param('limit');
+		var skip = req.param('skip');
+		var sort = req.param('sort');
+		Post.getByCommittee(committee, limit, skip, sort)
+		.then(function(models) {
+			Post.watch(req);
+			Post.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	getByProfile: function(req, res) {
 		var profile = req.param('profile');
 		var limit = req.param('limit');

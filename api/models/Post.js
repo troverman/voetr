@@ -12,9 +12,11 @@ module.exports = {
             type: 'string',
             required: true
         },
+        committee: {
+            model: 'committee',
+        },
         profile: {
             model: 'user',
-            required: true
         },
         user: {
             model: 'user',
@@ -31,6 +33,20 @@ module.exports = {
         .skip(skipping)
         .populate('user')
         .populate('profile')
+        .populate('committee')
+        .then(function (models) {
+            return models;
+        });
+    },
+
+    getByCommittee: function(committee, limiting, skipping, sort) {
+        return Post.find()
+        .where({committee: committee})
+        .sort(sort)
+        .limit(limiting)
+        .skip(skipping)
+        .populate('user')
+        .populate('committee')
         .then(function (models) {
             return models;
         });

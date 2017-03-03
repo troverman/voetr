@@ -35,8 +35,11 @@ angular.module( 'voetr.member', [
                 }
                 else{return null}
             },
-            posts: function(PostModel, member) {
+            profilePosts: function(PostModel, member) {
                 return PostModel.getByProfile(member.id, 100, 0, 'createdAt desc');
+            },
+            userPosts: function(PostModel, member) {
+                return PostModel.getByUser(member.id, 100, 0, 'createdAt desc');
             },
             representatives: function(RepresentativeModel, member) {
                 return RepresentativeModel.getRepresentatives(member);
@@ -54,12 +57,13 @@ angular.module( 'voetr.member', [
     });
 })
 
-.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, posts, PostModel, committees) {
+.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, profilePosts, userPosts, PostModel, committees) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
 	$scope.votes = votes;
-    $scope.posts = posts;
+    //sloppy
+    $scope.posts = profilePosts.concat(userPosts);
     $scope.voteCount = voteCount.voteCount;
     $scope.following = votes;
     $scope.followers = votes;

@@ -35,8 +35,8 @@ angular.module( 'voetr.committee', [
             members: function(CommitteeMemberModel, committee) {
                 return CommitteeMemberModel.getByCommittee(100, 0, committee.id);
             },
-            posts: function() {
-                return [1,2,3,4,5,6,7,8];
+            posts: function(PostModel, committee) {
+                return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
             },
             votes: function(VoteModel) {
                 return VoteModel.getSome(10, 0, 'voteCount DESC');
@@ -81,9 +81,9 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            posts: function() {
-                return [1,2,3,4,5,6,7,8];
-            }
+            posts: function(PostModel, committee) {
+                return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
+            },
          }
     })
     .state( 'committee.members', {
@@ -121,31 +121,39 @@ angular.module( 'voetr.committee', [
     $scope.committee = committee;
 })
 
-.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, members, CommitteeModel, committee, VoteVoteModel) {
+.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, members, CommitteeModel, committee, VoteVoteModel, posts, PostModel) {
     $scope.committee = committee;
     if (committee == undefined){$location.url('committees');};
     titleService.setTitle(committee.title + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;
+    $scope.posts = posts;
     $scope.members = members;
     $scope.newBill = {};
+    $scope.newPost = {};
     $scope.newVote = {};
     $scope.createBillToggle = false;
     $scope.editCommitteeToggle = false;
 
-    console.log(committee)
-
     $scope.toggleCreateBill = function(){
         $scope.createBillToggle = $scope.createBillToggle ? false : true;
-    }
+    };
 
     $scope.toggleEditCommittee = function(){
         $scope.editCommitteeToggle = $scope.editCommitteeToggle ? false : true;
-    }
+    };
 
     $scope.goToPath = function(path){
         $location.path('committee/' + $scope.committee.urlTitle + '/' + path)
-    }
+    };
+
+    $scope.createPost = function(){
+        $scope.newPost.user = $scope.currentUser.id;
+        $scope.newPost.committee = $scope.committee.id
+        PostModel.create($scope.newPost).then(function(model){
+            console.log(model);
+        })
+    };
 
     $scope.createBill = function(newBill) {
         newBill.user = config.currentUser.id;
@@ -181,6 +189,17 @@ angular.module( 'voetr.committee', [
                 BillModel.getSome(10,0, 'createdAt DESC').then(function(bills){
                     $scope.bills = bills;
                 });
+                break;
+        }
+    });
+
+    $sailsSocket.subscribe('post', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                $scope.posts.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.posts, {id: envelope.id});
                 break;
         }
     });

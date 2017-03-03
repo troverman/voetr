@@ -140,10 +140,10 @@ module.exports.routes = {
    * Post routes
    */
   'get /api/post/:id': 'PostController.getOne',
+  'get /api/post/filter/committee/:committee/:limit/:skip/:sort': 'PostController.getByCommittee',
   'get /api/post/filter/profile/:profile/:limit/:skip/:sort': 'PostController.getByProfile',
   'get /api/post/filter/user/:user/:limit/:skip/:sort': 'PostController.getByUser',
   'get /api/post/filter/:limit/:skip/:sort': 'PostController.getSome',
-  'get /api/post/filter/:limit/:skip/:sort': 'PostController.getByUser',
   'post /api/post': 'PostController.create',
   'delete /api/post/:id': 'PostController.destroy',
   'post /api/post/:id': 'PostController.update',

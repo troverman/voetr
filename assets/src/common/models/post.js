@@ -11,6 +11,11 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getByCommittee = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('post/filter/committee/' + model + '/' + limit + '/' + skip + '/' + sort);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     this.getByProfile = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('post/filter/profile/' + model + '/' + limit + '/' + skip + '/' + sort);
         return $sailsSocket.get(url).then(success, error);
