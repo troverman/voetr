@@ -85,12 +85,14 @@ module.exports = {
 	create: function (req, res) {
 		var post = req.param('post');
 		var profile = req.param('profile');
+		var committee = req.param('committee');
 		var user = req.param('user');
 		var meansOfContact = req.param('meansOfContact');
 
 		var model = {
 			post: post,
 			profile: profile,
+			committee: committee,
 			user: user,
 			//meansOfContact: meansOfContact
 		};

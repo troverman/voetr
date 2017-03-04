@@ -105,6 +105,18 @@
     </uib-tab>
     <uib-tab heading="Discussion">
       <div class="container" style="min-height:100vh">
+        <md-card ng-repeat="post in posts">
+          <md-card-title>
+            <md-card-title-text>
+            <a href="member/{{post.user.username}}">
+              <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+              <p>{{post.user.username}}</p>
+            </a>
+            <p>{{post.post}}</p>
+            <p>like, comment</p>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
       </div>
     </uib-tab>
     <uib-tab heading="{{members.length}} Members">
