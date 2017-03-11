@@ -196,7 +196,7 @@ angular.module( 'voetr.home', [
     $scope.loadMoreBills = function() {
 		$rootScope.stateIsLoading = true;
 		$scope.skipBills = $scope.skipBills + 20;
-		BillModel.getSome(10,$scope.skipBills).then(function(bills) {
+		BillModel.getSome(10,$scope.skipBills,'createdAt DESC').then(function(bills) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.bills, bills);
 		});

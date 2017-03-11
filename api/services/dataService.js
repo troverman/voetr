@@ -67,7 +67,6 @@ var states = {
 module.exports = {
 
 	getLegislators: function(lat, lng){
-
 		var lat = req.param('lat');
 		var lng = req.param('lng');
 		var stateModel= {
@@ -96,7 +95,6 @@ module.exports = {
 		    	});
 	    	});
 		}).catch(function(err) {console.log(err)});	
-
 	},
 
 	cityCommittees: function(){
@@ -122,13 +120,97 @@ module.exports = {
 								Committee.findOrCreate({urlTitle: urlTitle}, model).exec(function createCB(err, created){
 									console.log('city committee created')
 								});
-
 							}
 				  		}
 				  	}
 				}
 		    }
 		});
+	},
+
+	federalBillsProPublica: function(offset){
+		var chambers = ['house', 'senate'];
+		for(x in chambers){
+			var model= {
+				url: 'https://api.propublica.org/congress/v1/115/'+ chambers[x] +'/bills/introduced.json?offset='+offset,
+				json: true,
+				headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'},
+			};
+			request(model, function (error, response, body) {
+				if (!error && body.results) {
+					if (body.results.length>0){
+						var billData = body.results[0];
+						for (x in billData.bills){
+							var billId = billData.bills[x].bill_id;
+							console.log(billId)
+							var model= {
+								url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'.json',
+								json: true,
+								headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+							};
+							request(model, function (error, response, body) {
+								if (!error && body.results) {
+									if (body.results.length>0){
+										var billData = body.results[0];
+										var actions = billData.actions;
+										var committees = billData.committees; // find committee by urltitle...					
+										var congress = billData.congress;
+										var number = billData.number.replace(/\D/g,'');
+										var officialId = billData.bill_id;
+										var officialUrl = billData.congressdotgov_url;
+										var type = billData.bill_type;
+										var summary = billData.summary;
+										var summaryShort = billData.summary_short;
+										var title = billData.title;
+										var urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase();
+										var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
+										//console.log(fullTextLink)
+										request(fullTextLink, function (error, response, body) {
+											if (body){if (body.trim().substring(0, 2)=="<!"){body = null;}}
+											User.find({bioguide_id:billData.sponsor_id})
+											.then(function(sponsor){
+												var user = 1;
+												if (sponsor.length != 0){var user = sponsor[0].id}
+												var model = {
+													actions: actions,
+													committees: committees,
+													fullText: body,
+													officialId: officialId,
+													summary: summary,
+													summaryShort: summaryShort,
+													title: title,
+													urlTitle: urlTitle,
+													user: user
+												};
+												Bill.find({officialId:officialId})
+												.then(function(billModel) {
+													if (billModel.length === 0){
+														Bill.create(model)
+														.then(function(billModel) {
+															console.log('BILL CREATED');
+															dataService.federalVotes(billModel);
+															Bill.publishCreate(billModel);
+														});
+													}
+													else{
+														Bill.update({officialId: officialId}, model)
+														.then(function(billModel){
+															console.log('BILL UPDATED');
+															//console.log(billModel)
+															dataService.federalVotes(billModel[0]);
+														});
+													}
+												});
+											});
+										});
+									}
+								}
+							});
+						}
+					}
+				}
+			});
+		}
 	},
 
 
@@ -150,6 +232,7 @@ module.exports = {
 						var keywords = billData.keywords;
 						var number = billData.number;
 						var officialId = billData.bill_id;
+						//console.log(officialId)
 						var officialUrl = billData.urls.congress;
 						var relatedBills = billData.related_bill_ids;
 						var summary = billData.summary;
@@ -288,7 +371,6 @@ module.exports = {
 														else {
 															console.log('COMMITTEE MEMBER CREATED')
 															CommitteeMember.publishCreate(committeeMember);
-
 															Committee.find({urlTitle: 'united-states'})
 															.exec(function(err, committee) {
 																if (err) {return console.log(err);}
@@ -380,17 +462,13 @@ module.exports = {
 
 	//if dups --> resync to async
 	federalLegislators: function(){
-
 		var model = {
 			url: 'http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=' + openCongressApiKey,
 			json: true,
 		};
 		request(model, function (error, response, body) {
-
 		    if (!error && response.statusCode === 200) {
-
 				var congressData = body.results;
-
 				for (var key in congressData) {
 					console.log(congressData[key])
 					var bioguide_id = congressData[key].bioguide_id;
@@ -418,7 +496,6 @@ module.exports = {
 					var thomas_id = congressData[key].thomas_id;
 					var twitter_id = congressData[key].twitter_id;
 					var website = congressData[key].website;
-
 					var username = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.');
 					var email = first_name.replace('.','').replace(' ','.') + '.' + last_name.replace(' ','.') + '@gmail.com';
 					var socialAccounts = {};
@@ -450,7 +527,6 @@ module.exports = {
 						coverUrl : coverUrl,
 						chamber: chamber,
 					};
-
 					User.findOrCreate({bioguide_id: bioguide_id}, model)
 					.exec(function(err, userModel) {
 						if (err) {return console.log(err);}
@@ -460,7 +536,6 @@ module.exports = {
 				}
 		    }
 		});
-
 	},
 
 	federalVotes: function(bill){
@@ -475,7 +550,6 @@ module.exports = {
 		        		var voteData = body.results;
 						for (x in voteData){
 							var voteModel = voteData[x];
-
 							var billId = bill.id;
 							var minusCount = voteData[x].breakdown.total.Nay;
 							var plusCount = voteData[x].breakdown.total.Yea;
@@ -502,7 +576,7 @@ module.exports = {
 								urlTitle: urlTitle,
 								user: 1,
 							};
-
+							//console.log(model)
 							Vote.findOrCreate({officialId: officialId}, model)
 							.then(function(voteModel) {
 								console.log('VOTE FIND OR CREATE');
@@ -512,7 +586,6 @@ module.exports = {
 							.then(function(voteModel) {
 								console.log('VOTE UPDATED');
 							})
-
 						}
 					}
 	        	}
@@ -547,7 +620,6 @@ module.exports = {
 										bill: vote.bill,
 										user: user
 									};
-
 									VoteVote.findOrCreate({bill: model.bill, vote: model.vote, user: model.user}, model)
 									.exec(function(err, voteVoteModel) {
 										if (!err) {
@@ -598,7 +670,6 @@ module.exports = {
 	},
 
 	stateBills: function(state, pageStart, pageEnd){
-
 		for (var page = pageStart; page <= pageEnd; page++){
 			var model = {
 				url: 'http://openstates.org/api/v1/bills/?state=' + state + '&per_page=1&page=' + page + '&apikey=' + openCongressApiKey,

@@ -201,31 +201,34 @@ function proPublica(){
 	//incrementally add all roll call votes for each session.... 
 	//y u do this govTrack.. 
 	//just use sunlight to replace govTrack
-	for(var i; i++; i>10000){
+	//for(var i; i++; i>10000){
 
 		var model= {
-			//url: 'https://api.propublica.org/congress/v1/114/house/bills/introduced.json',
-			url: 'https://api.propublica.org/congress/v1/114/senate/sessions/2/votes/'+i+'.json',
+			url: 'https://api.propublica.org/congress/v1/115/house/bills/introduced.json',
+			//url: 'https://api.propublica.org/congress/v1/114/senate/sessions/2/votes/'+i+'.json',
 			//url: 'https://api.propublica.org/congress/v1/house/votes/2016/1.json',
 			json: true,
 			headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
 		};
 
 		request(model, function (error, response, body) {
-			console.log(body.results.votes)
+			//console.log(error);
+			//console.log(response);
+			console.log(body.results[0].bills);
+			//console.log(body.results.votes)
 			//console.log(body.results.votes.vote.bill)
 			//console.log(body.results.votes.vote.positions)
-			for (x in body.results.votes.vote.positions){
+			//for (x in body.results.votes.vote.positions){
 				//body.results.votes.vote.positions[x].member_id
-				console.log(body.results.votes.vote.positions[x].member_id)
+				//console.log(body.results.votes.vote.positions[x].member_id)
 				//User.find()
 				//.where({bioguide_id: body.results.votes.vote.positions[x].member_id})
 				//.then(function(userModel) {
 				//	console.log(userModel)
 				//});
-			}
+			//}
 		});
-	}
+	//}
 };
 
 module.exports.intervalService = function(){
@@ -234,8 +237,6 @@ module.exports.intervalService = function(){
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
 	//dataService.stateBills('nc', 1, 25);
-
-	//dataService.federalBills(1, 50);
 
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
@@ -246,13 +247,7 @@ module.exports.intervalService = function(){
 	//dataService.federalLegislators();
 
 	setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
-
-
-
-
-
-
-
+	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
     //multithreading...
     /*var cluster = require('cluster'),

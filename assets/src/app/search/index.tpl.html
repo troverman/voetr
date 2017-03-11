@@ -58,7 +58,7 @@
 				            	<h4>
 					                <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
 					                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
-					                <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+					                <a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
 				            	</h4>
 			            	</md-card-title-text>
 			            </md-card-title>

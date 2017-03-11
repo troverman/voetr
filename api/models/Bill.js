@@ -57,7 +57,6 @@ module.exports = {
             required: true
             //collection: 'user',
             //via: 'bills',
-
         },
         votes: {
             collection: 'vote',

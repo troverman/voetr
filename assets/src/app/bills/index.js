@@ -12,7 +12,7 @@ angular.module( 'voetr.bills', [
 		},
 		resolve: {
             bills: function(BillModel) {
-				return BillModel.getSome(100, 0, 'voteCount DESC');
+				return BillModel.getSome(100, 0, 'createdAt DESC');
             }
         }
 	});
@@ -28,7 +28,7 @@ angular.module( 'voetr.bills', [
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
 		$rootScope.stateIsLoading = true;
-		BillModel.getSome(100,$scope.skip,'voteCount DESC').then(function(bills) {
+		BillModel.getSome(100,$scope.skip,'createdAt DESC').then(function(bills) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.bills, bills);
 		});
