@@ -1,10 +1,6 @@
 angular.module('models.bill', ['lodash', 'services', 'sails.io',])
 
 .service('BillModel', function(lodash, utils, $sailsSocket) {
-    this.getAll = function() {
-        var url = utils.prepareUrl('bill');
-        return $sailsSocket.get(url).then(success, error);
-    };
 
     this.getOne = function(model) {
         var url = utils.prepareUrl('bill/' + model);
@@ -12,8 +8,9 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
     };
 
     this.getSome = function(limit, skip, sort) {
-        var url = utils.prepareUrl('bill/filter/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('bill');
+        var query = {params:{limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getCount = function() {
@@ -27,8 +24,9 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
     };
 
     this.getByCommittee = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('bill/committee/' + model + '/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('bill/committee');
+        var query = {params:{committee: model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.create = function(newModel) {
@@ -48,4 +46,5 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
     var error = function(error) {
         console.log(error);
     };
+    
 });

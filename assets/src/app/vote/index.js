@@ -28,7 +28,7 @@ angular.module( 'voetr.vote', [
             votes: function(VoteVoteModel, $stateParams, vote) {
                 return VoteVoteModel.getByVote(vote.id);
             },
-             myRepresentatives: function(RepresentativeModel, config) {
+            myRepresentatives: function(RepresentativeModel, config) {
                 if(config.currentUser){
                     return RepresentativeModel.getRepresentatives(config.currentUser);
                 }

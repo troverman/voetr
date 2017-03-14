@@ -1,7 +1,23 @@
 module.exports = {
-	getAll: function(req, res) {
-		User.getAll()
-		.spread(function(models) {
+
+	getOne: function(req, res) {
+		User.getOne(req.param('id'))
+		.spread(function(model) {
+			res.json(model);
+		})
+		.fail(function(err) {
+			// res.send(404);
+		});
+	},
+
+	getSome: function(req, res) {
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		User.getSome(limit, skip, sort)
+		.then(function(models) {
+			User.watch(req);
+			User.subscribe(req, models);
 			res.json(models);
 		})
 		.fail(function(err) {
@@ -10,7 +26,6 @@ module.exports = {
 	},
 
 	getMine: function(req,res){
-
 		var me = req.user.id;
 		User.findOne(me)
 		.populate('passports')
@@ -23,39 +38,11 @@ module.exports = {
 
 	},
 
-	getSome: function(req, res) {
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		User.getSome(limit, skip)
-		.then(function(models) {
-			User.watch(req);
-			User.subscribe(req, models);
-			res.json(models);
-		})
-		.fail(function(err) {
-			// An error occured
-		});
-	},
-
-	getOne: function(req, res) {
-		User.getOne(req.param('id'))
-		.spread(function(model) {
-			res.json(model);
-		})
-		.fail(function(err) {
-			// res.send(404);
-		});
-	},
-
 	getCount: function(req, res) {
 		User.count()
 		.exec(function(err, userCount) {
-			if (err) {
-				return console.log(err);
-			}
-			else{
-				res.json({ userCount: userCount });
-			}
+			if (err) {return console.log(err);}
+			else{res.json({ userCount: userCount });}
 		});
 	},
 

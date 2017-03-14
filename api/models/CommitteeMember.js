@@ -31,19 +31,12 @@ module.exports = {
         });
     },
 
-    getAll: function() {
-        return CommitteeMember.find()
-        .then(function (models) {
-            return [models];
-        });
-    },
-
     getOne: function(id) {
         return CommitteeMember.findOne(id)
         .then(function (model) {
             return [model];
         });
-    }
+    },
 
 };
 

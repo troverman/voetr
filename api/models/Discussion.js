@@ -22,10 +22,11 @@ module.exports = {
         }
     },
 
-    getAll: function() {
-        return Comment.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return Comment.findOne(id)
+        .populate('user')
+        .then(function (model) {
+            return [model];
         });
     },
 
@@ -38,14 +39,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return Comment.findOne(id)
-        .populate('user')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 

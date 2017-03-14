@@ -1,10 +1,7 @@
 /**
  * PostController
- *
- * @description :: Server-side logic for managing posts
- * @help        :: See http://links.sailsjs.org/docs/controllers
+  * @description :: Server-side logic for managing Posts
  */
-var _ = require('lodash');
 
 module.exports = {
 
@@ -19,11 +16,27 @@ module.exports = {
 		});
 	},
 
+	getSome: function(req, res) {
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		//filter based on param (committee) etc?? -->
+		Post.getSome(limit, skip, sort)
+		.then(function(models) {
+			Post.watch(req);
+			Post.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	getByCommittee: function(req, res) {
-		var committee = req.param('committee');
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
+		var committee = req.query.committee
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
 		Post.getByCommittee(committee, limit, skip, sort)
 		.then(function(models) {
 			Post.watch(req);
@@ -36,10 +49,10 @@ module.exports = {
 	},
 
 	getByProfile: function(req, res) {
-		var profile = req.param('profile');
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
+		var profile = req.query.profile
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
 		Post.getByProfile(profile, limit, skip, sort)
 		.then(function(models) {
 			Post.watch(req);
@@ -52,26 +65,11 @@ module.exports = {
 	},
 
 	getByUser: function(req, res) {
-		var user = req.param('user');
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
+		var user = req.query.user
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
 		Post.getByUser(user, limit, skip, sort)
-		.then(function(models) {
-			Post.watch(req);
-			Post.subscribe(req, models);
-			res.json(models);
-		})
-		.fail(function(err) {
-			// An error occured
-		});
-	},
-
-	getSome: function(req, res) {
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
-		Post.getSome(limit, skip, sort)
 		.then(function(models) {
 			Post.watch(req);
 			Post.subscribe(req, models);
@@ -88,7 +86,6 @@ module.exports = {
 		var committee = req.param('committee');
 		var user = req.param('user');
 		var meansOfContact = req.param('meansOfContact');
-
 		var model = {
 			post: post,
 			profile: profile,
@@ -96,12 +93,9 @@ module.exports = {
 			user: user,
 			//meansOfContact: meansOfContact
 		};
-		console.log(model)
 		Post.create(model)
 		.exec(function(err, model) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else {
 				Post.getOne(model.id).then(function(model){
 					Post.publishCreate(model[0]);
@@ -116,19 +110,15 @@ module.exports = {
 		var profile = req.param('profile');
 		var user = req.param('user');
 		var meansOfContact = req.param('meansOfContact');
-
 		var model = {
 			post: post,
 			profile: profile,
 			user: user,
 			//meansOfContact: meansOfContact
 		};
-
 		Post.create(model)
 		.exec(function(err, model) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else {
 				Post.publishCreate(model[0]);
 				res.json(model);
@@ -138,10 +128,7 @@ module.exports = {
 
 	destroy: function (req, res) {
 		var id = req.param('id');
-		if (!id) {
-			return res.badRequest('No id provided.');
-		}
-
+		if (!id) {return res.badRequest('No id provided.');}
 		// Otherwise, find and destroy the model in question
 		Post.findOne(id).exec(function(err, model) {
 			if (err) {return res.serverError(err);}

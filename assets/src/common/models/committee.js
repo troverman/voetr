@@ -1,14 +1,11 @@
 angular.module('models.committee', ['lodash', 'services', 'sails.io',])
 
 .service('CommitteeModel', function(lodash, utils, $sailsSocket) {
-    this.getAll = function() {
-        var url = utils.prepareUrl('committee');
-        return $sailsSocket.get(url).then(success, error);
-    };
 
     this.getSome = function(limit, skip, sort) {
-        var url = utils.prepareUrl('committee/filter/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('committee');
+        var query = {params:{limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getMembersByCommittee = function(model) {
@@ -37,6 +34,11 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
     };
 
     this.create = function(newModel) {
+        var url = utils.prepareUrl('committee');
+        return $sailsSocket.post(url, newModel).then(success, error);
+    };
+
+    this.update = function(newModel) {
         var url = utils.prepareUrl('committee');
         return $sailsSocket.post(url, newModel).then(success, error);
     };

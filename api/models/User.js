@@ -131,15 +131,16 @@ module.exports = {
         //emailService.sendTemplate('welcome', model.email, 'Welcome To Bidio!', {username: model.username});
     },
 
-    getAll: function() {
-        return User.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return User.findOne(id)
+        .then(function (model) {
+            return [model];
         });
     },
 
-    getSome: function(limiting, skipping) {
+    getSome: function(limiting, skipping, sort) {
         return User.find()
+        .sort(sort)
         .limit(limiting)
         .skip(skipping)
         .then(function (models) {
@@ -147,10 +148,4 @@ module.exports = {
         });
     },
 
-    getOne: function(id) {
-        return User.findOne(id)
-        .then(function (model) {
-            return [model];
-        });
-    }
 };

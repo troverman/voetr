@@ -356,6 +356,7 @@ module.exports = {
 										console.log(members.length);
 										if(members.length != 0){
 											async.eachSeries(members, function (member, nextMember){
+												console.log(member.legislator.bioguide_id)
 												User.find({bioguide_id:member.legislator.bioguide_id})
 												.then(function(userModel){
 													var title = member.title;
@@ -365,6 +366,7 @@ module.exports = {
 														title: title,
 														user: userModel[0].id
 													};
+													console.log(committeeMemberModel.user)
 													CommitteeMember.findOrCreate({committee: committeeModel.id, user: userModel[0].id}, committeeMemberModel)
 													.exec(function(err, committeeMember) {
 														if (err) {return console.log(err);}
@@ -470,8 +472,9 @@ module.exports = {
 		    if (!error && response.statusCode === 200) {
 				var congressData = body.results;
 				for (var key in congressData) {
-					console.log(congressData[key])
+					//console.log(congressData[key])
 					var bioguide_id = congressData[key].bioguide_id;
+					console.log(bioguide_id)
 					var birthday = congressData[key].birthday;
 					var chamber = congressData[key].chamber
 					var crp_id = congressData[key].crp_id;
@@ -1065,7 +1068,6 @@ module.exports = {
 											CommitteeMember.publishCreate(committeeMember);											
 										}
 									});
-
 								}
 							});*/
 

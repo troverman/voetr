@@ -1,14 +1,11 @@
 angular.module('models.user', ['lodash', 'services', 'sails.io',])
 
 .service('UserModel', function($q, lodash, utils, $sailsSocket) {
-    this.getAll = function() {
-        var url = utils.prepareUrl('user');
-        return $sailsSocket.get(url).then(success, error);
-    };
 
     this.getSome = function(limit, skip, sort) {
-        var url = utils.prepareUrl('user/filter/' + limit + '/' + skip);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('user');
+        var query = {params:{limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getMine = function() {
@@ -32,7 +29,6 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
     };
 
     this.create = function(newModel) {
-        var deferred = $q.defer();
         var url = utils.prepareUrl('user');
         return $sailsSocket.post(url, newModel).then(success, error);
     };

@@ -1,5 +1,5 @@
 /**
-* Comment.js
+* CommentVote.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -22,15 +22,16 @@ module.exports = {
         }
     },
 
-    getAll: function() {
-        return Comment.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return CommentVote.findOne(id)
+        .populate('user')
+        .then(function (model) {
+            return [model];
         });
     },
 
     getByBill: function(bill) {
-        return Comment.find()
+        return CommentVote.find()
         .where({bill: bill})
         .sort({createdAt: 'desc'})
         .populate('user')
@@ -38,14 +39,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return Comment.findOne(id)
-        .populate('user')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 

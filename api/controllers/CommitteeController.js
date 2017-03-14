@@ -1,28 +1,25 @@
 /**
  * CommitteeController
- *
+ * @description :: Server-side logic for managing Committees
  */
-
-var _ = require('lodash');
 
 module.exports = {
 
-	getAll: function(req, res) {
-		Committee.getAll()
-		.spread(function(models) {
-			Committee.watch(req);
-			Committee.subscribe(req, models);
-			res.json(models);
+	getOne: function(req, res) {
+		Committee.getOne(req.param('id'))
+		.spread(function(model) {
+			Committee.subscribe(req, model);
+			res.json(model);
 		})
 		.fail(function(err) {
-			// An error occured
+			res.send(404);
 		});
 	},
 
 	getSome: function(req, res) {
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
 		Committee.getSome(limit, skip, sort)
 		.then(function(models) {
 			Committee.watch(req);
@@ -46,23 +43,10 @@ module.exports = {
 		});
 	},
 
-	getOne: function(req, res) {
-		Committee.getOne(req.param('id'))
-		.spread(function(model) {
-			Committee.subscribe(req, model);
-			res.json(model);
-		})
-		.fail(function(err) {
-			res.send(404);
-		});
-	},
-
 	getCount: function(req, res) {
 		Committee.count()
 		.exec(function(err, committeeCount) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else{
 				res.json({ committeeCount: committeeCount });
 			}
@@ -70,7 +54,6 @@ module.exports = {
 	},
 
 	getByUrl: function(req, res) {
-		console.log(req.param('path'));
 		Committee.find()
 		.where({urlTitle: req.param('path')})
 		.populate('parent')
@@ -84,22 +67,19 @@ module.exports = {
 	},
 
 	create: function (req, res) {
-		//var userId = req.param('user');
 		var parent = req.param('parent');
 		var title = req.param('title');
 		var urlTitle = req.param('urlTitle');
-
+		var user = req.param('user');
 		var model = {
 			parent: parent,
 			title: title,
-			urlTitle: urlTitle
+			urlTitle: urlTitle,
+			user: user
 		};
-
 		Committee.create(model)
 		.exec(function(err, committee) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else {
 				Committee.publishCreate(committee);
 				res.json(committee);
@@ -107,26 +87,17 @@ module.exports = {
 		});
 	},
 
+	update: function (req, res) {},
+
 	destroy: function (req, res) {
 		var id = req.param('id');
-		if (!id) {
-			return res.badRequest('No id provided.');
-		}
-
+		if (!id) {return res.badRequest('No id provided.');}
 		// Otherwise, find and destroy the model in question
 		Committee.findOne(id).exec(function(err, model) {
-			if (err) {
-				return res.serverError(err);
-			}
-			if (!model) {
-				return res.notFound();
-			}
-
+			if (err) {return res.serverError(err);}
+			if (!model) {return res.notFound();}
 			Committee.destroy(id, function(err) {
-				if (err) {
-					return res.serverError(err);
-				}
-
+				if (err) {return res.serverError(err);}
 				Committee.publishDestroy(model.id);
 				return res.json(model);
 			});

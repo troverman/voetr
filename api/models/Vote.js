@@ -56,10 +56,11 @@ module.exports = {
         }
     },
 
-    getAll: function() {
-        return Vote.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return Vote.findOne(id)
+        .populate('bill')
+        .then(function (model) {
+            return [model];
         });
     },
 
@@ -94,15 +95,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return Vote.findOne(id)
-        .populate('bill')
-        .then(function (model) {
-            return [model];
-        });
-    }
-
 };
 
  

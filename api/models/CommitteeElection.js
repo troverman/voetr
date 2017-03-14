@@ -22,19 +22,12 @@ module.exports = {
         }
     },
 
-    getAll: function() {
-        return CommitteElection.find()
-        .then(function (models) {
-            return [models];
-        });
-    },
-
     getOne: function(id) {
         return CommitteElection.findOne(id)
         .then(function (model) {
             return [model];
         });
-    }
+    },
 
 };
 

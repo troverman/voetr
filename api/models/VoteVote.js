@@ -48,11 +48,13 @@ module.exports = {
 
     //afterCreate --> update voteCount on bill model
 
-
-    getAll: function() {
-        return VoteVote.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return VoteVote.findOne(id)
+        .populate('bill')
+        .populate('user')
+        .populate('vote')
+        .then(function (model) {
+            return [model];
         });
     },
 
@@ -89,16 +91,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return VoteVote.findOne(id)
-        .populate('bill')
-        .populate('user')
-        .populate('vote')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 

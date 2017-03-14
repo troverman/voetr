@@ -1,28 +1,13 @@
 /**
  * RepresentativeController
- *
- * @description :: Server-side logic for managing posts
- * @help        :: See http://links.sailsjs.org/docs/controllers
+ * @description :: Server-side logic for managing Representatives
  */
-var _ = require('lodash');
+
 var request = require('request');
 var rp = require('request-promise');
 var Q = require('q');
 
-
 module.exports = {
-
-	getAll: function(req, res) {
-		Representative.getAll()
-		.spread(function(models) {
-			Representative.watch(req);
-			Representative.subscribe(req, models);
-			res.json(models);
-		})
-		.fail(function(err) {
-			// An error occured
-		});
-	},
 
 	getOne: function(req, res) {
 		Representative.getOne(req.param('id'))
@@ -63,8 +48,8 @@ module.exports = {
 
 	getByLocation: function(req, res) {
 		//TODO: get info from address + loggedIn userId
-		var lat = req.param('lat');
-		var lng = req.param('lng');
+		var lat = req.query.lat;
+		var lng = req.query.lng;
 		var stateModel= {
 			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
 			json: true
@@ -124,24 +109,13 @@ module.exports = {
 
 	destroy: function (req, res) {
 		var id = req.param('id');
-		if (!id) {
-			return res.badRequest('No id provided.');
-		}
-
+		if (!id) {return res.badRequest('No id provided.');}
 		// Otherwise, find and destroy the model in question
 		Representative.findOne(id).exec(function(err, model) {
-			if (err) {
-				return res.serverError(err);
-			}
-			if (!model) {
-				return res.notFound();
-			}
-
+			if (err) {return res.serverError(err);}
+			if (!model) {return res.notFound();}
 			Representative.destroy(id, function(err) {
-				if (err) {
-					return res.serverError(err);
-				}
-
+				if (err) {return res.serverError(err);}
 				Representative.publishDestroy(model.id);
 				return res.json(model);
 			});

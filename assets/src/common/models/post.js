@@ -6,24 +6,28 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getBySome = function(limit, skip, sort) {
-        var url = utils.prepareUrl('post/filter/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+    this.getSome = function(limit, skip, sort) {
+        var url = utils.prepareUrl('post');
+        var query = {params:{limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getByCommittee = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('post/filter/committee/' + model + '/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('post/filter/committee');
+        var query = {params:{committee:model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getByProfile = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('post/filter/profile/' + model + '/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('post/filter/profile');
+        var query = {params:{profile:model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getByUser = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('post/filter/user/' + model + '/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('post/filter/user');
+        var query = {params:{user:model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.create = function(newModel) {

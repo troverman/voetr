@@ -33,10 +33,11 @@ module.exports = {
         },
     },
 
-    getAll: function() {
-        return Committee.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return Committee.findOne(id)
+        .populate('parent')
+        .then(function (model) {
+            return [model];
         });
     },
 
@@ -49,14 +50,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return Committee.findOne(id)
-        .populate('parent')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 

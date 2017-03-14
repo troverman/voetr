@@ -20,16 +20,6 @@ module.exports = {
 
     //afterCreate: function (follower, next) {},
 
-    getAll: function() {
-        return Follower.find()
-        .sort({createdAt: 'desc'})
-        .populate('followed')
-        .populate('follower')
-        .then(function (models) {
-            return [models];
-        });
-    },
-
     getOne: function(id) {
         return Follower.findOne(id)
         .populate('followed')

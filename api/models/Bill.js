@@ -68,11 +68,28 @@ module.exports = {
         }
     },
 
-    getAll: function() {
+    getOne: function(id) {
+        return Bill.findOne(id)
+        .populate('comments')
+        //.populate('committees')
+        .populate('user')
+        .populate('votes')
+        .then(function (model) {
+            return [model];
+        });
+    },
+
+    getSome: function(limiting, skipping, sort) {
         return Bill.find()
+        .sort(sort)
+        .limit(limiting)
+        .skip(skipping)
+        .populate('comments')
+        //.populate('committees')
+        .populate('user')
         .populate('votes')
         .then(function (models) {
-            return [models];
+            return models;
         });
     },
 
@@ -126,31 +143,6 @@ module.exports = {
 
 
     },
-
-    getSome: function(limiting, skipping, sort) {
-        return Bill.find()
-        .sort(sort)
-        .limit(limiting)
-        .skip(skipping)
-        .populate('comments')
-        //.populate('committees')
-        .populate('user')
-        .populate('votes')
-        .then(function (models) {
-            return models;
-        });
-    },
-
-    getOne: function(id) {
-        return Bill.findOne(id)
-        .populate('comments')
-        //.populate('committees')
-        .populate('user')
-        .populate('votes')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 

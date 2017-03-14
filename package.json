@@ -2,7 +2,7 @@
   "name": "1.0.0",
   "private": true,
   "version": "0.0.0",
-  "description": "NOVO LLC",
+  "description": "voetr LLC",
   "keywords": [],
   "dependencies": {
     "bcryptjs": "~2.1.0",

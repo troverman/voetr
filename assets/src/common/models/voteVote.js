@@ -1,24 +1,23 @@
 angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
 
 .service('VoteVoteModel', function(lodash, utils, $sailsSocket) {
-    this.getAll = function() {
-        var url = utils.prepareUrl('vote');
-        return $sailsSocket.get(url).then(success, error);
+
+    this.getByBill = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('votevote/bill');
+        var query = {params:{bill: model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
-    this.getByBill = function(model) {
-        var url = utils.prepareUrl('votevote/bill/' + model);
-        return $sailsSocket.get(url).then(success, error);
-    };
-
-    this.getByVote = function(model) {
-        var url = utils.prepareUrl('votevote/vote/' + model);
-        return $sailsSocket.get(url).then(success, error);
+    this.getByVote = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('votevote/vote');
+        var query = {params:{vote: model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getByUser = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('votevote/user/' + model + '/' + limit + '/' + skip + '/' + sort);
-        return $sailsSocket.get(url).then(success, error);
+        var url = utils.prepareUrl('votevote/user');
+        var query = {params:{user: model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getUserCount = function(model) {
@@ -28,6 +27,11 @@ angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
 
     this.create = function(newModel) {
         var url = utils.prepareUrl('votevote');
+        return $sailsSocket.post(url, newModel).then(success, error);
+    };
+
+    this.update = function(newModel){
+        var url = utils.prepareUrl('votevote/' + newModel.id);
         return $sailsSocket.post(url, newModel).then(success, error);
     };
 

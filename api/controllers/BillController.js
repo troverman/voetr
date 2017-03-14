@@ -1,24 +1,9 @@
 /**
  * BillController
- *
- * @description :: Server-side logic for managing posts
- * @help        :: See http://links.sailsjs.org/docs/controllers
+ * @description :: Server-side logic for managing Bills
  */
-var _ = require('lodash');
 
 module.exports = {
-
-	getAll: function(req, res) {
-		Bill.getAll()
-		.spread(function(models) {
-			Bill.watch(req);
-			Bill.subscribe(req, models);
-			res.json(models);
-		})
-		.fail(function(err) {
-			// An error occured
-		});
-	},
 
 	getOne: function(req, res) {
 		Bill.getOne(req.param('id'))
@@ -32,11 +17,11 @@ module.exports = {
 	},
 
 	getByCommittee: function(req, res) {
-		var id = req.param('id');
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
 
+		var committee = req.query.committee;
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
 
 		//--> needs to go n deep? filter by children
 		/*Committee.find({id:id})
@@ -51,15 +36,15 @@ module.exports = {
 
 		Bill.native(function(err, collection){
 			if (err){return res.negotiate(err)}
-
 			collection
-			.find({committees:{ $elemMatch:{id: id}}})
-			.sort({ voteCount: -1 })
+			.find({committees:{ $elemMatch:{id: committee}}})
+			.sort({voteCount: -1 })
 			.skip(parseInt(skip))
 			.limit(parseInt(limit))
 			.toArray(function(err, result){
 				if (err){return res.negotiate(err)}
-				console.log(result)
+				console.log(result);
+				console.log('HELLOOOO')
 				return res.json(result);
 			});
 		});
@@ -79,9 +64,7 @@ module.exports = {
 	getCount: function(req, res) {
 		Bill.count()
 		.exec(function(err, billCount) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else{
 				res.json({ billCount: billCount });
 			}
@@ -89,9 +72,9 @@ module.exports = {
 	},
 
 	getSome: function(req, res) {
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
 		Bill.getSome(limit, skip, sort)
 		.then(function(models) {
 			Bill.watch(req);
@@ -119,9 +102,7 @@ module.exports = {
 
 		Bill.create(model)
 		.exec(function(err, bill) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else {
 				Bill.publishCreate(bill);
 				res.json(bill);
@@ -131,24 +112,13 @@ module.exports = {
 
 	destroy: function (req, res) {
 		var id = req.param('id');
-		if (!id) {
-			return res.badRequest('No id provided.');
-		}
-
+		if (!id) {return res.badRequest('No id provided.');}
 		// Otherwise, find and destroy the model in question
 		Bill.findOne(id).exec(function(err, model) {
-			if (err) {
-				return res.serverError(err);
-			}
-			if (!model) {
-				return res.notFound();
-			}
-
+			if (err) {return res.serverError(err);}
+			if (!model) {return res.notFound();}
 			Bill.destroy(id, function(err) {
-				if (err) {
-					return res.serverError(err);
-				}
-
+				if (err) {return res.serverError(err);}
 				Bill.publishDestroy(model.id);
 				return res.json(model);
 			});

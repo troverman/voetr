@@ -1,27 +1,49 @@
 /**
  * VoteVoteController
- *
- * @description :: Server-side logic for managing posts
- * @help        :: See http://links.sailsjs.org/docs/controllers
+ * @description :: Server-side logic for managing VoteVotes
  */
-var _ = require('lodash');
 
 module.exports = {
 
-	getAll: function(req, res) {
-		VoteVote.getAll()
-		.spread(function(models) {
+	/*
+	
+	//too abstract
+	getSome: function(req, res) {
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+
+		var bill = req.query.bill;
+		var vote = req.query.vote;
+		var voteVote = req.query.votevote;
+		var user = req.query.user;
+
+		var promise = {};
+
+		if(bill){promise = VoteVote.find({bill:bill})}
+		else if(vote){promise = VoteVote.find({vote:vote})}
+		else if(voteVote){promise = VoteVote.find({id:voteVote})}
+		else if(user){promise = VoteVote.find({user:user})}
+
+		promise
+		.limit(limit)
+		.skip(skip)
+		.sort(sort)
+		.then(function(model) {
 			VoteVote.watch(req);
-			VoteVote.subscribe(req, models);
-			res.json(models);
-		})
-		.fail(function(err) {
-			// An error occured
+			VoteVote.subscribe(req, model);
+			res.json(model);
 		});
-	},
+
+	*/
 
 	getByBill: function(req, res) {
-		VoteVote.getByBill(req.param('id'))
+		//if req.query.bill...., if req.query.vote
+		var bill = req.query.bill
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		VoteVote.getByBill(bill)
 		.then(function(model) {
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
@@ -33,7 +55,12 @@ module.exports = {
 	},
 
 	getByVote: function(req, res) {
-		VoteVote.getByVote(req.param('id'))
+		var vote = req.query.vote
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		console.log(vote)
+		VoteVote.getByVote(vote)
 		.then(function(model) {
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
@@ -45,11 +72,11 @@ module.exports = {
 	},
 
 	getByUser: function(req, res) {
-		var id = req.param('id');
-		var limit = req.param('limit');
-		var skip = req.param('skip');
-		var sort = req.param('sort');
-		VoteVote.getByUser(id, limit, skip, sort)
+		var user = req.query.user
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		VoteVote.getByUser(user, limit, skip, sort)
 		.then(function(model) {
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
@@ -75,12 +102,8 @@ module.exports = {
 		VoteVote.count()
 		.where({user:req.param('id')})
 		.exec(function(err, voteCount) {
-			if (err) {
-				return console.log(err);
-			}
-			else{
-				res.json({ voteCount: voteCount });
-			}
+			if (err) {return console.log(err);}
+			else{res.json({ voteCount: voteCount });}
 		});
 	},
 
@@ -97,9 +120,7 @@ module.exports = {
 
 		VoteVote.create(model)
 		.exec(function(err, model) {
-			if (err) {
-				return console.log(err);
-			}
+			if (err) {return console.log(err);}
 			else {
 				VoteVote.count()
 				.where({vote: req.param('vote')})
@@ -128,26 +149,17 @@ module.exports = {
 
 	},
 
+	update: function (req, res) {},
+
 	destroy: function (req, res) {
 		var id = req.param('id');
-		if (!id) {
-			return res.badRequest('No id provided.');
-		}
-
+		if (!id) {return res.badRequest('No id provided.');}
 		// Otherwise, find and destroy the model in question
 		VoteVote.findOne(id).exec(function(err, model) {
-			if (err) {
-				return res.serverError(err);
-			}
-			if (!model) {
-				return res.notFound();
-			}
-
+			if (err) {return res.serverError(err);}
+			if (!model) {return res.notFound();}
 			VoteVote.destroy(id, function(err) {
-				if (err) {
-					return res.serverError(err);
-				}
-
+				if (err) {return res.serverError(err);}
 				VoteVote.publishDestroy(model.id);
 				return res.json(model);
 			});

@@ -34,7 +34,6 @@ angular.module( 'voetr.bills', [
 		});
 	};
 
-
 });
 
 

@@ -1,5 +1,5 @@
 /**
-* CommitteeMember.js
+* CommitteeBill.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -24,26 +24,19 @@ module.exports = {
 
     afterCreate: function (committee, next) {
         // set message.user = to appropriate user model
-        User.getOne(committee.user)
+        CommitteeBill.getOne(committee.user)
         .spread(function(user) {
             committee.user = user;
             next(null, committee);
         });
     },
 
-    getAll: function() {
-        return CommitteeMember.find()
-        .then(function (models) {
-            return [models];
-        });
-    },
-
     getOne: function(id) {
-        return CommitteeMember.findOne(id)
+        return CommitteeBill.findOne(id)
         .then(function (model) {
             return [model];
         });
-    }
+    },
 
 };
 

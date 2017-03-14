@@ -32,7 +32,6 @@ angular.module( 'voetr', [
 ])
 
 .config( function appConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
-
     $urlRouterProvider.rule(function($injector, $location) {
         var path = $location.path();
         var hasTrailingSlash = path[path.length-1] === '/';
@@ -41,29 +40,18 @@ angular.module( 'voetr', [
             return newPath; 
         } 
     });
-
     if (window.location.hash && window.location.hash == '#_=_') {
         window.location.hash = '';
     }
-
     $urlRouterProvider.otherwise(function ($injector, $location) {
-        if ($location.$$url === '/') {
-            window.location = '/';
-        }
-        else {
-            // pass through to let the web server handle this request
-            window.location = $location.$$absUrl;
-        }
+        if ($location.$$url === '/') {window.location = '/';}
+        else {window.location = $location.$$absUrl;}
     });
-
     $locationProvider.html5Mode(true);
-
 })
-
 .run( function run () {
     moment.locale('en');
 })
-
 .controller( 'AppCtrl', function AppCtrl ( $rootScope, $scope, config ) {
     config.currentUser = window.currentUser;
     $rootScope.$on('$stateChangeStart',function(){

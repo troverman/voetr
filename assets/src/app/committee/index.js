@@ -33,7 +33,7 @@ angular.module( 'voetr.committee', [
                 return CommitteeModel.getChildren(committee.id);
             },
             members: function(CommitteeMemberModel, committee) {
-                return CommitteeMemberModel.getByCommittee(100, 0, committee.id);
+                return CommitteeMemberModel.getByCommittee(committee.id, 100, 0);
             },
             posts: function(PostModel, committee) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
@@ -96,7 +96,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             members: function(CommitteeMemberModel, committee) {
-                return CommitteeMemberModel.getByCommittee(100, 0, committee.id);
+                return CommitteeMemberModel.getByCommittee(committee.id, 100, 0);
             }
          }
     })
@@ -157,6 +157,7 @@ angular.module( 'voetr.committee', [
 
     $scope.createBill = function(newBill) {
         newBill.user = config.currentUser.id;
+        newBill.committee = $scope.committee.id;
         BillModel.create(newBill).then(function(model) {
             $scope.newBill = {};
         });

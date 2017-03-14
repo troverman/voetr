@@ -31,17 +31,6 @@ module.exports = {
         });
     },
 
-
-    getAll: function() {
-        return Representative.find()
-        .sort({createdAt: 'desc'})
-        .populate('representative')
-        .populate('constituent')
-        .then(function (models) {
-            return [models];
-        });
-    },
-
     getOne: function(id) {
         return Representative.findOne(id)
         .populate('representative')

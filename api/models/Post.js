@@ -26,7 +26,15 @@ module.exports = {
 
     //afterCreate --> tag users? or save as an attribute. 
 
-    getBySome: function(limiting, skipping, sort) {
+    getOne: function(id) {
+        return Post.findOne(id)
+        .populate('user')
+        .then(function (model) {
+            return [model];
+        });
+    },
+
+    getSome: function(limiting, skipping, sort) {
         return Post.find()
         .sort(sort)
         .limit(limiting)
@@ -77,14 +85,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return Post.findOne(id)
-        .populate('user')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 

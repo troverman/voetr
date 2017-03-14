@@ -1,5 +1,5 @@
 /**
-* Vote.js
+* BillVote.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -50,15 +50,16 @@ module.exports = {
         }
     },
 
-    getAll: function() {
-        return Vote.find()
-        .then(function (models) {
-            return [models];
+    getOne: function(id) {
+        return BillVote.findOne(id)
+        .populate('bill')
+        .then(function (model) {
+            return [model];
         });
     },
 
     getSome: function(limiting, skipping, sort) {
-        return Vote.find()
+        return BillVote.find()
         .sort(sort)
         .limit(limiting)
         .skip(skipping)
@@ -69,7 +70,7 @@ module.exports = {
     },
 
     getByBill: function(bill) {
-        return Vote.find()
+        return BillVote.find()
         .where({bill: bill})
         .sort({createdAt: 'desc'})
         .populate('user')
@@ -80,7 +81,7 @@ module.exports = {
     },
 
     getByUser: function(user) {
-        return Vote.find()
+        return BillVote.find()
         .where({user: user})
         .sort({createdAt: 'desc'})
         .populate('bill')
@@ -88,14 +89,6 @@ module.exports = {
             return models;
         });
     },
-
-    getOne: function(id) {
-        return Vote.findOne(id)
-        .populate('bill')
-        .then(function (model) {
-            return [model];
-        });
-    }
 
 };
 
