@@ -20,7 +20,7 @@
 }
 
 .imageContainerSmall {
-  background:rgba(0,0,0,0.8);
+  background:rgba(22,22,22,0.75);
   overflow:hidden;
   min-height: 200px;
   font-family: 'Jura', sans-serif;
