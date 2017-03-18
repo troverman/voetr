@@ -286,6 +286,7 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   text-align: center;
   padding-top: 20px;
 }
+.social a i{font-size:20px};
 
 .flex {
     display: flex;
