@@ -280,6 +280,12 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   color:white!important;
   background-color:red;
 }
+.social {
+  height: 40px;
+  background: #DAE0DE;
+  text-align: center;
+  padding-top: 20px;
+}
 
 .flex {
     display: flex;
@@ -597,7 +603,7 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 .log-background {
   z-index: 1;
-  background: url(../../images/congress.jpg) no-repeat center center fixed;
+  background: url(../../images/internetProtest2.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

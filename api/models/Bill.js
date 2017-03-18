@@ -80,7 +80,10 @@ module.exports = {
     },
 
     getSome: function(limiting, skipping, sort) {
+        //filter == {filterType: filterParam}
+        //Bill.find(filter)
         return Bill.find()
+        //.where(filter)
         .sort(sort)
         .limit(limiting)
         .skip(skipping)

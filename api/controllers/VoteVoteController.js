@@ -6,35 +6,17 @@
 module.exports = {
 
 	/*
-	
-	//too abstract
 	getSome: function(req, res) {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
-
-		var bill = req.query.bill;
-		var vote = req.query.vote;
-		var voteVote = req.query.votevote;
-		var user = req.query.user;
-
-		var promise = {};
-
-		if(bill){promise = VoteVote.find({bill:bill})}
-		else if(vote){promise = VoteVote.find({vote:vote})}
-		else if(voteVote){promise = VoteVote.find({id:voteVote})}
-		else if(user){promise = VoteVote.find({user:user})}
-
-		promise
-		.limit(limit)
-		.skip(skip)
-		.sort(sort)
+		var filter = req.query.filter; //--> {filterType:filterParam} --> {bill:bill.id}
+		VoteVote.getSome(limit, skip, sort, filter)
 		.then(function(model) {
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
 			res.json(model);
 		});
-
 	*/
 
 	getByBill: function(req, res) {

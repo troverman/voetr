@@ -75,10 +75,19 @@ module.exports = {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
+		//var filter = req.query.filter;
 		Bill.getSome(limit, skip, sort)
 		.then(function(models) {
 			Bill.watch(req);
 			Bill.subscribe(req, models);
+
+	    	sails.sockets.join(req, path, function(err) {
+	    		console.log(sails.sockets.subscribers(path).length)
+	    	});
+	    	//Bill.update({liveViewCount:sails.sockets.subscribers(path).length})
+	    	//
+
+
 			res.json(models);
 		})
 		.fail(function(err) {
