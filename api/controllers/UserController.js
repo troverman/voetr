@@ -14,6 +14,7 @@ module.exports = {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
+		//req.query.username
 		User.getSome(limit, skip, sort)
 		.then(function(models) {
 			User.watch(req);

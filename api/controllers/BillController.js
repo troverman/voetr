@@ -80,14 +80,6 @@ module.exports = {
 		.then(function(models) {
 			Bill.watch(req);
 			Bill.subscribe(req, models);
-
-	    	sails.sockets.join(req, path, function(err) {
-	    		console.log(sails.sockets.subscribers(path).length)
-	    	});
-	    	//Bill.update({liveViewCount:sails.sockets.subscribers(path).length})
-	    	//
-
-
 			res.json(models);
 		})
 		.fail(function(err) {
