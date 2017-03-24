@@ -1,130 +1,17 @@
-<!DOCTYPE html>
-<html ng-app="voetr" ng-controller="AppCtrl">
-    <head>
-        <title>voetr</title>
-        <base href="/">
-        <!-- Viewport mobile tag for sensible mobile support -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="fragment" content="!">
+<% if (currentUser !== undefined) { %>
+    <script>
+        var currentUser = {
+            id: '<%= currentUser.id %>',
+            username: '<%= currentUser.username %>',
+            email: '<%= currentUser.email %>',
+            avatarUrl: '<%= currentUser.avatarUrl %>',
+            first_name: '<%= currentUser.first_name %>',
+            createdAt: '<%= currentUser.createdAt %>',
+            updatedAt: '<%= currentUser.updatedAt %>'
+        };
+    </script>
+<% } %>
 
-        <!--STYLES-->
-        <link rel="stylesheet" href="/styles/css/about.css">
-        <link rel="stylesheet" href="/styles/css/animate.min.css">
-        <link rel="stylesheet" href="/styles/css/bootstrap-social.css">
-        <link rel="stylesheet" href="/styles/css/bootstrap.css">
-        <link rel="stylesheet" href="/styles/css/committee.css">
-        <link rel="stylesheet" href="/styles/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/styles/css/home.css">
-        <link rel="stylesheet" href="/styles/css/intro.css">
-        <link rel="stylesheet" href="/styles/css/member.css">
-        <link rel="stylesheet" href="/styles/css/theme.css">
-        <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
-        <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
-        <!--STYLES END-->
-
-        <!--FONTS-->
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,100,300,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Quicksand:400.700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700' rel='stylesheet' type='text/css'>
-        <!--FONTS END-->
-
-        <!--Google Analytics-->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-22491760-5', 'auto');
-          ga('send', 'pageview');
-
-        </script>
-        
-    </head>
-<body>
-
-    <% if (currentUser !== undefined) { %>
-        <script>
-            var currentUser = {
-                id: '<%= currentUser.id %>',
-                username: '<%= currentUser.username %>',
-                email: '<%= currentUser.email %>',
-                avatarUrl: '<%= currentUser.avatarUrl %>',
-                first_name: '<%= currentUser.first_name %>',
-                createdAt: '<%= currentUser.createdAt %>',
-                updatedAt: '<%= currentUser.updatedAt %>'
-            };
-        </script>
-    <% } %>
-
-    <div ng-include="'nav/index.tpl.html'"></div>
-    <div ui-view="main" style="width:100%;height:100%;margin:0px;margin-top:50px;"></div>
-    <!--<div ng-include="'footer/index.tpl.html'"></div>-->
-
-
-    <!--SCRIPTS-->
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/bower_components/sails.io.js/dist/sails.io.js"></script>
-    <script src="/bower_components/angularSails/dist/ngsails.io.js"></script>
-    <script src="/bower_components/lodash/lodash.js"></script>
-    <script src="/bower_components/moment/moment.js"></script>
-    <script src="/bower_components/angular-moment/angular-moment.js"></script>
-    <script src="/bower_components/angular-scroll/angular-scroll.js"></script>
-    <script src="/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="/bower_components/angular-material/angular-material.js"></script>
-    <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
-    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-    <script src="/src/app/about/index.js"></script>
-    <script src="/src/app/account/index.js"></script>
-    <script src="/src/app/app.js"></script>
-    <script src="/src/app/bill/index.js"></script>
-    <script src="/src/app/bills/index.js"></script>
-    <script src="/src/app/committee/index.js"></script>
-    <script src="/src/app/committees/index.js"></script>
-    <script src="/src/app/footer/index.js"></script>
-    <script src="/src/app/home/index.js"></script>
-    <script src="/src/app/intro/index.js"></script>
-    <script src="/src/app/login/index.js"></script>
-    <script src="/src/app/member/index.js"></script>
-    <script src="/src/app/nav/index.js"></script>
-    <script src="/src/app/register/index.js"></script>
-    <script src="/src/app/search/index.js"></script>
-    <script src="/src/app/vote/index.js"></script>
-    <script src="/src/app/votes/index.js"></script>
-    <script src="/src/common/models/bill.js"></script>
-    <script src="/src/common/models/comment.js"></script>
-    <script src="/src/common/models/committee.js"></script>
-    <script src="/src/common/models/committeeMember.js"></script>
-    <script src="/src/common/models/follower.js"></script>
-    <script src="/src/common/models/index.js"></script>
-    <script src="/src/common/models/post.js"></script>
-    <script src="/src/common/models/representative.js"></script>
-    <script src="/src/common/models/search.js"></script>
-    <script src="/src/common/models/user.js"></script>
-    <script src="/src/common/models/vote.js"></script>
-    <script src="/src/common/models/voteVote.js"></script>
-    <script src="/src/common/services/config.js"></script>
-    <script src="/src/common/services/index.js"></script>
-    <script src="/src/common/services/lodash.js"></script>
-    <script src="/src/common/services/title.js"></script>
-    <script src="/src/common/services/utils.js"></script>
-    <!--SCRIPTS END-->
-
-    <!--TEMPLATES-->
-    <script type="text/javascript" src="/templates.js"></script>
-    <!--TEMPLATES END-->
-
-    <!--CDN START-->
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-    <!--CDN END-->
-
-
-</body>
-</html>
+<div ng-include="'nav/index.tpl.html'"></div>
+<div ui-view="main" style="width:100%;height:100%;margin:0px;margin-top:50px;"></div>
+<!--<div ng-include="'footer/index.tpl.html'"></div>-->
