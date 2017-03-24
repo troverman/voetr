@@ -1,7 +1,7 @@
 angular.module( 'voetr.bills', [
 ])
 
-.config(function config( $stateProvider, $urlRouterProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'bills', {
 		url: '/bills',
 		views: {
@@ -11,30 +11,29 @@ angular.module( 'voetr.bills', [
 			}
 		},
 		resolve: {
-            bills: function(BillModel) {
-				return BillModel.getSome(100, 0, 'createdAt DESC');
-            }
+            bills: ['BillModel', function(BillModel) {
+				return BillModel.getSome(50, 0, 'createdAt DESC');
+            }]
         }
 	});
-	$urlRouterProvider.when('/bills/', '/bills');
-})
+}])
 
-.controller( 'BillsCtrl', function BillsCtrl( $rootScope, $scope, $sailsSocket, lodash, titleService, config, BillModel, bills) {
+.controller( 'BillsCtrl', ['$rootScope', '$scope', '$sailsSocket', 'BillModel', 'bills', 'config', 'titleService',  function BillsCtrl( $rootScope, $scope, $sailsSocket, BillModel, bills, config, titleService, BillModel) {
 	titleService.setTitle('bills - voetr');
 	$scope.currentUser = config.currentUser;
     $scope.bills = bills;
 	$scope.skip = 0;
 
     $scope.loadMore = function() {
-		$scope.skip = $scope.skip + 100;
+		$scope.skip = $scope.skip + 50;
 		$rootScope.stateIsLoading = true;
-		BillModel.getSome(100,$scope.skip,'createdAt DESC').then(function(bills) {
+		BillModel.getSome(50, $scope.skip, 'createdAt DESC').then(function(bills) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.bills, bills);
 		});
 	};
 
-});
+}]);
 
 
 

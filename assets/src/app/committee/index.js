@@ -1,7 +1,7 @@
 angular.module( 'voetr.committee', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'committee', {
         abstract: true,
 		url: '/committee/:path',
@@ -12,9 +12,9 @@ angular.module( 'voetr.committee', [
 			}
 		},
 		resolve: {
-            committee: function(CommitteeModel, $stateParams) {
+            committee: ['$stateParams', 'CommitteeModel', function($stateParams, CommitteeModel) {
                 return CommitteeModel.getByUrl($stateParams.path);
-            }
+            }]
         }
 	})
     .state( 'committee.home', {
@@ -26,22 +26,22 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: function(BillModel, committee) {
+            bills: ['BillModel', 'committee', function(BillModel, committee) {
                 return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
-            },
-            committees: function(CommitteeModel, committee) {
+            }],
+            committees: ['committee', 'CommitteeModel', function(committee, CommitteeModel) {
                 return CommitteeModel.getChildren(committee.id);
-            },
-            members: function(CommitteeMemberModel, committee) {
+            }],
+            members: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel) {
                 return CommitteeMemberModel.getByCommittee(committee.id, 100, 0);
-            },
-            posts: function(PostModel, committee) {
+            }],
+            posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
-            },
-            votes: function(VoteModel) {
+            }],
+            votes: ['VoteModel', function(VoteModel) {
                 return VoteModel.getSome(10, 0, 'voteCount DESC');
                 //CommitteeBills --> populate attached votes
-            }
+            }]
          }
     })
     .state( 'committee.bills', {
@@ -53,9 +53,9 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: function(BillModel, committee) {
+            bills: ['committee', 'BillModel', function(committee, BillModel) {
                 return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
-            }
+            }]
          }
     })
     .state( 'committee.committeeCommittees', {
@@ -67,9 +67,9 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            committees: function(CommitteeModel, committee) {
+            committees: ['committee', 'CommitteeModel', function(committee, CommitteeModel) {
                 return CommitteeModel.getChildren(committee.id);
-            }
+            }]
          }
     })
     .state( 'committee.discussion', {
@@ -81,9 +81,9 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            posts: function(PostModel, committee) {
+            posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
-            },
+            }],
          }
     })
     .state( 'committee.members', {
@@ -95,9 +95,9 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            members: function(CommitteeMemberModel, committee) {
+            members: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel) {
                 return CommitteeMemberModel.getByCommittee(committee.id, 100, 0);
-            }
+            }]
          }
     })
     .state( 'committee.votes', {
@@ -109,19 +109,19 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            votes: function(VoteModel) {
+            votes: ['VoteModel', function(VoteModel) {
                 return VoteModel.getSome(100, 0, 'voteCount DESC');
-            }
+            }]
          }
     })
 
-})
+}])
 
-.controller( 'CommitteeCtrl', function CommitteeCtrl( $scope, committee) {
+.controller( 'CommitteeCtrl', ['$scope', 'committee', function CommitteeCtrl( $scope, committee) {
     $scope.committee = committee;
-})
+}])
 
-.controller( 'CommitteeHomeCtrl', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $location, lodash, titleService, config, $stateParams, BillModel, bills, members, CommitteeModel, committee, VoteVoteModel, posts, PostModel) {
+.controller( 'CommitteeHomeCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'members', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'titleService', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, members, committee, CommitteeModel, PostModel, posts, titleService, VoteVoteModel) {
     $scope.committee = committee;
     if (committee == undefined){$location.url('committees');};
     titleService.setTitle(committee.title + ' - voetr');
@@ -205,26 +205,26 @@ angular.module( 'voetr.committee', [
         }
     });
 
-})
+}])
 
-.controller( 'CommitteeBillCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, bills) {
+.controller( 'CommitteeBillCtrl', ['$sailsSocket', '$scope', 'committee', 'bills', function CommitteeBillCtrl($sailsSocket, $scope, committee, bills) {
     $scope.committee = committee;
     $scope.bills = bills;
     console.log(bills)
-})
+}])
 
-.controller( 'CommitteeCommitteesCtrl', function CommitteeBillCtrl( $scope, $sailsSocket, committee, committees) {
+.controller( 'CommitteeCommitteesCtrl', ['$sailsSocket', '$scope', 'committee', 'committees', function CommitteeBillCtrl($sailsSocket, $scope, committee, committees) {
     console.log('hello')
     $scope.committee = committee;
     $scope.committees = committees;
-})
+}])
 
-.controller( 'CommitteeDiscussionCtrl', function CommitteeDiscussionCtrl( $scope, $sailsSocket, committee, posts) {
+.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'posts', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, posts) {
     $scope.committee = committee;
     $scope.posts = posts;
-})
+}])
 
-.controller( 'CommitteeMemberCtrl', function CommitteeMemberCtrl( $sailsSocket, $scope, $sailsSocket, members, config, committee, CommitteeMemberModel, titleService) {
+.controller( 'CommitteeMemberCtrl', ['$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'members', 'titleService', function CommitteeMemberCtrl( $sailsSocket, $scope, committee, CommitteeMemberModel, config, members, titleService) {
     titleService.setTitle(committee.title + ' Members - voetr');
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
@@ -250,12 +250,12 @@ angular.module( 'voetr.committee', [
         }
     });
 
-})
+}])
 
-.controller( 'CommitteeVoteCtrl', function CommitteeVoteCtrl( $scope, $sailsSocket, votes, committee) {
+.controller( 'CommitteeVoteCtrl', ['$scope', '$sailsSocket', 'committee', 'votes', function CommitteeVoteCtrl( $scope, $sailsSocket, committee, votes) {
     $scope.committee = committee;
     $scope.votes = votes;
-});
+}]);
 
 
 

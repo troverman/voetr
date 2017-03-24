@@ -1,7 +1,7 @@
 angular.module( 'voetr.search', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
     $stateProvider.state( 'search', {
         abstract: true,
         url: '/search',
@@ -46,7 +46,7 @@ angular.module( 'voetr.search', [
             },
          }
     });
-})
+}])
 
 .controller( 'SearchController', function SearchController( $rootScope, $scope, $stateParams, lodash, config, titleService, searchResults, SearchModel, RepresentativeModel, bills ) {
     $scope.searchQuery = $stateParams.searchQuery;

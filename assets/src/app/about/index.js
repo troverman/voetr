@@ -1,7 +1,7 @@
 angular.module( 'voetr.about', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'about', {
 		url: '/about',
 		views: {
@@ -11,8 +11,8 @@ angular.module( 'voetr.about', [
 			}
 		}
 	});
-})
+}])
 
-.controller( 'AboutCtrl', function AboutController( $scope, titleService ) {
+.controller( 'AboutCtrl', ['$scope', 'titleService', function AboutController( $scope, titleService ) {
 	titleService.setTitle('about - voetr');
-});
+}]);

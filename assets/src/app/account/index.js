@@ -1,7 +1,7 @@
 angular.module( 'voetr.account', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'account', {
 		url: '/account',
 		views: {
@@ -11,15 +11,14 @@ angular.module( 'voetr.account', [
 			}
 		},
 		resolve: {
-            UserModel: 'UserModel',
-            user: function(UserModel){
+            user: ['UserModel', function(UserModel){
                 return UserModel.getMine();
-            }
+            }]
         }
 	});
-})
+}])
 
-.controller( 'AccountCtrl', function AccountController( $location, $rootScope, $scope, config, titleService, user, UserModel, Upload ) {
+.controller( 'AccountCtrl', ['$location', '$rootScope', '$scope', 'config', 'titleService', 'user', 'UserModel', 'Upload', function AccountController( $location, $rootScope, $scope, config, titleService, user, UserModel, Upload ) {
 	titleService.setTitle('account - voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.user = user;
@@ -140,4 +139,4 @@ angular.module( 'voetr.account', [
         return UserModel.update(model);
     }
 
-});
+}]);

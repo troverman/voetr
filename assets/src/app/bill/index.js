@@ -1,7 +1,7 @@
 angular.module( 'voetr.bill', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'bill', {
 		abstract: true,
 		url: '/bill/:id',
@@ -11,11 +11,9 @@ angular.module( 'voetr.bill', [
 			}
 		},
 		resolve: {
-            bill: function(BillModel, $stateParams) {
-                return BillModel.getOne($stateParams.id).then(function(models) {
-                    return models;
-                });
-            }
+            bill: ['$stateParams', 'BillModel', function($stateParams, BillModel) {
+                return BillModel.getOne($stateParams.id);
+            }]
         }
 	})
     .state( 'bill.index', {
@@ -27,18 +25,18 @@ angular.module( 'voetr.bill', [
             }
         },
         resolve: {
-            comments: function(CommentModel, bill) {
+            comments: ['bill', 'CommentModel', function(bill, CommentModel) {
                 return CommentModel.getByBill(bill.id);
-            },
-            votes: function(VoteModel, bill) {
+            }],
+            votes: ['bill', 'VoteModel', function(bill, VoteModel) {
                 return VoteModel.getByBill(bill.id);
-            }
+            }]
          }
     });
 
-})
+}])
 
-.controller( 'BillCtrl', function BillController( $location, $sce, $scope, config, lodash, $sailsSocket, titleService, BillModel, bill, comments, CommentModel, votes, VoteModel, VoteVoteModel ) {
+.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'CommentModel', 'comments', 'config', 'lodash', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, CommentModel, comments, config, lodash, titleService, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
 	$scope.bill = bill;
 	$scope.newComment = {};
@@ -47,7 +45,7 @@ angular.module( 'voetr.bill', [
     $scope.comments = comments;
     $scope.currentUser = config.currentUser;
     $scope.billContent = $sce.trustAsHtml($scope.bill.fullText);
-    console.log(bill)
+    //console.log(bill)
 
     $scope.createComment = function(newComment) {
         newComment.user = config.currentUser;
@@ -66,7 +64,7 @@ angular.module( 'voetr.bill', [
         VoteVoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });
-    }
+    };
 
     $sailsSocket.subscribe('vote', function (envelope) {
         switch(envelope.verb) {
@@ -83,7 +81,6 @@ angular.module( 'voetr.bill', [
     $sailsSocket.subscribe('comment', function (envelope) {
 	    switch(envelope.verb) {
 	        case 'created':
-                console.log(envelope.data)
 	            $scope.comments.unshift(envelope.data);
 	            break;
 	        case 'destroyed':
@@ -92,4 +89,4 @@ angular.module( 'voetr.bill', [
 	    }
     });
 
-});
+}]);

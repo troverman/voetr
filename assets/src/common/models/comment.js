@@ -1,6 +1,6 @@
 angular.module('models.comment', ['lodash', 'services', 'sails.io',])
 
-.service('CommentModel', function(lodash, utils, $sailsSocket) {
+.service('CommentModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
     
     this.getByBill = function(model) {
         var url = utils.prepareUrl('comment/bill/' + model);
@@ -29,4 +29,5 @@ angular.module('models.comment', ['lodash', 'services', 'sails.io',])
     var error = function(error) {
         console.log(error);
     };
-});
+    
+}]);

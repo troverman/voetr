@@ -1,7 +1,7 @@
 angular.module( 'voetr.register', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'register', {
 		url: '/register',
 		views: {
@@ -11,11 +11,10 @@ angular.module( 'voetr.register', [
 			}
 		}
 	});
-})
+}])
 
-.controller( 'RegisterCtrl', function RegisterController( $location, $scope, titleService, config ) {
+.controller( 'RegisterCtrl', ['$location', '$scope', 'config', 'titleService', function RegisterController( $location, $scope, config, titleService ) {
 	titleService.setTitle('register - voetr');
 	$scope.currentUser = config.currentUser;
 	if ($scope.currentUser){$location.path('/')};
-
-});
+}]);

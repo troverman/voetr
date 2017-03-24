@@ -1,6 +1,6 @@
 angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
 
-.service('VoteVoteModel', function(lodash, utils, $sailsSocket) {
+.service('VoteVoteModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getByBill = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('votevote/bill');
@@ -47,4 +47,5 @@ angular.module('models.voteVote', ['lodash', 'services', 'sails.io',])
     var error = function(error) {
         console.log(error);
     };
-});
+    
+}]);

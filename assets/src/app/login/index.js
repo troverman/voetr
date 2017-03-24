@@ -1,7 +1,7 @@
 angular.module( 'voetr.login', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'login', {
 		url: '/login',
 		views: {
@@ -11,10 +11,10 @@ angular.module( 'voetr.login', [
 			}
 		}
 	});
-})
+}])
 
-.controller( 'LoginCtrl', function LoginController( $location, $scope, titleService, config ) {
+.controller( 'LoginCtrl', ['$location', '$scope', 'config', 'titleService', function LoginController( $location, $scope, config, titleService ) {
 	titleService.setTitle('login - voetr');
 	$scope.currentUser = config.currentUser;
 	if ($scope.currentUser){$location.path('/')};
-});
+}]);

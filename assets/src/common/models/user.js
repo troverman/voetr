@@ -1,6 +1,6 @@
 angular.module('models.user', ['lodash', 'services', 'sails.io',])
 
-.service('UserModel', function($q, lodash, utils, $sailsSocket) {
+.service('UserModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getSome = function(limit, skip, sort) {
         var url = utils.prepareUrl('user');
@@ -50,4 +50,5 @@ angular.module('models.user', ['lodash', 'services', 'sails.io',])
     var error = function(error) {
         console.log(error);
     };
-});
+    
+}]);

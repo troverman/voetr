@@ -1,8 +1,7 @@
 angular.module( 'voetr.home', [
 ])
 
-.config(function config( $stateProvider, $urlMatcherFactoryProvider ) {
-	//$urlMatcherFactoryProvider.strictMode(false);
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'home', {
 		url: '/',
 		views: {
@@ -12,48 +11,46 @@ angular.module( 'voetr.home', [
 			}
 		},
 		resolve:{
-			config: "config",
-			constituents: function(RepresentativeModel, config) {
+			constituents: ['config', 'RepresentativeModel',function(config, RepresentativeModel) {
 				if(config.currentUser){return RepresentativeModel.getConstituents(config.currentUser);}
             	else{return null}
-            },
-            representatives: function(RepresentativeModel, config) {
+            }],
+            representatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
 				if(config.currentUser){return RepresentativeModel.getRepresentatives(config.currentUser);}
             	else{return null}
-            },
-			committees: function(CommitteeModel) {
+            }],
+			committees: ['CommitteeModel', function(CommitteeModel) {
 				return CommitteeModel.getSome(10, 0, 'createdAt DESC');
-            },
-			committeeCount: function(CommitteeModel) {
+            }],
+			committeeCount: ['CommitteeModel', function(CommitteeModel) {
 				return CommitteeModel.getCount();
-            },
-            users: function(UserModel, userCount){
+            }],
+            users: ['userCount', 'UserModel', function(userCount, UserModel){
             	var rand = Math.floor(Math.random() * (userCount.userCount + 1));
 				return UserModel.getSome(32, rand);
-            },
-            userCount: function(UserModel){
+            }],
+            userCount: ['UserModel', function(UserModel){
 				return UserModel.getCount();
-            },
-            bills: function(BillModel){
+            }],
+            bills: ['BillModel', function(BillModel){
                 return BillModel.getSome(10, 0, 'createdAt DESC');
-            },
-			billCount: function(BillModel){
+            }],
+			billCount: ['BillModel', function(BillModel){
 				return BillModel.getCount();
-            },
-			votes: function(VoteModel, config) {
+            }],
+			votes: ['config', 'VoteModel', function(config, VoteModel) {
 				if(config.currentUser){return VoteModel.getSome(25, 0, 'voteCount DESC')}
             	else{return null}
-            },
-            UserModel: 'UserModel',
-            user: function(UserModel, config){
+            }],
+            user: ['config', 'UserModel', function(config, UserModel){
 				if(config.currentUser){return UserModel.getMine();}
             	else{return null}
-        	},
+        	}],
 		}
 	});
-})
+}])
 
-.controller( 'HomeCtrl', function HomeController($rootScope, $sailsSocket, $scope, $interval, titleService, config, bills, committees, users, userCount, committeeCount, billCount, VoteModel, VoteVoteModel, BillModel, CommitteeModel, UserModel, constituents, representatives, votes, RepresentativeModel, PostModel, $q, Upload, user ) {
+.controller( 'HomeCtrl', ['$rootScope', '$q', '$sailsSocket', '$scope', '$interval', 'billCount', 'BillModel', 'bills', 'committeeCount', 'CommitteeModel', 'committees', 'config', 'constituents', 'PostModel', 'RepresentativeModel', 'representatives', 'titleService', 'Upload', 'user', 'UserModel', 'userCount', 'users', 'VoteModel', 'votes', 'VoteVoteModel', function HomeController($rootScope, $q, $sailsSocket, $scope, $interval, billCount, BillModel, bills, committeeCount, CommitteeModel, committees, config, constituents, PostModel, RepresentativeModel, representatives, titleService, Upload, user, UserModel, userCount, users, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
@@ -131,7 +128,7 @@ angular.module( 'voetr.home', [
 			coverUrl: $scope.user.coverUrl,
             identificationUrl: $scope.user.identificationUrl,
         };
-        console.log(model)
+        //console.log(model)
         return UserModel.update(model);
     };
 
@@ -188,9 +185,7 @@ angular.module( 'voetr.home', [
 	        });
 	    };
 
-	}
-
-
+	};
 
 	$scope.skipBills = 10;
     $scope.loadMoreBills = function() {
@@ -305,5 +300,4 @@ angular.module( 'voetr.home', [
 	    }
     });
 
-
-});
+}]);

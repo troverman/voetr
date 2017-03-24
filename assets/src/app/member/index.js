@@ -1,7 +1,7 @@
 angular.module( 'voetr.member', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'member', {
 		abstract: true,
 		url: '/member/:path',
@@ -55,7 +55,7 @@ angular.module( 'voetr.member', [
             }
         }
     });
-})
+}])
 
 .controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, profilePosts, userPosts, PostModel, committees) {
 	titleService.setTitle(member.username + ' - voetr');

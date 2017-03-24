@@ -1,6 +1,6 @@
 angular.module('models.committee', ['lodash', 'services', 'sails.io',])
 
-.service('CommitteeModel', function(lodash, utils, $sailsSocket) {
+.service('CommitteeModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getSome = function(limit, skip, sort) {
         var url = utils.prepareUrl('committee');
@@ -55,4 +55,5 @@ angular.module('models.committee', ['lodash', 'services', 'sails.io',])
     var error = function(error) {
         console.log(error);
     };
-});
+    
+}]);

@@ -1,6 +1,6 @@
 angular.module('models.bill', ['lodash', 'services', 'sails.io',])
 
-.service('BillModel', function(lodash, utils, $sailsSocket) {
+.service('BillModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getOne = function(model) {
         var url = utils.prepareUrl('bill/' + model);
@@ -47,4 +47,4 @@ angular.module('models.bill', ['lodash', 'services', 'sails.io',])
         console.log(error);
     };
     
-});
+}]);

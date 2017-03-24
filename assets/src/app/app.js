@@ -6,7 +6,6 @@ angular.module( 'voetr', [
     'duScroll',
     'lodash',
     'ui.bootstrap',
-    'uiGmapgoogle-maps',
     'google.places',
     'templates-app',
     'services',
@@ -30,8 +29,7 @@ angular.module( 'voetr', [
     'voetr.vote',
     'voetr.votes',
 ])
-
-.config( function appConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
+.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
     $urlRouterProvider.rule(function($injector, $location) {
         var path = $location.path();
         var hasTrailingSlash = path[path.length-1] === '/';
@@ -48,11 +46,11 @@ angular.module( 'voetr', [
         else {window.location = $location.$$absUrl;}
     });
     $locationProvider.html5Mode(true);
-})
+}])
 .run( function run () {
     moment.locale('en');
 })
-.controller( 'AppCtrl', function AppCtrl ( $rootScope, $scope, config ) {
+.controller( 'AppCtrl', ['$rootScope', '$scope', 'config', function AppCtrl ( $rootScope, $scope, config ) {
     config.currentUser = window.currentUser;
     $rootScope.$on('$stateChangeStart',function(){
         $rootScope.stateIsLoading = true;
@@ -60,7 +58,7 @@ angular.module( 'voetr', [
     $rootScope.$on('$stateChangeSuccess',function(){
         $rootScope.stateIsLoading = false;
     });
-})
+}])
 .directive('errSrc', function() {
   return {
     link: function(scope, element, attrs) {

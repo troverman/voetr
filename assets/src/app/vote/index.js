@@ -1,7 +1,7 @@
 angular.module( 'voetr.vote', [
 ])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'vote', {
 		abstract: true,
 		url: '/vote/:id',
@@ -37,7 +37,7 @@ angular.module( 'voetr.vote', [
         }
     })
 
-})
+}])
 
 .controller( 'VoteCtrl', function VoteController( $sailsSocket, $scope, config, lodash, $sailsSocket, titleService, vote, votes, VoteVoteModel, myRepresentatives) {
 	titleService.setTitle(vote.title + '- voetr');

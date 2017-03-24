@@ -1,6 +1,6 @@
 angular.module('models.representative', ['lodash', 'services', 'sails.io',])
 
-.service('RepresentativeModel', function(lodash, utils, $sailsSocket) {
+.service('RepresentativeModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getConstituents = function(model) {
         var url = utils.prepareUrl('representative/constituents/' + model.id);
@@ -37,4 +37,4 @@ angular.module('models.representative', ['lodash', 'services', 'sails.io',])
         console.log(error);
     };
 
-});
+}]);

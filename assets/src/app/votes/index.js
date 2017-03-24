@@ -1,7 +1,7 @@
 angular.module( 'voetr.votes', [
 ])
 
-.config(function config( $stateProvider, $urlRouterProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
 	$stateProvider.state( 'votes', {
 		url: '/votes',
 		views: {
@@ -11,20 +11,19 @@ angular.module( 'voetr.votes', [
 			}
 		},
 		resolve: {
-            votes: function(VoteModel) {
-				return VoteModel.getSome(100, 0, 'voteCount DESC');
-            }
+            votes: ['VoteModel', function(VoteModel) {
+				return VoteModel.getSome(50, 0, 'voteCount DESC');
+            }]
         }
 	});
-	$urlRouterProvider.when('/votes/', '/votes');
-})
+}])
 
-.controller( 'VotesCtrl', function VotesCtrl( $location, $rootScope, $scope, $sailsSocket, lodash, titleService, config, votes, VoteModel, VoteVoteModel) {
+.controller( 'VotesCtrl', ['$location', '$rootScope', '$scope', '$sailsSocket', 'config', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function VotesCtrl( $location, $rootScope, $scope, $sailsSocket, config, titleService, VoteModel, votes, VoteVoteModel) {
 	titleService.setTitle('votes - voetr');
 	$scope.currentUser = config.currentUser;
-    $scope.votes = votes;
-    console.log(votes)
+	$scope.newVote = {};
 	$scope.skip = 0;
+    $scope.votes = votes;
 
 	$scope.createVote = function(voteInteger, newVote) {
         if ($scope.currentUser == undefined){$location.path('/register');}
@@ -35,18 +34,18 @@ angular.module( 'voetr.votes', [
         VoteVoteModel.create($scope.newVote).then(function(model) {
             $scope.newVote = {};
         });
-    }
+    };
 
     $scope.loadMore = function() {
-		$scope.skip = $scope.skip + 100;
+		$scope.skip = $scope.skip + 50;
 		$rootScope.stateIsLoading = true;
-		VoteModel.getSome(100,$scope.skip,'voteCount DESC').then(function(votes) {
+		VoteModel.getSome(50,$scope.skip,'voteCount DESC').then(function(votes) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};
 
-});
+}]);
 
 
 

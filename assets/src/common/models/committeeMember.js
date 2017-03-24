@@ -1,9 +1,10 @@
 angular.module('models.committeeMember', ['lodash', 'services', 'sails.io',])
 
-.service('CommitteeMemberModel', function(lodash, utils, $sailsSocket) {
+.service('CommitteeMemberModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getSome = function(limit, skip, sort) {
-        //this could be master function, pass json filter obj eg. {member: member.id, committee: committee.id}
+        //this could be master function
+        //pass json filter obj eg. {member: member.id, committee: committee.id}
         var url = utils.prepareUrl('committeemember');
         var query = {params:{limit:limit, skip:skip, sort: sort}};
         return $sailsSocket.get(url, query).then(success, error);
@@ -43,4 +44,5 @@ angular.module('models.committeeMember', ['lodash', 'services', 'sails.io',])
     var error = function(error) {
         console.log(error);
     };
-});
+
+}]);

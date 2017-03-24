@@ -1,6 +1,6 @@
 angular.module('models.search', ['lodash', 'services', 'sails.io',])
 
-.service('SearchModel', function(lodash, utils, $sailsSocket) {
+.service('SearchModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.search = function(model) {
         var url = utils.prepareUrl('search/' + model);
@@ -15,4 +15,4 @@ angular.module('models.search', ['lodash', 'services', 'sails.io',])
         console.log(error);
     };
     
-});
+}]);
