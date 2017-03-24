@@ -26,38 +26,38 @@ angular.module( 'voetr.member', [
             }
         },
 		resolve: {
-            constituents: function(RepresentativeModel, member) {
+            constituents: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getConstituents(member);
-            },
-            myRepresentatives: function(RepresentativeModel, config) {
+            }],
+            myRepresentatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
                 if(config.currentUser){
                     return RepresentativeModel.getRepresentatives(config.currentUser);
                 }
                 else{return null}
-            },
-            profilePosts: function(PostModel, member) {
+            }],
+            profilePosts: ['member', 'PostModel', function(member, PostModel) {
                 return PostModel.getByProfile(member.id, 100, 0, 'createdAt desc');
-            },
-            userPosts: function(PostModel, member) {
+            }],
+            userPosts: ['member', 'PostModel', function(member, PostModel) {
                 return PostModel.getByUser(member.id, 100, 0, 'createdAt desc');
-            },
-            representatives: function(RepresentativeModel, member) {
+            }],
+            representatives: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getRepresentatives(member);
-            },
-            votes: function(VoteVoteModel, member) {
+            }],
+            votes: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
                 return VoteVoteModel.getByUser(member.id, 25, 0, 'createdAt desc');
-            },
-            voteCount: function(VoteVoteModel, member) {
+            }],
+            voteCount: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
                 return VoteVoteModel.getUserCount(member.id);
-            },
-            committees: function(CommitteeMemberModel, member){
+            }],
+            committees: ['CommitteeMemberModel', 'member', function(CommitteeMemberModel, member){
                 return CommitteeMemberModel.getByMember(member.id);
-            }
+            }]
         }
     });
 }])
 
-.controller( 'MemberCtrl', function MemberController( $sailsSocket, $scope, config, constituents, member, myRepresentatives, representatives, RepresentativeModel, titleService, voteCount, votes, VoteVoteModel, profilePosts, userPosts, PostModel, committees) {
+.controller( 'MemberCtrl', ['$sailsSocket', '$scope', 'config', 'committees', 'constituents', 'member', 'myRepresentatives', 'PostModel', 'profilePosts', 'RepresentativeModel', 'representatives', 'titleService', 'userPosts', 'voteCount', 'votes', 'VoteVoteModel', function MemberController( $sailsSocket, $scope, config, committees, constituents, member, myRepresentatives, PostModel, profilePosts, RepresentativeModel, representatives, titleService, userPosts, voteCount, votes, VoteVoteModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
@@ -167,4 +167,4 @@ angular.module( 'voetr.member', [
         }
     });
 
-});
+}]);
