@@ -12,9 +12,9 @@ angular.module( 'voetr.member', [
 			}
 		},
 		resolve: {
-            member: function(UserModel, $stateParams) {
+            member: ['$stateParams', 'UserModel', function($stateParams, UserModel) {
                 return UserModel.getByUsername($stateParams.path);
-            }
+            }]
         }
 	})
     .state( 'member.index', {
