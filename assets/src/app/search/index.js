@@ -20,12 +20,12 @@ angular.module( 'voetr.search', [
             }
         },
         resolve: {
-            searchResults: function(SearchModel) {
+            searchResults: ['SearchModel', function(SearchModel) {
                 return SearchModel.search('');
-            },
-            bills: function(BillModel){
+            }],
+            bills: ['BillModel', function(BillModel){
                 return BillModel.getSome(10, 0, 'createdAt DESC');
-            },
+            }],
         }
     })
     .state( 'search.query', {
@@ -38,23 +38,24 @@ angular.module( 'voetr.search', [
         },
         resolve: {
             //restructure to commitee search, bill search, memeber search etccccc
-            searchResults: function(SearchModel, $stateParams) {
+            searchResults: ['$stateParams', 'SearchModel', function($stateParams, SearchModel) {
                 return SearchModel.search($stateParams.searchQuery);
-            },
-            bills: function(BillModel){
+            }],
+            bills: ['BillModel', function(BillModel){
                 return BillModel.getSome(10, 0, 'createdAt DESC');
-            },
+            }],
          }
     });
 }])
 
-.controller( 'SearchController', function SearchController( $rootScope, $scope, $stateParams, lodash, config, titleService, searchResults, SearchModel, RepresentativeModel, bills ) {
+.controller( 'SearchController', ['$rootScope', '$scope', '$stateParams', 'bills', 'config', 'lodash', 'RepresentativeModel', 'searchResults', 'SearchModel', 'titleService', function SearchController( $rootScope, $scope, $stateParams, bills, config, lodash, RepresentativeModel, searchResults, SearchModel, titleService ) {
     $scope.searchQuery = $stateParams.searchQuery;
     if (typeof $scope.searchQuery != "undefined" && $scope.searchQuery != ''){titleService.setTitle($scope.searchQuery + ' - voetr');}
     else{titleService.setTitle('search - voetr');}
     $scope.bills = bills;
     $scope.searchResults = searchResults;
     $scope.gettingRepresentatives = false;
+    $scope.officialRepresentatives = {};
     
     $scope.keyPress = function(searchValue){
         $rootScope.stateIsLoading = true;
@@ -63,8 +64,6 @@ angular.module( 'voetr.search', [
             $scope.searchResults = models;
         });
     };
-
-    $scope.officialRepresentatives = {};
 
     $scope.getLatLng = function() {
         if (navigator.geolocation) {
@@ -82,4 +81,4 @@ angular.module( 'voetr.search', [
         }
     };
 
-});
+}]);
