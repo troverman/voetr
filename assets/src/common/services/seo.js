@@ -1,14 +1,13 @@
 angular.module('services.seo', [])
-.factory('seoService',['$document', function($document) {
+.factory('seoService',['$window', function($window) {
   var description;
-  var tags;
+  var keywords;
   return {
-    setTags: function(t) {
-      tags = t;
-      return $document.prop('meta', tags);
+    setDescription: function(description) {
+      return $window.document.getElementsByName('description')[0].content = description;
     },
-    setDescription: function() {
-      return $document.prop('meta');
+    setKeywords: function(keywords) {
+      return $window.document.getElementsByName('keywords')[0].content = keywords;
     }
   };
 }]);
