@@ -2,6 +2,12 @@ var request = require("request");
 
 module.exports = {
 
+	ssl: function(req, res){
+
+		res.send('26yeRHjK-mgWP_Uz4bZP6OsQ-fslBu14HN9WCkfu5zo.yMz-EAV5agQah1zn-w6Aqp0JVzxv1jmSFH6dh5Ea9uI')
+
+	},
+
 	cities: function(req, res) {
 
 		var url = "https://gist.githubusercontent.com/mayurah/5f4a6b18b1aa8c26910f/raw/8dd2b9486874d283141cad8cccc5916e48c75dcd/countriesToCities.json";
