@@ -15,6 +15,11 @@ process.chdir(__dirname);
     console.log(e)
     return;
   }
+  var express = require('express');
+  var app = express();
+  app.get('/.well-known/acme-challenge/26yeRHjK-mgWP_Uz4bZP6OsQ-fslBu14HN9WCkfu5zo', function(req, res) {
+    res.send('26yeRHjK-mgWP_Uz4bZP6OsQ-fslBu14HN9WCkfu5zo.yMz-EAV5agQah1zn-w6Aqp0JVzxv1jmSFH6dh5Ea9uI')
+  });
 
   // Try to get `rc` dependency
   var rc;
