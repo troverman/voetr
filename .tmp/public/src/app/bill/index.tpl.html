@@ -1,0 +1,106 @@
+<div ui-view="bill">
+	<div class="billContainer container" style="min-height:100vh">
+		<h3>0 - {{bill.title}}</h3>
+		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
+		<div ng-repeat="committee in bill.committees">
+			<p><a href="committee/{{committee.urlTitle}}">{{committee.title}}</a></p>
+		</div>
+		<md-divider></md-divider>
+		<div class="row">
+			<button class="col-xs-6 btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
+        	<button class="col-xs-6 btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
+    	</div>
+		<uib-tabset>
+			<uib-tab heading="Info" active="active">
+				<br>
+				<div class="container">
+					<div class="col-lg-4 col-sm-6">
+			          <div style="margin:10px; box-shadow: 2px 2px 10px #999;">
+			            <div class="image" style="background-image: url('{{bill.user.coverUrl}}')">
+	              		  <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em;max-width:20em" src="{{bill.user.avatarUrl}}" err-src="/images/avatar.png">
+			            </div>
+			            <div class="info">
+			              <h2 class="name"><a href="member/{{bill.user.username}}">{{bill.user.username}}</a></h2>
+			              <p>{{bill.user.title}}</p>
+			              <!--<button class="btn btn-default">follow</button>-->
+			            </div>
+			            <div class="social">
+			              <a ng-show="bill.user.socialAccounts.facebook.profileUrl" href="{{bill.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+			              <a ng-show="bill.user.socialAccounts.twitter.profileUrl" href="{{bill.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+			              <a ng-show="bill.user.socialAccounts.google.profileUrl" href="{{bill.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+			            </div>
+			          </div>
+			        </div>
+					<div class="col-sm-8">
+						<br>
+						<p>{{bill.billContent.current_status_description}}</p>
+						<p>{{bill.billContent.current_status_label}}</p>
+						<div ng-show="bill.summary"><p>Bill Summary</p><p>{{bill.summary}}</p></div>
+						<div ng-bind-html="billContent"></div>
+					</div>
+				</div>
+		    </uib-tab>
+		    <uib-tab heading="Activity">
+		    	{{actions}}
+		    </uib-tab>
+			<uib-tab heading="Discussion">
+				<div class="commentsContainer" ng-hide="comments.length==0 && !currentUser">
+					<!--if logged in-->
+					<div ng-show="currentUser">
+						<br>
+						<form class="blog-input" role="form" ng-submit="createComment(newComment)">
+							<div class="form-group">
+								<textarea type="text" placeholder="comment..." ng-model="newComment.comment" class="form-control" id="postTitle"></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					</div>
+					<br><br>
+					<!--/if logged in-->
+					<md-card class="commentContainer" ng-repeat="comment in comments | orderBy:'-createdAt'">
+			            <md-card-title>
+			            	<md-card-title-text>
+								<a href="/member/{{comment.user.username}}">
+									<img style="max-width:64px;" src="{{comment.user.avatarUrl}}" class="md-card-image" alt="{{comment.user.username}}">
+									<p>{{comment.user.username}}</p>
+								</a>
+								<p>{{comment.comment}}</p>
+			            	</md-card-title-text>
+			            </md-card-title>
+			        </md-card>
+				</div>
+		    </uib-tab>
+		    <uib-tab heading="Votes">
+	    		<div ng-show="currentUser">
+					<form class="blog-input" role="form" ng-submit="">
+						<div class="form-group">
+							<input type="text" placeholder="newVote" ng-model="newComment.comment" class="form-control" id="postTitle">
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			    <div class="voteContainer" ng-show="votes.length!=0">
+					<div ng-repeat="vote in bill.votes">
+						<h4>
+			      			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
+			      			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
+							<button class="btn btn-default" ng-click="createVote(0, vote)"><i class="fa fa-question"></i> {{vote.otherCount}}</button>
+			      			({{vote.voteCount}})
+							<a href="/vote/{{vote.id}}">{{vote.title}}</a> -- {{vote.result}}
+						</h4>
+						<p>comment</p>
+						<!--<p>{{vote.type}}</p>-->
+						<md-divider></md-divider>
+					</div>
+				</div>
+		    </uib-tab>
+			<uib-tab heading="Related">
+				<div ng-repeat="bill in bill.relatedBills">
+					<p><a href="bill/{{bill.urlTitle}}">{{bill.title}}</a></p>
+				</div>
+		    </uib-tab>
+		</uib-tabset>
+		<div style="height:100px;"></div>
+	</div>
+	<div ng-include="'footer/index.tpl.html'"></div>
+</div>
