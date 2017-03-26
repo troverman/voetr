@@ -1,6 +1,6 @@
 module.exports = function(req, res, next) {
 	//'use strict';
-	var express = require('express'),
+	var express = require('express');
  	var app = express();
 	app.get('*',function(req,res,next){
 	if ((req.headers['x-forwarded-proto'] !== 'https') && (process.env.NODE_ENV === 'production')) {
