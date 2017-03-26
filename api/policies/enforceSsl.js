@@ -8,10 +8,10 @@ module.exports = function(req, res, next) {
 			'https://',
 			req.host,
 			req.url
-		].join(''));
+		].join(''));}
 
-	  else
-	    next() /* Continue to other routes if we're not redirecting */
+	  else{
+	    next()} /* Continue to other routes if we're not redirecting */
 	})
 
 
