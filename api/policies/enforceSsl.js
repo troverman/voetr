@@ -5,11 +5,9 @@ module.exports = function(req, res, next) {
 			req.host,
 			req.url
 		].join(''));*/
-		//console.log(res)
-		console.log(req.headers['x-forwarded-proto'])
+		console.log(req.headers['x-forwarded-proto'] == 'http');
+		console.log(req.headers['x-forwarded-proto'] == 'https')
 		res.json('https://www.google.com')
 	} 
-	else {
-		next();
-	}
+	else {next()}
 };
