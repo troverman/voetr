@@ -12,7 +12,7 @@ module.exports = function(req, res, next) {
 
 	  else{
 	    next()} /* Continue to other routes if we're not redirecting */
-	})
+	}).then(function(){next();})
 
 
 	//if ((req.headers['x-forwarded-proto'] !== 'https') && (process.env.NODE_ENV === 'production')) {
