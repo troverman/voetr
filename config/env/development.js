@@ -26,7 +26,11 @@ module.exports = {
 		domain: 'mail.voetr.com'
 	},
 
-  hookTimeout: 10000000
+  hookTimeout: 10000000,
+  
+  policies: {
+    '*': 'enforceSsl'
+  }
 
 
 };
