@@ -1,5 +1,5 @@
 module.exports = function(req, res, next) {
-	next();
+	//next();
     if (req.secure) {
         //Already https; don't do anything special.
         next();
