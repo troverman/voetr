@@ -6,7 +6,7 @@ module.exports = function(req, res, next) {
 			req.url
 		].join(''));*/
 		console.log(res)
-		res.status(301).redirect('https://www.google.com')
+		res.json('https://www.google.com')
 	} 
 	else {
 		next();
