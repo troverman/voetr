@@ -42,8 +42,8 @@ module.exports = {
     domain: 'mail.voetr.com'
   },
   //port: 443,
-  policies: {
-    '*': 'isHTTPS'
-  }
+  //policies: {
+  //  '*': 'isHTTPS'
+  //}
 
 };
