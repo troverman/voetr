@@ -9,6 +9,7 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
+var http = require( 'http' );
 module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
@@ -19,6 +20,9 @@ module.exports.bootstrap = function(cb) {
   intervalService.intervalService();
   sails.services.passport.loadStrategies();
   sails.services.emailservice.loadTemplates().then(function(){
+  	if(sails.config.environment === "production") {
+        http.createServer( sails.hooks.http.app ).listen( process.env.PORT );        
+    }
   	cb();
   })
 };
