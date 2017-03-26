@@ -41,6 +41,7 @@ module.exports = {
     key: 'key-b93391fa17454dc097c7b8418ff0c862',
     domain: 'mail.voetr.com'
   },
+  port: 443,
   policies: {
     '*': 'isHTTPS'
   }
