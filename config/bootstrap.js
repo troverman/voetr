@@ -9,7 +9,6 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-var http = require( 'http' );
 module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
@@ -24,15 +23,14 @@ module.exports.bootstrap = function(cb) {
     //    http.createServer( sails.hooks.http.app ).listen( process.env.PORT );        
     //}
 
-    var express = require("express")
-    var app = express();
-    app.get('*', function(req,res) {
-      if(req.isSocket)
-        return res.redirect('wss://' + req.headers.host + req.url);
-      return res.redirect('https://' + req.headers.host + req.url);
-    }).listen(process.env.PORT);
+    //var express = require("express")
+    //var app = express();
+    //app.get('*', function(req,res) {
+    //  if(req.isSocket)
+    //    return res.redirect('wss://' + req.headers.host + req.url);
+    //  return res.redirect('https://' + req.headers.host + req.url);
+    //}).listen(process.env.PORT);
 
-    
   	cb();
   })
 };
