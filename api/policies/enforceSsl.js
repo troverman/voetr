@@ -1,10 +1,15 @@
 module.exports = function(req, res, next) {
 	//'use strict';
-
-	/*var app = express();
+	/*var express = require('express'),
+ 	var app = express();
 	app.get('*',function(req,res,next){
-	  if(req.headers['x-forwarded-proto']!='https')
-	    res.redirect('https://mypreferreddomain.com'+req.url)
+	if ((req.headers['x-forwarded-proto'] !== 'https') && (process.env.NODE_ENV === 'production')) {
+		res.redirect([
+			'https://',
+			req.host,
+			req.url
+		].join(''));
+
 	  else
 	    next() /* Continue to other routes if we're not redirecting */
 	//})*/
@@ -16,7 +21,8 @@ module.exports = function(req, res, next) {
 			req.host,
 			req.url
 		].join(''));*/
-		res.status(301).redirect('https://www.google.com')
+		console.log(res)
+		//res.status(301).redirect('https://www.google.com')
 	} 
 	else {
 		next();
