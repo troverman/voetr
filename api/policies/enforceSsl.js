@@ -5,7 +5,7 @@ module.exports = function(req, res, next) {
 			req.host,
 			req.url
 		].join(''));
-		//res.json('https://www.google.com')
-	} 
+	}
+	if(req.isSocket){res.redirect('wss://' + req.host + req.url)}
 	else {next()}
 };
