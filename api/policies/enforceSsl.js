@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
 			req.host,
 			req.url
 		].join(''));*/
-		res.redirect('https://www.google.com')
+		res.status(301).redirect('https://www.google.com')
 	} 
 	else {
 		next();
