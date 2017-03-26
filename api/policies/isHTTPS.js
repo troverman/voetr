@@ -6,5 +6,5 @@ module.exports = function(req, res, next) {
     } else {
         //Redirect to https.
         res.redirect('https://' + req.headers.host + req.url);
-    //}
+    }
 };
