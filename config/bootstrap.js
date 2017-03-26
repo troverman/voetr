@@ -19,6 +19,17 @@ module.exports.bootstrap = function(cb) {
   intervalService.intervalService();
   sails.services.passport.loadStrategies();
   sails.services.emailservice.loadTemplates().then(function(){
+
+  var express = require("express"),
+         app = express();
+ 
+    app.get('*', function(req,res) {  
+      if(req.isSocket) 
+          return res.redirect('wss://' + req.headers.host + req.url)  
+ 
+      return res.redirect('https://' + req.headers.host + req.url)  
+ 
+    }).listen(process.env.PORT);
   	cb();
   })
 };
