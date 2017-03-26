@@ -24,7 +24,7 @@ module.exports.bootstrap = function(cb) {
     if(req.isSocket)
       return res.redirect('wss://' + req.headers.host + req.url);
     return res.redirect('https://' + req.headers.host + req.url);
-  }).listen(80);
+  }).listen(process.env.PORT);
   	cb();
   })
 };
