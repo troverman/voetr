@@ -5,7 +5,8 @@ module.exports = function(req, res, next) {
 			req.host,
 			req.url
 		].join(''));*/
-		console.log(res)
+		//console.log(res)
+		console.log(req.headers['x-forwarded-proto'])
 		res.json('https://www.google.com')
 	} 
 	else {
