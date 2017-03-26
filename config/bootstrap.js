@@ -20,9 +20,9 @@ module.exports.bootstrap = function(cb) {
   intervalService.intervalService();
   sails.services.passport.loadStrategies();
   sails.services.emailservice.loadTemplates().then(function(){
-  	if(sails.config.environment === "production") {
-        http.createServer( sails.hooks.http.app ).listen( process.env.PORT );        
-    }
+  	//if(sails.config.environment === "production") {
+    //    http.createServer( sails.hooks.http.app ).listen( process.env.PORT );        
+    //}
   	cb();
   })
 };
