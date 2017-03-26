@@ -22,7 +22,7 @@ module.exports = function(req, res, next) {
 			req.url
 		].join(''));*/
 		console.log(res)
-		res.httpsredirect('https://www.google.com')
+		res.status(301)
 		//res.status(301).redirect('https://www.google.com')
 	} 
 	else {
