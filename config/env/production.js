@@ -42,7 +42,8 @@ module.exports = {
     domain: 'mail.voetr.com'
   },
   policies: {
-    '*': 'enforceSsl'
-  }
+    '*': 'enforceSsl',
+    '*': [ 'passport' ]
+  },
 
 };
