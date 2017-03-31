@@ -194,7 +194,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "					<div class=\"col-lg-4 col-sm-6\">\n" +
     "			          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
     "			            <div class=\"image\" style=\"background-image: url('{{bill.user.coverUrl}}')\">\n" +
-    "	              		  <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em;max-width:20em\" src=\"{{bill.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "	              		  <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em;max-width:20em\" ng-src=\"{{bill.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "			            </div>\n" +
     "			            <div class=\"info\">\n" +
     "			              <h2 class=\"name\"><a href=\"member/{{bill.user.username}}\">{{bill.user.username}}</a></h2>\n" +
@@ -239,7 +239,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "			            <md-card-title>\n" +
     "			            	<md-card-title-text>\n" +
     "								<a href=\"/member/{{comment.user.username}}\">\n" +
-    "									<img style=\"max-width:64px;\" src=\"{{comment.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{comment.user.username}}\">\n" +
+    "									<img style=\"max-width:64px;\" ng-src=\"{{comment.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{comment.user.username}}\">\n" +
     "									<p>{{comment.user.username}}</p>\n" +
     "								</a>\n" +
     "								<p>{{comment.comment}}</p>\n" +

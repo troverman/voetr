@@ -42,14 +42,14 @@ angular.module( 'voetr.vote', [
 
 }])
 
-.controller( 'VoteCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'lodash', 'myRepresentatives', 'posts', 'titleService', 'vote', 'votes', 'VoteVoteModel', function VoteController( $location, $sailsSocket, $scope, config, lodash, myRepresentatives, posts, titleService, vote, votes, VoteVoteModel) {
+.controller( 'VoteCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'lodash', 'myRepresentatives', 'PostModel', 'posts', 'titleService', 'vote', 'votes', 'VoteVoteModel', function VoteController( $location, $sailsSocket, $scope, config, lodash, myRepresentatives, PostModel, posts, titleService, vote, votes, VoteVoteModel) {
 	titleService.setTitle(vote.title + '- voetr');
     $scope.currentUser = config.currentUser;
     $scope.noVotes = votes.filter(function(obj){return obj.voteInteger == -1});
     $scope.myRepresentatives = myRepresentatives;
     $scope.newPost = {};
     $scope.newVote = {};
-    $scope.posts;
+    $scope.posts = posts
 	$scope.vote = vote;
 	$scope.votes = votes;
     $scope.yesVotes = votes.filter(function(obj){return obj.voteInteger == 1});
