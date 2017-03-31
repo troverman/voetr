@@ -148,11 +148,14 @@ angular.module( 'voetr.committee', [
     };
 
     $scope.createPost = function(){
-        $scope.newPost.user = $scope.currentUser.id;
-        $scope.newPost.committee = $scope.committee.id
-        PostModel.create($scope.newPost).then(function(model){
-            console.log(model);
-        })
+        if($scope.currentUser){
+            $scope.newPost.user = $scope.currentUser.id;
+            $scope.newPost.committee = $scope.committee.id
+            PostModel.create($scope.newPost).then(function(model){
+                console.log(model);
+            });
+        }
+        else{$location.path('/login')}
     };
 
     $scope.createBill = function(newBill) {

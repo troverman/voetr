@@ -32,6 +32,22 @@ module.exports = {
 		});
 	},
 
+	getByBill: function(req, res) {
+		var bill = req.query.bill
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		Post.getByBill(bill, limit, skip, sort)
+		.then(function(models) {
+			Post.watch(req);
+			Post.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
 	getByCommittee: function(req, res) {
 		var committee = req.query.committee
 		var limit = req.query.limit;
@@ -70,6 +86,22 @@ module.exports = {
 		var skip = req.query.skip;
 		var sort = req.query.sort;
 		Post.getByUser(user, limit, skip, sort)
+		.then(function(models) {
+			Post.watch(req);
+			Post.subscribe(req, models);
+			res.json(models);
+		})
+		.fail(function(err) {
+			// An error occured
+		});
+	},
+
+	getByVote: function(req, res) {
+		var vote = req.query.vote
+		var limit = req.query.limit;
+		var skip = req.query.skip;
+		var sort = req.query.sort;
+		Post.getByVote(vote, limit, skip, sort)
 		.then(function(models) {
 			Post.watch(req);
 			Post.subscribe(req, models);

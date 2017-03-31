@@ -13,6 +13,12 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url, query).then(success, error);
     };
 
+    this.getByBill = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('post/filter/bill');
+        var query = {params:{bill:model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
+    };
+
     this.getByCommittee = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('post/filter/committee');
         var query = {params:{committee:model, limit:limit, skip:skip, sort: sort}};
@@ -28,6 +34,12 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
     this.getByUser = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('post/filter/user');
         var query = {params:{user:model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
+    };
+
+    this.getByVote = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('post/filter/vote');
+        var query = {params:{vote:model, limit:limit, skip:skip, sort: sort}};
         return $sailsSocket.get(url, query).then(success, error);
     };
 

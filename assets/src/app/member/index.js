@@ -36,16 +36,16 @@ angular.module( 'voetr.member', [
                 else{return null}
             }],
             profilePosts: ['member', 'PostModel', function(member, PostModel) {
-                return PostModel.getByProfile(member.id, 100, 0, 'createdAt desc');
+                return PostModel.getByProfile(member.id, 100, 0, 'createdAt DESC');
             }],
             userPosts: ['member', 'PostModel', function(member, PostModel) {
-                return PostModel.getByUser(member.id, 100, 0, 'createdAt desc');
+                return PostModel.getByUser(member.id, 100, 0, 'createdAt DESC');
             }],
             representatives: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getRepresentatives(member);
             }],
             votes: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
-                return VoteVoteModel.getByUser(member.id, 25, 0, 'createdAt desc');
+                return VoteVoteModel.getByUser(member.id, 25, 0, 'createdAt DESC');
             }],
             voteCount: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
                 return VoteVoteModel.getUserCount(member.id);
@@ -57,13 +57,15 @@ angular.module( 'voetr.member', [
     });
 }])
 
-.controller( 'MemberCtrl', ['$sailsSocket', '$scope', 'config', 'committees', 'constituents', 'member', 'myRepresentatives', 'PostModel', 'profilePosts', 'RepresentativeModel', 'representatives', 'titleService', 'userPosts', 'voteCount', 'votes', 'VoteVoteModel', function MemberController( $sailsSocket, $scope, config, committees, constituents, member, myRepresentatives, PostModel, profilePosts, RepresentativeModel, representatives, titleService, userPosts, voteCount, votes, VoteVoteModel) {
+.controller( 'MemberCtrl', ['$location','$sailsSocket', '$scope', 'config', 'committees', 'constituents', 'member', 'myRepresentatives', 'PostModel', 'profilePosts', 'RepresentativeModel', 'representatives', 'titleService', 'userPosts', 'voteCount', 'votes', 'VoteVoteModel', function MemberController( $location, $sailsSocket, $scope, config, committees, constituents, member, myRepresentatives, PostModel, profilePosts, RepresentativeModel, representatives, titleService, userPosts, voteCount, votes, VoteVoteModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
 	$scope.votes = votes;
+
     //sloppy
     $scope.posts = profilePosts.concat(userPosts);
+
     $scope.voteCount = voteCount.voteCount;
     $scope.following = votes;
     $scope.followers = votes;
@@ -80,29 +82,31 @@ angular.module( 'voetr.member', [
     if (member.fax && member.fax != ','){$scope.showFax = true}
     
     $scope.createPost = function(){
-        console.log($scope.newPost);
-        $scope.newPost.user = $scope.currentUser.id;
-        $scope.newPost.profile = $scope.member.id
-        PostModel.create($scope.newPost).then(function(model){
-            console.log(model);
-        })
+        if($scope.currentUser){
+            $scope.newPost.user = $scope.currentUser.id;
+            $scope.newPost.profile = $scope.member.id
+            PostModel.create($scope.newPost).then(function(model){
+                $scope.newPost = {};
+            });
+        }
+        else{$location.path('/login')}
     };
 
     $scope.selectAsRepresentative = function(){
-        $scope.newRepresentative = {};
-        $scope.newRepresentative.representative = $scope.member;
-        $scope.newRepresentative.constituent = config.currentUser;
-        RepresentativeModel.create($scope.newRepresentative).then(function(model) {
-            $scope.newFollower = {};
-        });
+        if($scope.currentUser){
+            $scope.newRepresentative = {};
+            $scope.newRepresentative.representative = $scope.member;
+            $scope.newRepresentative.constituent = $scope.currentUser;
+            RepresentativeModel.create($scope.newRepresentative).then(function(model) {
+                $scope.newFollower = {};
+            });
+        }
+        else{$location.path('/login')}
     };
 
     $scope.removeRepresentative = function(member) {
-        // check here if this message belongs to the currentUser
-        if (member.user.id === config.currentUser.id) {
-            RepresentativeModel.delete(member).then(function(model) {
-                // message has been deleted, and removed from $scope.messages
-            });
+        if (member.user.id === $scope.currentUser.id) {
+            RepresentativeModel.delete(member);
         }
     };
 

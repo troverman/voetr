@@ -221,6 +221,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "		    	{{actions}}\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Discussion\">\n" +
+    "			\n" +
     "				<div class=\"commentsContainer\" ng-hide=\"comments.length==0 && !currentUser\">\n" +
     "					<!--if logged in-->\n" +
     "					<div ng-show=\"currentUser\">\n" +
@@ -246,6 +247,27 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "			            </md-card-title>\n" +
     "			        </md-card>\n" +
     "				</div>\n" +
+    "\n" +
+    "				<div class=\"profilePost\">\n" +
+    "		          <form role=\"form\">\n" +
+    "		            <md-input-container class=\"md-block\">\n" +
+    "		              <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "		            </md-input-container>\n" +
+    "		            <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "		          </form>\n" +
+    "		        </div>\n" +
+    "		        <md-card ng-repeat=\"post in posts\">\n" +
+    "		          <md-card-title>\n" +
+    "		            <md-card-title-text>\n" +
+    "		            <a href=\"member/{{post.user.username}}\">\n" +
+    "		              <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "		              <p>{{post.user.username}}</p>\n" +
+    "		            </a>\n" +
+    "		            <p>{{post.post}}</p>\n" +
+    "		            </md-card-title-text>\n" +
+    "		          </md-card-title>\n" +
+    "		        </md-card>\n" +
+    "\n" +
     "		    </uib-tab>\n" +
     "		    <uib-tab heading=\"Votes\">\n" +
     "	    		<div ng-show=\"currentUser\">\n" +
@@ -293,11 +315,23 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "  </div>\n" +
     "</div>\n" +
     "<div class=\"container\">\n" +
+    "  <div class=\"dropdown sort-dropdown noselect\">\n" +
+    "      <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+    "          <h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
+    "      </a>\n" +
+    "      <ul class=\"dropdown-menu\">\n" +
+    "          <li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Most Recent</h5></a></li>\n" +
+    "          <hr class=\"sort-hr\">\n" +
+    "          <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount DESC')\"><h5>Highest Rated</h5></a></li>\n" +
+    "          <hr class=\"sort-hr\">\n" +
+    "          <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Lowest Rated</h5></a></li>\n" +
+    "      </ul>\n" +
+    "  </div>\n" +
     "	<md-card ng-repeat=\"bill in bills\">\n" +
     "      <md-card-title>\n" +
     "        <md-card-title-text>\n" +
     "          <h4>\n" +
-    "			{{bill.voteCount}}\n" +
+    "			     {{bill.voteCount}}\n" +
     "            <button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{vote.plusCount}}</button>\n" +
     "            <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{vote.minusCount}}</button>\n" +
     "            <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
@@ -902,10 +936,13 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "        <div class=\"col-md-6\">\n" +
     "          <h1>be part of the movement</h1>\n" +
     "          <h4>direct your impact though input on policy</h4>\n" +
-    "          <!--reduce polarization-->\n" +
-    "          <p>directly impact the creation of policy</p>\n" +
-    "          <p>creating a coalition of representation</p>\n" +
+    "          <h4>create a coalition of representation</h4>\n" +
+    "          <br><br>\n" +
     "          <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
+    "          <!--reduce polarization-->\n" +
+    "          <!--seeing past partisan politics-->\n" +
+    "          <!--<p>directly impact the creation of policy</p>-->\n" +
+    "          <!--<p>creating a coalition of representation</p>-->\n" +
     "        </div>\n" +
     "        <!--<div class=\"col-md-12\">\n" +
     "          <md-divider></md-divider>\n" +
@@ -948,7 +985,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "          </md-card-title>\n" +
     "        </md-card> \n" +
     "        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
@@ -965,7 +1002,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "          </md-card-title>\n" +
     "        </md-card>\n" +
     "        <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
-    "          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
@@ -1013,7 +1050,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "          </div>\n" +
     "        </div>\n" +
     "        <div ng-click=\"loadMoreMembers()\" style=\"text-align:center\">\n" +
-    "          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
@@ -1364,7 +1401,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
 angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("nav/index.tpl.html",
     "<style>\n" +
-    ".navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
+    "//.navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
+    ".navbar-inverse{background-color:rgba(255,255,255,1);}\n" +
+    ".navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text{color:#424242}\n" +
     "</style>\n" +
     "<div ng-controller=\"NavCtrl\" class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
     "  <div class=\"container\">\n" +
@@ -1388,7 +1427,6 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templ
     "        </form>\n" +
     "      </ul>\n" +
     "      <ul class=\"nav navbar-nav navbar-right\">\n" +
-    "        <!--<li ng-show=\"currentUser\"><a href=\"/account\">{{currentUser.username}}</a></li>-->\n" +
     "        <li class=\"dropdown\" ng-show=\"currentUser\">\n" +
     "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
     "            {{currentUser.username}} <span class=\"caret\"></span>\n" +
@@ -1405,7 +1443,6 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templ
     "            <li><a href=\"/logout\">log out</a></li>\n" +
     "          </ul>\n" +
     "        </li>\n" +
-    "        <!--<li ng-show=\"currentUser\"><a class=\"\" href=\"#\">+ message</a></li>-->\n" +
     "        <li ng-show=\"!currentUser\"><a href=\"/register\">register</a></li>\n" +
     "        <li ng-show=\"!currentUser\"><a href=\"/login\">login</a></li>\n" +
     "      </ul>\n" +
@@ -1561,7 +1598,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "			        </md-card>\n" +
     "			    </div>\n" +
     "		        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "		          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more</button>\n" +
+    "		          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
     "		        </div>\n" +
     "		    </div>\n" +
     "		    <div style=\"height:100px;\"></div>\n" +
@@ -1647,6 +1684,25 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "			<uib-tab heading=\"Activity\" active=\"active\">\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Discussion\">\n" +
+    "				<div class=\"profilePost\">\n" +
+    "		          <form role=\"form\">\n" +
+    "		            <md-input-container class=\"md-block\">\n" +
+    "		              <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "		            </md-input-container>\n" +
+    "		            <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "		          </form>\n" +
+    "		        </div>\n" +
+    "		        <md-card ng-repeat=\"post in posts\">\n" +
+    "		          <md-card-title>\n" +
+    "		            <md-card-title-text>\n" +
+    "		            <a href=\"member/{{post.user.username}}\">\n" +
+    "		              <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "		              <p>{{post.user.username}}</p>\n" +
+    "		            </a>\n" +
+    "		            <p>{{post.post}}</p>\n" +
+    "		            </md-card-title-text>\n" +
+    "		          </md-card-title>\n" +
+    "		        </md-card>\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"{{vote.plusCount}}  Yes\" active=\"active\">\n" +
     "			    <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"vote in yesVotes\">\n" +
@@ -1700,6 +1756,18 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "  </div>\n" +
     "</div>\n" +
     "<md-list class=\"container\">\n" +
+    "	<div class=\"dropdown sort-dropdown noselect\">\n" +
+    "		<a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+    "			<h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
+    "		</a>\n" +
+    "		<ul class=\"dropdown-menu\">\n" +
+    "			<li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Most Recent</h5></a></li>\n" +
+    "			<hr class=\"sort-hr\">\n" +
+    "			<li><a class=\"sort-a\" ng-click=\"selectSort('voteCount DESC')\"><h5>Most Votes</h5></a></li>\n" +
+    "			<hr class=\"sort-hr\">\n" +
+    "			<li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Lowest Votes</h5></a></li>\n" +
+    "		</ul>\n" +
+    "	</div>\n" +
     "	<md-list-item ng-repeat=\"vote in votes\">\n" +
     "		<div class=\"md-list-item-text\" layout=\"column\">\n" +
     "			<h3 class=\"\" style=\"font-size:25px\">\n" +

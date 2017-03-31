@@ -24,22 +24,35 @@ angular.module( 'voetr.votes', [
 	$scope.newVote = {};
 	$scope.skip = 0;
     $scope.votes = votes;
+    $scope.sort = 'voteCount DESC';
 
 	$scope.createVote = function(voteInteger, newVote) {
-        if ($scope.currentUser == undefined){$location.path('/register');}
-        $scope.newVote.user = config.currentUser.id;
-        $scope.newVote.bill = newVote.bill;
-        $scope.newVote.vote = newVote.id;
-        $scope.newVote.voteInteger = voteInteger;
-        VoteVoteModel.create($scope.newVote).then(function(model) {
-            $scope.newVote = {};
-        });
+        if ($scope.currentUser){
+	        $scope.newVote.user = config.currentUser.id;
+	        $scope.newVote.bill = newVote.bill;
+	        $scope.newVote.vote = newVote.id;
+	        $scope.newVote.voteInteger = voteInteger;
+	        VoteVoteModel.create($scope.newVote).then(function(model) {
+	            $scope.newVote = {};
+	        });
+    	}
+		else{$location.path('/register');}
+
     };
+
+    $scope.selectSort = function(sort){
+		$scope.sort = sort;
+		$rootScope.stateIsLoading = true;
+		VoteModel.getSome(50, $scope.skip, $scope.sort).then(function(votes) {
+			$rootScope.stateIsLoading = false;
+			$scope.votes = votes;
+		});
+	};
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 50;
 		$rootScope.stateIsLoading = true;
-		VoteModel.getSome(50,$scope.skip,'voteCount DESC').then(function(votes) {
+		VoteModel.getSome(50,$scope.skip, $scope.sort).then(function(votes) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.votes, votes);
 		});

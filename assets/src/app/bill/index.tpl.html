@@ -44,6 +44,7 @@
 		    	{{actions}}
 		    </uib-tab>
 			<uib-tab heading="Discussion">
+			
 				<div class="commentsContainer" ng-hide="comments.length==0 && !currentUser">
 					<!--if logged in-->
 					<div ng-show="currentUser">
@@ -69,6 +70,27 @@
 			            </md-card-title>
 			        </md-card>
 				</div>
+
+				<div class="profilePost">
+		          <form role="form">
+		            <md-input-container class="md-block">
+		              <textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+		            </md-input-container>
+		            <button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
+		          </form>
+		        </div>
+		        <md-card ng-repeat="post in posts">
+		          <md-card-title>
+		            <md-card-title-text>
+		            <a href="member/{{post.user.username}}">
+		              <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+		              <p>{{post.user.username}}</p>
+		            </a>
+		            <p>{{post.post}}</p>
+		            </md-card-title-text>
+		          </md-card-title>
+		        </md-card>
+
 		    </uib-tab>
 		    <uib-tab heading="Votes">
 	    		<div ng-show="currentUser">

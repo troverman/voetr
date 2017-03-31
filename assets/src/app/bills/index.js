@@ -18,16 +18,26 @@ angular.module( 'voetr.bills', [
 	});
 }])
 
-.controller( 'BillsCtrl', ['$rootScope', '$scope', '$sailsSocket', 'BillModel', 'bills', 'config', 'titleService',  function BillsCtrl( $rootScope, $scope, $sailsSocket, BillModel, bills, config, titleService, BillModel) {
+.controller( 'BillsCtrl', ['$rootScope', '$scope', '$sailsSocket', 'BillModel', 'bills', 'config', 'titleService',  function BillsCtrl( $rootScope, $scope, $sailsSocket, BillModel, bills, config, titleService) {
 	titleService.setTitle('bills - voetr');
 	$scope.currentUser = config.currentUser;
     $scope.bills = bills;
 	$scope.skip = 0;
+	$scope.sort = 'createdAt DESC';
+
+	$scope.selectSort = function(sort){
+		$scope.sort = sort;
+		$rootScope.stateIsLoading = true;
+		BillModel.getSome(50, $scope.skip, $scope.sort).then(function(bills) {
+			$rootScope.stateIsLoading = false;
+			$scope.bills = bills;
+		});
+	};
 
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 50;
 		$rootScope.stateIsLoading = true;
-		BillModel.getSome(50, $scope.skip, 'createdAt DESC').then(function(bills) {
+		BillModel.getSome(50, $scope.skip, $scope.sort).then(function(bills) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.bills, bills);
 		});

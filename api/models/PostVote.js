@@ -12,16 +12,13 @@ module.exports = {
             type: 'string',
             required: true
         },
-        title: {
-            type: 'string',
-        },
         bill: {
             model: 'bill',
         },
         committee: {
             model: 'committee',
         },
-        postModel: {
+        post: {
             model: 'post',
         },
         profile: {
@@ -41,11 +38,6 @@ module.exports = {
     getOne: function(id) {
         return Post.findOne(id)
         .populate('user')
-        .populate('user')
-        .populate('profile')
-        .populate('committee')
-        .populate('bill')
-        .populate('vote')
         .then(function (model) {
             return [model];
         });
@@ -59,21 +51,6 @@ module.exports = {
         .populate('user')
         .populate('profile')
         .populate('committee')
-        .populate('bill')
-        .populate('vote')
-        .then(function (models) {
-            return models;
-        });
-    },
-
-    getByBill: function(bill, limiting, skipping, sort) {
-        return Post.find()
-        .where({bill: bill})
-        .sort(sort)
-        .limit(limiting)
-        .skip(skipping)
-        .populate('user')
-        .populate('bill')
         .then(function (models) {
             return models;
         });
@@ -92,19 +69,6 @@ module.exports = {
         });
     },
 
-    getByProfile: function(profile, limiting, skipping, sort) {
-        return Post.find()
-        .where({profile: profile})
-        .sort(sort)
-        .limit(limiting)
-        .skip(skipping)
-        .populate('user')
-        .populate('profile')
-        .then(function (models) {
-            return models;
-        });
-    },
-
     getByUser: function(user, limiting, skipping, sort) {
         return Post.find()
         .where({user: user})
@@ -118,14 +82,14 @@ module.exports = {
         });
     },
 
-    getByVote: function(vote, limiting, skipping, sort) {
+    getByProfile: function(profile, limiting, skipping, sort) {
         return Post.find()
-        .where({vote: vote})
+        .where({profile: profile})
         .sort(sort)
         .limit(limiting)
         .skip(skipping)
         .populate('user')
-        .populate('vote')
+        .populate('profile')
         .then(function (models) {
             return models;
         });

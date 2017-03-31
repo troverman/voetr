@@ -29,7 +29,7 @@ module.exports = {
   hookTimeout: 10000000,
   
   policies: {
-    '*': 'enforceSsl'
+    '*': ['enforceSsl', 'passport']
   }
 
 

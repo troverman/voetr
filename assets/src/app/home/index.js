@@ -27,7 +27,7 @@ angular.module( 'voetr.home', [
             }],
             users: ['userCount', 'UserModel', function(userCount, UserModel){
             	var rand = Math.floor(Math.random() * (userCount.userCount + 1));
-				return UserModel.getSome(32, rand);
+				return UserModel.getSome(33, rand);
             }],
             userCount: ['UserModel', function(UserModel){
 				return UserModel.getCount();
@@ -207,11 +207,11 @@ angular.module( 'voetr.home', [
 		});
 	};
 
-	$scope.skipMembers = 32;
+	$scope.skipMembers = 33;
     $scope.loadMoreMembers = function() {
 		$rootScope.stateIsLoading = true;
-		$scope.skipMembers = $scope.skipMembers + 20;
-		UserModel.getSome(20,$scope.skipMembers).then(function(users) {
+		$scope.skipMembers = $scope.skipMembers + 21;
+		UserModel.getSome(33,$scope.skipMembers).then(function(users) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.users, users);
 		});

@@ -47,9 +47,7 @@ module.exports = {
 		Committee.count()
 		.exec(function(err, committeeCount) {
 			if (err) {return console.log(err);}
-			else{
-				res.json({ committeeCount: committeeCount });
-			}
+			else{res.json({ committeeCount: committeeCount })}
 		});
 	},
 
