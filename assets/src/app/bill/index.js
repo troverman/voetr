@@ -85,7 +85,7 @@ angular.module( 'voetr.bill', [
                 $scope.newVote = {};
             });
         }
-        else{$location.path('/register');}}
+        else{$location.path('/register');}
     };
 
     /*$sailsSocket.subscribe('post', function (envelope) {
