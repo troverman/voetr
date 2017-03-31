@@ -114,15 +114,20 @@ module.exports = {
 
 	create: function (req, res) {
 		var post = req.param('post');
+		var bill = req.param('bill');
 		var profile = req.param('profile');
 		var committee = req.param('committee');
 		var user = req.param('user');
+		var vote = req.param('vote');
 		var meansOfContact = req.param('meansOfContact');
 		var model = {
 			post: post,
+			bill: bill,
+			profile: profile,
 			profile: profile,
 			committee: committee,
 			user: user,
+			vote: vote,
 			//meansOfContact: meansOfContact
 		};
 		Post.create(model)
