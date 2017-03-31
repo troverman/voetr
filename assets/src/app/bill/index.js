@@ -46,6 +46,7 @@ angular.module( 'voetr.bill', [
 
 	$scope.bill = bill;
 	$scope.newComment = {};
+    $scope.newPost = {};
     $scope.newVote = {};
     $scope.votes = votes;
     $scope.comments = comments;
@@ -68,21 +69,23 @@ angular.module( 'voetr.bill', [
             $scope.newPost.user = $scope.currentUser.id;
             $scope.newPost.bill = $scope.bill.id;
             PostModel.create($scope.newPost).then(function(model){
-                console.log(model);
+                $scope.newPost = {};
             });
         }
         else{$location.path('/login')}
     };
 
     $scope.createVote = function(voteInteger, newVote) {
-        if ($scope.currentUser == undefined){$location.path('/register');}
-        $scope.newVote.user = config.currentUser.id;
-        $scope.newVote.bill = bill.id;
-        $scope.newVote.vote = newVote.id;
-        $scope.newVote.voteInteger = voteInteger;
-        VoteVoteModel.create($scope.newVote).then(function(model) {
-            $scope.newVote = {};
-        });
+        if ($scope.currentUser){
+            $scope.newVote.user = config.currentUser.id;
+            $scope.newVote.bill = bill.id;
+            $scope.newVote.vote = newVote.id;
+            $scope.newVote.voteInteger = voteInteger;
+            VoteVoteModel.create($scope.newVote).then(function(model) {
+                $scope.newVote = {};
+            });
+        }
+        else{$location.path('/register');}}
     };
 
     /*$sailsSocket.subscribe('post', function (envelope) {

@@ -124,7 +124,6 @@ module.exports = {
 			post: post,
 			bill: bill,
 			profile: profile,
-			profile: profile,
 			committee: committee,
 			user: user,
 			vote: vote,
