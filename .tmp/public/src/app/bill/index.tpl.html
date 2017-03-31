@@ -45,32 +45,6 @@
 		    </uib-tab>
 			<uib-tab heading="Discussion">
 			
-				<div class="commentsContainer" ng-hide="comments.length==0 && !currentUser">
-					<!--if logged in-->
-					<div ng-show="currentUser">
-						<br>
-						<form class="blog-input" role="form" ng-submit="createComment(newComment)">
-							<div class="form-group">
-								<textarea type="text" placeholder="comment..." ng-model="newComment.comment" class="form-control" id="postTitle"></textarea>
-							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
-						</form>
-					</div>
-					<br><br>
-					<!--/if logged in-->
-					<md-card class="commentContainer" ng-repeat="comment in comments | orderBy:'-createdAt'">
-			            <md-card-title>
-			            	<md-card-title-text>
-								<a href="/member/{{comment.user.username}}">
-									<img style="max-width:64px;" ng-src="{{comment.user.avatarUrl}}" class="md-card-image" alt="{{comment.user.username}}">
-									<p>{{comment.user.username}}</p>
-								</a>
-								<p>{{comment.comment}}</p>
-			            	</md-card-title-text>
-			            </md-card-title>
-			        </md-card>
-				</div>
-
 				<div class="profilePost">
 		          <form role="form">
 		            <md-input-container class="md-block">

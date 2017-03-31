@@ -222,32 +222,6 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Discussion\">\n" +
     "			\n" +
-    "				<div class=\"commentsContainer\" ng-hide=\"comments.length==0 && !currentUser\">\n" +
-    "					<!--if logged in-->\n" +
-    "					<div ng-show=\"currentUser\">\n" +
-    "						<br>\n" +
-    "						<form class=\"blog-input\" role=\"form\" ng-submit=\"createComment(newComment)\">\n" +
-    "							<div class=\"form-group\">\n" +
-    "								<textarea type=\"text\" placeholder=\"comment...\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\"></textarea>\n" +
-    "							</div>\n" +
-    "							<button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "						</form>\n" +
-    "					</div>\n" +
-    "					<br><br>\n" +
-    "					<!--/if logged in-->\n" +
-    "					<md-card class=\"commentContainer\" ng-repeat=\"comment in comments | orderBy:'-createdAt'\">\n" +
-    "			            <md-card-title>\n" +
-    "			            	<md-card-title-text>\n" +
-    "								<a href=\"/member/{{comment.user.username}}\">\n" +
-    "									<img style=\"max-width:64px;\" ng-src=\"{{comment.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{comment.user.username}}\">\n" +
-    "									<p>{{comment.user.username}}</p>\n" +
-    "								</a>\n" +
-    "								<p>{{comment.comment}}</p>\n" +
-    "			            	</md-card-title-text>\n" +
-    "			            </md-card-title>\n" +
-    "			        </md-card>\n" +
-    "				</div>\n" +
-    "\n" +
     "				<div class=\"profilePost\">\n" +
     "		          <form role=\"form\">\n" +
     "		            <md-input-container class=\"md-block\">\n" +

@@ -8,8 +8,8 @@
 module.exports = {
 
 	attributes: {
-        comments: {
-            collection: 'comment',
+        posts: {
+            collection: 'post',
             via: 'bill'
         },
         committees: {

@@ -25,9 +25,6 @@ angular.module( 'voetr.bill', [
             }
         },
         resolve: {
-            comments: ['bill', 'CommentModel', function(bill, CommentModel) {
-                return CommentModel.getByBill(bill.id);
-            }],
             posts: ['bill', 'PostModel', function(bill, PostModel) {
                 return PostModel.getByBill(bill.id);
             }],
@@ -39,30 +36,18 @@ angular.module( 'voetr.bill', [
 
 }])
 
-.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'CommentModel', 'comments', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, CommentModel, comments, config, lodash, PostModel, posts, seoService, titleService, VoteModel, votes, VoteVoteModel ) {
+.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, config, lodash, PostModel, posts, seoService, titleService, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
     seoService.setDescription(bill.title);
     seoService.setKeywords('bill, voetr, votes, legislation');
 
 	$scope.bill = bill;
-	$scope.newComment = {};
+    $scope.billContent = $sce.trustAsHtml($scope.bill.fullText);
+    $scope.currentUser = config.currentUser;
     $scope.newPost = {};
     $scope.newVote = {};
-    $scope.votes = votes;
-    $scope.comments = comments;
-    $scope.currentUser = config.currentUser;
     $scope.posts = posts;
-    $scope.billContent = $sce.trustAsHtml($scope.bill.fullText);
-    //console.log(bill)
-
-    //post will replace comment ---
-    $scope.createComment = function(newComment) {
-        newComment.user = config.currentUser;
-        newComment.bill = bill;
-        CommentModel.create(newComment).then(function(model) {
-            $scope.newComment = {};
-        });
-    };
+    $scope.votes = votes;
 
      $scope.createPost = function(){
         if($scope.currentUser){
@@ -88,16 +73,16 @@ angular.module( 'voetr.bill', [
         else{$location.path('/register');}
     };
 
-    /*$sailsSocket.subscribe('post', function (envelope) {
+    $sailsSocket.subscribe('post', function (envelope) {
         switch(envelope.verb) {
             case 'created':
-                $scope.votes.unshift(envelope.data);
+                $scope.posts.unshift(envelope.data);
                 break;
             case 'destroyed':
-                lodash.remove($scope.votes, {id: envelope.id});
+                lodash.remove($scope.posts, {id: envelope.id});
                 break;
         }
-    });*/
+    });
 
     $sailsSocket.subscribe('vote', function (envelope) {
         switch(envelope.verb) {
@@ -109,17 +94,6 @@ angular.module( 'voetr.bill', [
                 lodash.remove($scope.votes, {id: envelope.id});
                 break;
         }
-    });
-
-    $sailsSocket.subscribe('comment', function (envelope) {
-	    switch(envelope.verb) {
-	        case 'created':
-	            $scope.comments.unshift(envelope.data);
-	            break;
-	        case 'destroyed':
-	            lodash.remove($scope.comments, {id: envelope.id});
-	            break;
-	    }
     });
 
 }]);
