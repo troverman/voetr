@@ -62,14 +62,6 @@ module.exports.routes = {
    */
 
   /**
-   * Comment routes
-   */
-  'get /api/comment/:id': 'CommentController.getOne',
-  'get /api/comment/bill/:id': 'CommentController.getByBill',
-  'post /api/comment': 'CommentController.create',
-  'delete /api/comment/:id': 'CommentController.destroy',
-
-  /**
    * Committee routes
    */
   'get /api/committee': 'CommitteeController.getSome',
