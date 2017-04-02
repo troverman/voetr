@@ -70,8 +70,8 @@ module.exports = {
 
     getOne: function(id) {
         return Bill.findOne(id)
-        .populate('comments')
         //.populate('committees')
+        //.populate('posts')
         .populate('user')
         .populate('votes')
         .then(function (model) {
@@ -87,8 +87,8 @@ module.exports = {
         .sort(sort)
         .limit(limiting)
         .skip(skipping)
-        .populate('comments')
         //.populate('committees')
+        //.populate('posts')
         .populate('user')
         .populate('votes')
         .then(function (models) {
@@ -114,7 +114,6 @@ module.exports = {
         //.sort(sort)
         //.limit(limiting)
         //.skip(skipping)
-        .populate('comments')
         //.populate('committees')
         //.populate('relatedBills')
         .populate('votes')
