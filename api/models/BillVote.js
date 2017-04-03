@@ -8,36 +8,11 @@
 module.exports = {
 
 	attributes: {
-        result: {
-            type: 'string'
-        },
-        required: {
-            type: 'string'
-        },
-        type: {
-            type: 'string'
-        },
-        voteCount:{
-            type: 'integer'
-        },
-        plusCount:{
-            type: 'integer'
-        },
-        minusCount:{
-            type: 'integer'
-        },
-        otherCount:{
-            type: 'integer'
-        },
-        title: {
-            type: 'string',
+        voteInteger: {
+            type: 'integer',
             required: true
         },
-        urlTitle: {
-            type: 'string',
-            required: true
-        },
-        displayId: {
+        voteString: {
             type: 'string',
         },
         bill: {
@@ -50,11 +25,20 @@ module.exports = {
         }
     },
 
-    getOne: function(id) {
-        return BillVote.findOne(id)
-        .populate('bill')
-        .then(function (model) {
-            return [model];
+    beforeCreate: function(model, next){
+        BillVote.find({user: model.user, bill:model.bill, vote:model.vote})
+        .then(function(billVote){
+            if (billVote.length == 0){
+                return next(null, billVote);
+            }
+            else{
+                if(billVote[0].voteInteger != model.voteInteger){  
+                    VoteVote.update({id: billVote[0].id}, model)
+                    .then(function(model){
+                        BillVote.publishUpdate(model[0].id, model);
+                    });
+                }
+            }
         });
     },
 

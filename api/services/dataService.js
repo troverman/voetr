@@ -579,12 +579,13 @@ module.exports = {
 								urlTitle: urlTitle,
 								user: 1,
 							};
-							//console.log(model)
+							//BillVote
 							Vote.findOrCreate({officialId: officialId}, model)
 							.then(function(voteModel) {
 								console.log('VOTE FIND OR CREATE');
 								dataService.federalVoteVotes(voteModel)
 							})
+							//BillVote
 							Vote.update({officialId: officialId}, model)
 							.then(function(voteModel) {
 								console.log('VOTE UPDATED');
@@ -632,10 +633,9 @@ module.exports = {
 											.where({vote:vote.id})
 											.exec(function(err, voteCount) {
 												console.log(voteCount)
+												//BillVote
 												Vote.update({id: vote.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
-												  if (err) {
-												    return;
-												  }
+												  if (err) {return;}
 												});
 											});
 										}
@@ -1129,11 +1129,13 @@ module.exports = {
 			var votesArray = votesArray.concat(yesVotesArray, noVotesArray, otherVotesArray);
 
 			(function(votesArray) {
+				//BillVote
 				Vote.findOrCreate({officialId: officialId}, model)
 				.then(function(voteModel) {
 					console.log('VOTE FIND OR CREATE');
 					dataService.stateVoteVotes(state, voteModel, votesArray)
 				})
+				//BillVote
 				Vote.update({officialId: officialId}, model)
 				.then(function(voteModel) {
 					console.log('VOTE UPDATED');
@@ -1167,6 +1169,7 @@ module.exports = {
 							.where({vote:vote.id})
 							.exec(function(err, voteCount) {
 								console.log(voteCount)
+								//BillVote
 								Vote.update({id: vote.id}, {voteCount:voteCount}).exec(function afterwards(err, updated){
 								  if (err) {
 								    return;

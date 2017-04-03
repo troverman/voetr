@@ -65,7 +65,16 @@ module.exports = {
         voteCount: {
             type: 'integer',
             defaultsTo: 0
-        }
+        },
+        plusCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
+        minusCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
+
     },
 
     getOne: function(id) {

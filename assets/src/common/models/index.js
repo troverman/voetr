@@ -1,6 +1,6 @@
 angular.module('models', [
 	'models.bill',
-	'models.comment',
+	'models.billVote',
 	'models.committee',
 	'models.committeeMember',
 	'models.follower',

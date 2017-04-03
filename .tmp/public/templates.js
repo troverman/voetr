@@ -1515,7 +1515,6 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "		</div>\n" +
     "		<br>\n" +
     "		<div class=\"container\">\n" +
-    "	        <button ng-show=\"!gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default\">find representatives</button><br><br>\n" +
     "	        <md-card>\n" +
     "				<md-card-title>\n" +
     "					<input style=\"width:100%\" ng-keyup=\"keyPress(searchValue)\" ng-model=\"searchValue\">\n" +
@@ -1525,12 +1524,12 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "	            <md-card ng-repeat=\"searchResult in searchResults\">\n" +
     "	              <md-card-title>\n" +
     "	                <md-card-title-text>\n" +
-    "						<a href=\"/project/{{searchResult.urlTitle}}\">{{searchResult.title}}</a>\n" +
+    "						<a href=\"{{searchResult.urlTitle}}\">{{searchResult}}</a>\n" +
     "					</md-card-title-text>\n" +
     "	              </md-card-title>\n" +
     "	            </md-card>\n" +
     "	        </div>\n" +
-    "\n" +
+    "	        <button ng-show=\"!gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default\">find representatives</button><br><br>\n" +
     "	        <i ng-show=\"gettingRepresentatives\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
     "	        <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in officialRepresentatives\">\n" +
     "	          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
@@ -1550,33 +1549,39 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "	          </div>\n" +
     "	        </div>\n" +
     "\n" +
-    "			<!--search with member filter-->\n" +
-    "			<h3>trending</h3>\n" +
-    "			<h3>bills</h3>\n" +
-    "			<h3>committees</h3>\n" +
-    "			<h3>members</h3>\n" +
-    "			<h3>votes</h3>\n" +
+    "			<div class=\"container\">\n" +
+    "	 			<uib-tabset>\n" +
+    "	 			    <uib-tab heading=\"Trending\" active=\"active\">\n" +
+    "	    			</uib-tab>\n" +
+    "					<uib-tab heading=\"Bills\">\n" +
+    "	    			</uib-tab>\n" +
+    "					<uib-tab heading=\"Committees\">\n" +
+    "	    			</uib-tab>\n" +
+    "					<uib-tab heading=\"Members\">\n" +
+    "	    			</uib-tab>\n" +
+    "	    			<uib-tab heading=\"Votes\">\n" +
+    "	    			</uib-tab>\n" +
+    "				</uib-tabset>\n" +
+    "			</div>\n" +
     "\n" +
-    "		    <div id=\"bills\">\n" +
-    "			    <div class='md-padding'>\n" +
-    "			    	<md-card ng-repeat=\"bill in bills\">\n" +
-    "			        	<md-card-title>\n" +
-    "			            	<md-card-title-text>\n" +
-    "				            	<h4>\n" +
-    "					                <button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{vote.plusCount}}</button>\n" +
-    "					                <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{vote.minusCount}}</button>\n" +
-    "					                <a href=\"/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
-    "				            	</h4>\n" +
-    "			            	</md-card-title-text>\n" +
-    "			            </md-card-title>\n" +
-    "			        </md-card>\n" +
-    "			    </div>\n" +
-    "		        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "		          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
-    "		        </div>\n" +
+    "		    <div class='md-padding'>\n" +
+    "		    	<md-card ng-repeat=\"bill in bills\">\n" +
+    "		        	<md-card-title>\n" +
+    "		            	<md-card-title-text>\n" +
+    "			            	<h4>\n" +
+    "				                <button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{vote.plusCount}}</button>\n" +
+    "				                <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{vote.minusCount}}</button>\n" +
+    "				                <a href=\"/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
+    "			            	</h4>\n" +
+    "		            	</md-card-title-text>\n" +
+    "		            </md-card-title>\n" +
+    "		        </md-card>\n" +
     "		    </div>\n" +
-    "		    <div style=\"height:100px;\"></div>\n" +
-    "		</div>\n" +
+    "	        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
+    "	          <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
+    "	        </div>\n" +
+    "	    </div>\n" +
+    "	    <div style=\"height:50px;\"></div>\n" +
     "	</div>\n" +
     "	<div ng-show=\"searchQuery\">\n" +
     "		<div class=\"imageContainerSmall\">\n" +

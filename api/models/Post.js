@@ -41,7 +41,6 @@ module.exports = {
     getOne: function(id) {
         return Post.findOne(id)
         .populate('user')
-        .populate('user')
         .populate('profile')
         .populate('committee')
         .populate('bill')

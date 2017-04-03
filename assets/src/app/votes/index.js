@@ -13,6 +13,7 @@ angular.module( 'voetr.votes', [
 		resolve: {
             votes: ['VoteModel', function(VoteModel) {
 				return VoteModel.getSome(50, 0, 'voteCount DESC');
+				////BillVote
             }]
         }
 	});
@@ -43,6 +44,7 @@ angular.module( 'voetr.votes', [
     $scope.selectSort = function(sort){
 		$scope.sort = sort;
 		$rootScope.stateIsLoading = true;
+		//BillVote
 		VoteModel.getSome(50, $scope.skip, $scope.sort).then(function(votes) {
 			$rootScope.stateIsLoading = false;
 			$scope.votes = votes;
@@ -52,6 +54,7 @@ angular.module( 'voetr.votes', [
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 50;
 		$rootScope.stateIsLoading = true;
+		//BillVote
 		VoteModel.getSome(50,$scope.skip, $scope.sort).then(function(votes) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.votes, votes);

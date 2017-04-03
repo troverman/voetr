@@ -11,9 +11,10 @@ angular.module( 'voetr.vote', [
 			}
 		},
 		resolve: {
-            vote: function(VoteModel, $stateParams) {
+            vote: ['$stateParams', 'VoteModel', function($stateParams, VoteModel) {
                 return VoteModel.getOne($stateParams.id);
-            }
+                //BillVoteModel.getOne($stateParams.id);
+            }]
         }
 	})
     .state( 'vote.index', {
@@ -32,9 +33,7 @@ angular.module( 'voetr.vote', [
                 return PostModel.getByVote(vote.id);
             }],
             myRepresentatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
-                if(config.currentUser){
-                    return RepresentativeModel.getRepresentatives(config.currentUser);
-                }
+                if(config.currentUser){return RepresentativeModel.getRepresentatives(config.currentUser)}
                 else{return null}
             }],
         }

@@ -50,16 +50,12 @@ module.exports.routes = {
   'delete /api/bill/:id': 'BillController.destroy',
 
   /**
-   * (bill) Vote routes
+   * BillVote routes
    */
-   /*
-  'get /api/vote': 'Vote.getAll',
-  'get /api/vote/:id': 'Vote.getOne',
-  'get /api/vote/bill/:id': 'Vote.getByBill',
-  'get /api/vote/user/:id': 'Vote.getByUser',
-  'post /api/vote': 'Vote.create',
-  'delete /api/vote/:id': 'Vote.destroy',
-   */
+  'get /api/billvote/bill': 'BillVoteController.getByBill',
+  'get /api/billvote/user': 'BillVoteController.getByUser',
+  'post /api/billvote': 'BillVoteController.create',
+  'delete /api/billvote/:id': 'BillVoteController.destroy',
 
   /**
    * Committee routes
@@ -145,7 +141,6 @@ module.exports.routes = {
   'get /api/vote': 'VoteController.getSome',
   'get /api/vote/:id': 'VoteController.getOne',
   'get /api/vote/bill/:id': 'VoteController.getByBill',
-  //'get /api/vote/committee/:id': 'VoteController.getByCommittee',
   'post /api/vote': 'VoteController.create',
   'delete /api/vote/:id': 'VoteController.destroy',
 
