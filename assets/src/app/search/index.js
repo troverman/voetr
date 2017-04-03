@@ -26,6 +26,19 @@ angular.module( 'voetr.search', [
             bills: ['BillModel', function(BillModel){
                 return BillModel.getSome(10, 0, 'createdAt DESC');
             }],
+            committees: ['CommitteeModel', function(CommitteeModel){
+                return CommitteeModel.getSome(10, 0, 'createdAt DESC');
+            }],
+            users: ['userCount', 'UserModel', function(userCount, UserModel){
+                var rand = Math.floor(Math.random() * (userCount.userCount + 1));
+                return UserModel.getSome(33, rand);
+            }],
+            userCount: ['UserModel', function(UserModel){
+                return UserModel.getCount();
+            }],
+            votes: ['VoteModel', function(VoteModel){
+                return VoteModel.getSome(10, 0, 'createdAt DESC');
+            }],
         }
     })
     .state( 'search.query', {
@@ -44,19 +57,37 @@ angular.module( 'voetr.search', [
             bills: ['BillModel', function(BillModel){
                 return BillModel.getSome(10, 0, 'createdAt DESC');
             }],
+            committees: ['CommitteeModel', function(CommitteeModel){
+                return CommitteeModel.getSome(10, 0, 'createdAt DESC');
+            }],
+            users: ['userCount', 'UserModel', function(userCount, UserModel){
+                var rand = Math.floor(Math.random() * (userCount.userCount + 1));
+                return UserModel.getSome(33, rand);
+            }],
+            userCount: ['UserModel', function(UserModel){
+                return UserModel.getCount();
+            }],
+            votes: ['VoteModel', function(VoteModel){
+                return VoteModel.getSome(10, 0, 'createdAt DESC');
+            }],
          }
     });
 }])
 
-.controller( 'SearchController', ['$rootScope', '$scope', '$stateParams', 'bills', 'config', 'lodash', 'RepresentativeModel', 'searchResults', 'SearchModel', 'titleService', function SearchController( $rootScope, $scope, $stateParams, bills, config, lodash, RepresentativeModel, searchResults, SearchModel, titleService ) {
+.controller( 'SearchController', ['$rootScope', '$scope', '$stateParams', 'bills', 'committees', 'config', 'lodash', 'RepresentativeModel', 'searchResults', 'SearchModel', 'titleService', 'userCount', 'users', 'votes', function SearchController( $rootScope, $scope, $stateParams, bills, committees, config, lodash, RepresentativeModel, searchResults, SearchModel, titleService, userCount, users, votes ) {
     $scope.searchQuery = $stateParams.searchQuery;
     if (typeof $scope.searchQuery != "undefined" && $scope.searchQuery != ''){titleService.setTitle($scope.searchQuery + ' - voetr');}
     else{titleService.setTitle('search - voetr');}
     $scope.bills = bills;
+    $scope.committees = committees;
     $scope.searchResults = searchResults;
     $scope.gettingRepresentatives = false;
     $scope.officialRepresentatives = {};
-    
+    $scope.userCount = userCount.userCount;
+    $scope.users = users;
+    $scope.votes = votes;
+
+
     $scope.keyPress = function(searchValue){
         $rootScope.stateIsLoading = true;
         SearchModel.search(searchValue).then(function(models){
