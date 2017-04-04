@@ -31,14 +31,11 @@
 				<h5 ng-show="member.phone">phone: {{member.phone}}</h5>
 				<h5 ng-show="showFax">fax: {{member.fax}}</h5>
 				<h5 ng-show="member.email">email: {{member.email}}</h5>
-				<button class="btn btn-default">follow</button>
-				<br>
-				<!--can have dif reps per committee-->
-				<!--represented by (list of reps with each committee)-->
 				<div ng-show="currentUser.id != member.id">
-					<button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">elect</button>
-					<button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">unelect</button>
+					<button ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">elect</button>
+					<button ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">unelect</button>
 				</div>
+				<button style="float:left" class="btn btn-default">follow</button>
 				<div class="spacing-5"></div>
 				<div ng-show="currentUser.id == member.id">
 					<a class="btn btn-default" href="/account">settings</a>
@@ -87,7 +84,7 @@
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
-			<br><br>	
+			<div class="spacing-10"></div>
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
 			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
 			</div>
@@ -157,7 +154,7 @@
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
-			<br><br>	
+			<div class="spacing-10"></div>
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
 			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
 			</div>
