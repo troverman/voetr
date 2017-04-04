@@ -31,7 +31,7 @@
 				<h5 ng-show="member.phone">phone: {{member.phone}}</h5>
 				<h5 ng-show="showFax">fax: {{member.fax}}</h5>
 				<h5 ng-show="member.email">email: {{member.email}}</h5>
-				<div ng-show="currentUser.id != member.id">
+				<div style="float:left" ng-show="currentUser.id != member.id">
 					<button ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">elect</button>
 					<button ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">unelect</button>
 				</div>
