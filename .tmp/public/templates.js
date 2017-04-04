@@ -1157,94 +1157,55 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function ($tem
 angular.module("member/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("member/index.tpl.html",
     "<div ui-view=\"member\">\n" +
-    "	<div class=\"content-profile-page\">\n" +
-    "	  <div class=\"profile-user-page card\">\n" +
-    "	    <div class=\"img-user-profile\">\n" +
-    "	      <div style=\"height:25em;width: 100%;overflow: hidden;\">\n" +
-    "	      	<img class=\"profile-bgHome\" src=\"{{member.coverUrl}}\" err-src=\"/images/avatar.png\" />\n" +
-    "	      </div>\n" +
-    "		  <uib-tabset class=\"container\">\n" +
-    "			<uib-tab heading=\"Activity\" active=\"active\" style=\"margin-left:11em\">\n" +
-    "			</uib-tab>\n" +
-    "			<uib-tab heading=\"{{committees.length}} Committees\">\n" +
-    "				<md-card ng-repeat=\"committee in committees\" class=\"\">\n" +
-    "					<md-card-title>\n" +
-    "						<md-card-title-text>\n" +
-    "							<a href=\"/committee/{{committee.committee.urlTitle}}/\"><h3>{{committee.committee.title}}</h3></a>\n" +
-    "							<h5>{{committee.title}}</h5>\n" +
-    "							<!--number of reps?-->\n" +
-    "						</md-card-title-text>\n" +
-    "					<md-card-title>\n" +
-    "				</md-card>\n" +
-    "			</uib-tab>\n" +
-    "			<uib-tab heading=\"{{constituents.length}} Constituents\">\n" +
-    "				<md-card ng-repeat=\"constituent in constituents\">\n" +
-    "					<md-card-title-text>\n" +
-    "						<a href=\"/member/{{constituent.constituent.username}}/\">{{constituent.constituent.username}}</a>\n" +
-    "					</md-card-title-text>\n" +
-    "				</md-card>\n" +
-    "			</uib-tab>\n" +
-    "			<uib-tab heading=\"{{representatives.length}} Representatives\">\n" +
-    "				<md-card ng-repeat=\"representative in representatives\">\n" +
-    "					<md-card-title-text>\n" +
-    "						<a href=\"/member/{{representative.representative.username}}/\">{{representative.representative.username}}</a>\n" +
-    "					</md-card-title-text>\n" +
-    "				</md-card>\n" +
-    "			</uib-tab>\n" +
-    "			<uib-tab heading=\"{{voteCount}} Votes\">\n" +
-    "				<md-card ng-repeat=\"vote in votes\">\n" +
-    "					<md-card-title>\n" +
-    "						<md-card-title-text>\n" +
-    "							<p>{{vote.voteString}}</p> on behalf of {{constituents.length}} constituents about\n" +
-    "							<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
-    "							<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
-    "						</md-card-title-text>\n" +
-    "					</md-card-title>\n" +
-    "				</md-card>\n" +
-    "			</uib-tab>\n" +
-    "			<uib-tab ng-click=\"goToAccount()\" ng-show=\"currentUser.id == member.id\" heading=\"Edit Profile\">\n" +
-    "			</uib-tab>\n" +
-    "	      </uib-tabset>\n" +
-    "		  <md-divider></md-divider>\n" +
-    "	      <div class=\"container\">\n" +
-    "	      	<img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
-    "	  	  </div>\n" +
-    "	    </div>\n" +
-    "	    <div class=\"user-profile-data container\">\n" +
-    "	    	<div class=\"pull-left\">\n" +
-    "	      		<h2>{{member.username}}</h2>\n" +
-    "	      		<h5 ng-show=\"member.title\"><span style=\"color:grey\">{{member.title}}</span></h5>\n" +
-    "	      		<h5 ng-show=\"member.district\"><span style=\"color:grey\">District {{member.district}}</span></h5>\n" +
-    "	      		<h5 ng-show=\"member.state\"><span style=\"color:grey\">{{member.state}}</span></h5>\n" +
-    "	      	 	<a ng-show=\"member.socialAccounts.facebook.profileUrl\" href=\"{{member.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-facebook\"></span> facebook</a>\n" +
-    "		     	<a ng-show=\"member.socialAccounts.twitter.profileUrl\" href=\"{{member.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-twitter\"></span> twitter</a>\n" +
-    "		     	<a ng-show=\"member.socialAccounts.google.profileUrl\" href=\"{{member.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-google\"></span> google</a>\n" +
-    "		      	<br><br>\n" +
-    "	  		</div>\n" +
-    "	  		<div class=\"pull-right\">\n" +
-    "				<button class=\"btn btn-default\">contact</button>\n" +
-    "				<!--<h5 ng-show=\"member.phone\">phone: {{member.phone}}</h5>\n" +
-    "		     	<h5 ng-show=\"showFax\">fax: {{member.fax}}</h5>-->\n" +
-    "		      	<!--<h5 ng-show=\"member.email\">email: {{member.email}}</h5>-->\n" +
-    "		      <button class=\"btn btn-default\">follow</button>\n" +
-    "		      <br>\n" +
-    "			  <!--can have dif reps per committee-->\n" +
-    "		      <!--represented by (list of reps with each committee)-->\n" +
-    "		      <div ng-show=\"currentUser.id != member.id\">\n" +
-    "		      	<button ng-show=\"isFollowing\" class=\"btn btn-primary\" ng-click=\"removeRepresentative()\">remove as a representative</button>\n" +
-    "		      	<br>\n" +
-    "		      	<button ng-show=\"!isFollowing\" class=\"btn btn-primary\" ng-click=\"selectAsRepresentative()\">select as a representative</button>\n" +
-    "		  	  </div>\n" +
-    "		      <br>\n" +
-    "		      <div ng-show=\"currentUser.id == member.id\">\n" +
-    "				<a href=\"/account\"><button class=\"btn btn-default\">settings</button></a>\n" +
-    "			  </div>\n" +
-    "			  <div style=\"clear:both;height:15px\"></div>\n" +
-    "		  <div>\n" +
-    "	       <br>\n" +
-    "	       <br>\n" +
-    "	    </div>\n" +
-    "	  </div>\n" +
+    "\n" +
+    "	<div class=\"\">\n" +
+    "		<div style=\"height:17em;width: 100%;overflow: hidden;\">\n" +
+    "			<img style=\"width: 100%;margin-top: -10%\" class=\"profile-bgHome\" src=\"{{member.coverUrl}}\" err-src=\"/images/avatar.png\" />\n" +
+    "		</div>\n" +
+    "		<uib-tabset class=\"container\">\n" +
+    "			<uib-tab heading=\"Activity\" active=\"active\" style=\"margin-left:11em\"></uib-tab>\n" +
+    "			<uib-tab heading=\"{{committees.length}} Committees\"></uib-tab>\n" +
+    "			<uib-tab heading=\"{{constituents.length}} Constituents\"></uib-tab>\n" +
+    "			<uib-tab heading=\"{{representatives.length}} Representatives\"></uib-tab>\n" +
+    "			<uib-tab heading=\"{{voteCount}} Votes\"></uib-tab>\n" +
+    "			<uib-tab ng-click=\"goToAccount()\" ng-show=\"currentUser.id == member.id\" heading=\"Edit Profile\"></uib-tab>\n" +
+    "		</uib-tabset>\n" +
+    "		<md-divider></md-divider>\n" +
+    "		<div class=\"container\">\n" +
+    "			<img class=\"avatar\" src=\"{{member.avatarUrl}}\"/>\n" +
+    "		</div>\n" +
+    "		<div class=\"container\">\n" +
+    "			<div class=\"pull-left\">\n" +
+    "				<h2>{{member.username}}</h2>\n" +
+    "				<h5 ng-show=\"member.title\"><span style=\"color:grey\">{{member.title}}</span></h5>\n" +
+    "				<h5 ng-show=\"member.district\"><span style=\"color:grey\">District {{member.district}}</span></h5>\n" +
+    "				<h5 ng-show=\"member.state\"><span style=\"color:grey\">{{member.state}}</span></h5>\n" +
+    "				<a ng-show=\"member.socialAccounts.facebook.profileUrl\" href=\"{{member.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-facebook\"></span> facebook</a>\n" +
+    "				<a ng-show=\"member.socialAccounts.twitter.profileUrl\" href=\"{{member.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-twitter\"></span> twitter</a>\n" +
+    "				<a ng-show=\"member.socialAccounts.google.profileUrl\" href=\"{{member.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-google\"></span> google</a>\n" +
+    "				<br><br>\n" +
+    "			</div>\n" +
+    "			<div class=\"pull-right\">\n" +
+    "				<h5 ng-show=\"member.phone\">phone: {{member.phone}}</h5>\n" +
+    "				<h5 ng-show=\"showFax\">fax: {{member.fax}}</h5>\n" +
+    "				<h5 ng-show=\"member.email\">email: {{member.email}}</h5>\n" +
+    "				<button class=\"btn btn-default\">follow</button>\n" +
+    "				<br>\n" +
+    "				<!--can have dif reps per committee-->\n" +
+    "				<!--represented by (list of reps with each committee)-->\n" +
+    "				<div ng-show=\"currentUser.id != member.id\">\n" +
+    "					<button ng-show=\"isFollowing\" class=\"btn btn-primary\" ng-click=\"removeRepresentative()\">remove as a representative</button>\n" +
+    "					<br>\n" +
+    "					<button ng-show=\"!isFollowing\" class=\"btn btn-primary\" ng-click=\"selectAsRepresentative()\">select as a representative</button>\n" +
+    "					</div>\n" +
+    "				<br>\n" +
+    "				<div ng-show=\"currentUser.id == member.id\">\n" +
+    "					<a href=\"/account\"><button class=\"btn btn-default\">settings</button></a>\n" +
+    "				</div>\n" +
+    "				<div style=\"clear:both;height:15px\"></div>\n" +
+    "			</div>\n" +
+    "			<div class=\"spacing-10\"></div>\n" +
+    "		</div>\n" +
     "	</div>\n" +
     "\n" +
     "	<uib-tabset class=\"container\">\n" +
@@ -1252,12 +1213,15 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "			<div class=\"profilePost\">\n" +
     "				<form role=\"form\">\n" +
     "					<md-input-container class=\"md-block\">\n" +
-    "			          <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "			        	<textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "						<div class=\"spacing-10\"></div>\n" +
+    "						<!--connect legislators-->\n" +
+    "						<p>send as a fax? -- send as mail (verified), send email (always) -- send video??</p>\n" +
+    "						<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
     "					</md-input-container>\n" +
-    "					<!--connect legislators-->\n" +
-    "					<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
     "				</form>\n" +
     "			</div>\n" +
+    "			<div class=\"spacing-25\"></div>\n" +
     "\n" +
     "			<md-card ng-repeat=\"post in posts\">\n" +
     "				<md-card-title>\n" +
@@ -1289,15 +1253,15 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"{{committees.length}} Committees\">\n" +
     "			<div class=\"container\">\n" +
-    "			<md-card ng-repeat=\"committee in committees\" class=\"\">\n" +
-    "				<md-card-title>\n" +
-    "					<md-card-title-text>\n" +
-    "						<a href=\"/committee/{{committee.committee.urlTitle}}/\"><h3>{{committee.committee.title}}</h3></a>\n" +
-    "						<h5>{{committee.title}}</h5>\n" +
-    "						<!--number of reps?-->\n" +
-    "					</md-card-title-text>\n" +
-    "				<md-card-title>\n" +
-    "			</md-card>\n" +
+    "				<md-card ng-repeat=\"committee in committees\" class=\"\">\n" +
+    "					<md-card-title>\n" +
+    "						<md-card-title-text>\n" +
+    "							<a href=\"/committee/{{committee.committee.urlTitle}}/\"><h3>{{committee.committee.title}}</h3></a>\n" +
+    "							<h5>{{committee.title}}</h5>\n" +
+    "							<!--number of reps?-->\n" +
+    "						</md-card-title-text>\n" +
+    "					<md-card-title>\n" +
+    "				</md-card>\n" +
     "			</div>\n" +
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"{{constituents.length}} Constituents\">\n" +
@@ -1365,7 +1329,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		</uib-tab>\n" +
     "	</uib-tabset>\n" +
     "	\n" +
-    "	<div style=\"height:50px\"></div>\n" +
+    "	<div class=\"spacing-50\"></div>\n" +
     "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "\n" +
     "</div>\n" +
