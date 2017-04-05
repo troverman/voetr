@@ -1,10 +1,14 @@
 <div class="footer" ng-controller="FooterCtrl">
 	<div class="container">
-		{{date | date:'yyyy'}} <a href="/">voetr</a>
-		<a href="/about">about</a>
-		<a href="/search">discover</a>
-		<a href="/bills">bills</a>
-		<a href="/committees">committees</a>
-		<a href="/votes">votes</a>
+		<div class="pull-left">
+			{{date | date:'yyyy'}} <a href="/">voetr</a>
+		</div>
+		<div class="pull-right">
+			<a href="/about">about</a>
+			<a href="/search">discover</a>
+			<a href="/bills">bills</a>
+			<a href="/committees">committees</a>
+			<a href="/votes">votes</a>
+		</div>
 	</div>
 </div>

@@ -18,6 +18,7 @@
         <p>message</p>
       </div>
       <div class="col-md-8">
+        <!--
         <div class="alert alert-success verificationNotice spacing-25" ng-show="!currentUser.isVerified">
           <h2>Become Verified!</h2>
           <hr>
@@ -27,14 +28,16 @@
             <p>By providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>
             <div class="spacing-10"></div>
             <div ngf-accept="'image/*'" ngf-drop ngf-select="uploadIdentification($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
-              <button class="btn btn-default"><i class="fa fa-upload"></i> Upload</button>
               <img ng-show="user.identificationUrl" ng-src="{{user.identificationUrl}}">
+              <div class="spacing-10"></div>
+              <button class="btn btn-default"><i class="fa fa-upload"></i> Upload</button>
             </div>
             <div class="spacing-25"></div>
             <h4><b>Official Address</b></h4>
             <div class="spacing-10"></div>
             <md-input-container class="md-block">
-              <textarea g-places-autocomplete ng-model="address" rows="5" md-select-on-focus aria-label="address" placeholder="+ Add Location"></textarea>
+              <textarea g-places-autocomplete ng-model="user.address" rows="5" md-select-on-focus aria-label="address" placeholder="+ Add Location"></textarea>
+              <button type="submit" class="btn btn-default" ng-click="accountSave()">Save</button>
             </md-input-container>
             <div class="spacing-10"></div>
             <h4><b>Your Representatives</b></h4>
@@ -42,7 +45,6 @@
             <div class="spacing-10"></div>
             <button ng-hide="officialRepresentatives.length > 0 || gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default btn-lg"><i class="fa fa-map-marker"></i> Find Your Reps</button>
             <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-            <!--<div ng-show="gettingRepresentatives" class="loader loaderSquare"></div>-->
             <div class='md-padding' layout="row" layout-align="center" layout-wrap>
               <md-card flex="20" ng-repeat="user in officialRepresentatives">
                 <a href="/member/{{user.username}}">
@@ -51,13 +53,14 @@
                 <md-card-title class="text-center" style="padding:15px 0">
                   <md-card-title-text>
                     <a href="/member/{{user.username}}">{{user.username}}</a>
-                    <!--<button class="btn btn-green">select as representative</button>-->
+                    <button class="btn btn-green">select as representative</button>
                   </md-card-title-text>
                 </md-card-title>
               </md-card>
             </div>
           </div>
         </div>
+        -->
 
         <!--constituents, representatives, userVotes-->
       
@@ -76,7 +79,7 @@
         <md-card ng-repeat="post in posts">
           <md-card-title>
             <md-card-title-text>
-              <a href="member/{{post.user.username}}">
+              <a href="/member/{{post.user.username}}">
                 <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
                 <h3>{{post.user.username}}</h3>
               </a>
@@ -230,7 +233,7 @@
             </div>
             <div class="info">
               <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
-              <h3 class="position"><a href="member/{{user.username}}">{{user.title}}</a></h3>
+              <h4 class="position">{{user.title}}</h4>
               <p>{{user.state}}</p>
             </div>
             <div class="social">
@@ -248,7 +251,7 @@
             </div>
             <div class="info">
               <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
-              <h3 class="position"><a href="member/{{user.username}}">{{user.title}}</a></h3>
+              <h4 class="position">{{user.title}}</h4>
               <p>{{user.state}}</p>
             </div>
             <div class="social">

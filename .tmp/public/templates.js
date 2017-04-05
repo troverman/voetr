@@ -43,10 +43,7 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function ($t
   $templateCache.put("account/index.tpl.html",
     "<!--we need some hover css here... we have on click editing-->\n" +
     "<div style=\"height:25em;width: 100%;overflow: hidden;\" ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadCover($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\" href=\"#\">\n" +
-    "	<i ng-show=\"avatarLoading\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
     "	<img style=\"width:100%;min-height:35em;\" src=\"{{user.coverUrl}}\">\n" +
-    "	<i ng-show=\"coverLoading\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
-    "\n" +
     "</div>\n" +
     "<div class=\"container\">\n" +
     "	<!--we need some hover css here... we have on click editing-->\n" +
@@ -73,10 +70,10 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function ($t
     "				<label class=\"modal-label\">Last Name</label>\n" +
     "				<input ng-model=\"user.lastName\" required name=\"lastName\" type=\"text\">\n" +
     "			</md-input-container>\n" +
-    "			<!--<md-input-container>\n" +
+    "			<md-input-container>\n" +
     "				<label class=\"modal-label\">Address</label>\n" +
     "				<input ng-model=\"user.address\" required name=\"Address\" type=\"text\">\n" +
-    "			</md-input-container>-->\n" +
+    "			</md-input-container>\n" +
     "		</div>\n" +
     "		<button type=\"submit\" class=\"btn btn-primary\">Save</button>\n" +
     "	</form>\n" +
@@ -119,6 +116,7 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function ($t
     "	<md-input-container class=\"md-block\">\n" +
     "		<label class=\"modal-label\">Address</label>\n" +
     "		<input ng-model=\"user.address\" required name=\"address\" type=\"text\">\n" +
+    "		<button type=\"submit\" class=\"btn btn-primary\">Save</button>\n" +
     "	</md-input-container>\n" +
     "	<!--<p>ssn</p>-->\n" +
     "\n" +
@@ -182,89 +180,89 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "		<div ng-repeat=\"committee in bill.committees\">\n" +
     "			<p><a href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></p>\n" +
     "		</div>\n" +
-    "		<md-divider></md-divider>\n" +
+    "		<div class=\"spacing-10\"></div>\n" +
     "		<div class=\"row\">\n" +
     "			<button class=\"col-xs-6 btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
     "        	<button class=\"col-xs-6 btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i> {{vote.minusCount}}</button>\n" +
     "    	</div>\n" +
+    "    	<div class=\"spacing-10\"></div>\n" +
     "		<uib-tabset>\n" +
     "			<uib-tab heading=\"Info\" active=\"active\">\n" +
-    "				<br>\n" +
-    "				<div class=\"container\">\n" +
-    "					<div class=\"col-lg-4 col-sm-6\">\n" +
-    "			          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
-    "			            <div class=\"image\" style=\"background-image: url('{{bill.user.coverUrl}}')\">\n" +
-    "	              		  <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em;max-width:20em\" ng-src=\"{{bill.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
-    "			            </div>\n" +
-    "			            <div class=\"info\">\n" +
-    "			              <h2 class=\"name\"><a href=\"member/{{bill.user.username}}\">{{bill.user.username}}</a></h2>\n" +
-    "			              <p>{{bill.user.title}}</p>\n" +
-    "			              <!--<button class=\"btn btn-default\">follow</button>-->\n" +
-    "			            </div>\n" +
-    "			            <div class=\"social\">\n" +
-    "			              <a ng-show=\"bill.user.socialAccounts.facebook.profileUrl\" href=\"{{bill.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "			              <a ng-show=\"bill.user.socialAccounts.twitter.profileUrl\" href=\"{{bill.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "			              <a ng-show=\"bill.user.socialAccounts.google.profileUrl\" href=\"{{bill.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
-    "			            </div>\n" +
-    "			          </div>\n" +
-    "			        </div>\n" +
-    "					<div class=\"col-sm-8\">\n" +
-    "						<br>\n" +
-    "						<p>{{bill.billContent.current_status_description}}</p>\n" +
-    "						<p>{{bill.billContent.current_status_label}}</p>\n" +
-    "						<div ng-show=\"bill.summary\"><p>Bill Summary</p><p>{{bill.summary}}</p></div>\n" +
-    "						<div ng-bind-html=\"billContent\"></div>\n" +
+    "				<div class=\"col-lg-4 col-sm-6\">\n" +
+    "					<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
+    "						<div class=\"image\" style=\"background-image: url('{{bill.user.coverUrl}}')\">\n" +
+    "							<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em;max-width:20em\" ng-src=\"{{bill.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "						</div>\n" +
+    "						<div class=\"info\">\n" +
+    "						    <h2 class=\"name\"><a href=\"member/{{bill.user.username}}\">{{bill.user.username}}</a></h2>\n" +
+    "						    <p>{{bill.user.title}}</p>\n" +
+    "							<p>{{bill.user.state}}</p>\n" +
+    "							<!--<button class=\"btn btn-default\">follow</button>-->\n" +
+    "						</div>\n" +
+    "						<div class=\"social\">\n" +
+    "							<a ng-show=\"bill.user.socialAccounts.facebook.profileUrl\" href=\"{{bill.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
+    "							<a ng-show=\"bill.user.socialAccounts.twitter.profileUrl\" href=\"{{bill.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
+    "							<a ng-show=\"bill.user.socialAccounts.google.profileUrl\" href=\"{{bill.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "						</div>\n" +
     "					</div>\n" +
+    "				</div>\n" +
+    "				<div class=\"col-sm-8\">\n" +
+    "					<br>\n" +
+    "					<p>{{bill.billContent.current_status_description}}</p>\n" +
+    "					<p>{{bill.billContent.current_status_label}}</p>\n" +
+    "					<div ng-show=\"bill.summary\">\n" +
+    "						<h4>Summary</h4>\n" +
+    "						<p style=\"color:rgb(100,100,100)\">{{bill.summary}}</p>\n" +
+    "					</div>\n" +
+    "					<div ng-bind-html=\"billContent\"></div>\n" +
     "				</div>\n" +
     "		    </uib-tab>\n" +
     "		    <uib-tab heading=\"Activity\">\n" +
     "		    	{{actions}}\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Discussion\">\n" +
-    "			\n" +
     "				<div class=\"profilePost\">\n" +
-    "		          <form role=\"form\">\n" +
-    "		            <md-input-container class=\"md-block\">\n" +
-    "		              <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
-    "		            </md-input-container>\n" +
-    "		            <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
-    "		          </form>\n" +
+    "					<form role=\"form\">\n" +
+    "						<md-input-container class=\"md-block\">\n" +
+    "							<textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "							<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "						</md-input-container>\n" +
+    "					</form>\n" +
     "		        </div>\n" +
     "		        <md-card ng-repeat=\"post in posts\">\n" +
     "		          <md-card-title>\n" +
     "		            <md-card-title-text>\n" +
-    "		            <a href=\"member/{{post.user.username}}\">\n" +
-    "		              <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "		              <p>{{post.user.username}}</p>\n" +
-    "		            </a>\n" +
-    "		            <p>{{post.post}}</p>\n" +
+    "			            <a href=\"member/{{post.user.username}}\">\n" +
+    "			              <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "			              <h4>{{post.user.username}}</h4>\n" +
+    "			            </a>\n" +
+    "			            <p>{{post.post}}</p>\n" +
     "		            </md-card-title-text>\n" +
     "		          </md-card-title>\n" +
     "		        </md-card>\n" +
-    "\n" +
     "		    </uib-tab>\n" +
     "		    <uib-tab heading=\"Votes\">\n" +
     "	    		<div ng-show=\"currentUser\">\n" +
-    "					<form class=\"blog-input\" role=\"form\" ng-submit=\"\">\n" +
-    "						<div class=\"form-group\">\n" +
-    "							<input type=\"text\" placeholder=\"newVote\" ng-model=\"newComment.comment\" class=\"form-control\" id=\"postTitle\">\n" +
-    "						</div>\n" +
-    "						<button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "					<form role=\"form\">\n" +
+    "						<md-input-container class=\"md-block\">\n" +
+    "							<textarea ng-model=\"newVote.title\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"newVote\"></textarea>\n" +
+    "							<button type=\"submit\" ng-click=\"\" class=\"btn btn-default\">Submit</button>\n" +
+    "						</md-input-container>\n" +
     "					</form>\n" +
     "				</div>\n" +
     "			    <div class=\"voteContainer\" ng-show=\"votes.length!=0\">\n" +
-    "					<div ng-repeat=\"vote in bill.votes\">\n" +
-    "						<h4>\n" +
-    "			      			<button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
-    "			      			<button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i> {{vote.minusCount}}</button>\n" +
-    "							<button class=\"btn btn-default\" ng-click=\"createVote(0, vote)\"><i class=\"fa fa-question\"></i> {{vote.otherCount}}</button>\n" +
-    "			      			({{vote.voteCount}})\n" +
-    "							<a href=\"/vote/{{vote.id}}\">{{vote.title}}</a> -- {{vote.result}}\n" +
-    "						</h4>\n" +
-    "						<p>comment</p>\n" +
-    "						<!--<p>{{vote.type}}</p>-->\n" +
-    "						<md-divider></md-divider>\n" +
-    "					</div>\n" +
+    "					<md-card ng-repeat=\"vote in bill.votes\">\n" +
+    "						<md-card-title>\n" +
+    "							<h4>\n" +
+    "				      			<button class=\"btn btn-default\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
+    "				      			<button class=\"btn btn-default\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i> {{vote.minusCount}}</button>\n" +
+    "								<button class=\"btn btn-default\" ng-click=\"createVote(0, vote)\"><i class=\"fa fa-question\"></i> {{vote.otherCount}}</button>\n" +
+    "				      			({{vote.voteCount}})\n" +
+    "								<a href=\"/vote/{{vote.id}}\">{{vote.result}}: {{vote.title}}</a>\n" +
+    "							</h4>\n" +
+    "							<!--<p>comment</p>-->\n" +
+    "						</md-card-title>\n" +
+    "					</md-card>\n" +
     "				</div>\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Related\">\n" +
@@ -273,7 +271,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "				</div>\n" +
     "		    </uib-tab>\n" +
     "		</uib-tabset>\n" +
-    "		<div style=\"height:100px;\"></div>\n" +
+    "		<div class=\"spacing-100\"></div>\n" +
     "	</div>\n" +
     "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "</div>\n" +
@@ -751,12 +749,16 @@ angular.module("footer/index.tpl.html", []).run(["$templateCache", function ($te
   $templateCache.put("footer/index.tpl.html",
     "<div class=\"footer\" ng-controller=\"FooterCtrl\">\n" +
     "	<div class=\"container\">\n" +
-    "		{{date | date:'yyyy'}} <a href=\"/\">voetr</a>\n" +
-    "		<a href=\"/about\">about</a>\n" +
-    "		<a href=\"/search\">discover</a>\n" +
-    "		<a href=\"/bills\">bills</a>\n" +
-    "		<a href=\"/committees\">committees</a>\n" +
-    "		<a href=\"/votes\">votes</a>\n" +
+    "		<div class=\"pull-left\">\n" +
+    "			{{date | date:'yyyy'}} <a href=\"/\">voetr</a>\n" +
+    "		</div>\n" +
+    "		<div class=\"pull-right\">\n" +
+    "			<a href=\"/about\">about</a>\n" +
+    "			<a href=\"/search\">discover</a>\n" +
+    "			<a href=\"/bills\">bills</a>\n" +
+    "			<a href=\"/committees\">committees</a>\n" +
+    "			<a href=\"/votes\">votes</a>\n" +
+    "		</div>\n" +
     "	</div>\n" +
     "</div>");
 }]);
@@ -783,6 +785,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "        <p>message</p>\n" +
     "      </div>\n" +
     "      <div class=\"col-md-8\">\n" +
+    "        <!--\n" +
     "        <div class=\"alert alert-success verificationNotice spacing-25\" ng-show=\"!currentUser.isVerified\">\n" +
     "          <h2>Become Verified!</h2>\n" +
     "          <hr>\n" +
@@ -792,14 +795,16 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "            <p>By providing official identification, government officials have more of an incentive to respond and your voice carries more weight.</p>\n" +
     "            <div class=\"spacing-10\"></div>\n" +
     "            <div ngf-accept=\"'image/*'\" ngf-drop ngf-select=\"uploadIdentification($file)\" ng-model=\"file\" class=\"drop-box\" ngf-drag-over-class=\"dragover\" ngf-allow-dir=\"true\">\n" +
-    "              <button class=\"btn btn-default\"><i class=\"fa fa-upload\"></i> Upload</button>\n" +
     "              <img ng-show=\"user.identificationUrl\" ng-src=\"{{user.identificationUrl}}\">\n" +
+    "              <div class=\"spacing-10\"></div>\n" +
+    "              <button class=\"btn btn-default\"><i class=\"fa fa-upload\"></i> Upload</button>\n" +
     "            </div>\n" +
     "            <div class=\"spacing-25\"></div>\n" +
     "            <h4><b>Official Address</b></h4>\n" +
     "            <div class=\"spacing-10\"></div>\n" +
     "            <md-input-container class=\"md-block\">\n" +
-    "              <textarea g-places-autocomplete ng-model=\"address\" rows=\"5\" md-select-on-focus aria-label=\"address\" placeholder=\"+ Add Location\"></textarea>\n" +
+    "              <textarea g-places-autocomplete ng-model=\"user.address\" rows=\"5\" md-select-on-focus aria-label=\"address\" placeholder=\"+ Add Location\"></textarea>\n" +
+    "              <button type=\"submit\" class=\"btn btn-default\" ng-click=\"accountSave()\">Save</button>\n" +
     "            </md-input-container>\n" +
     "            <div class=\"spacing-10\"></div>\n" +
     "            <h4><b>Your Representatives</b></h4>\n" +
@@ -807,7 +812,6 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "            <div class=\"spacing-10\"></div>\n" +
     "            <button ng-hide=\"officialRepresentatives.length > 0 || gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default btn-lg\"><i class=\"fa fa-map-marker\"></i> Find Your Reps</button>\n" +
     "            <i ng-show=\"gettingRepresentatives\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
-    "            <!--<div ng-show=\"gettingRepresentatives\" class=\"loader loaderSquare\"></div>-->\n" +
     "            <div class='md-padding' layout=\"row\" layout-align=\"center\" layout-wrap>\n" +
     "              <md-card flex=\"20\" ng-repeat=\"user in officialRepresentatives\">\n" +
     "                <a href=\"/member/{{user.username}}\">\n" +
@@ -816,13 +820,14 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "                <md-card-title class=\"text-center\" style=\"padding:15px 0\">\n" +
     "                  <md-card-title-text>\n" +
     "                    <a href=\"/member/{{user.username}}\">{{user.username}}</a>\n" +
-    "                    <!--<button class=\"btn btn-green\">select as representative</button>-->\n" +
+    "                    <button class=\"btn btn-green\">select as representative</button>\n" +
     "                  </md-card-title-text>\n" +
     "                </md-card-title>\n" +
     "              </md-card>\n" +
     "            </div>\n" +
     "          </div>\n" +
     "        </div>\n" +
+    "        -->\n" +
     "\n" +
     "        <!--constituents, representatives, userVotes-->\n" +
     "      \n" +
@@ -841,7 +846,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "        <md-card ng-repeat=\"post in posts\">\n" +
     "          <md-card-title>\n" +
     "            <md-card-title-text>\n" +
-    "              <a href=\"member/{{post.user.username}}\">\n" +
+    "              <a href=\"/member/{{post.user.username}}\">\n" +
     "                <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
     "                <h3>{{post.user.username}}</h3>\n" +
     "              </a>\n" +
@@ -995,7 +1000,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "            </div>\n" +
     "            <div class=\"info\">\n" +
     "              <h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
-    "              <h3 class=\"position\"><a href=\"member/{{user.username}}\">{{user.title}}</a></h3>\n" +
+    "              <h4 class=\"position\">{{user.title}}</h4>\n" +
     "              <p>{{user.state}}</p>\n" +
     "            </div>\n" +
     "            <div class=\"social\">\n" +
@@ -1013,7 +1018,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "            </div>\n" +
     "            <div class=\"info\">\n" +
     "              <h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
-    "              <h3 class=\"position\"><a href=\"member/{{user.username}}\">{{user.title}}</a></h3>\n" +
+    "              <h4 class=\"position\">{{user.title}}</h4>\n" +
     "              <p>{{user.state}}</p>\n" +
     "            </div>\n" +
     "            <div class=\"social\">\n" +
@@ -1180,9 +1185,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "				<h5 ng-show=\"member.title\"><span style=\"color:grey\">{{member.title}}</span></h5>\n" +
     "				<h5 ng-show=\"member.district\"><span style=\"color:grey\">District {{member.district}}</span></h5>\n" +
     "				<h5 ng-show=\"member.state\"><span style=\"color:grey\">{{member.state}}</span></h5>\n" +
-    "				<a ng-show=\"member.socialAccounts.facebook.profileUrl\" href=\"{{member.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-facebook\"></span> facebook</a>\n" +
-    "				<a ng-show=\"member.socialAccounts.twitter.profileUrl\" href=\"{{member.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-twitter\"></span> twitter</a>\n" +
-    "				<a ng-show=\"member.socialAccounts.google.profileUrl\" href=\"{{member.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-google\"></span> google</a>\n" +
+    "				<a ng-show=\"member.socialAccounts.facebook.profileUrl\" href=\"{{member.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-facebook\"></span> Facebook</a>\n" +
+    "				<a ng-show=\"member.socialAccounts.google.profileUrl\" href=\"{{member.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-google\"></span> Google</a>\n" +
+    "				<a ng-show=\"member.socialAccounts.twitter.profileUrl\" href=\"{{member.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-twitter\"></span> Twitter</a>\n" +
     "				<div class=\"spacing-10\"></div>\n" +
     "			</div>\n" +
     "			<div class=\"pull-right\">\n" +
@@ -1208,9 +1213,9 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "				<form role=\"form\">\n" +
     "					<md-input-container class=\"md-block\">\n" +
     "			        	<textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
-    "						<div class=\"spacing-10\"></div>\n" +
     "						<!--connect legislators-->\n" +
-    "						<p>send as a fax? -- send as mail (verified), send email (always) -- send video??</p>\n" +
+    "						<!--<p>send as a fax? - send as mail (verified), send email (always) - send video??</p>-->\n" +
+    "						<div class=\"spacing-10\"></div>\n" +
     "						<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
     "					</md-input-container>\n" +
     "				</form>\n" +
@@ -1222,7 +1227,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "					<md-card-title-text>\n" +
     "					<a href=\"member/{{post.user.username}}\">\n" +
     "						<img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "						<p>{{post.user.username}}</p>\n" +
+    "						<h4>{{post.user.username}}</h4>\n" +
     "					</a>\n" +
     "					<p>{{post.post}}</p>\n" +
     "					</md-card-title-text>\n" +
@@ -1243,11 +1248,19 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "\n" +
     "\n" +
     "			<md-card ng-repeat=\"vote in votes\">\n" +
-    "				<a href=\"member/{{vote.user.username}}\">\n" +
-    "					<img style=\"max-width:64px\" ng-src=\"{{vote.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{vote.user.username}}\">\n" +
-    "					<p>{{vote.user.username}}</p>\n" +
-    "				</a>\n" +
-    "				{{vote.voteString}} on behalf of {{constituents.length}}\n" +
+    "				<md-card-title>\n" +
+    "					<a href=\"member/{{vote.user.username}}\">\n" +
+    "						<img style=\"max-width:64px\" ng-src=\"{{vote.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{vote.user.username}}\">\n" +
+    "						<h4>{{vote.user.username}}</h4>\n" +
+    "					</a>\n" +
+    "					<p>{{vote.voteString}} on behalf of {{constituents.length}} constitutent<span ng-show=\"constituents.length > 1\">s</span></p>\n" +
+    "				</md-card-title>\n" +
+    "				<md-card-title>\n" +
+    "					<div style=\"float:right\">\n" +
+    "						<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
+    "						<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "					</div>\n" +
+    "				</md-card-title>\n" +
     "			</md-card>\n" +
     "\n" +
     "\n" +

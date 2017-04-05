@@ -22,9 +22,7 @@ angular.module( 'voetr.account', [
 	titleService.setTitle('account - voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.user = user;
-	$scope.avatarLoading = false;
     $scope.avatarPercentage = 0;
-   	$scope.coverLoading = false;
     $scope.coverPercentage = 0;
 
     $scope.localPassport = $scope.user.passports.filter(function(e){return e.protocol == 'local'});
@@ -34,7 +32,6 @@ angular.module( 'voetr.account', [
 
     $scope.uploadAvatar = function(file){
         if (file){
-            $scope.avatarLoading = true;
             $rootScope.stateIsLoading = true;
             Upload.upload({
                 url: '/api/user/upload',
@@ -42,13 +39,11 @@ angular.module( 'voetr.account', [
                 data: {picture: file}
             })
             .then(function(response){
-                $scope.avatarLoading = false;
                 $rootScope.stateIsLoading = false;
     			$scope.user.avatarUrl = response.data.amazonUrl;
                 $scope.accountSave();
             },
             function(err){
-                $scope.avatarLoading = false;
                 $rootScope.stateIsLoading = false;
             },
             function (evt) {
@@ -59,7 +54,6 @@ angular.module( 'voetr.account', [
 
     $scope.uploadCover = function(file){
         if (file){
-            $scope.coverLoading = true;
             $rootScope.stateIsLoading = true;
             Upload.upload({
                 url: '/api/user/upload',
@@ -67,13 +61,11 @@ angular.module( 'voetr.account', [
                 data: {picture: file}
             })
             .then(function(response){
-                $scope.coverLoading = false;
                 $rootScope.stateIsLoading = false;
     			$scope.user.coverUrl = response.data.amazonUrl;
                 $scope.accountSave();//probably should have a save button here -- if not save delete failed file
             },
             function(err){
-                $scope.coverLoading = false;
                 $rootScope.stateIsLoading = false;
             },
             function (evt) {
@@ -84,7 +76,6 @@ angular.module( 'voetr.account', [
 
     $scope.uploadIdentification = function(file){
         if (file){
-            $scope.identificationLoading = true;
             $rootScope.stateIsLoading = true;
             Upload.upload({
                 url: '/api/user/upload',
@@ -92,13 +83,11 @@ angular.module( 'voetr.account', [
                 data: {picture: file}
             })
             .then(function(response){
-                $scope.identificationLoading = false;
                 $rootScope.stateIsLoading = false;
                 $scope.user.identificationUrl = response.data.amazonUrl;
                 $scope.accountSave();//probably should have a save button here -- if not save delete failed file
             },
             function(err){
-                $scope.identificationLoading = false;
                 $rootScope.stateIsLoading = false;
             },
             function (evt) {
@@ -126,7 +115,7 @@ angular.module( 'voetr.account', [
     }
 
     $scope.accountSave = function(){
-        $scope.saving = true;
+        $rootScope.stateIsLoading = true;
         var model = {
             id: $scope.user.id,
             firstName: $scope.user.firstName,
@@ -134,9 +123,11 @@ angular.module( 'voetr.account', [
             avatarUrl: $scope.user.avatarUrl,
 			coverUrl: $scope.user.coverUrl,
             identificationUrl: $scope.user.identificationUrl,
+            address: $scope.user.address,
         };
-        console.log(model)
-        return UserModel.update(model);
+        UserModel.update(model).then(function(){
+            $rootScope.stateIsLoading = false;
+        });
     }
 
 }]);

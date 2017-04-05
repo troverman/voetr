@@ -63,7 +63,7 @@ module.exports = {
 		var model = {
 			username: req.param('username'),
 			email: req.param('email'),
-			first_name: req.param('first_name'),
+			firstName: req.param('firstName'),
 			avatarUrl: req.param('avatarUrl')
 		};
 
@@ -89,6 +89,7 @@ module.exports = {
 			avatarUrl: req.param('avatarUrl'),
 			coverUrl: req.param('coverUrl'),
 			identificationUrl: req.param('identificationUrl'),
+			address: req.param('address'),
 
 		};
 

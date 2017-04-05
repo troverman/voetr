@@ -119,17 +119,10 @@ angular.module( 'voetr.home', [
     };
 
      $scope.accountSave = function(){
-        $scope.saving = true;
-        var model = {
-            id: $scope.user.id,
-            firstName: $scope.user.firstName,
-            lastName: $scope.user.lastName,
-            avatarUrl: $scope.user.avatarUrl,
-			coverUrl: $scope.user.coverUrl,
-            identificationUrl: $scope.user.identificationUrl,
-        };
-        //console.log(model)
-        return UserModel.update(model);
+        $rootScope.stateIsLoading = true;
+        UserModel.update($scope.user).then(function(){
+       		$rootScope.stateIsLoading = false;
+        });
     };
 
     $scope.getLatLng = function() {

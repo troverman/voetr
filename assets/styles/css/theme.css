@@ -198,7 +198,7 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .info {
-  height: 175px;
+  height: 125px;
   background: #FAFAFA;
   text-align: center;
 }
@@ -284,9 +284,10 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   height: 40px;
   background: #DAE0DE;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 12px;
+
 }
-.social a i{font-size:20px};
+.social a i{font-size:20px; color:#636363;}
 
 .flex {
     display: flex;
