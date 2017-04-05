@@ -76,6 +76,7 @@ module.exports = {
         .limit(limiting)
         .skip(skipping)
         .populate('bill')
+        .populate('user')
         .populate('vote')
         .then(function (models) {
             return models;

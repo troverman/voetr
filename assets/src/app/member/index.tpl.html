@@ -18,7 +18,7 @@
 		</div>
 		<div class="container">
 			<div class="pull-left">
-				<h2>{{member.username}}</h2>
+				<h1>{{member.username}}</h1>
 				<h5 ng-show="member.title"><span style="color:grey">{{member.title}}</span></h5>
 				<h5 ng-show="member.district"><span style="color:grey">District {{member.district}}</span></h5>
 				<h5 ng-show="member.state"><span style="color:grey">{{member.state}}</span></h5>
@@ -28,19 +28,17 @@
 				<div class="spacing-10"></div>
 			</div>
 			<div class="pull-right">
-				<h5 ng-show="member.phone">phone: {{member.phone}}</h5>
-				<h5 ng-show="showFax">fax: {{member.fax}}</h5>
-				<h5 ng-show="member.email">email: {{member.email}}</h5>
-				<div style="float:left" ng-show="currentUser.id != member.id">
+				<h5 ng-show="member.phone"><i class="fa fa-phone"></i> {{member.phone}}</h5>
+				<h5 ng-show="showFax"><i class="fa fa-fax"></i> {{member.fax}}</h5>
+				<h5 ng-show="member.email"><i class="fa fa-envelope"></i> {{member.email}}</h5>
+				<div ng-show="currentUser.id != member.id">
 					<button ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">elect</button>
 					<button ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">unelect</button>
+					<button class="btn btn-default">follow</button>
 				</div>
-				<button style="float:left" class="btn btn-default">follow</button>
 				<div class="spacing-5"></div>
-				<div ng-show="currentUser.id == member.id">
-					<a class="btn btn-default" href="/account">settings</a>
-				</div>
-				<div style="clear:both;height:15px"></div>
+				<div style="clear:both"></div>
+				<div class="spacing-15"></div>
 			</div>
 			<div class="spacing-10"></div>
 		</div>
@@ -84,6 +82,18 @@
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
+
+
+			<md-card ng-repeat="vote in votes">
+				<a href="member/{{vote.user.username}}">
+					<img style="max-width:64px" ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
+					<p>{{vote.user.username}}</p>
+				</a>
+				{{vote.voteString}} on behalf of {{constituents.length}}
+			</md-card>
+
+
+
 			<div class="spacing-10"></div>
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
 			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>

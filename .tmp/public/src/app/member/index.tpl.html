@@ -18,33 +18,27 @@
 		</div>
 		<div class="container">
 			<div class="pull-left">
-				<h2>{{member.username}}</h2>
+				<h1>{{member.username}}</h1>
 				<h5 ng-show="member.title"><span style="color:grey">{{member.title}}</span></h5>
 				<h5 ng-show="member.district"><span style="color:grey">District {{member.district}}</span></h5>
 				<h5 ng-show="member.state"><span style="color:grey">{{member.state}}</span></h5>
 				<a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}"  target="_blank"><span class="fa fa-facebook"></span> facebook</a>
 				<a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}"  target="_blank"><span class="fa fa-twitter"></span> twitter</a>
 				<a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}"  target="_blank"><span class="fa fa-google"></span> google</a>
-				<br><br>
+				<div class="spacing-10"></div>
 			</div>
 			<div class="pull-right">
-				<h5 ng-show="member.phone">phone: {{member.phone}}</h5>
-				<h5 ng-show="showFax">fax: {{member.fax}}</h5>
-				<h5 ng-show="member.email">email: {{member.email}}</h5>
-				<button class="btn btn-default">follow</button>
-				<br>
-				<!--can have dif reps per committee-->
-				<!--represented by (list of reps with each committee)-->
+				<h5 ng-show="member.phone"><i class="fa fa-phone"></i> {{member.phone}}</h5>
+				<h5 ng-show="showFax"><i class="fa fa-fax"></i> {{member.fax}}</h5>
+				<h5 ng-show="member.email"><i class="fa fa-envelope"></i> {{member.email}}</h5>
 				<div ng-show="currentUser.id != member.id">
-					<button ng-show="isFollowing" class="btn btn-primary" ng-click="removeRepresentative()">remove as a representative</button>
-					<br>
-					<button ng-show="!isFollowing" class="btn btn-primary" ng-click="selectAsRepresentative()">select as a representative</button>
-					</div>
-				<br>
-				<div ng-show="currentUser.id == member.id">
-					<a href="/account"><button class="btn btn-default">settings</button></a>
+					<button ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">elect</button>
+					<button ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">unelect</button>
+					<button class="btn btn-default">follow</button>
 				</div>
-				<div style="clear:both;height:15px"></div>
+				<div class="spacing-5"></div>
+				<div style="clear:both"></div>
+				<div class="spacing-15"></div>
 			</div>
 			<div class="spacing-10"></div>
 		</div>
@@ -88,7 +82,19 @@
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
-			<br><br>	
+
+
+			<md-card ng-repeat="vote in votes">
+				<a href="member/{{vote.user.username}}">
+					<img style="max-width:64px" ng-src="{{vote.user.avatarUrl}}" class="md-card-image" alt="{{vote.user.username}}">
+					<p>{{vote.user.username}}</p>
+				</a>
+				{{vote.voteString}} on behalf of {{constituents.length}}
+			</md-card>
+
+
+
+			<div class="spacing-10"></div>
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
 			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
 			</div>
@@ -108,41 +114,41 @@
 		</uib-tab>
 		<uib-tab heading="{{constituents.length}} Constituents">
 			<div class="col-lg-4 col-sm-6" ng-repeat="constituent in constituents">
-	          <div style="margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden">
-	            <div class="image" style="background-image: url('{{constituent.constituent.coverUrl}}')">
-	              <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" src="{{constituent.constituent.avatarUrl}}" err-src="/images/avatar.png">
-	            </div>
-	            <div class="info">
-	              <h2 class="name"><a href="member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h2>
-	              <h3 class="position"><a href="member/{{constituent.constituent.username}}">{{constituent.constituent.title}}</a></h3>
-	              <p>{{constituent.constituent.state}}</p>
-	            </div>
-	            <div class="social">
-	              <a ng-show="constituent.constituent.socialAccounts.facebook.profileUrl" href="{{constituent.constituent.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
-	              <a ng-show="constituent.constituent.socialAccounts.twitter.profileUrl" href="{{constituent.constituent.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
-	              <a ng-show="constituent.constituent.socialAccounts.google.profileUrl" href="{{constituent.constituent.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
-	            </div>
-	          </div>
-	        </div>
+				<div style="margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden">
+					<div class="image" style="background-image: url('{{constituent.constituent.coverUrl}}')">
+						<img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" src="{{constituent.constituent.avatarUrl}}" err-src="/images/avatar.png">
+					</div>
+					<div class="info">
+						<h2 class="name"><a href="member/{{constituent.constituent.username}}">{{constituent.constituent.username}}</a></h2>
+						<h3 class="position"><a href="member/{{constituent.constituent.username}}">{{constituent.constituent.title}}</a></h3>
+						<p>{{constituent.constituent.state}}</p>
+					</div>
+					<div class="social">
+						<a ng-show="constituent.constituent.socialAccounts.facebook.profileUrl" href="{{constituent.constituent.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+						<a ng-show="constituent.constituent.socialAccounts.twitter.profileUrl" href="{{constituent.constituent.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+						<a ng-show="constituent.constituent.socialAccounts.google.profileUrl" href="{{constituent.constituent.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+					</div>
+				</div>
+			</div>
 		</uib-tab>
 		<uib-tab heading="{{representatives.length}} Representatives">
-		    <div class="col-lg-4 col-sm-6" ng-repeat="representative in representatives">
-	          <div style="margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden">
-	            <div class="image" style="background-image: url('{{representative.representative.coverUrl}}')">
-	              <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" src="{{representative.representative.avatarUrl}}" err-src="/images/avatar.png">
-	            </div>
-	            <div class="info">
-	              <h2 class="name"><a href="member/{{representative.representative.username}}">{{representative.representative.username}}</a></h2>
-	              <h3 class="position"><a href="member/{{representative.representative.username}}">{{representative.representative.title}}</a></h3>
-	              <p>{{representative.representative.state}}</p>
-	            </div>
-	            <div class="social">
-	              <a ng-show="representative.representative.socialAccounts.facebook.profileUrl" href="{{representative.representative.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
-	              <a ng-show="representative.representative.socialAccounts.twitter.profileUrl" href="{{representative.representative.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
-	              <a ng-show="representative.representative.socialAccounts.google.profileUrl" href="{{representative.representative.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
-	            </div>
-	          </div>
-	        </div>
+			<div class="col-lg-4 col-sm-6" ng-repeat="representative in representatives">
+				<div style="margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden">
+					<div class="image" style="background-image: url('{{representative.representative.coverUrl}}')">
+						<img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" src="{{representative.representative.avatarUrl}}" err-src="/images/avatar.png">
+					</div>
+					<div class="info">
+						<h2 class="name"><a href="member/{{representative.representative.username}}">{{representative.representative.username}}</a></h2>
+						<h3 class="position"><a href="member/{{representative.representative.username}}">{{representative.representative.title}}</a></h3>
+						<p>{{representative.representative.state}}</p>
+					</div>
+					<div class="social">
+						<a ng-show="representative.representative.socialAccounts.facebook.profileUrl" href="{{representative.representative.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+						<a ng-show="representative.representative.socialAccounts.twitter.profileUrl" href="{{representative.representative.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+						<a ng-show="representative.representative.socialAccounts.google.profileUrl" href="{{representative.representative.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+					</div>
+				</div>
+			</div>
 		</uib-tab>
 		<!--<uib-tab heading="Followers">
 		</uib-tab>
@@ -158,7 +164,7 @@
 					</md-card-title-text>
 				</md-card-title>
 			</md-card>
-			<br><br>	
+			<div class="spacing-10"></div>
 			<div ng-show="votes.legnth > 0 && votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
 			  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
 			</div>

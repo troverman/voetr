@@ -47,6 +47,10 @@ module.exports = {
         identificationUrl: {
             type: 'string',
         },
+        isOfficial: {
+            type: 'boolean',
+            defaultsTo: false
+        },
         isVerified: {
             type: 'boolean',
             defaultsTo: false

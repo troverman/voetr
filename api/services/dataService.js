@@ -529,6 +529,7 @@ module.exports = {
 						avatarUrl: avatarUrl,
 						coverUrl : coverUrl,
 						chamber: chamber,
+						isOfficial: true
 					};
 					User.findOrCreate({bioguide_id: bioguide_id}, model)
 					.exec(function(err, userModel) {

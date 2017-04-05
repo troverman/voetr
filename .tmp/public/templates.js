@@ -1176,33 +1176,27 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		</div>\n" +
     "		<div class=\"container\">\n" +
     "			<div class=\"pull-left\">\n" +
-    "				<h2>{{member.username}}</h2>\n" +
+    "				<h1>{{member.username}}</h1>\n" +
     "				<h5 ng-show=\"member.title\"><span style=\"color:grey\">{{member.title}}</span></h5>\n" +
     "				<h5 ng-show=\"member.district\"><span style=\"color:grey\">District {{member.district}}</span></h5>\n" +
     "				<h5 ng-show=\"member.state\"><span style=\"color:grey\">{{member.state}}</span></h5>\n" +
     "				<a ng-show=\"member.socialAccounts.facebook.profileUrl\" href=\"{{member.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-facebook\"></span> facebook</a>\n" +
     "				<a ng-show=\"member.socialAccounts.twitter.profileUrl\" href=\"{{member.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-twitter\"></span> twitter</a>\n" +
     "				<a ng-show=\"member.socialAccounts.google.profileUrl\" href=\"{{member.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><span class=\"fa fa-google\"></span> google</a>\n" +
-    "				<br><br>\n" +
+    "				<div class=\"spacing-10\"></div>\n" +
     "			</div>\n" +
     "			<div class=\"pull-right\">\n" +
-    "				<h5 ng-show=\"member.phone\">phone: {{member.phone}}</h5>\n" +
-    "				<h5 ng-show=\"showFax\">fax: {{member.fax}}</h5>\n" +
-    "				<h5 ng-show=\"member.email\">email: {{member.email}}</h5>\n" +
-    "				<button class=\"btn btn-default\">follow</button>\n" +
-    "				<br>\n" +
-    "				<!--can have dif reps per committee-->\n" +
-    "				<!--represented by (list of reps with each committee)-->\n" +
+    "				<h5 ng-show=\"member.phone\"><i class=\"fa fa-phone\"></i> {{member.phone}}</h5>\n" +
+    "				<h5 ng-show=\"showFax\"><i class=\"fa fa-fax\"></i> {{member.fax}}</h5>\n" +
+    "				<h5 ng-show=\"member.email\"><i class=\"fa fa-envelope\"></i> {{member.email}}</h5>\n" +
     "				<div ng-show=\"currentUser.id != member.id\">\n" +
-    "					<button ng-show=\"isFollowing\" class=\"btn btn-primary\" ng-click=\"removeRepresentative()\">remove as a representative</button>\n" +
-    "					<br>\n" +
-    "					<button ng-show=\"!isFollowing\" class=\"btn btn-primary\" ng-click=\"selectAsRepresentative()\">select as a representative</button>\n" +
-    "					</div>\n" +
-    "				<br>\n" +
-    "				<div ng-show=\"currentUser.id == member.id\">\n" +
-    "					<a href=\"/account\"><button class=\"btn btn-default\">settings</button></a>\n" +
+    "					<button ng-show=\"!isFollowing\" class=\"btn btn-default\" ng-click=\"selectAsRepresentative()\">elect</button>\n" +
+    "					<button ng-show=\"isFollowing\" class=\"btn btn-default\" ng-click=\"removeRepresentative()\">unelect</button>\n" +
+    "					<button class=\"btn btn-default\">follow</button>\n" +
     "				</div>\n" +
-    "				<div style=\"clear:both;height:15px\"></div>\n" +
+    "				<div class=\"spacing-5\"></div>\n" +
+    "				<div style=\"clear:both\"></div>\n" +
+    "				<div class=\"spacing-15\"></div>\n" +
     "			</div>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
     "		</div>\n" +
@@ -1246,7 +1240,19 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "					</md-card-title-text>\n" +
     "				</md-card-title>\n" +
     "			</md-card>\n" +
-    "			<br><br>	\n" +
+    "\n" +
+    "\n" +
+    "			<md-card ng-repeat=\"vote in votes\">\n" +
+    "				<a href=\"member/{{vote.user.username}}\">\n" +
+    "					<img style=\"max-width:64px\" ng-src=\"{{vote.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{vote.user.username}}\">\n" +
+    "					<p>{{vote.user.username}}</p>\n" +
+    "				</a>\n" +
+    "				{{vote.voteString}} on behalf of {{constituents.length}}\n" +
+    "			</md-card>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "			<div class=\"spacing-10\"></div>\n" +
     "			<div ng-show=\"votes.legnth > 0 && votes.legnth != voteCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
     "			  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
     "			</div>\n" +
@@ -1266,41 +1272,41 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"{{constituents.length}} Constituents\">\n" +
     "			<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"constituent in constituents\">\n" +
-    "	          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
-    "	            <div class=\"image\" style=\"background-image: url('{{constituent.constituent.coverUrl}}')\">\n" +
-    "	              <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" src=\"{{constituent.constituent.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
-    "	            </div>\n" +
-    "	            <div class=\"info\">\n" +
-    "	              <h2 class=\"name\"><a href=\"member/{{constituent.constituent.username}}\">{{constituent.constituent.username}}</a></h2>\n" +
-    "	              <h3 class=\"position\"><a href=\"member/{{constituent.constituent.username}}\">{{constituent.constituent.title}}</a></h3>\n" +
-    "	              <p>{{constituent.constituent.state}}</p>\n" +
-    "	            </div>\n" +
-    "	            <div class=\"social\">\n" +
-    "	              <a ng-show=\"constituent.constituent.socialAccounts.facebook.profileUrl\" href=\"{{constituent.constituent.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "	              <a ng-show=\"constituent.constituent.socialAccounts.twitter.profileUrl\" href=\"{{constituent.constituent.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "	              <a ng-show=\"constituent.constituent.socialAccounts.google.profileUrl\" href=\"{{constituent.constituent.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
-    "	            </div>\n" +
-    "	          </div>\n" +
-    "	        </div>\n" +
+    "				<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "					<div class=\"image\" style=\"background-image: url('{{constituent.constituent.coverUrl}}')\">\n" +
+    "						<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" src=\"{{constituent.constituent.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "					</div>\n" +
+    "					<div class=\"info\">\n" +
+    "						<h2 class=\"name\"><a href=\"member/{{constituent.constituent.username}}\">{{constituent.constituent.username}}</a></h2>\n" +
+    "						<h3 class=\"position\"><a href=\"member/{{constituent.constituent.username}}\">{{constituent.constituent.title}}</a></h3>\n" +
+    "						<p>{{constituent.constituent.state}}</p>\n" +
+    "					</div>\n" +
+    "					<div class=\"social\">\n" +
+    "						<a ng-show=\"constituent.constituent.socialAccounts.facebook.profileUrl\" href=\"{{constituent.constituent.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
+    "						<a ng-show=\"constituent.constituent.socialAccounts.twitter.profileUrl\" href=\"{{constituent.constituent.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
+    "						<a ng-show=\"constituent.constituent.socialAccounts.google.profileUrl\" href=\"{{constituent.constituent.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "					</div>\n" +
+    "				</div>\n" +
+    "			</div>\n" +
     "		</uib-tab>\n" +
     "		<uib-tab heading=\"{{representatives.length}} Representatives\">\n" +
-    "		    <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"representative in representatives\">\n" +
-    "	          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
-    "	            <div class=\"image\" style=\"background-image: url('{{representative.representative.coverUrl}}')\">\n" +
-    "	              <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" src=\"{{representative.representative.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
-    "	            </div>\n" +
-    "	            <div class=\"info\">\n" +
-    "	              <h2 class=\"name\"><a href=\"member/{{representative.representative.username}}\">{{representative.representative.username}}</a></h2>\n" +
-    "	              <h3 class=\"position\"><a href=\"member/{{representative.representative.username}}\">{{representative.representative.title}}</a></h3>\n" +
-    "	              <p>{{representative.representative.state}}</p>\n" +
-    "	            </div>\n" +
-    "	            <div class=\"social\">\n" +
-    "	              <a ng-show=\"representative.representative.socialAccounts.facebook.profileUrl\" href=\"{{representative.representative.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "	              <a ng-show=\"representative.representative.socialAccounts.twitter.profileUrl\" href=\"{{representative.representative.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "	              <a ng-show=\"representative.representative.socialAccounts.google.profileUrl\" href=\"{{representative.representative.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
-    "	            </div>\n" +
-    "	          </div>\n" +
-    "	        </div>\n" +
+    "			<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"representative in representatives\">\n" +
+    "				<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "					<div class=\"image\" style=\"background-image: url('{{representative.representative.coverUrl}}')\">\n" +
+    "						<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" src=\"{{representative.representative.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "					</div>\n" +
+    "					<div class=\"info\">\n" +
+    "						<h2 class=\"name\"><a href=\"member/{{representative.representative.username}}\">{{representative.representative.username}}</a></h2>\n" +
+    "						<h3 class=\"position\"><a href=\"member/{{representative.representative.username}}\">{{representative.representative.title}}</a></h3>\n" +
+    "						<p>{{representative.representative.state}}</p>\n" +
+    "					</div>\n" +
+    "					<div class=\"social\">\n" +
+    "						<a ng-show=\"representative.representative.socialAccounts.facebook.profileUrl\" href=\"{{representative.representative.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
+    "						<a ng-show=\"representative.representative.socialAccounts.twitter.profileUrl\" href=\"{{representative.representative.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
+    "						<a ng-show=\"representative.representative.socialAccounts.google.profileUrl\" href=\"{{representative.representative.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "					</div>\n" +
+    "				</div>\n" +
+    "			</div>\n" +
     "		</uib-tab>\n" +
     "		<!--<uib-tab heading=\"Followers\">\n" +
     "		</uib-tab>\n" +
@@ -1316,7 +1322,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "					</md-card-title-text>\n" +
     "				</md-card-title>\n" +
     "			</md-card>\n" +
-    "			<br><br>	\n" +
+    "			<div class=\"spacing-10\"></div>\n" +
     "			<div ng-show=\"votes.legnth > 0 && votes.legnth != voteCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
     "			  <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "			</div>\n" +
