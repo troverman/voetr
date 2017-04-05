@@ -235,13 +235,14 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 .footer {
     padding:50px;
     background-color:#24242e;
-    color: gray;
+    color: white;
     font-family: 'Jura', sans-serif;
 }
 
 .footer a{
   color:white;
   padding:5px;
+  font-size:16px;
 }
 
 .red-color {
