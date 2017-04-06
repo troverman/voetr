@@ -53,18 +53,23 @@ module.exports = {
 	},
 
 	create: function (req, res) {
-		//var title = req.param('title');
-		var committee = req.param('committee');
-		var user = req.param('user');
 		var model = {
 			title: 'Committee Member',
-			committee: committee,
-			user: user
+			committee: req.param('committee'),
+			user: req.param('user')
 		};
 		CommitteeMember.create(model)
 		.exec(function(err, member) {
 			if (err) {return console.log(err);}
 			else {
+				CommitteeMember.count()
+				.where({committee: req.param('committee')})
+				.exec(function(err, committeeMemberCount) {
+					console.log(committeeMemberCount);
+					Committee.update({id: req.param('committee')}, {memberCount: committeeMemberCount}).exec(function afterwards(err, updated){
+						Committee.publishUpdate(req.param('committee'), updated);
+					});
+				});
 				CommitteeMember.publishCreate(member);
 				res.json(member);
 			}
