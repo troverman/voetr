@@ -1,0 +1,122 @@
+<div class="imageContainer">
+    <video class='flexible' autoplay="autoplay" muted="muted" preload="auto" loop="loop"><source src="https://s3-us-west-2.amazonaws.com/voetr/washington.mp4" type="video/mp4"></video>
+    <div class="imageContainerDiv container">  
+        <h1 style="text-align:center">build empowerment, change consensus</h1>
+    </div>
+</div>
+<div id="about">
+    <div id="information">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="spacing-100"></div>
+            </div>
+            <div class="col-md-6">
+                <i style="font-size:256px;" class="fa fa-bullhorn"></i>
+            </div>
+            <div class="col-md-6">
+                <h1>be part of the movement</h1>
+                <h4>direct your impact though input on policy</h4>
+                <h4>create a coalition of representation</h4>
+                <br><br>
+                <a href="/about" class="btn btn-default">learn more</a>
+                <!--reduce polarization-->
+                <!--seeing past partisan politics-->
+                <!--<p>directly impact the creation of policy</p>-->
+                <!--<p>creating a coalition of representation</p>-->
+            </div>
+            <div class="col-md-12">
+                <div class="spacing-100"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="register">
+        <div ng-include="'register/index.tpl.html'"></div>
+    </div>
+
+    <div id="bills">
+        <div class="container">
+            <h2><a href="/bills">{{billCount}} bills</a></h2>
+            <md-divider></md-divider><br>
+            <md-card ng-repeat="bill in bills">
+                <md-card-title>
+                    <md-card-title-text>
+                    <h4>
+                        <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{plusCount}}</button>
+                        <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{minusCount}}</button>
+                        <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
+                    </h4>
+                    </md-card-title-text>
+                </md-card-title>
+            </md-card> 
+            <div ng-click="loadMoreBills()" style="text-align:center">
+                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="committees">
+        <div class="container">
+            <h2><a href="/committees">{{committeeCount}} committees</a></h2>
+            <md-divider></md-divider><br>
+            <md-card ng-repeat="committee in committees" class="col-sm-12">
+                <md-card-title>
+                    <md-card-title-text>
+                        <h4><a href="/committee/{{committee.urlTitle}}"><span class="">{{committee.title}}</span></a></h4>
+                    </md-card-title-text>
+                </md-card-title>
+            </md-card>
+            <div ng-click="loadMoreCommittees()" style="text-align:center">
+                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="members">
+        <div class="container">
+            <h2>{{userCount}} members</h2>
+            <md-divider></md-divider><br>
+            <button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
+            <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
+            <div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">
+                <div style="margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden">
+                    <div class="image" style="background-image: url('{{user.coverUrl}}')">
+                        <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png">
+                    </div>
+                    <div class="info">
+                        <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
+                        <h4 class="position">{{user.title}}</h4>
+                        <p>{{user.state}}</p>
+                    </div>
+                    <div class="social">
+                        <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a ng-show="user.socialAccounts.twitter.profileUrl" href="{{user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a ng-show="user.socialAccounts.google.profileUrl" href="{{user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6" ng-repeat="user in users">
+                <div style="margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden">
+                    <div class="image" style="background-image: url('{{user.coverUrl}}')">
+                        <img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png">
+                    </div>
+                    <div class="info">
+                        <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
+                        <h4 class="position">{{user.title}}</h4>
+                        <p>{{user.state}}</p>
+                    </div>
+                    <div class="social">
+                        <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a ng-show="user.socialAccounts.twitter.profileUrl" href="{{user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a ng-show="user.socialAccounts.google.profileUrl" href="{{user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div ng-click="loadMoreMembers()" style="text-align:center">
+                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

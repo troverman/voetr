@@ -1,0 +1,86 @@
+<div class="spacing-25"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="avatar" style="margin-top:0em" ng-src="{{currentUser.avatarUrl}}"/>
+            <h2><a href="/member/{{currentUser.username}}"><b>{{currentUser.username}}</a></b></h2>
+            <div class="spacing-5"></div>
+            <h5>Bills - {{committees.length}}</h5>
+            <h5>Committees - {{committees.length}}</h5>
+            <h5>Constituents - {{constituents.length}}</h5>
+            <h5>Representatives - {{representatives.length}}</h5>
+            <h5>Votes - {{votes.length}}</h5>
+            <div class="spacing-25"></div>
+            <uib-tabset active="0" vertical="true">
+                <uib-tab index="0" heading="Activity">
+                </uib-tab>
+                <uib-tab heading="Bills">
+                </uib-tab>
+                <uib-tab heading="Posts">
+                </uib-tab>
+                <uib-tab heading="Votes">
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-md-8">      
+            <div class="spacing-5"></div>
+            <div class="profilePost">
+                <form role="form">
+                    <md-input-container class="md-block">
+                        <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                    </md-input-container>
+                </form>
+                <button ng-click="createPost()" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+            </div>
+            <div class="spacing-5"></div>
+
+            <md-card ng-repeat="post in posts">
+                <md-card-title>
+                    <md-card-title-text>
+                    <a href="/member/{{post.user.username}}">
+                    <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+                    <h3>{{post.user.username}}</h3>
+                    </a>
+                    <p>{{post.post}}</p>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-title>
+                    <a>like</a> 
+                    <a>reply</a>
+                </md-card-title>
+            </md-card>
+
+            <div class="spacing-15"></div>
+            <h3>trending votes</h3>
+            <md-divider></md-divider>
+            <div class="spacing-5"></div>
+            <md-card ng-repeat="vote in votes">
+                <md-card-title>
+                    <md-card-title-text>
+                        <h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
+                        <div class="margin-5"></div>
+                        <h4>
+                            <b>+ {{vote.plusCount-vote.minusCount}}</b>
+                            <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
+                                <i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
+                            </button>
+                            <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
+                                <i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
+                            </button>
+                            <br><br>
+                            <span class="subtitle">({{vote.voteCount}} total votes)</span>
+                        </h4>
+                        <div class="margin-10"></div>
+                        <a href="/bill/{{bill._id}}/{{bill.title}}">{{vote.bill.title}}</a>
+                        <br><br>
+                    </md-card-title-text>
+                </md-card-title>
+            </md-card>
+            <br><br>
+            <div ng-click="loadMoreVotes()" style="text-align:center">
+                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
+            </div>
+            <div class="spacing-50"></div>
+        </div>
+    </div>
+</div>

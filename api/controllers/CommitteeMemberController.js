@@ -43,6 +43,15 @@ module.exports = {
 		});
 	},
 
+	getMemberCount: function(req, res) {
+		CommitteeMember.count()
+		.where({user:req.param('id')})
+		.exec(function(err, committeeMemberCount) {
+			if (err) {return console.log(err);}
+			else{res.json({ committeeMemberCount: committeeMemberCount });}
+		});
+	},
+
 	create: function (req, res) {
 		//var title = req.param('title');
 		var committee = req.param('committee');

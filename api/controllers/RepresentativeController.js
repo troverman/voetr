@@ -33,6 +33,15 @@ module.exports = {
 		});
 	},
 
+	getConstituentCount: function(req, res) {
+		Representative.count()
+		.where({representative:req.param('id')})
+		.exec(function(err, constituentCount) {
+			if (err) {return console.log(err);}
+			else{res.json({ constituentCount: constituentCount });}
+		});
+	},
+
 	getRepresentatives: function(req, res) {
 		var constituent = req.param('id');
 		Representative.getRepresentatives(constituent)
@@ -43,6 +52,15 @@ module.exports = {
 		})
 		.fail(function(err) {
 			// An error occured
+		});
+	},
+
+	getRepresentativeCount: function(req, res) {
+		Representative.count()
+		.where({constituent:req.param('id')})
+		.exec(function(err, representativeCount) {
+			if (err) {return console.log(err);}
+			else{res.json({ representativeCount: representativeCount });}
 		});
 	},
 

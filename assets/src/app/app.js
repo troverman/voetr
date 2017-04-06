@@ -20,7 +20,6 @@ angular.module( 'voetr', [
     'voetr.committees',
     'voetr.footer',
     'voetr.home',
-    'voetr.intro',
     'voetr.login',
     'voetr.member',
     'voetr.nav',

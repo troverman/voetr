@@ -23,7 +23,13 @@ module.exports.routes = {
   'get /committee/:path/votes': 'HomeController.index',
   
   'get /member': 'HomeController.index',
-  'get /member/:id': 'HomeController.index',
+  'get /member/:path': 'HomeController.index',
+  'get /member/:path/bills': 'HomeController.index',
+  'get /member/:path/committees': 'HomeController.index',
+  'get /member/:path/constituents': 'HomeController.index',
+  'get /member/:path/representatives': 'HomeController.index',
+  'get /member/:path/votes': 'HomeController.index',
+
   'get /search': 'HomeController.index',
   'get /search/:searchQuery': 'HomeController.index',
   'get /votes': 'HomeController.index',
@@ -73,6 +79,7 @@ module.exports.routes = {
    */
   'get /api/committeemember/committee': 'CommitteeMemberController.getByCommittee',
   'get /api/committeemember/member': 'CommitteeMemberController.getByMember',
+  'get /api/committeemember/user/count/:id': 'CommitteeMemberController.getMemberCount',
   'post /api/committeemember': 'CommitteeMemberController.create',
   'delete /api/committeemember/:id': 'CommitteeMemberController.destroy',
 
@@ -115,6 +122,9 @@ module.exports.routes = {
   'get /api/representative/:id': 'RepresentativeController.getOne',
   'get /api/representative/constituents/:id': 'RepresentativeController.getConstituents',
   'get /api/representative/representatives/:id': 'RepresentativeController.getRepresentatives',
+  'get /api/representative/user/constituent/count/:id': 'RepresentativeController.getConstituentCount',
+  'get /api/representative/user/representative/count/:id': 'RepresentativeController.getRepresentativeCount',
+
   'post /api/representative': 'RepresentativeController.create',
   'delete /api/representative/:id': 'RepresentativeController.destroy',
 

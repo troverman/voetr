@@ -1,12 +1,43 @@
-@import url(https://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
-
 .avatar {
-  margin: 0 auto;
-  background: #fff;
-  width: 15em;
-  height: 15em;
-  padding: 0.25em;
-  border-radius: .4em;
-  margin-top: -13em;//-8.4em;
-  box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);
+	position:absolute;
+	top:6.4em;
+	margin: 0 auto;
+	background: #fff;
+	max-width: 15em;
+	height: 15em;
+	padding: 0.25em;
+	border-radius: .2em;
+	//box-shadow: 0 0 .1em rgba(0, 0, 0, 0.15);
 }
+
+.member-cover{
+	height:17em;
+	width: 100%;
+	overflow: hidden;
+}
+.member-cover img{
+	width: 100%;
+	margin-top: -10%
+}
+
+.member-tabs li{
+    display: inline;
+    font-size: 20px;
+    font-family:Jura;
+}
+
+.member-tabs > li > a{
+	padding:10px 15px;
+	color:rgb(125,125,125);
+}
+
+.member-tabs > li > a:hover{
+	background-color: #eee;
+	border-radius:3px;
+}
+
+.member-tab-container ul{
+	margin:10px 15px;
+}
+
+/*MEDIA QUERY*/

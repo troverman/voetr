@@ -20,9 +20,9 @@ angular.module( 'voetr.committee', [
     .state( 'committee.home', {
         url: '',
         views: {
-            "home": {
+            "committeeHome": {
                 controller: 'CommitteeHomeCtrl',
-                templateUrl: 'committee/home.tpl.html'
+                templateUrl: 'committee/templates/home.tpl.html'
             }
         },
         resolve: {
@@ -47,9 +47,9 @@ angular.module( 'voetr.committee', [
     .state( 'committee.bills', {
         url: '/bills',
         views: {
-            "bills": {
+            "committeeBills": {
                 controller: 'CommitteeBillCtrl',
-                templateUrl: 'committee/bills.tpl.html'
+                templateUrl: 'committee/templates/bills.tpl.html'
             }
         },
         resolve: {
@@ -63,7 +63,7 @@ angular.module( 'voetr.committee', [
         views: {
             "committeeCommittees": {
                 controller: 'CommitteeCommitteesCtrl',
-                templateUrl: 'committee/committees.tpl.html'
+                templateUrl: 'committee/templates/committees.tpl.html'
             }
         },
         resolve: {
@@ -75,9 +75,9 @@ angular.module( 'voetr.committee', [
     .state( 'committee.discussion', {
         url: '/discussion',
         views: {
-            "discussion": {
+            "committeeDiscussion": {
                 controller: 'CommitteeDiscussionCtrl',
-                templateUrl: 'committee/discussion.tpl.html'
+                templateUrl: 'committee/templates/discussion.tpl.html'
             }
         },
         resolve: {
@@ -89,9 +89,9 @@ angular.module( 'voetr.committee', [
     .state( 'committee.members', {
         url: '/members',
         views: {
-            "members": {
+            "committeeMembers": {
                 controller: 'CommitteeMemberCtrl',
-                templateUrl: 'committee/members.tpl.html'
+                templateUrl: 'committee/templates/members.tpl.html'
             }
         },
         resolve: {
@@ -103,9 +103,9 @@ angular.module( 'voetr.committee', [
     .state( 'committee.votes', {
         url: '/votes',
         views: {
-            "votes": {
+            "committeeVotes": {
                 controller: 'CommitteeVoteCtrl',
-                templateUrl: 'committee/votes.tpl.html'
+                templateUrl: 'committee/templates/votes.tpl.html'
             }
         },
         resolve: {

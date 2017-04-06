@@ -1,50 +1,57 @@
 <style>
 //.navbar-inverse{background-color:rgba(36,36,46,1);}
-.navbar-inverse{background-color:rgba(255,255,255,1);}
+.navbar-inverse{background-color:rgba(255,255,255,1);border-color:#e1e1e1;}
 .navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text{color:#424242}
+.navbar-inverse .navbar-nav > li > a:focus{color:#424242}
+.navbar-inverse .navbar-brand{color:#717171}
+.navbar-inverse .navbar-brand:focus{color:#424242}
+.navbar-inverse .navbar-toggle {border-color: #424242;}
+.navbar-inverse .navbar-toggle .icon-bar{background-color:#424242;}
+.navbar-inverse .navbar-toggle:hover .icon-bar{background-color:#fff;}
+md-progress-linear .md-container {background-color: #e1e1e1!important;}
 </style>
 <div ng-controller="NavCtrl" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><i style="color:#2ab996" class="fa fa-check"></i>oetr</a>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><i style="color:#2ab996" class="fa fa-check"></i>oetr</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ng-show="!currentUser"><a href="/about">about</a></li>
+                <li><a href="/search">discover</a></li>
+                <form class="navbar-form pull-left" role="search" action="/search/" onSubmit=" location.href = 'search/' + document.getElementById('search-link').value; return false;">
+                    <div class="form-group">
+                        <input ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
+                    </div>
+                </form>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" ng-show="currentUser">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{currentUser.username}} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/member/{{currentUser.username}}">
+                                <img style="max-height:32px" src="{{currentUser.avatarUrl}}"/>
+                                {{currentUser.username}}
+                            </a>
+                        </li>
+                        <li><a href="/account">account</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/logout">log out</a></li>
+                    </ul>
+                </li>
+                <li ng-show="!currentUser"><a href="/register">register</a></li>
+                <li ng-show="!currentUser"><a href="/login">login</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li ng-show="!currentUser"><a href="/about">about</a></li>
-        <li><a href="/search">discover</a></li>
-        <form class="navbar-form pull-left" role="search" action="/search/" onSubmit=" location.href = 'search/' + document.getElementById('search-link').value; return false;">
-          <div class="form-group">
-            <input ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
-          </div>
-        </form>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" ng-show="currentUser">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {{currentUser.username}} <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="/member/{{currentUser.username}}">
-                <img style="max-height:32px" src="{{currentUser.avatarUrl}}"/>
-                {{currentUser.username}}
-              </a>
-            </li>
-            <li><a href="/account">account</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/logout">log out</a></li>
-          </ul>
-        </li>
-        <li ng-show="!currentUser"><a href="/register">register</a></li>
-        <li ng-show="!currentUser"><a href="/login">login</a></li>
-      </ul>
-    </div>
-  </div>
-  <md-progress-linear ng-if="stateIsLoading" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear ng-if="stateIsLoading" md-mode="indeterminate"></md-progress-linear>
 </div>

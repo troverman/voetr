@@ -20,7 +20,12 @@ angular.module('models.committeeMember', ['lodash', 'services', 'sails.io',])
         var url = utils.prepareUrl('committeemember/member');
         var query = {params:{user: model, limit:limit, skip:skip, sort: sort}};
         return $sailsSocket.get(url, query).then(success, error);
-    }
+    };
+
+    this.getMemberCount = function(model) {
+        var url = utils.prepareUrl('committeemember/user/count/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
 
     this.create = function(newModel) {
         var url = utils.prepareUrl('committeemember');

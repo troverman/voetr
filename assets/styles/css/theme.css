@@ -60,6 +60,17 @@ hr {
   border-top: 1px solid #2AB996;
 }
 
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  z-index: -5;
+}
+
 md-card{
   overflow:hidden;
 }
@@ -160,20 +171,7 @@ md-card{
   margin:0;
 }
 
-/*md-card > :not(md-card-content) img {
-    max-height: 280px!important;
-    max-width: 100%!important;
-    width: auto!important;
-    margin: 0 auto;
-    margin-top: 15px;
-}
-md-card > :not(md-card-content) .postImg {
-  display: inline-block!important;
-  max-width: 100px!important;
-}*/
-
 md-progress-linear .md-container {
-  //background-color: rgba(42, 185, 150, 0.5)!important;
   background-color: rgba(36,36,46, 1)!important;
 }
 

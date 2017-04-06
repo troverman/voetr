@@ -1,8 +1,8 @@
 <div class="imageContainerSmall">
-  <video class='flexible' autoplay="autoplay" muted="muted" preload="auto" loop="loop"><source src="https://s3-us-west-2.amazonaws.com/voetr/washington.mp4" type="video/mp4"></video>
-  <div class="imageContainerSmallDiv container">  
-    <h1 style="text-align:left">votes</h1>
-  </div>
+	<video class='flexible' autoplay="autoplay" muted="muted" preload="auto" loop="loop"><source src="https://s3-us-west-2.amazonaws.com/voetr/washington.mp4" type="video/mp4"></video>
+	<div class="imageContainerSmallDiv container">  
+		<h1 style="text-align:left">votes</h1>
+	</div>
 </div>
 <md-list class="container">
 	<div class="dropdown sort-dropdown noselect">
@@ -19,7 +19,7 @@
 	</div>
 	<md-list-item ng-repeat="vote in votes">
 		<div class="md-list-item-text" layout="column">
-			<h3 class="" style="font-size:25px">
+			<h3 style="font-size:25px">
 				{{vote.plusCount - vote.minusCount}} ({{vote.voteCount}})
       			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
       			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
@@ -30,9 +30,9 @@
 	</md-list-item>
 </md-list>
 <md-divider></md-divider>
-<br><br>
+<div class="spacing-10"></div>
 <div ng-click="loadMore()" style="text-align:center">
-  <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
+	<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
 </div>
-<div style="height:50px;"></div>
+<div class="spacing-100"></div>
 <div ng-include="'footer/index.tpl.html'"></div>

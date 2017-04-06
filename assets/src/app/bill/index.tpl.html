@@ -22,7 +22,7 @@
 						    <h2 class="name"><a href="member/{{bill.user.username}}">{{bill.user.username}}</a></h2>
 						    <p>{{bill.user.title}}</p>
 							<p>{{bill.user.state}}</p>
-							<!--<button class="btn btn-default">follow</button>-->
+							<button class="btn btn-default">follow</button>
 						</div>
 						<div class="social">
 							<a ng-show="bill.user.socialAccounts.facebook.profileUrl" href="{{bill.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
@@ -85,7 +85,7 @@
 				      			({{vote.voteCount}})
 								<a href="/vote/{{vote.id}}">{{vote.result}}: {{vote.title}}</a>
 							</h4>
-							<!--<p>comment</p>-->
+							<p>comment</p>
 						</md-card-title>
 					</md-card>
 				</div>

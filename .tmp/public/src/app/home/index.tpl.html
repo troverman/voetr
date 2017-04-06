@@ -13,9 +13,19 @@
         <h5>Representatives - {{representatives.length}}</h5>
         <h5>Votes - {{votes.length}}</h5>
         <div class="spacing-25"></div>
-        <p>activity</p>
+        <uib-tabset active="0" vertical="true">
+          <uib-tab index="0" heading="Activity">
+          </uib-tab>
+          <uib-tab heading="Bills">
+          </uib-tab>
+          <uib-tab heading="Posts">
+          </uib-tab>
+          <uib-tab heading="Votes">
+          </uib-tab>
+        </uib-tabset>
+        <!--<p>activity</p>
         <p>reccomended votes</p>
-        <p>message</p>
+        <p>message</p>-->
       </div>
       <div class="col-md-8">
         <!--
@@ -84,8 +94,11 @@
                 <h3>{{post.user.username}}</h3>
               </a>
               <p>{{post.post}}</p>
-              <p>like, comment</p>
             </md-card-title-text>
+          </md-card-title>
+          <md-card-title>
+            <a>like</a> 
+            <a>reply</a>
           </md-card-title>
         </md-card>
 
@@ -117,7 +130,7 @@
         </md-card>
         <br><br>
         <div ng-click="loadMoreVotes()" style="text-align:center">
-          <button class="btn btn-default col-xs-10 col-xs-offset-1">more <i class="fa fa-caret-down"></i></button>
+          <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
         </div>
         <div class="spacing-50"></div>
 
@@ -156,20 +169,6 @@
           <!--<p>directly impact the creation of policy</p>-->
           <!--<p>creating a coalition of representation</p>-->
         </div>
-        <!--<div class="col-md-12">
-          <md-divider></md-divider>
-          <h4>direct your impact though input on policy</h4>
-          <p>directly impact the creation of policy</p>-->
-          <!--<p>contact your reps and tell them your opinion about legislation</p>-->
-          <!--<p>creating a coalition of representation</p>
-          <a href="/about" class="btn btn-default">learn more</a>-->
-          <!--<p>directly impact the political landscape, with input on policy your voice counts</p>-->
-          <!--<p>with direct input on policy your voice matters</p>-->
-          <!--generate a network of reprensentatives for the people-->
-          <!--rep others to their reps-->
-          <!--<p>with continual open ballot elections - represent others at anytime</p>-->
-          <!--organizing a coalition of reps for reps-->
-        <!--</div>-->
         <div class="col-md-12">
           <div class="spacing-100"></div>
         </div>

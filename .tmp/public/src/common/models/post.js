@@ -3,7 +3,7 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
 .service('PostModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
     
     this.getOne = function(model) {
-        var url = utils.prepareUrl('post/' + model.id);
+        var url = utils.prepareUrl('post/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 

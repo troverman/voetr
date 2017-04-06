@@ -3,19 +3,29 @@ angular.module('models.representative', ['lodash', 'services', 'sails.io',])
 .service('RepresentativeModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
     this.getConstituents = function(model) {
-        var url = utils.prepareUrl('representative/constituents/' + model.id);
+        var url = utils.prepareUrl('representative/constituents/' + model);
+        console.log(url)
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+    this.getConstituentCount = function(model) {
+        var url = utils.prepareUrl('representative/user/constituent/count/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 
     this.getRepresentatives = function(model) {
-        var url = utils.prepareUrl('representative/representatives/' + model.id);
+        var url = utils.prepareUrl('representative/representatives/' + model);
+        return $sailsSocket.get(url).then(success, error);
+    };
+
+    this.getRepresentativeCount = function(model) {
+        var url = utils.prepareUrl('representative/user/representative/count/' + model);
         return $sailsSocket.get(url).then(success, error);
     };
 
     this.getByLocation = function(lat, lng) {
         var url = utils.prepareUrl('representative/location');
         var query = {params:{lat:lat, lng:lng}};
-        console.log(query)
         return $sailsSocket.get(url, query).then(success, error);
     };
 
