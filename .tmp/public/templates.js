@@ -189,15 +189,14 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "		<uib-tabset>\n" +
     "			<uib-tab heading=\"Info\" active=\"active\">\n" +
     "				<div class=\"col-lg-4 col-sm-6\">\n" +
-    "					<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
+    "					<div class=\"member-card\">\n" +
     "						<div class=\"image\" style=\"background-image: url('{{bill.user.coverUrl}}')\">\n" +
-    "							<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em;max-width:20em\" ng-src=\"{{bill.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "							<img ng-src=\"{{bill.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "						</div>\n" +
     "						<div class=\"info\">\n" +
     "						    <h2 class=\"name\"><a href=\"member/{{bill.user.username}}\">{{bill.user.username}}</a></h2>\n" +
     "						    <p>{{bill.user.title}}</p>\n" +
     "							<p>{{bill.user.state}}</p>\n" +
-    "							<button class=\"btn btn-default\">follow</button>\n" +
     "						</div>\n" +
     "						<div class=\"social\">\n" +
     "							<a ng-show=\"bill.user.socialAccounts.facebook.profileUrl\" href=\"{{bill.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
@@ -573,15 +572,14 @@ angular.module("committee/templates/home.tpl.html", []).run(["$templateCache", f
     "    <!--<uib-tab heading=\"Members\" ng-click=\"goToPath('members')\">-->\n" +
     "      <div class=\"container\" style=\"min-height:100vh\">\n" +
     "        <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"member in members\">\n" +
-    "          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
+    "          <div class=\"member-card\">\n" +
     "            <div class=\"image\" style=\"background-image: url('{{member.user.coverUrl}}')\">\n" +
-    "              <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" class=\"avatar\" src=\"{{member.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "              <img ng-src=\"{{member.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "            </div>\n" +
     "            <div class=\"info\">\n" +
-    "              <h2 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h2>\n" +
-    "              <h3 class=\"position\" style=\"text-transform:capitalize\"><a href=\"member/{{member.user.username}}\">{{member.title}}</a></h3>\n" +
-    "              <p>{{member.user.title}}</p>\n" +
-    "              <!--<button class=\"btn btn-default\">follow</button>-->\n" +
+    "                <h2 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h2>\n" +
+    "                <p>{{member.user.title}}</p>\n" +
+    "                <p>{{member.user.state}}</p>\n" +
     "            </div>\n" +
     "            <div class=\"social\">\n" +
     "              <a ng-show=\"member.user.socialAccounts.facebook.profileUrl\" href=\"{{member.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
@@ -999,9 +997,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "        <i ng-show=\"gettingRepresentatives\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
     "\n" +
     "        <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in officialRepresentatives\">\n" +
-    "          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "          <div class=\"member-card\">\n" +
     "            <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
-    "              <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "              <img ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "            </div>\n" +
     "            <div class=\"info\">\n" +
     "              <h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
@@ -1017,9 +1015,9 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "        </div>\n" +
     "\n" +
     "        <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in users\">\n" +
-    "          <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "          <div class=\"member-card\">\n" +
     "            <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
-    "              <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "              <img ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "            </div>\n" +
     "            <div class=\"info\">\n" +
     "              <h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
@@ -1220,9 +1218,9 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "            <i ng-show=\"gettingRepresentatives\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
     "\n" +
     "            <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in officialRepresentatives\">\n" +
-    "                <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "                <div class=\"member-card\">\n" +
     "                    <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
-    "                        <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "                        <img ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "                    </div>\n" +
     "                    <div class=\"info\">\n" +
     "                        <h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
@@ -1238,9 +1236,9 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "            </div>\n" +
     "\n" +
     "            <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in users\">\n" +
-    "                <div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "                <div class=\"member-card\">\n" +
     "                    <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
-    "                        <img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "                        <img ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "                    </div>\n" +
     "                    <div class=\"info\">\n" +
     "                        <h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
@@ -1783,9 +1781,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					<button ng-show=\"!gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default\">find representatives</button><br><br>\n" +
     "			        <i ng-show=\"gettingRepresentatives\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
     "					<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in officialRepresentatives\">\n" +
-    "						<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "						<div class=\"member-card\">\n" +
     "							<div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
-    "								<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "								<img ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "							</div>\n" +
     "							<div class=\"info\">\n" +
     "								<h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
@@ -1800,9 +1798,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "						</div>\n" +
     "					</div>\n" +
     "					<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in users\">\n" +
-    "						<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "						<div class=\"member-card\">\n" +
     "							<div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
-    "								<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "								<img ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "							</div>\n" +
     "							<div class=\"info\">\n" +
     "								<h2 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
@@ -1874,9 +1872,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "			<div class=\"spacing-15\"></div>\n" +
     "			<div ng-repeat=\"searchResult in searchResults\">\n" +
     "				<div class=\"col-lg-4 col-sm-6\" ng-show=\"searchResult.username\">\n" +
-    "					<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;overflow:hidden\">\n" +
+    "					<div class=\"member-card\">\n" +
     "						<div class=\"image\" style=\"background-image: url('{{searchResult.coverUrl}}')\">\n" +
-    "							<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" ng-src=\"{{searchResult.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "							<img ng-src=\"{{searchResult.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "						</div>\n" +
     "						<div class=\"info\">\n" +
     "							<h2 class=\"name\"><a href=\"member/{{searchResult.username}}\">{{searchResult.username}}</a></h2>\n" +
