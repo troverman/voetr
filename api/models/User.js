@@ -16,6 +16,7 @@ module.exports = {
         },
         coverUrl: {
             type: 'string',
+            defaultsTo: 'images/congress.png',
         },
         following: {
             type: 'string',
@@ -132,7 +133,7 @@ module.exports = {
             return next(null, model);
         });
         
-        //emailService.sendTemplate('welcome', model.email, 'Welcome To Bidio!', {username: model.username});
+        //emailService.sendTemplate('welcome', model.email, 'Welcome To Voetr!', {username: model.username});
     },
 
     getOne: function(id) {
