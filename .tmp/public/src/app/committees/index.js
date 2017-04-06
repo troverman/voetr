@@ -22,7 +22,19 @@ angular.module( 'voetr.committees', [
 	titleService.setTitle('committees - voetr');
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
+    $scope.newCommittee = {};
     $scope.skip = 0;
+	$scope.sort = 'createdAt DESC';
+
+	$scope.selectSort = function(sort){
+		$scope.sort = sort;
+		$rootScope.stateIsLoading = true;
+		CommitteeModel.getSome(50, $scope.skip, $scope.sort).then(function(committees) {
+			$rootScope.stateIsLoading = false;
+			$scope.committees = committees;
+		});
+	};
+
     $scope.loadMore = function() {
 		$scope.skip = $scope.skip + 100;
 		$rootScope.stateIsLoading = true;
@@ -33,8 +45,8 @@ angular.module( 'voetr.committees', [
 	};
 
 	$scope.createCommittee = function(newCommittee) {
-        //newCommittee.user = config.currentUser.id;
-        CommitteeModel.create(newCommittee).then(function(model) {
+        $scope.newCommittee.user = config.currentUser.id;
+        CommitteeModel.create($scope.newCommittee).then(function(model) {
             $scope.newCommittee = {};
         });
     };

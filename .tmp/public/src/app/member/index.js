@@ -137,6 +137,7 @@ angular.module( 'voetr.member', [
     $scope.member = member;
     $scope.committeeCount = committeeCount.committeeMemberCount;
     $scope.constituentCount = constituentCount.constituentCount;
+    $scope.myRepresentatives = myRepresentatives;
     $scope.representativeCount = representativeCount.representativeCount;
     $scope.voteCount = voteCount.voteCount;
     if(config.currentUser){$scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0}

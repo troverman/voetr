@@ -43,7 +43,8 @@
 		<md-divider></md-divider>
 		<div class="container">
 			<div class="pull-left">
-				<h1>{{member.username}}</h1>
+				<h2>{{member.firstName}} {{member.lastName}}</h2>
+				<h5><span style="color:grey">@{{member.username}}</span></h5>
 				<h5 ng-show="member.title"><span style="color:grey">{{member.title}}</span></h5>
 				<h5 ng-show="member.district"><span style="color:grey">District {{member.district}}</span></h5>
 				<h5 ng-show="member.state"><span style="color:grey">{{member.state}}</span></h5>

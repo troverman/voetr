@@ -5,6 +5,16 @@
     </div>
 </div>
 <div class="container">
+    <div class="dropdown sort-dropdown noselect">
+        <a class="dropdown-toggle noselect" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <h4 class="noselect">Sort by {{sort}}<span class="caret"></span></h4>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="sort-a" ng-click="selectSort('createdAt DESC')"><h5>Most Recent</h5></a></li>
+            <hr class="sort-hr">
+            <li><a class="sort-a" ng-click="selectSort('memberCount DESC')"><h5>Most Popular</h5></a></li>
+        </ul>
+    </div>
     <div ng-show="currentUser">
         <div style="margin-left:2%;margin-right:2%;">
         <form class="committee-input" role="form" ng-submit="createCommittee(newCommittee)">

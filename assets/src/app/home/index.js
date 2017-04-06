@@ -50,6 +50,13 @@ angular.module( 'voetr.home', [
 	});
 }])
 
+//.controller( 'HomeCtrl', ['$scope', 'config', function HomeController( $scope, config ) {
+//}])
+//.controller( 'IntroCtrl', ['$scope', 'config', function IntroController( $scope, config ) {
+//}])
+//.controller( 'FeedCtrl', ['$scope', 'config', function FeedController( $scope, config ) {
+//}])
+
 .controller( 'HomeCtrl', ['$rootScope', '$q', '$sailsSocket', '$scope', '$interval', 'billCount', 'BillModel', 'bills', 'committeeCount', 'CommitteeModel', 'committees', 'config', 'constituents', 'PostModel', 'RepresentativeModel', 'representatives', 'titleService', 'Upload', 'user', 'UserModel', 'userCount', 'users', 'VoteModel', 'votes', 'VoteVoteModel', function HomeController($rootScope, $q, $sailsSocket, $scope, $interval, billCount, BillModel, bills, committeeCount, CommitteeModel, committees, config, constituents, PostModel, RepresentativeModel, representatives, titleService, Upload, user, UserModel, userCount, users, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;

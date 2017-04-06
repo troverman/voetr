@@ -7,14 +7,12 @@
 			{{vote.title}}
 		</h3>
 		<h4><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h4>
-		<!--<h3>{{vote.otherCount}}</h3>-->
 		<md-divider></md-divider>
 		<div class="row">
 			<button class="col-xs-6 btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
         	<button class="col-xs-6 btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
     	</div>
     	<br>
-		<!--UI/UX - break out into YES / NO - show representative votes -->
 		<uib-tabset>
 			<uib-tab heading="Activity" active="active">
 		    </uib-tab>

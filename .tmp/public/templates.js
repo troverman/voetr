@@ -708,6 +708,16 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"container\">\n" +
+    "    <div class=\"dropdown sort-dropdown noselect\">\n" +
+    "        <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+    "            <h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
+    "        </a>\n" +
+    "        <ul class=\"dropdown-menu\">\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Most Recent</h5></a></li>\n" +
+    "            <hr class=\"sort-hr\">\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('memberCount DESC')\"><h5>Most Popular</h5></a></li>\n" +
+    "        </ul>\n" +
+    "    </div>\n" +
     "    <div ng-show=\"currentUser\">\n" +
     "        <div style=\"margin-left:2%;margin-right:2%;\">\n" +
     "        <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
@@ -1372,7 +1382,8 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		<md-divider></md-divider>\n" +
     "		<div class=\"container\">\n" +
     "			<div class=\"pull-left\">\n" +
-    "				<h1>{{member.username}}</h1>\n" +
+    "				<h2>{{member.firstName}} {{member.lastName}}</h2>\n" +
+    "				<h5><span style=\"color:grey\">@{{member.username}}</span></h5>\n" +
     "				<h5 ng-show=\"member.title\"><span style=\"color:grey\">{{member.title}}</span></h5>\n" +
     "				<h5 ng-show=\"member.district\"><span style=\"color:grey\">District {{member.district}}</span></h5>\n" +
     "				<h5 ng-show=\"member.state\"><span style=\"color:grey\">{{member.state}}</span></h5>\n" +
@@ -1831,7 +1842,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					</md-card>\n" +
     "			        <br><br>\n" +
     "			        <div ng-click=\"loadMoreVotes()\" style=\"text-align:center\">\n" +
-    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "			        </div>\n" +
     "    			</uib-tab>\n" +
     "			</uib-tabset>\n" +
@@ -1913,14 +1924,12 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "			{{vote.title}}\n" +
     "		</h3>\n" +
     "		<h4><a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></h4>\n" +
-    "		<!--<h3>{{vote.otherCount}}</h3>-->\n" +
     "		<md-divider></md-divider>\n" +
     "		<div class=\"row\">\n" +
     "			<button class=\"col-xs-6 btn btn-default\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
     "        	<button class=\"col-xs-6 btn btn-default\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i> {{vote.minusCount}}</button>\n" +
     "    	</div>\n" +
     "    	<br>\n" +
-    "		<!--UI/UX - break out into YES / NO - show representative votes -->\n" +
     "		<uib-tabset>\n" +
     "			<uib-tab heading=\"Activity\" active=\"active\">\n" +
     "		    </uib-tab>\n" +
