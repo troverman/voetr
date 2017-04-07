@@ -1,42 +1,30 @@
-<div id="sidebar-wrapper">
-  <ul class="sidebar-nav">
-    <br>
-    <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
-    <hr>
-    <li><a href="#">bylaws</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/committees">committees</a></li>
-    <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/bills">bills</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/discussion">discussion</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/members">members</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/votes">votes</a></li>
-  </ul>
-</div>
-<div id="main-container">
-  <div class="committee-title">
-    <h1>{{committee.title}}</h1>
-  </div>
-  <md-divider ></md-divider>
-  <h2>bills</h2>
-  <md-divider ></md-divider>
-  <div class="bill-list-container">
-  <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
-    <div class="bill-item">
-      <div>
-        <h4>
-          {{bill.voteCount}}
-          <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
-          <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>
-          <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.title}}</a>
-        </h4>
-      </div>
-      <div>
-        <a href="/bill/{{bill._id}}/{{bill.title}}">comment</a>
-      </div>
-      <br>
+<div ng-show="currentUser" class="container">
+    <button ng-click="toggleCreateBill()" class="btn btn-default">+ bill</button>
+    <div style="margin-left:20%;margin-right:20%;" ng-show="createBillToggle">
+        <form class="committee-input" role="form" ng-submit="createBill(newBill)">
+            <div class="form-group">
+                <input type="text" placeholder= "bill title" ng-model="newBill.title" class="form-control">
+                <input type="text" placeholder= "bill content" ng-model="newBill.billContent" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
-    <md-divider ></md-divider>
-  </div>
 </div>
+<div class="container bill-list-container" style="min-height:100vh">
+    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
+        <div class="bill-item">
+            <div>
+                <h4>
+                    {{bill.voteCount}}
+                    <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
+                    <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>
+                    <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.title}}</a>
+                </h4>
+            </div>
+            <div>
+                <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>
+            </div>
+        </div>
+        <md-divider></md-divider>
+    </div>
 </div>
-<div ng-include="'footer/index.tpl.html'"></div>
-

@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/index.tpl.html', 'committee/templates/bills.tpl.html', 'committee/templates/committees.tpl.html', 'committee/templates/discussion.tpl.html', 'committee/templates/home.tpl.html', 'committee/templates/members.tpl.html', 'committee/templates/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'home/templates/home.tpl.html', 'home/templates/intro.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'member/templates/activity.tpl.html', 'member/templates/bills.tpl.html', 'member/templates/committees.tpl.html', 'member/templates/constituents.tpl.html', 'member/templates/representatives.tpl.html', 'member/templates/votes.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/index.tpl.html', 'committee/templates/activity.tpl.html', 'committee/templates/bills.old.tpl.html', 'committee/templates/bills.tpl.html', 'committee/templates/committees.old.tpl.html', 'committee/templates/committees.tpl.html', 'committee/templates/discussion.old.tpl.html', 'committee/templates/discussion.tpl.html', 'committee/templates/members.old.tpl.html', 'committee/templates/members.tpl.html', 'committee/templates/votes.old.tpl.html', 'committee/templates/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'home/templates/home.tpl.html', 'home/templates/intro.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'member/templates/activity.tpl.html', 'member/templates/bills.tpl.html', 'member/templates/committees.tpl.html', 'member/templates/constituents.tpl.html', 'member/templates/representatives.tpl.html', 'member/templates/votes.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -323,17 +323,87 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("committee/index.tpl.html",
-    "<div ui-view=\"committeeHome\"></div>\n" +
-    "<div ui-view=\"committeeBills\"></div>\n" +
-    "<div ui-view=\"committeeCommittees\"></div>\n" +
-    "<div ui-view=\"committeeDiscussion\"></div>\n" +
-    "<div ui-view=\"committeeMembers\"></div>\n" +
-    "<div ui-view=\"committeeVotes\"></div>\n" +
+    "<div class=\"imageContainerSmall\">\n" +
+    "    <video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\"></video>\n" +
+    "    <div class=\"imageContainerSmallDiv container\">  \n" +
+    "        <h1 style=\"text-align:left\">{{committee.title}}</h1>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"member-tab-container container\">\n" +
+    "	<ul style=\"padding:0px;\" class=\"member-tabs\">\n" +
+    "		<li><a href=\"/committee/{{committee.urlTitle}}\">Activity</a></li>\n" +
+    "		<li><a href=\"/committee/{{committee.urlTitle}}/bills\">{{billCount}} Bills</a></li>\n" +
+    "		<li><a href=\"/committee/{{committee.urlTitle}}/committees\">Committees</a></li>\n" +
+    "		<li><a href=\"/committee/{{committee.urlTitle}}/discussion\">Discussion</a></li>\n" +
+    "		<li><a href=\"/committee/{{committee.urlTitle}}/members\">{{memberCount}} Members</a></li>\n" +
+    "		<li><a href=\"/committee/{{committee.urlTitle}}/votes\">{{voteCount}} Votes</a></li>\n" +
+    "		<li ng-show=\"currentUser\">\n" +
+    "			<a class=\"btn btn-default\" ng-click=\"toggleEditCommittee()\">Edit</a>\n" +
+    "		</li>\n" +
+    "	</ul>\n" +
+    "</div>\n" +
+    "<md-divider></md-divider>\n" +
+    "\n" +
+    "<div class=\"container\" ng-show=\"editCommitteeToggle\"><p>edit committee form</p></div>\n" +
+    "\n" +
+    "<div class=\"committee-container\">\n" +
+    "	<div ui-view=\"committeeActivity\"></div>\n" +
+    "	<div ui-view=\"committeeBills\"></div>\n" +
+    "	<div ui-view=\"committeeCommittees\"></div>\n" +
+    "	<div ui-view=\"committeeDiscussion\"></div>\n" +
+    "	<div ui-view=\"committeeMembers\"></div>\n" +
+    "	<div ui-view=\"committeeVotes\"></div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 
-angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("committee/templates/bills.tpl.html",
+angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/activity.tpl.html",
+    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "    <div class=\"profilePost\">\n" +
+    "        <form role=\"form\">\n" +
+    "            <md-input-container class=\"md-block\">\n" +
+    "                <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "            </md-input-container>\n" +
+    "            <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "    <md-card ng-repeat=\"post in posts\">\n" +
+    "        <md-card-title>\n" +
+    "            <md-card-title-text>\n" +
+    "                <a href=\"member/{{post.user.username}}\">\n" +
+    "                    <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                    <p>{{post.user.username}}</p>\n" +
+    "                </a>\n" +
+    "                <p>{{post.post}}</p>\n" +
+    "            </md-card-title-text>\n" +
+    "        </md-card-title>\n" +
+    "    </md-card>\n" +
+    "    <div class=\"billContainer\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "        <div class=\"bill-item\">\n" +
+    "            <div>\n" +
+    "                <h4>\n" +
+    "                    {{bill.voteCount}}\n" +
+    "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                    <a href=\"bill/{{bill._id}}/{{bill.urlTitle}}\">{{bill.title}}</a>\n" +
+    "                </h4>\n" +
+    "            </div>\n" +
+    "            <div>\n" +
+    "                <a href=\"bill/{{bill._id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <md-divider></md-divider>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("committee/templates/bills.old.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/bills.old.tpl.html",
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
@@ -379,8 +449,43 @@ angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", 
     "");
 }]);
 
-angular.module("committee/templates/committees.tpl.html", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("committee/templates/committees.tpl.html",
+angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/bills.tpl.html",
+    "<div ng-show=\"currentUser\" class=\"container\">\n" +
+    "    <button ng-click=\"toggleCreateBill()\" class=\"btn btn-default\">+ bill</button>\n" +
+    "    <div style=\"margin-left:20%;margin-right:20%;\" ng-show=\"createBillToggle\">\n" +
+    "        <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
+    "            <div class=\"form-group\">\n" +
+    "                <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
+    "                <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
+    "            </div>\n" +
+    "            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "<div class=\"container bill-list-container\" style=\"min-height:100vh\">\n" +
+    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "        <div class=\"bill-item\">\n" +
+    "            <div>\n" +
+    "                <h4>\n" +
+    "                    {{bill.voteCount}}\n" +
+    "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
+    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                    <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "                </h4>\n" +
+    "            </div>\n" +
+    "            <div>\n" +
+    "                <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <md-divider></md-divider>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("committee/templates/committees.old.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/committees.old.tpl.html",
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
@@ -406,8 +511,20 @@ angular.module("committee/templates/committees.tpl.html", []).run(["$templateCac
     "");
 }]);
 
-angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("committee/templates/discussion.tpl.html",
+angular.module("committee/templates/committees.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/committees.tpl.html",
+    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "    <div class=\"committee-title\">\n" +
+    "        <a href=\"committee/{{committee.parent.urlTitle}}\">{{committee.parent.title}}</a>\n" +
+    "    </div>\n" +
+    "    <div ng-repeat=\"committee in committees\">\n" +
+    "        <a href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
+angular.module("committee/templates/discussion.old.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/discussion.old.tpl.html",
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
@@ -445,163 +562,34 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
     "");
 }]);
 
-angular.module("committee/templates/home.tpl.html", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("committee/templates/home.tpl.html",
-    "<!--<div id=\"sidebar-wrapper\">\n" +
-    "  <ul class=\"sidebar-nav\">\n" +
-    "    <br>\n" +
-    "    <li><a style=\"font-weight:bold\" href=\"committee/{{committee.urlTitle}}\">{{committee.title}}</a></li>\n" +
-    "    <hr>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/bills\">bills</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/discussion\">discussion</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/members\">members</a></li>\n" +
-    "    <li><a href=\"committee/{{committee.urlTitle}}/votes\">votes</a></li>\n" +
-    "  </ul>\n" +
-    "</div>-->\n" +
-    "<!--\n" +
-    "<div style=\"overflow:hidden;max-height:300px;\">\n" +
-    "  <img style=\"width:100%;min-height:10em;\" src=\"images/congress1.jpg\">\n" +
-    "</div>\n" +
-    "-->\n" +
-    "<div class=\"imageContainerSmall\">\n" +
-    "  <video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\"></video>\n" +
-    "  <div class=\"imageContainerSmallDiv container\">  \n" +
-    "    <h1 style=\"text-align:left\">{{committee.title}}</h1>\n" +
-    "  </div>\n" +
-    "</div>\n" +
-    "<div ng-show=\"currentUser\" class=\"container\">\n" +
-    "  <br>\n" +
-    "  <button ng-click=\"toggleEditCommittee()\" class=\"btn btn-default\">Edit</button>\n" +
-    "  <br>\n" +
-    "  <div style=\"margin-left:20%;margin-right:20%;\" ng-show=\"editCommitteeToggle\">edit committee form</div>\n" +
-    "  <br>\n" +
-    "</div>\n" +
-    "<div class=\"container\">\n" +
-    "  <uib-tabset>\n" +
-    "    <uib-tab heading=\"Activity\" active=\"active\">\n" +
-    "      <div class=\"container\" style=\"min-height:100vh\">\n" +
-    "        <div class=\"profilePost\">\n" +
-    "          <form role=\"form\">\n" +
+angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/discussion.tpl.html",
+    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "    <div class=\"profilePost\">\n" +
+    "        <form role=\"form\">\n" +
     "            <md-input-container class=\"md-block\">\n" +
-    "              <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "                <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
     "            </md-input-container>\n" +
     "            <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
-    "          </form>\n" +
-    "        </div>\n" +
-    "        <md-card ng-repeat=\"post in posts\">\n" +
-    "          <md-card-title>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "    <md-card ng-repeat=\"post in posts\">\n" +
+    "        <md-card-title>\n" +
     "            <md-card-title-text>\n" +
-    "            <a href=\"member/{{post.user.username}}\">\n" +
-    "              <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "              <p>{{post.user.username}}</p>\n" +
-    "            </a>\n" +
-    "            <p>{{post.post}}</p>\n" +
+    "                <a href=\"member/{{post.user.username}}\">\n" +
+    "                    <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                    <p>{{post.user.username}}</p>\n" +
+    "                </a>\n" +
+    "                <p>{{post.post}}</p>\n" +
+    "                <p>like, comment</p>\n" +
     "            </md-card-title-text>\n" +
-    "          </md-card-title>\n" +
-    "        </md-card>\n" +
-    "        <div class=\"billContainer\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "          <div class=\"bill-item\">\n" +
-    "            <div>\n" +
-    "              <h4>\n" +
-    "                {{bill.voteCount}}\n" +
-    "                <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "                <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
-    "                <a href=\"bill/{{bill._id}}/{{bill.urlTitle}}\">{{bill.title}}</a>\n" +
-    "              </h4>\n" +
-    "            </div>\n" +
-    "            <div>\n" +
-    "              <a href=\"bill/{{bill._id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
-    "            </div>\n" +
-    "            <br>\n" +
-    "          </div>\n" +
-    "          <md-divider ></md-divider>\n" +
-    "        </div>\n" +
-    "      </div>\n" +
-    "    </uib-tab>\n" +
-    "    <uib-tab heading=\"{{bills.length}} Bills\">\n" +
-    "      <div ng-show=\"currentUser\" class=\"container\">\n" +
-    "        <button ng-click=\"toggleCreateBill()\" class=\"btn btn-default\">+ bill</button>\n" +
-    "        <br>\n" +
-    "        <div style=\"margin-left:20%;margin-right:20%;\" ng-show=\"createBillToggle\">\n" +
-    "          <form class=\"committee-input\" role=\"form\" ng-submit=\"createBill(newBill)\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "              <input type=\"text\" placeholder= \"bill title\" ng-model=\"newBill.title\" class=\"form-control\">\n" +
-    "              <input type=\"text\" placeholder= \"bill content\" ng-model=\"newBill.billContent\" class=\"form-control\">\n" +
-    "            </div>\n" +
-    "            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
-    "          </form>\n" +
-    "        </div>\n" +
-    "      </div>\n" +
-    "      <div class=\"container bill-list-container\" style=\"min-height:100vh\">\n" +
-    "        <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "          <div class=\"bill-item\">\n" +
-    "            <div>\n" +
-    "              <h4>\n" +
-    "                {{bill.voteCount}}\n" +
-    "                <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "                <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
-    "                <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
-    "              </h4>\n" +
-    "            </div>\n" +
-    "            <div>\n" +
-    "              <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
-    "            </div>\n" +
-    "            <br>\n" +
-    "          </div>\n" +
-    "          <md-divider></md-divider>\n" +
-    "        </div>\n" +
-    "      </div>\n" +
-    "    </uib-tab>\n" +
-    "    <uib-tab heading=\"Discussion\">\n" +
-    "      <div class=\"container\" style=\"min-height:100vh\">\n" +
-    "        <md-card ng-repeat=\"post in posts\">\n" +
-    "          <md-card-title>\n" +
-    "            <md-card-title-text>\n" +
-    "            <a href=\"member/{{post.user.username}}\">\n" +
-    "              <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "              <p>{{post.user.username}}</p>\n" +
-    "            </a>\n" +
-    "            <p>{{post.post}}</p>\n" +
-    "            <p>like, comment</p>\n" +
-    "            </md-card-title-text>\n" +
-    "          </md-card-title>\n" +
-    "        </md-card>\n" +
-    "      </div>\n" +
-    "    </uib-tab>\n" +
-    "    <uib-tab heading=\"{{members.length}} Members\">\n" +
-    "    <!--<uib-tab heading=\"Members\" ng-click=\"goToPath('members')\">-->\n" +
-    "      <div class=\"container\" style=\"min-height:100vh\">\n" +
-    "        <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"member in members\">\n" +
-    "          <div class=\"member-card\">\n" +
-    "            <div class=\"image\" style=\"background-image: url('{{member.user.coverUrl}}')\">\n" +
-    "              <img ng-src=\"{{member.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
-    "            </div>\n" +
-    "            <div class=\"info\">\n" +
-    "                <h2 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h2>\n" +
-    "                <p>{{member.user.title}}</p>\n" +
-    "                <p>{{member.user.state}}</p>\n" +
-    "            </div>\n" +
-    "            <div class=\"social\">\n" +
-    "              <a ng-show=\"member.user.socialAccounts.facebook.profileUrl\" href=\"{{member.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "              <a ng-show=\"member.user.socialAccounts.twitter.profileUrl\" href=\"{{member.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "              <a ng-show=\"member.user.socialAccounts.google.profileUrl\" href=\"{{member.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
-    "            </div>\n" +
-    "          </div>\n" +
-    "        </div>\n" +
-    "      </div> \n" +
-    "    </uib-tab>\n" +
-    "    <uib-tab heading=\"Votes\">\n" +
-    "      <div class=\"container\" style=\"min-height:100vh\">\n" +
-    "      </div>\n" +
-    "    </uib-tab>\n" +
-    "  </uib-tabset>\n" +
-    "</div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "        </md-card-title>\n" +
+    "    </md-card>\n" +
+    "</div>");
 }]);
 
-angular.module("committee/templates/members.tpl.html", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("committee/templates/members.tpl.html",
+angular.module("committee/templates/members.old.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/members.old.tpl.html",
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
@@ -649,8 +637,31 @@ angular.module("committee/templates/members.tpl.html", []).run(["$templateCache"
     "");
 }]);
 
-angular.module("committee/templates/votes.tpl.html", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("committee/templates/votes.tpl.html",
+angular.module("committee/templates/members.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/members.tpl.html",
+    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "    <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"member in members\">\n" +
+    "        <div class=\"member-card\">\n" +
+    "            <div class=\"image\" style=\"background-image: url('{{member.user.coverUrl}}')\">\n" +
+    "                <img ng-src=\"{{member.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "            </div>\n" +
+    "            <div class=\"info\">\n" +
+    "                <h2 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h2>\n" +
+    "                <p>{{member.user.title}}</p>\n" +
+    "                <p>{{member.user.state}}</p>\n" +
+    "            </div>\n" +
+    "            <div class=\"social\">\n" +
+    "                <a ng-show=\"member.user.socialAccounts.facebook.profileUrl\" href=\"{{member.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
+    "                <a ng-show=\"member.user.socialAccounts.twitter.profileUrl\" href=\"{{member.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
+    "                <a ng-show=\"member.user.socialAccounts.google.profileUrl\" href=\"{{member.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div> ");
+}]);
+
+angular.module("committee/templates/votes.old.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/votes.old.tpl.html",
     "<div id=\"sidebar-wrapper\">\n" +
     "  <ul class=\"sidebar-nav\">\n" +
     "    <br>\n" +
@@ -695,6 +706,12 @@ angular.module("committee/templates/votes.tpl.html", []).run(["$templateCache", 
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "\n" +
     "");
+}]);
+
+angular.module("committee/templates/votes.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("committee/templates/votes.tpl.html",
+    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "</div>");
 }]);
 
 angular.module("committees/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -775,7 +792,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
     "  <div class=\"container\">\n" +
     "    <div class=\"row\">\n" +
     "      <div class=\"col-md-4\">\n" +
-    "        <img class=\"avatar\" style=\"margin-top:0em\" ng-src=\"{{currentUser.avatarUrl}}\"/>\n" +
+    "        <img style=\"position:relative;top:0em\" class=\"avatar\" style=\"margin-top:0em\" ng-src=\"{{currentUser.avatarUrl}}\"/>\n" +
     "        <h2><a href=\"/member/{{currentUser.username}}\"><b>{{currentUser.username}}</a></b></h2>\n" +
     "        <div class=\"spacing-5\"></div>\n" +
     "        <h5>Bills - {{committees.length}}</h5>\n" +
@@ -1049,7 +1066,7 @@ angular.module("home/templates/home.tpl.html", []).run(["$templateCache", functi
     "<div class=\"container\">\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-md-4\">\n" +
-    "            <img class=\"avatar\" style=\"margin-top:0em\" ng-src=\"{{currentUser.avatarUrl}}\"/>\n" +
+    "            <img style=\"position:relative\" class=\"avatar\" ng-src=\"{{currentUser.avatarUrl}}\"/>\n" +
     "            <h2><a href=\"/member/{{currentUser.username}}\"><b>{{currentUser.username}}</a></b></h2>\n" +
     "            <div class=\"spacing-5\"></div>\n" +
     "            <h5>Bills - {{committees.length}}</h5>\n" +
@@ -1556,16 +1573,16 @@ angular.module("member/templates/votes.tpl.html", []).run(["$templateCache", fun
 angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("nav/index.tpl.html",
     "<style>\n" +
-    "//.navbar-inverse{background-color:rgba(36,36,46,1);}\n" +
-    ".navbar-inverse{background-color:rgba(255,255,255,1);border-color:#e1e1e1;}\n" +
-    ".navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text{color:#424242}\n" +
-    ".navbar-inverse .navbar-nav > li > a:focus{color:#424242}\n" +
-    ".navbar-inverse .navbar-brand{color:#717171}\n" +
-    ".navbar-inverse .navbar-brand:focus{color:#424242}\n" +
-    ".navbar-inverse .navbar-toggle {border-color: #424242;}\n" +
-    ".navbar-inverse .navbar-toggle .icon-bar{background-color:#424242;}\n" +
-    ".navbar-inverse .navbar-toggle:hover .icon-bar{background-color:#fff;}\n" +
-    "md-progress-linear .md-container {background-color: #e1e1e1!important;}\n" +
+    "    .navbar-inverse{background-color:rgba(255,255,255,1);border-color:#e1e1e1;}\n" +
+    "    .navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text{color:#424242}\n" +
+    "    .navbar-inverse .navbar-nav > li > a:focus{color:#424242}\n" +
+    "    .navbar-inverse .navbar-brand{color:#717171}\n" +
+    "    .navbar-inverse .navbar-brand:focus{color:#424242}\n" +
+    "    .navbar-inverse .navbar-toggle {border-color: #424242;}\n" +
+    "    .navbar-inverse .navbar-toggle .icon-bar{background-color:#424242;}\n" +
+    "    .navbar-inverse .navbar-toggle:hover .icon-bar{background-color:#fff;}\n" +
+    "    .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {color:#717171; background-color:#e1e1e1;}\n" +
+    "    md-progress-linear .md-container {background-color: #e1e1e1!important;}\n" +
     "</style>\n" +
     "<div ng-controller=\"NavCtrl\" class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
     "    <div class=\"container\">\n" +
@@ -1735,7 +1752,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					</md-card>\n" +
     "			        <br><br>\n" +
     "			        <div ng-click=\"loadMoreVotes()\" style=\"text-align:center\">\n" +
-    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">more <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "			        </div>\n" +
     "    			</uib-tab>\n" +
     "				<uib-tab heading=\"Results\" ng-show=\"searchResults\">\n" +

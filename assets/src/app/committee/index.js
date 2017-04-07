@@ -17,30 +17,20 @@ angular.module( 'voetr.committee', [
             }]
         }
 	})
-    .state( 'committee.home', {
+    .state( 'committee.activity', {
         url: '',
         views: {
-            "committeeHome": {
-                controller: 'CommitteeHomeCtrl',
-                templateUrl: 'committee/templates/home.tpl.html'
+            "committeeActivity": {
+                controller: 'CommitteeActivityCtrl',
+                templateUrl: 'committee/templates/activity.tpl.html'
             }
         },
         resolve: {
             bills: ['BillModel', 'committee', function(BillModel, committee) {
                 return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
             }],
-            committees: ['committee', 'CommitteeModel', function(committee, CommitteeModel) {
-                return CommitteeModel.getChildren(committee.id);
-            }],
-            members: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel) {
-                return CommitteeMemberModel.getByCommittee(committee.id, 100, 0);
-            }],
             posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
-            }],
-            votes: ['VoteModel', function(VoteModel) {
-                return VoteModel.getSome(10, 0, 'voteCount DESC');
-                //CommitteeBills --> populate attached votes
             }]
          }
     })
@@ -117,63 +107,53 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeCtrl', ['$scope', 'committee', function CommitteeCtrl( $scope, committee) {
+.controller( 'CommitteeCtrl', ['$location', '$scope', 'committee', 'config', 'titleService', function CommitteeCtrl( $location, $scope, committee, config, titleService) {
     $scope.committee = committee;
-}])
-
-.controller( 'CommitteeHomeCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'members', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'titleService', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, members, committee, CommitteeModel, PostModel, posts, titleService, VoteVoteModel) {
-    $scope.committee = committee;
-    if (committee == undefined){$location.url('committees');};
-    titleService.setTitle(committee.title + ' - voetr');
     $scope.currentUser = config.currentUser;
-    $scope.bills = bills;
-    $scope.posts = posts;
-    $scope.members = members;
-    $scope.newBill = {};
-    $scope.newPost = {};
-    $scope.newVote = {};
-    $scope.createBillToggle = false;
+    titleService.setTitle(committee.title + ' - voetr');
+    if (committee == undefined){$location.url('committees')};
     $scope.editCommitteeToggle = false;
 
-    $scope.toggleCreateBill = function(){
-        $scope.createBillToggle = $scope.createBillToggle ? false : true;
-    };
+    $scope.billCount = 0;
+    $scope.memberCount = 0;
+    $scope.voteCount = 0;
 
     $scope.toggleEditCommittee = function(){
         $scope.editCommitteeToggle = $scope.editCommitteeToggle ? false : true;
     };
 
-    $scope.goToPath = function(path){
-        $location.path('committee/' + $scope.committee.urlTitle + '/' + path)
-    };
+}])
+
+.controller( 'CommitteeActivityCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'titleService', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, committee, CommitteeModel, PostModel, posts, titleService, VoteVoteModel) {
+    $scope.committee = committee;
+    $scope.currentUser = config.currentUser;
+    $scope.bills = bills;
+    $scope.posts = posts;
+    $scope.newBill = {};
+    $scope.newPost = {};
+    $scope.newVote = {};
 
     $scope.createPost = function(){
         if($scope.currentUser){
             $scope.newPost.user = $scope.currentUser.id;
             $scope.newPost.committee = $scope.committee.id
             PostModel.create($scope.newPost).then(function(model){
-                console.log(model);
+                $scope.newPost = {};
             });
         }
         else{$location.path('/login')}
     };
 
-    $scope.createBill = function(newBill) {
-        newBill.user = config.currentUser.id;
-        newBill.committee = $scope.committee.id;
-        BillModel.create(newBill).then(function(model) {
-            $scope.newBill = {};
-        });
-    };
-
     $scope.createVote = function(newVote, bill) {
-        if ($scope.currentUser == undefined){$location.path('/register');}
-        $scope.newVote.bill = bill.id;
-        $scope.newVote.user = config.currentUser.id;
-        $scope.newVote.vote = newVote;
-        VoteVoteModel.create($scope.newVote).then(function(model) {
-            $scope.newVote = {};
-        });
+        if ($scope.currentUser){
+            $scope.newVote.bill = bill.id;
+            $scope.newVote.user = config.currentUser.id;
+            $scope.newVote.vote = newVote;
+            VoteVoteModel.create($scope.newVote).then(function(model) {
+                $scope.newVote = {};
+            });
+        }
+        else{$location.path('/login')}
     };
 
     $sailsSocket.subscribe('bill', function (envelope) {
@@ -210,21 +190,75 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeBillCtrl', ['$sailsSocket', '$scope', 'committee', 'bills', function CommitteeBillCtrl($sailsSocket, $scope, committee, bills) {
+.controller( 'CommitteeBillCtrl', ['$location', '$sailsSocket', '$scope', 'bills', 'committee', 'config', function CommitteeBillCtrl( $location, $sailsSocket, $scope, bills, committee, config) {
+    $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.bills = bills;
-    console.log(bills)
+    $scope.createBillToggle = false;
+
+    $scope.toggleCreateBill = function(){
+        $scope.createBillToggle = $scope.createBillToggle ? false : true;
+    };
+
+    $scope.createBill = function(newBill) {
+        if($scope.currentUser){
+            $scope.newBill.user = $scope.newBill.currentUser.id;
+            $scope.newBill.committee = $scope.committee.id;
+            BillModel.create(newBill).then(function(model) {
+                $scope.newBill = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
+    $sailsSocket.subscribe('bill', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                $scope.bills.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.bills, {id: envelope.id});
+                break;
+        }
+    });
+
 }])
 
-.controller( 'CommitteeCommitteesCtrl', ['$sailsSocket', '$scope', 'committee', 'committees', function CommitteeBillCtrl($sailsSocket, $scope, committee, committees) {
-    console.log('hello')
+.controller( 'CommitteeCommitteesCtrl', ['$sailsSocket', '$scope', 'committee', 'committees', 'config', function CommitteeBillCtrl($sailsSocket, $scope, committee, committees, config) {
+    $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.committees = committees;
+
 }])
 
-.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'posts', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, posts) {
+.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'config', 'PostModel', 'posts', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, config, PostModel, posts) {
+    $scope.currentUser = config.currentUser;
     $scope.committee = committee;
+    $scope.newPost = {};
     $scope.posts = posts;
+
+    $scope.createPost = function(){
+        if($scope.currentUser){
+            $scope.newPost.user = $scope.currentUser.id;
+            $scope.newPost.committee = $scope.committee.id
+            PostModel.create($scope.newPost).then(function(model){
+                 $scope.newPost = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
+    $sailsSocket.subscribe('post', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                $scope.posts.unshift(envelope.data);
+                break;
+            case 'destroyed':
+                lodash.remove($scope.posts, {id: envelope.id});
+                break;
+        }
+    });
+
 }])
 
 .controller( 'CommitteeMemberCtrl', ['$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'members', 'titleService', function CommitteeMemberCtrl( $sailsSocket, $scope, committee, CommitteeMemberModel, config, members, titleService) {
@@ -232,12 +266,16 @@ angular.module( 'voetr.committee', [
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.members = members;
-    $scope.newMember = {}
+    $scope.newMember = {};
+
     $scope.createMember = function(){
-        $scope.newMember.user = $scope.currentUser.id;
-        $scope.newMember.committee = $scope.committee.id;
-        $scope.newMember.title = 'Committee Member';
-        CommitteeMemberModel.create($scope.newMember);
+        if($scope.currentUser){
+            $scope.newMember.user = $scope.currentUser.id;
+            $scope.newMember.committee = $scope.committee.id;
+            $scope.newMember.title = 'Committee Member';
+            CommitteeMemberModel.create($scope.newMember);
+        }
+        else{$location.path('/login')}
     };
 
     $sailsSocket.subscribe('committeemember', function (envelope) {
@@ -255,9 +293,36 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeVoteCtrl', ['$scope', '$sailsSocket', 'committee', 'votes', function CommitteeVoteCtrl( $scope, $sailsSocket, committee, votes) {
+.controller( 'CommitteeVoteCtrl', ['$location', '$scope', '$sailsSocket', 'committee', 'votes', 'VoteVoteModel', function CommitteeVoteCtrl( $location, $scope, $sailsSocket, committee, votes, VoteVoteModel ) {
     $scope.committee = committee;
     $scope.votes = votes;
+    $scope.newVote = {};
+
+    $scope.createVote = function(newVote, bill) {
+        if ($scope.currentUser){
+            $scope.newVote.bill = bill.id;
+            $scope.newVote.user = config.currentUser.id;
+            $scope.newVote.vote = newVote;
+            VoteVoteModel.create($scope.newVote).then(function(model) {
+                $scope.newVote = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
+    $sailsSocket.subscribe('vote', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                if (envelope.data.committee == $scope.committee.id){
+                    $scope.votes.unshift(envelope.data);
+                }
+                break;
+            case 'destroyed':
+                lodash.remove($scope.votes, {id: envelope.id});
+                break;
+        }
+    });
+
 }]);
 
 

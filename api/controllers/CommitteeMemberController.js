@@ -44,8 +44,33 @@ module.exports = {
 	},
 
 	getMemberCount: function(req, res) {
+		//var filter = {};
+		//if (req.query.user){filter = {user:req.query.user}}
+		//else if(req.query.committee){filter = {committee:req.query.user}}
 		CommitteeMember.count()
 		.where({user:req.param('id')})
+		.exec(function(err, committeeMemberCount) {
+			if (err) {return console.log(err);}
+			else{res.json({ committeeMemberCount: committeeMemberCount });}
+		});
+	},
+
+	getMemberCountByCommittee: function(req, res) {
+		CommitteeMember.count()
+		.where({user:req.param('id')})
+		.exec(function(err, committeeMemberCount) {
+			if (err) {return console.log(err);}
+			else{res.json({ committeeMemberCount: committeeMemberCount });}
+		});
+	},
+
+	getCommitteeMemberCount: function(req, res) {
+		var filter = {};
+		if (req.query.filter == 'user'){filter = {user: req.query.id}}
+		else if(req.query.filter == 'committee'){filter = {committee: req.query.id}}
+		else{filter = {id: null}}
+		CommitteeMember.count()
+		.where(filter)
 		.exec(function(err, committeeMemberCount) {
 			if (err) {return console.log(err);}
 			else{res.json({ committeeMemberCount: committeeMemberCount });}

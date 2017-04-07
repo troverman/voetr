@@ -1,22 +1,8 @@
-<div id="sidebar-wrapper">
-  <ul class="sidebar-nav">
-    <br>
-    <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
-    <hr>
-    <li><a href="#">bylaws</a></li>
-    <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/committees">committees</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/bills">bills</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/discussion">discussion</a></li>
-    <li><a href="committee/{{committee.urlTitle}}/members">members</a></li>
-  </ul>
-</div>
-<div id="main-container">
-  <div class="committee-title">
-    <a href="committee/{{committee.parent.urlTitle}}">{{committee.parent.title}}</a>
-    <h1>{{committee.title}}</h1>
-  </div>
-  <h1>committees</h1>
-  <div ng-repeat="committee in committees">
-    <a href="committee/{{committee.urlTitle}}">{{committee.title}}</a>
-  </div>
+<div class="container" style="min-height:100vh">
+    <div class="committee-title">
+        <a href="committee/{{committee.parent.urlTitle}}">{{committee.parent.title}}</a>
+    </div>
+    <div ng-repeat="committee in committees">
+        <a href="committee/{{committee.urlTitle}}">{{committee.title}}</a>
+    </div>
 </div>

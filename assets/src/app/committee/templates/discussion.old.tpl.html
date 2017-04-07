@@ -1,0 +1,34 @@
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <br>
+    <li><a style="font-weight:bold" href="committee/{{committee.urlTitle}}">{{committee.title}}</a></li>
+    <hr>
+    <li><a href="committee/{{committee.urlTitle}}/bills">bills<i class="fa fa-pencil"></i></a></li>
+    <li><a href="committee/{{committee.urlTitle}}/committees">committees<i class="fa fa-pencil"></i></a></li>
+    <li style="color: #fff;background: #4b5359"><a style="color: #2AB996" href="committee/{{committee.urlTitle}}/discussion">discussion</a></li>
+    <li><a href="committee/{{committee.urlTitle}}/members">members</a></li>
+    <li><a href="committee/{{committee.urlTitle}}/votes">votes</a></li>
+  </ul>
+</div>
+<div id="main-container">
+ <div class="committee-title">
+    <h1>{{committee.title}}</h1>
+  </div>
+  <md-divider ></md-divider>
+  <h2>discussion</h2>
+  <md-divider ></md-divider>
+  <div class="committeeDiscussionContainer">
+    <md-card ng-repeat="post in posts">
+      <md-card-title>
+        <md-card-title-text>
+        <a href="member/{{post.user.username}}">
+          <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+          <p>{{post.user.username}}</p>
+        </a>
+        <p>{{post.post}}</p>
+        </md-card-title-text>
+      </md-card-title>
+    </md-card>
+  </div>
+</div>
+<div ng-include="'footer/index.tpl.html'"></div>
