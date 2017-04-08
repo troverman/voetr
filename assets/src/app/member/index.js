@@ -100,6 +100,9 @@ angular.module( 'voetr.member', [
             constituents: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getConstituents(member.id);
             }],
+            constituentCount: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
+                return RepresentativeModel.getConstituentCount(member.id);
+            }],
         }
     })
     .state( 'member.representatives', {
@@ -113,6 +116,9 @@ angular.module( 'voetr.member', [
         resolve: {
             representatives: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getRepresentatives(member.id);
+            }],
+            representativeCount: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
+                return RepresentativeModel.getRepresentativeCount(member.id);
             }],
         }
     })
@@ -135,7 +141,7 @@ angular.module( 'voetr.member', [
     });
 }])
 
-.controller( 'MemberCtrl', ['$location',  '$sailsSocket', '$scope', 'committeeCount', 'constituentCount', 'config', 'member', 'myRepresentatives', 'representativeCount', 'voteCount', function CommitteeCtrl( $location, $sailsSocket, $scope, committeeCount, constituentCount, config, member, myRepresentatives, representativeCount, voteCount) {
+.controller( 'MemberCtrl', ['$location',  '$sailsSocket', '$scope', 'committeeCount', 'constituentCount', 'config', 'member', 'myRepresentatives', 'representativeCount', 'RepresentativeModel', 'voteCount', function CommitteeCtrl( $location, $sailsSocket, $scope, committeeCount, constituentCount, config, member, myRepresentatives, representativeCount, RepresentativeModel, voteCount) {
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.committeeCount = committeeCount.committeeMemberCount;
@@ -310,10 +316,11 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberConstituentsCtrl', ['$sailsSocket', '$scope', 'config', 'constituents', 'member', 'RepresentativeModel', 'titleService', function MemberController( $sailsSocket, $scope, config, constituents, member, RepresentativeModel, titleService ) {
+.controller( 'MemberConstituentsCtrl', ['$sailsSocket', '$scope', 'config', 'constituentCount', 'constituents', 'member', 'RepresentativeModel', 'titleService', function MemberController( $sailsSocket, $scope, config, constituentCount, constituents, member, RepresentativeModel, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
+    $scope.constituentCount = constituentCount.constituentCount;
     $scope.constituents = constituents;
     $scope.skip = 0;
 
@@ -342,10 +349,11 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberRepresentativesCtrl', ['$sailsSocket', '$scope', 'config', 'member', 'RepresentativeModel', 'representatives', 'titleService', function MemberController( $sailsSocket, $scope, config, member, RepresentativeModel, representatives, titleService ) {
+.controller( 'MemberRepresentativesCtrl', ['$sailsSocket', '$scope', 'config', 'member', 'representativeCount', 'RepresentativeModel', 'representatives', 'titleService', function MemberController( $sailsSocket, $scope, config, member, representativeCount, RepresentativeModel, representatives, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
+    $scope.representativeCount = representativeCount.representativeCount;
     $scope.representatives = representatives;
     $scope.skip = 0;
 
@@ -377,7 +385,7 @@ angular.module( 'voetr.member', [
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
-    $scope.voteCount = voteCount;
+    $scope.voteCount = voteCount.voteCount;
     $scope.votes = votes;
     $scope.skip = 0;
 
