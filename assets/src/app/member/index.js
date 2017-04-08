@@ -81,8 +81,11 @@ angular.module( 'voetr.member', [
         },
         resolve: {
             committees: ['CommitteeMemberModel', 'member', function(CommitteeMemberModel, member){
-                return CommitteeMemberModel.getSome('user', member.id);
-            }]
+                return CommitteeMemberModel.getSome('user', member.id, 15, 0);
+            }],
+            committeeCount: ['member', 'CommitteeMemberModel', function(member, CommitteeMemberModel) {
+                return CommitteeMemberModel.getCommitteeMemberCount('user', member.id);
+            }],
         }
     })
     .state( 'member.constituents', {
@@ -279,16 +282,17 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberCommitteesCtrl', ['$sailsSocket', '$scope', 'CommitteeMemberModel', 'committees', 'config', 'member', 'titleService', function MemberController( $sailsSocket, $scope, CommitteeMemberModel, committees, config, member, titleService ) {
+.controller( 'MemberCommitteesCtrl', ['$sailsSocket', '$scope', 'committeeCount', 'CommitteeMemberModel', 'committees', 'config', 'member', 'titleService', function MemberController( $sailsSocket, $scope, committeeCount, CommitteeMemberModel, committees, config, member, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
+    $scope.committeeCount = committeeCount.committeeMemberCount;
     $scope.committees = committees;
     $scope.skip = 0;
 
     $scope.loadMore = function() {
-        $scope.skip = $scope.skip + 25;
-        CommitteeMemberModel.getByMember($scope.member.id, 25, $scope.skip).then(function(committees) {
+        $scope.skip = $scope.skip + 15;
+        CommitteeMemberModel.getSome('user', $scope.member.id, 15, $scope.skip).then(function(committees) {
             Array.prototype.push.apply($scope.committees, committees);
         });
     };

@@ -46,7 +46,16 @@ module.exports = {
         });
     },
 
-    //afterCreate --> update voteCount on bill model
+    afterCreate: function(model, next){
+        VoteVote.count()
+        .where({user: model.user, bill:model.bill, vote:model.vote})
+        .then(function(voteCount){
+            //get plus count, minus count -- 
+            Bill.update({id:model.bill, voteCount: voteCount}).then(function(){
+                return next();
+            });
+        });
+    },
 
     getOne: function(id) {
         return VoteVote.findOne(id)

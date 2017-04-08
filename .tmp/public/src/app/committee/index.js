@@ -139,6 +139,7 @@ angular.module( 'voetr.committee', [
     };
 
     $sailsSocket.subscribe('committeemember', function (envelope) {
+        console.log(envelope)
         switch(envelope.verb) {
             case 'created':
                 if (envelope.data.committee == $scope.committee.id){
@@ -306,6 +307,7 @@ angular.module( 'voetr.committee', [
     };
 
     $sailsSocket.subscribe('committeemember', function (envelope) {
+        console.log(envelope)
         switch(envelope.verb) {
             case 'created':
                 if (envelope.data.committee == $scope.committee.id){

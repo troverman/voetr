@@ -535,16 +535,15 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "        </ul>\n" +
     "    </div>\n" +
     "    <div ng-show=\"currentUser\">\n" +
-    "        <div style=\"margin-left:2%;margin-right:2%;\">\n" +
-    "        <form class=\"committee-input\" role=\"form\" ng-submit=\"createCommittee(newCommittee)\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <input type=\"text\" placeholder= \"committee title\" ng-model=\"newCommittee.title\" class=\"form-control\" id=\"postTitle\">\n" +
-    "                <input type=\"text\" placeholder= \"committee url\" ng-model=\"newCommittee.urlTitle\" class=\"form-control\" id=\"postTitle\">\n" +
-    "                <input type=\"text\" placeholder= \"committee parent\" ng-model=\"newCommittee.parent\" class=\"form-control\" id=\"postTitle\">\n" +
-    "            </div>\n" +
-    "            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n" +
+    "        <form role=\"form\">\n" +
+    "            <md-input-container class=\"md-block\">\n" +
+    "                <input ng-model=\"newCommittee.title\" type=\"text\" placeholder= \"committee title\">\n" +
+    "            </md-input-container>\n" +
+    "            <!--<md-input-container class=\"md-block\">\n" +
+    "                <input ng-model=\"newCommittee.parent\" type=\"text\" placeholder= \"committee parent\">\n" +
+    "            </md-input-container>-->\n" +
+    "            <button ng-click=\"createCommittee()\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
     "        </form>\n" +
-    "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"committee-list-parent-container\" id=\"committeeScrolling\">\n" +
     "        <div class=\"committee-list-container\">\n" +
@@ -1311,9 +1310,7 @@ angular.module("member/templates/committees.tpl.html", []).run(["$templateCache"
     "        <md-card-title>\n" +
     "    </md-card>\n" +
     "    <div class=\"spacing-10\"></div>\n" +
-    "	<div ng-show=\"committees.legnth != committeeCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "		<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
-    "	</div>\n" +
+    "	<button ng-show=\"committees.length != committeeCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
     "</div>");
 }]);
 

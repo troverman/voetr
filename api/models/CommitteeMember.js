@@ -22,6 +22,26 @@ module.exports = {
         }
     },
 
+    beforeCreate: function(model, next){
+        CommitteeMember.find({committee: model.committee, user:model.user})
+        .then(function(committeeMember){
+            if (committeeMember.length == 0){
+                return next(null, committeeMember);
+            }
+        });
+    },
+
+    /*afterCreate: function(model, next){
+        CommitteeMember.count()
+        .where({committee: model.committee, user:model.user})
+        .then(function(committeeMemberCount){
+            Committee.update({id: model.committee, memberCount: committeeMemberCount}).then(function(updated){
+                Committee.publishUpdate(model.committee, updated);
+                return next();
+            });
+        });
+    },*/
+
     getOne: function(id) {
         return CommitteeMember.findOne(id)
         .then(function (model) {

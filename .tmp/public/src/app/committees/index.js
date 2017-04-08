@@ -44,7 +44,7 @@ angular.module( 'voetr.committees', [
 		});
 	};
 
-	$scope.createCommittee = function(newCommittee) {
+	$scope.createCommittee = function() {
         $scope.newCommittee.user = config.currentUser.id;
         CommitteeModel.create($scope.newCommittee).then(function(model) {
             $scope.newCommittee = {};

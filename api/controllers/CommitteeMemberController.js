@@ -46,13 +46,12 @@ module.exports = {
 				CommitteeMember.count()
 				.where({committee: req.param('committee')})
 				.exec(function(err, committeeMemberCount) {
-					console.log(committeeMemberCount);
 					Committee.update({id: req.param('committee')}, {memberCount: committeeMemberCount}).exec(function afterwards(err, updated){
 						Committee.publishUpdate(req.param('committee'), updated);
 					});
 				});
+				//gotta be the populated member
 				CommitteeMember.publishCreate(member);
-				res.json(member);
 			}
 		});
 	},

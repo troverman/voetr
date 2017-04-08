@@ -67,7 +67,7 @@ module.exports = {
 	create: function (req, res) {
 		var parent = req.param('parent');
 		var title = req.param('title');
-		var urlTitle = req.param('urlTitle');
+		var urlTitle = req.param('title').replace(' ','-').toLowerCase();
 		var user = req.param('user');
 		var model = {
 			parent: parent,
