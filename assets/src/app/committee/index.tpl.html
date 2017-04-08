@@ -16,6 +16,9 @@
 		<li ng-show="currentUser">
 			<a class="btn btn-default" ng-click="toggleEditCommittee()">Edit</a>
 		</li>
+		<li ng-show="currentUser">
+			<a class="btn btn-default" ng-click="createMember()">Join</a>
+		</li>
 	</ul>
 </div>
 <md-divider></md-divider>
@@ -30,5 +33,7 @@
 	<div ui-view="committeeMembers"></div>
 	<div ui-view="committeeVotes"></div>
 </div>
+
+<div class="spacing-25"></div>
 
 <div ng-include="'footer/index.tpl.html'"></div>

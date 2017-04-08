@@ -2,29 +2,16 @@ angular.module('models.committeeMember', ['lodash', 'services', 'sails.io',])
 
 .service('CommitteeMemberModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
-    this.getSome = function(limit, skip, sort) {
-        //this could be master function
-        //pass json filter obj eg. {member: member.id, committee: committee.id}
+    this.getSome = function(filter, model, limit, skip, sort) {
         var url = utils.prepareUrl('committeemember');
-        var query = {params:{limit:limit, skip:skip, sort: sort}};
+        var query = {params:{filter: filter, id: model, limit:limit, skip:skip, sort: sort}};
         return $sailsSocket.get(url, query).then(success, error);
     };
 
-    this.getByCommittee = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('committeemember/committee');
-        var query = {params:{committee: model, limit:limit, skip:skip, sort: sort}};
+    this.getCommitteeMemberCount = function(filter, model) {
+        var url = utils.prepareUrl('committeemember/count');
+        var query = {params:{filter: filter, id: model }};
         return $sailsSocket.get(url, query).then(success, error);
-    };
-
-    this.getByMember = function(model, limit, skip, sort) {
-        var url = utils.prepareUrl('committeemember/member');
-        var query = {params:{user: model, limit:limit, skip:skip, sort: sort}};
-        return $sailsSocket.get(url, query).then(success, error);
-    };
-
-    this.getMemberCount = function(model) {
-        var url = utils.prepareUrl('committeemember/user/count/' + model);
-        return $sailsSocket.get(url).then(success, error);
     };
 
     this.create = function(newModel) {

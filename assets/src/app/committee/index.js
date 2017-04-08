@@ -14,6 +14,9 @@ angular.module( 'voetr.committee', [
 		resolve: {
             committee: ['$stateParams', 'CommitteeModel', function($stateParams, CommitteeModel) {
                 return CommitteeModel.getByUrl($stateParams.path);
+            }],
+            memberCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
+                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
             }]
         }
 	})
@@ -86,7 +89,10 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             members: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel) {
-                return CommitteeMemberModel.getByCommittee(committee.id, 100, 0);
+                return CommitteeMemberModel.getSome('committee', committee.id, 24, 0);
+            }],
+            memberCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
+                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
             }]
          }
     })
@@ -107,20 +113,42 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeCtrl', ['$location', '$scope', 'committee', 'config', 'titleService', function CommitteeCtrl( $location, $scope, committee, config, titleService) {
+.controller( 'CommitteeCtrl', ['$location', '$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'memberCount', 'titleService', function CommitteeCtrl( $location, $sailsSocket, $scope, committee, CommitteeMemberModel, config, memberCount, titleService) {
     $scope.committee = committee;
     $scope.currentUser = config.currentUser;
     titleService.setTitle(committee.title + ' - voetr');
     if (committee == undefined){$location.url('committees')};
     $scope.editCommitteeToggle = false;
-
     $scope.billCount = 0;
-    $scope.memberCount = 0;
+    $scope.memberCount = memberCount.committeeMemberCount;
+    $scope.newMember = {};
     $scope.voteCount = 0;
+
+    $scope.createMember = function(){
+        if($scope.currentUser){
+            $scope.newMember.user = $scope.currentUser.id;
+            $scope.newMember.committee = $scope.committee.id;
+            $scope.newMember.title = 'Committee Member';
+            CommitteeMemberModel.create($scope.newMember);
+        }
+        else{$location.path('/login')}
+    };
 
     $scope.toggleEditCommittee = function(){
         $scope.editCommitteeToggle = $scope.editCommitteeToggle ? false : true;
     };
+
+    $sailsSocket.subscribe('committeemember', function (envelope) {
+        switch(envelope.verb) {
+            case 'created':
+                if (envelope.data.committee == $scope.committee.id){
+                    CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id).then(function(memberCount){
+                        $scope.memberCount = memberCount.committeeMemberCount;
+                    });
+                }
+                break;
+        }
+    });
 
 }])
 
@@ -261,21 +289,20 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeMemberCtrl', ['$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'members', 'titleService', function CommitteeMemberCtrl( $sailsSocket, $scope, committee, CommitteeMemberModel, config, members, titleService) {
+.controller( 'CommitteeMemberCtrl', ['$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'memberCount', 'members', 'titleService', function CommitteeMemberCtrl( $sailsSocket, $scope, committee, CommitteeMemberModel, config, memberCount, members, titleService) {
     titleService.setTitle(committee.title + ' Members - voetr');
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
+    $scope.memberCount = memberCount.committeeMemberCount;
     $scope.members = members;
     $scope.newMember = {};
+    $scope.skip = 0;
 
-    $scope.createMember = function(){
-        if($scope.currentUser){
-            $scope.newMember.user = $scope.currentUser.id;
-            $scope.newMember.committee = $scope.committee.id;
-            $scope.newMember.title = 'Committee Member';
-            CommitteeMemberModel.create($scope.newMember);
-        }
-        else{$location.path('/login')}
+    $scope.loadMore = function() {
+        $scope.skip = $scope.skip + 24;
+        CommitteeMemberModel.getSome('committee', $scope.committee.id, 24, $scope.skip).then(function(members) {
+            Array.prototype.push.apply($scope.members, members);
+        });
     };
 
     $sailsSocket.subscribe('committeemember', function (envelope) {

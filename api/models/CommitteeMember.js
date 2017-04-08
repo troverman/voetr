@@ -22,19 +22,22 @@ module.exports = {
         }
     },
 
-    afterCreate: function (committee, next) {
-        // set message.user = to appropriate user model
-        User.getOne(committee.user)
-        .spread(function(user) {
-            committee.user = user;
-            next(null, committee);
-        });
-    },
-
     getOne: function(id) {
         return CommitteeMember.findOne(id)
         .then(function (model) {
-            return [model];
+            return model;
+        });
+    },
+
+    getSome: function(filter, limit, skip, sort){
+        return CommitteeMember.find(filter)
+        .limit(limit)
+        .skip(skip)
+        .sort(sort)
+        .populate('committee')
+        .populate('user')
+        .then(function (model) {
+            return model;
         });
     },
 

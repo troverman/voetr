@@ -2,10 +2,10 @@ angular.module('models.representative', ['lodash', 'services', 'sails.io',])
 
 .service('RepresentativeModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
-    this.getConstituents = function(model) {
+    this.getConstituents = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('representative/constituents/' + model);
-        console.log(url)
-        return $sailsSocket.get(url).then(success, error);
+        var query = {params:{user: model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getConstituentCount = function(model) {
@@ -13,9 +13,10 @@ angular.module('models.representative', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
-    this.getRepresentatives = function(model) {
+    this.getRepresentatives = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('representative/representatives/' + model);
-        return $sailsSocket.get(url).then(success, error);
+        var query = {params:{user: model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
     };
 
     this.getRepresentativeCount = function(model) {

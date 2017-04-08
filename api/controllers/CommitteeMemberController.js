@@ -5,62 +5,18 @@
 
 module.exports = {
 
-	getByCommittee: function(req, res) {
-		var committee = req.query.committee;
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		CommitteeMember.find()
-		.where({committee: committee})
-		.limit(limit)
-		.skip(skip)
-		.skip(sort)
-		.populate('user')
+	getSome: function(req, res) {
+		var filter = {};
+		if (req.query.filter == 'user'){filter = {user: req.query.id}}
+		else if(req.query.filter == 'committee'){filter = {committee: req.query.id}}
+		else{filter = {id: null}}
+		CommitteeMember.getSome(filter, req.query.limit, req.query.skip, req.query.sort)
 		.then(function(models) {
 			CommitteeMember.watch(req);
 			res.json(models);
 		})
 		.fail(function(err) {
 			res.send(404,err);
-		});
-	},
-
-	getByMember: function(req, res) {
-		var user = req.query.user;
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		CommitteeMember.find()
-		.where({user: user})
-		.populate('user')
-		.populate('committee')
-		.then(function(models) {
-			CommitteeMember.watch(req);
-			res.json(models);
-		})
-		.fail(function(err) {
-			res.send(404,err);
-		});
-	},
-
-	getMemberCount: function(req, res) {
-		//var filter = {};
-		//if (req.query.user){filter = {user:req.query.user}}
-		//else if(req.query.committee){filter = {committee:req.query.user}}
-		CommitteeMember.count()
-		.where({user:req.param('id')})
-		.exec(function(err, committeeMemberCount) {
-			if (err) {return console.log(err);}
-			else{res.json({ committeeMemberCount: committeeMemberCount });}
-		});
-	},
-
-	getMemberCountByCommittee: function(req, res) {
-		CommitteeMember.count()
-		.where({user:req.param('id')})
-		.exec(function(err, committeeMemberCount) {
-			if (err) {return console.log(err);}
-			else{res.json({ committeeMemberCount: committeeMemberCount });}
 		});
 	},
 

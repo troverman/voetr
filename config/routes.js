@@ -77,9 +77,8 @@ module.exports.routes = {
    /**
    * CommitteeMember routes
    */
-  'get /api/committeemember/committee': 'CommitteeMemberController.getByCommittee',
-  'get /api/committeemember/member': 'CommitteeMemberController.getByMember',
-  'get /api/committeemember/user/count/:id': 'CommitteeMemberController.getMemberCount',
+  'get /api/committeemember': 'CommitteeMemberController.getSome',
+  'get /api/committeemember/count': 'CommitteeMemberController.getCommitteeMemberCount',
   'post /api/committeemember': 'CommitteeMemberController.create',
   'delete /api/committeemember/:id': 'CommitteeMemberController.destroy',
 

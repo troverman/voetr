@@ -17,7 +17,7 @@ angular.module( 'voetr.member', [
                 return UserModel.getByUsername($stateParams.path);
             }],
             committeeCount: ['member', 'CommitteeMemberModel', function(member, CommitteeMemberModel) {
-                return CommitteeMemberModel.getMemberCount(member.id);
+                return CommitteeMemberModel.getCommitteeMemberCount('user', member.id);
             }],
             constituentCount: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getConstituentCount(member.id);
@@ -81,7 +81,7 @@ angular.module( 'voetr.member', [
         },
         resolve: {
             committees: ['CommitteeMemberModel', 'member', function(CommitteeMemberModel, member){
-                return CommitteeMemberModel.getByMember(member.id);
+                return CommitteeMemberModel.getSome('user', member.id);
             }]
         }
     })
@@ -132,7 +132,7 @@ angular.module( 'voetr.member', [
     });
 }])
 
-.controller( 'MemberCtrl', ['$location', '$scope', 'committeeCount', 'constituentCount', 'config', 'member', 'myRepresentatives', 'representativeCount', 'voteCount', function CommitteeCtrl( $location, $scope, committeeCount, constituentCount, config, member, myRepresentatives, representativeCount, voteCount) {
+.controller( 'MemberCtrl', ['$location',  '$sailsSocket', '$scope', 'committeeCount', 'constituentCount', 'config', 'member', 'myRepresentatives', 'representativeCount', 'voteCount', function CommitteeCtrl( $location, $sailsSocket, $scope, committeeCount, constituentCount, config, member, myRepresentatives, representativeCount, voteCount) {
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.committeeCount = committeeCount.committeeMemberCount;
@@ -162,15 +162,12 @@ angular.module( 'voetr.member', [
         }
     };
 
-    /*
     $sailsSocket.subscribe('user', function (envelope) {
         switch(envelope.verb) {
-            case 'created':
-                //console.log(envelope.data);
-                $scope.followers.unshift(envelope.data);
-                break;
-            case 'destroyed':
-                lodash.remove($scope.followers, {id: envelope.id});
+            case 'updated':
+                if(envelope.data.member.id == member.id){
+                    $scope.member.unshift(envelope.data)
+                }
                 break;
         }
     });
@@ -179,18 +176,25 @@ angular.module( 'voetr.member', [
         switch(envelope.verb) {
             case 'created':
                 if(envelope.data.representative.id == member.id){
-                    $scope.constituents.unshift(envelope.data);
+                    //representativeCount
                 }
                 if(envelope.data.constituent.id == member.id){
-                    $scope.constituents.unshift(envelope.data);
+                    //constituentCount
                 }
                 break;
             case 'destroyed':
-                lodash.remove($scope.constituents, {id: envelope.id});
+                 if(envelope.data.representative.id == member.id){
+                    //representativeCount
+                }
+                if(envelope.data.constituent.id == member.id){
+                    //constituentCount
+                }
                 break;
         }
     });
-    */
+
+    //votevote --- voteCount
+    //committeeMember -- committeeCount
 
 }])
 
@@ -216,6 +220,7 @@ angular.module( 'voetr.member', [
 
     $scope.loadMore = function() {
         $scope.skip = $scope.skip + 25;
+        //Activity Model -- SearchModel? etc... --> prolly SearchByMember(member.id)
         VoteVoteModel.getByUser($scope.member.id, 25, $scope.skip).then(function(committees) {
             Array.prototype.push.apply($scope.committees, committees);
             console.log($scope.committees);
@@ -247,7 +252,7 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberBillsCtrl', ['$sailsSocket', '$scope', 'BillModel', 'bills', 'config', 'member', 'titleService', function MemberController( $sailsSocket, $scope, CommitteeMemberModel, bills, config, member, titleService ) {
+.controller( 'MemberBillsCtrl', ['$sailsSocket', '$scope', 'BillModel', 'bills', 'CommitteeMemberModel', 'config', 'member', 'titleService', function MemberController( $sailsSocket, $scope, CommitteeMemberModel, bills, CommitteeMemberModel, config, member, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
@@ -256,7 +261,7 @@ angular.module( 'voetr.member', [
 
     $scope.loadMore = function() {
         $scope.skip = $scope.skip + 25;
-        //BillModel.getConstituents($scope.member.id, 25, $scope.skip).then(function(committees) {
+        //CommitteeMemberModel.getConstituents($scope.member.id, 25, $scope.skip).then(function(committees) {
         //    Array.prototype.push.apply($scope.committees, committees);
        // });
     };
@@ -283,7 +288,7 @@ angular.module( 'voetr.member', [
 
     $scope.loadMore = function() {
         $scope.skip = $scope.skip + 25;
-        CommitteeMemberModel.getConstituents($scope.member.id, 25, $scope.skip).then(function(committees) {
+        CommitteeMemberModel.getByMember($scope.member.id, 25, $scope.skip).then(function(committees) {
             Array.prototype.push.apply($scope.committees, committees);
         });
     };
@@ -322,12 +327,11 @@ angular.module( 'voetr.member', [
                 if(envelope.data.representative.id == member.id){
                     $scope.constituents.unshift(envelope.data);
                 }
-                if(envelope.data.constituent.id == member.id){
-                    $scope.constituents.unshift(envelope.data);
-                }
                 break;
             case 'destroyed':
-                lodash.remove($scope.constituents, {id: envelope.id});
+                if(envelope.data.representative.id == member.id){
+                    $scope.constituents.unshift(envelope.data);
+                }
                 break;
         }
     });
@@ -351,15 +355,14 @@ angular.module( 'voetr.member', [
     $sailsSocket.subscribe('representative', function (envelope) {
         switch(envelope.verb) {
             case 'created':
-                if(envelope.data.representative.id == member.id){
-                    $scope.constituents.unshift(envelope.data);
-                }
                 if(envelope.data.constituent.id == member.id){
                     $scope.constituents.unshift(envelope.data);
                 }
                 break;
             case 'destroyed':
-                lodash.remove($scope.constituents, {id: envelope.id});
+                if(envelope.data.constituent.id == member.id){
+                    $scope.constituents.unshift(envelope.data);
+                }
                 break;
         }
     });
