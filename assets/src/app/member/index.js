@@ -81,7 +81,7 @@ angular.module( 'voetr.member', [
         },
         resolve: {
             committees: ['CommitteeMemberModel', 'member', function(CommitteeMemberModel, member){
-                return CommitteeMemberModel.getSome('user', member.id, 15, 0);
+                return CommitteeMemberModel.getSome('user', member.id, 25, 0);
             }],
             committeeCount: ['member', 'CommitteeMemberModel', function(member, CommitteeMemberModel) {
                 return CommitteeMemberModel.getCommitteeMemberCount('user', member.id);
@@ -165,9 +165,9 @@ angular.module( 'voetr.member', [
         else{$location.path('/login')}
     };
 
-    $scope.removeRepresentative = function(member) {
-        if ($scope.member.user.id === $scope.currentUser.id) {
-            RepresentativeModel.delete(member);
+    $scope.removeRepresentative = function() {
+        if ($scope.isFollowing) {
+            RepresentativeModel.delete($scope.member);
         }
     };
 
@@ -185,18 +185,20 @@ angular.module( 'voetr.member', [
         switch(envelope.verb) {
             case 'created':
                 if(envelope.data.representative.id == member.id){
-                    //representativeCount
+                    $scope.representativeCount = representativeCount.representativeCount + 1;
+                   // RepresentativeModel.getRepresentativeCount(member.id).then(function(representativeCount){});
                 }
                 if(envelope.data.constituent.id == member.id){
-                    //constituentCount
+                    $scope.constituentCount = constituentCount.constituentCount + 1;
+                    //RepresentativeModel.getConstituentCount(member.id).then(function(constituentCount){});
                 }
                 break;
             case 'destroyed':
-                 if(envelope.data.representative.id == member.id){
-                    //representativeCount
+                if(envelope.data.representative.id == member.id){
+                    $scope.representativeCount = representativeCount.representativeCount - 1; 
                 }
                 if(envelope.data.constituent.id == member.id){
-                    //constituentCount
+                    $scope.constituentCount = constituentCount.constituentCount - 1;
                 }
                 break;
         }
@@ -297,8 +299,8 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
 
     $scope.loadMore = function() {
-        $scope.skip = $scope.skip + 15;
-        CommitteeMemberModel.getSome('user', $scope.member.id, 15, $scope.skip).then(function(committees) {
+        $scope.skip = $scope.skip + 25;
+        CommitteeMemberModel.getSome('user', $scope.member.id, 25, $scope.skip).then(function(committees) {
             Array.prototype.push.apply($scope.committees, committees);
         });
     };

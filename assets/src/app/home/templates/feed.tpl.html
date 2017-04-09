@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <img style="position:relative" class="avatar" ng-src="{{currentUser.avatarUrl}}"/>
+            <img style="position:relative;top:0em" class="avatar" ng-src="{{currentUser.avatarUrl}}"/>
             <h2><a href="/member/{{currentUser.username}}"><b>{{currentUser.username}}</a></b></h2>
             <div class="spacing-5"></div>
             <h5>Bills - {{committees.length}}</h5>
@@ -61,10 +61,10 @@
                         <div class="margin-5"></div>
                         <h4>
                             <b>+ {{vote.plusCount-vote.minusCount}}</b>
-                            <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
+                            <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
                                 <i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
                             </button>
-                            <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
+                            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
                                 <i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
                             </button>
                             <br><br>

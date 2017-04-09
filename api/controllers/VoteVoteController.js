@@ -100,10 +100,13 @@ module.exports = {
 		if (req.param('voteInteger') == 1){model.voteString = "Yes"}
 		if (req.param('voteInteger') == -1){model.voteString = "No"}
 
+		console.log(req.param('vote'))
+
 		VoteVote.create(model)
 		.exec(function(err, model) {
 			if (err) {return console.log(err);}
 			else {
+				console.log(model);
 				VoteVote.count()
 				.where({vote: req.param('vote')})
 				.exec(function(err, VoteVoteCount) {

@@ -33,12 +33,14 @@ module.exports = {
         VoteVote.find({user: model.user, bill:model.bill, vote:model.vote})
         .then(function(voteVote){
             if (voteVote.length == 0){
+                console.log('new')
                 return next(null, voteVote);
             }
             else{
                 if(voteVote[0].voteInteger != model.voteInteger){  
                     VoteVote.update({id: voteVote[0].id}, model)
                     .then(function(model){
+                        console.log('updated')
                         VoteVote.publishUpdate(model[0].id, model);
                     });
                 }
@@ -46,16 +48,16 @@ module.exports = {
         });
     },
 
-    afterCreate: function(model, next){
+    /*afterCreate: function(model, next){
         VoteVote.count()
         .where({user: model.user, bill:model.bill, vote:model.vote})
         .then(function(voteCount){
             //get plus count, minus count -- 
             Bill.update({id:model.bill, voteCount: voteCount}).then(function(){
-                return next();
+                return next(null, model);
             });
         });
-    },
+    },*/
 
     getOne: function(id) {
         return VoteVote.findOne(id)

@@ -7,18 +7,19 @@ angular.module( 'voetr.home', [
 		views: {
 			"main": {
 				controller: 'HomeCtrl',
-				templateUrl: 'home/index.tpl.html'
+				templateUrl: 'home/index.tpl.html',
 			}
-		},
-		resolve:{
-			constituents: ['config', 'RepresentativeModel',function(config, RepresentativeModel) {
-				if(config.currentUser){return RepresentativeModel.getConstituents(config.currentUser);}
-            	else{return null}
-            }],
-            representatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
-				if(config.currentUser){return RepresentativeModel.getRepresentatives(config.currentUser);}
-            	else{return null}
-            }],
+		}
+	})
+    .state( 'home.intro', {
+        url: '',
+        views: {
+            "homeIntro": {
+				controller: 'IntroCtrl',
+                templateUrl: 'home/templates/intro.tpl.html'
+            }
+        },
+		resolve: {
 			committees: ['CommitteeModel', function(CommitteeModel) {
 				return CommitteeModel.getSome(10, 0, 'createdAt DESC');
             }],
@@ -38,99 +39,56 @@ angular.module( 'voetr.home', [
 			billCount: ['BillModel', function(BillModel){
 				return BillModel.getCount();
             }],
-			votes: ['config', 'VoteModel', function(config, VoteModel) {
-				if(config.currentUser){return VoteModel.getSome(25, 0, 'voteCount DESC')}
-            	else{return null}
+        }
+    })
+	.state( 'home.feed', {
+        url: '',
+        views: {
+            "homeFeed": {
+				controller: 'FeedCtrl',
+                templateUrl: 'home/templates/feed.tpl.html'
+            }
+        },
+		resolve: {
+			constituents: ['config', 'RepresentativeModel',function(config, RepresentativeModel) {
+				return RepresentativeModel.getConstituents(config.currentUser);
             }],
-            user: ['config', 'UserModel', function(config, UserModel){
-				if(config.currentUser){return UserModel.getMine();}
-            	else{return null}
+			posts: ['config', 'PostModel', function(config, PostModel) {
+    			return PostModel.getByUser(config.currentUser.id, 100, 0, 'createdAt DESC');
+            }],
+            representatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
+				return RepresentativeModel.getRepresentatives(config.currentUser);
+            }],
+			user: ['config', 'UserModel', function(config, UserModel){
+				return UserModel.getMine();
         	}],
-		}
-	});
+			userVotes: ['config', 'VoteVoteModel', function(config, VoteVoteModel){
+				return VoteVoteModel.getByUser(currentUser.id, 25, 0, 'createdAt DESC')
+        	}],
+			votes: ['config', 'VoteModel', function(config, VoteModel) {
+				return VoteModel.getSome(25, 0, 'voteCount DESC');
+            }],
+        }
+    })
+
 }])
 
-//.controller( 'HomeCtrl', ['$scope', 'config', function HomeController( $scope, config ) {
-//}])
-//.controller( 'IntroCtrl', ['$scope', 'config', function IntroController( $scope, config ) {
-//}])
-//.controller( 'FeedCtrl', ['$scope', 'config', function FeedController( $scope, config ) {
-//}])
+.controller( 'HomeCtrl', ['$scope', '$state', 'config', function HomeController( $scope, $state, config ) {
+	 $scope.currentUser = config.currentUser;
+	 if($scope.currentUser){$state.go('home.feed')}
+ 	 else{$state.go('home.intro')}
 
-.controller( 'HomeCtrl', ['$rootScope', '$q', '$sailsSocket', '$scope', '$interval', 'billCount', 'BillModel', 'bills', 'committeeCount', 'CommitteeModel', 'committees', 'config', 'constituents', 'PostModel', 'RepresentativeModel', 'representatives', 'titleService', 'Upload', 'user', 'UserModel', 'userCount', 'users', 'VoteModel', 'votes', 'VoteVoteModel', function HomeController($rootScope, $q, $sailsSocket, $scope, $interval, billCount, BillModel, bills, committeeCount, CommitteeModel, committees, config, constituents, PostModel, RepresentativeModel, representatives, titleService, Upload, user, UserModel, userCount, users, VoteModel, votes, VoteVoteModel ) {
-	titleService.setTitle('voetr');
+}])
+.controller( 'IntroCtrl', ['$rootScope', '$sailsSocket', '$scope', 'billCount', 'BillModel', 'bills', 'committeeCount', 'CommitteeModel', 'committees', 'config', 'RepresentativeModel', 'userCount', 'UserModel', 'users', function IntroController( $rootScope, $sailsSocket, $scope, billCount, BillModel, bills, committeeCount, CommitteeModel, committees, config, RepresentativeModel, userCount, UserModel, users ) {
 	$scope.currentUser = config.currentUser;
 	$scope.bills = bills;
 	$scope.billCount = billCount.billCount;
 	$scope.committees = committees;
 	$scope.committeeCount = committeeCount.committeeCount;
-	$scope.users = users;
-	$scope.user = user;
-	//console.log(users)
 	$scope.userCount = userCount.userCount;
-	$scope.constituents = constituents;
-    $scope.representatives = representatives;
-    $scope.votes = votes;
+	$scope.users = users;
     $scope.officialRepresentatives = {};
     $scope.gettingRepresentatives = false;
-    $scope.newVote = {};
-    $scope.newPost = {};
-    $scope.posts = {};
-
-    /*var vm = this;
-    vm.gmapsService = new google.maps.places.AutocompleteService();
-    vm.search = search;
-
-    function getResults(address) {
-	  var deferred = $q.defer();
-	  vm.gmapsService.getQueryPredictions({input: address}, function (data) {
-	    deferred.resolve(data);
-	  });
-	  return deferred.promise;
-	}
-
-	function search(address) {
-	  var deferred = $q.defer();
-	  getResults(address).then(
-	    function (predictions) {
-	      var results = [];
-	      for (var i = 0, prediction; prediction = predictions[i]; i++) {
-	        results.push(prediction.description);
-	      }
-	      deferred.resolve(results);
-	    }
-	  );
-	 return deferred.promise;
-	}*/
-
-	$scope.uploadIdentification = function(file){
-        if (file){
-            $rootScope.stateIsLoading = true;
-            Upload.upload({
-                url: '/api/user/upload',
-                method: 'POST',
-                data: {picture: file}
-            })
-            .then(function(response){
-                $rootScope.stateIsLoading = false;
-                $scope.user.identificationUrl = response.data.amazonUrl;
-                $scope.accountSave();//probably should have a save button here -- if not save delete failed file
-            },
-            function(err){
-                $rootScope.stateIsLoading = false;
-            },
-            function (evt) {
-                $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            })
-        }
-    };
-
-     $scope.accountSave = function(){
-        $rootScope.stateIsLoading = true;
-        UserModel.update($scope.user).then(function(){
-       		$rootScope.stateIsLoading = false;
-        });
-    };
 
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
@@ -148,46 +106,7 @@ angular.module( 'voetr.home', [
 	    }
 	};
 
-    if ($scope.currentUser){
-
-    	PostModel.getByUser($scope.currentUser.id, 100, 0, 'createdAt DESC').then(function(posts){
-    		$scope.posts = posts;
-    	});
-
-		VoteVoteModel.getByUser($scope.currentUser.id, 25, 0, 'createdAt DESC').then(function(votes){
-			$scope.userVotes = votes;
-		});
-
-    	$scope.createPost = function(){
-    		console.log($scope.newPost);
-    		$scope.newPost.user = $scope.currentUser.id;
-    		$scope.newPost.profile = $scope.currentUser.id
-    		PostModel.create($scope.newPost).then(function(model){
-    			console.log(model);
-    		})
-    	};
-
-		$scope.createVote = function(voteInteger, newVote) {
-	        if ($scope.currentUser == undefined){return null;}
-
-	        $scope.newVote.user = config.currentUser.id;
-	        $scope.newVote.bill = newVote.bill;
-	        $scope.newVote.vote = newVote.id;
-	        $scope.newVote.voteInteger = voteInteger;
-
-			//set vote as voted with style.. --
-			var index = $scope.votes.indexOf(newVote);
-			if (voteInteger == 1){$scope.votes[index].class = 'upVote'}
-			if (voteInteger == -1){$scope.votes[index].class = 'downVote'}
-
-	        VoteVoteModel.create($scope.newVote).then(function(model) {
-	            $scope.newVote = {};
-	        });
-	    };
-
-	};
-
-	$scope.skipBills = 10;
+    $scope.skipBills = 10;
     $scope.loadMoreBills = function() {
 		$rootScope.stateIsLoading = true;
 		$scope.skipBills = $scope.skipBills + 20;
@@ -214,16 +133,6 @@ angular.module( 'voetr.home', [
 		UserModel.getSome(33,$scope.skipMembers).then(function(users) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.users, users);
-		});
-	};
-
-	$scope.skipVotes = 25;
-    $scope.loadMoreVotes = function() {
-    	$rootScope.stateIsLoading = true;
-		$scope.skipVotes = $scope.skipVotes + 25;
-		VoteModel.getSome(25,$scope.skipVotes).then(function(votes) {
-			$rootScope.stateIsLoading = false;
-			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};
 
@@ -254,6 +163,99 @@ angular.module( 'voetr.home', [
 	            break;
 	    }
     });
+
+}])
+.controller( 'FeedCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'constituents', 'PostModel', 'posts', 'RepresentativeModel', 'representatives', 'Upload', 'user', 'userVotes', 'VoteModel', 'votes', 'VoteVoteModel', function FeedController( $rootScope, $sailsSocket, $scope, config, constituents, PostModel, posts, RepresentativeModel, representatives, Upload, user, userVotes, VoteModel, votes, VoteVoteModel ) {
+	$scope.currentUser = config.currentUser;
+	$scope.constituents = constituents;
+	$scope.newPost = {};
+	$scope.newVote = {};
+	$scope.posts = posts;
+    $scope.representatives = representatives;
+    $scope.user = user;
+    $scope.userVotes = userVotes
+    $scope.votes = votes;
+
+    $scope.getLatLng = function() {
+	    if (navigator.geolocation) {
+	    	$scope.gettingRepresentatives = true;
+	    	$rootScope.stateIsLoading = true;
+	        navigator.geolocation.getCurrentPosition(function (position) {
+                lat = position.coords.latitude; 
+                lng = position.coords.longitude;
+	        	RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
+	        		$scope.officialRepresentatives = representatives;
+	        		$rootScope.stateIsLoading = false;
+					$scope.gettingRepresentatives = false;
+	        	});
+	        });
+	    }
+	};
+
+	$scope.uploadIdentification = function(file){
+        if (file){
+            $rootScope.stateIsLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $rootScope.stateIsLoading = false;
+                $scope.user.identificationUrl = response.data.amazonUrl;
+                $scope.accountSave();
+            },
+            function(err){
+                $rootScope.stateIsLoading = false;
+            },
+            function (evt) {
+                $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
+    };
+
+    $scope.accountSave = function(){
+        $rootScope.stateIsLoading = true;
+        UserModel.update($scope.user).then(function(){
+       		$rootScope.stateIsLoading = false;
+        });
+    };
+
+    $scope.createPost = function(){
+		$scope.newPost.user = $scope.currentUser.id;
+		$scope.newPost.profile = $scope.currentUser.id
+		PostModel.create($scope.newPost).then(function(model){
+			$scope.newPost = {}
+		});
+	};
+
+	$scope.createVote = function(voteInteger, newVote) {
+        $scope.newVote.user = config.currentUser.id;
+        $scope.newVote.bill = newVote.bill;
+        $scope.newVote.vote = newVote.id;
+        $scope.newVote.voteInteger = voteInteger;
+
+		//set vote as voted with style.. --
+		var index = $scope.votes.indexOf(newVote);
+		console.log(index)
+		if (voteInteger == 1){$scope.votes[index].class = 'upVote'}
+		if (voteInteger == -1){$scope.votes[index].class = 'downVote'}
+		console.log($scope.votes[index])
+        VoteVoteModel.create($scope.newVote).then(function(model) {
+        	console.log(model)
+            $scope.newVote = {};
+        });
+    };
+
+    $scope.skipVotes = 25;
+    $scope.loadMoreVotes = function() {
+    	$rootScope.stateIsLoading = true;
+		$scope.skipVotes = $scope.skipVotes + 25;
+		VoteModel.getSome(25,$scope.skipVotes).then(function(votes) {
+			$rootScope.stateIsLoading = false;
+			Array.prototype.push.apply($scope.votes, votes);
+		});
+	};
 
     $sailsSocket.subscribe('post', function (envelope) {
 	    switch(envelope.verb) {
@@ -293,6 +295,7 @@ angular.module( 'voetr.home', [
 				$scope.votes[index].voteCount = envelope.data[0].voteCount;
 				$scope.votes[index].plusCount = envelope.data[0].plusCount;
 				$scope.votes[index].minusCount = envelope.data[0].minusCount;
+				console.log($scope.votes[index])
 				break;
 	        case 'destroyed':
 	            lodash.remove($scope.votes, {id: envelope.id});
@@ -300,4 +303,30 @@ angular.module( 'voetr.home', [
 	    }
     });
 
-}]);
+	/*var vm = this;
+	vm.gmapsService = new google.maps.places.AutocompleteService();
+	vm.search = search;
+
+	function getResults(address) {
+		var deferred = $q.defer();
+		vm.gmapsService.getQueryPredictions({input: address}, function (data) {
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	};
+
+	function search(address) {
+		var deferred = $q.defer();
+		getResults(address).then(
+			function (predictions) {
+			var results = [];
+			for (var i = 0, prediction; prediction = predictions[i]; i++) {
+				results.push(prediction.description);
+			}
+			deferred.resolve(results);
+		});
+		return deferred.promise;
+	};*/
+
+
+}])
