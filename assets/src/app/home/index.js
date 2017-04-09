@@ -50,6 +50,7 @@ angular.module( 'voetr.home', [
             }
         },
 		resolve: {
+			//check to see which one of these has long load time
 			constituents: ['config', 'RepresentativeModel',function(config, RepresentativeModel) {
 				return RepresentativeModel.getConstituents(config.currentUser);
             }],
