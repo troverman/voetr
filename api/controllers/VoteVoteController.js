@@ -106,7 +106,6 @@ module.exports = {
 		.exec(function(err, model) {
 			if (err) {return console.log(err);}
 			else {
-				console.log(model);
 				VoteVote.count()
 				.where({vote: req.param('vote')})
 				.exec(function(err, VoteVoteCount) {

@@ -23,6 +23,7 @@ angular.module( 'voetr', [
     'voetr.login',
     'voetr.member',
     'voetr.nav',
+    'voetr.post',
     'voetr.register',
     'voetr.search',
     'voetr.vote',

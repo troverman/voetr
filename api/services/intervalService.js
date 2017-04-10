@@ -194,8 +194,8 @@ module.exports.intervalService = function(){
 	//dataService.stateBills('nc', 1, 25);
 
 	//dataService.cityCommittees();
-	//dataService.stateCommittees();
-	//dataService.federalCommittees();
+	dataService.stateCommittees();
+	dataService.federalCommittees();
 	//dataService.nationalCommittees();
 
 	//dataService.stateLegislators();

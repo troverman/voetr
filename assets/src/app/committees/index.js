@@ -56,6 +56,10 @@ angular.module( 'voetr.committees', [
 	        case 'created':
 	            $scope.committees.unshift(envelope.data);
 	            break;
+	        case 'updated':
+                var index = $scope.committees.map(function(obj){return obj.id}).indexOf(envelope.data.id)
+                $scope.committees[index] = envelope.data
+	            break;
 	        case 'destroyed':
 	            lodash.remove($scope.committees, {id: envelope.id});
 	            break;
@@ -63,12 +67,3 @@ angular.module( 'voetr.committees', [
     });
 
 }]);
-
-
-
-
-
-
-
-
-

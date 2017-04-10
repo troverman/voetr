@@ -1,0 +1,26 @@
+<div class="container">
+	<md-card>
+		<div style="padding:24px 16px 16px">
+            <div style="padding:24px 16px 16px">
+                <a href="/member/{{post.user.username}}">
+                    <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+                    <h3>{{post.user.username}}</h3>
+                </a>
+                <p>{{post.post}}</p>
+            </div>
+        </div>
+        <div style="padding:24px 16px 16px">
+            <div style="padding:24px 16px 16px">
+                <a href="#" ng-click="" class="pull-left"><i class="fa fa-thumbs-up"></i></a> 
+                <a href="post/{{post.id}}" class="pull-right"><i class="fa fa-link"></i></a>
+                <div class="profilePost">
+                    <form role="form">
+                        <md-input-container class="md-block">
+                            <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                        </md-input-container>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</md-card>
+</div>

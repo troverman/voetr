@@ -31,16 +31,18 @@ module.exports = {
         });
     },
 
-    /*afterCreate: function(model, next){
+    afterCreate: function(model, next){
         CommitteeMember.count()
-        .where({committee: model.committee, user:model.user})
+        .where({committee: model.committee})
         .then(function(committeeMemberCount){
-            Committee.update({id: model.committee, memberCount: committeeMemberCount}).then(function(updated){
+            console.log(committeeMemberCount);
+            Committee.update({id: model.committee}, {memberCount: committeeMemberCount}).then(function(updated){
+                console.log('Committee Member Count Updated')
                 Committee.publishUpdate(model.committee, updated);
-                return next();
             });
+            return next();
         });
-    },*/
+    },
 
     getOne: function(id) {
         return CommitteeMember.findOne(id)

@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/index.tpl.html', 'committee/templates/activity.tpl.html', 'committee/templates/bills.tpl.html', 'committee/templates/committees.tpl.html', 'committee/templates/discussion.tpl.html', 'committee/templates/members.tpl.html', 'committee/templates/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'home/templates/feed.tpl.html', 'home/templates/intro.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'member/templates/activity.tpl.html', 'member/templates/bills.tpl.html', 'member/templates/committees.tpl.html', 'member/templates/constituents.tpl.html', 'member/templates/representatives.tpl.html', 'member/templates/votes.tpl.html', 'nav/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/index.tpl.html', 'committee/templates/activity.tpl.html', 'committee/templates/bills.tpl.html', 'committee/templates/committees.tpl.html', 'committee/templates/discussion.tpl.html', 'committee/templates/members.tpl.html', 'committee/templates/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'home/templates/feed.tpl.html', 'home/templates/intro.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'member/templates/activity.tpl.html', 'member/templates/bills.tpl.html', 'member/templates/committees.tpl.html', 'member/templates/constituents.tpl.html', 'member/templates/representatives.tpl.html', 'member/templates/votes.tpl.html', 'nav/index.tpl.html', 'post/index.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -499,9 +499,9 @@ angular.module("committee/templates/members.tpl.html", []).run(["$templateCache"
     "                <p>{{member.user.state}}</p>\n" +
     "            </div>\n" +
     "            <div class=\"social\">\n" +
-    "                <a ng-show=\"member.user.socialAccounts.facebook.profileUrl\" href=\"{{member.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "                <a ng-show=\"member.user.socialAccounts.twitter.profileUrl\" href=\"{{member.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "                <a ng-show=\"member.user.socialAccounts.google.profileUrl\" href=\"{{member.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "                <a ng-show=\"member.user.socialAccounts.facebook.profileUrl\" href=\"{{member.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "                <a ng-show=\"member.user.socialAccounts.twitter.profileUrl\" href=\"{{member.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "                <a ng-show=\"member.user.socialAccounts.google.profileUrl\" href=\"{{member.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -587,7 +587,8 @@ angular.module("footer/index.tpl.html", []).run(["$templateCache", function ($te
 angular.module("home/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("home/index.tpl.html",
     "<div ui-view=\"homeIntro\"></div>\n" +
-    "<div ui-view=\"homeFeed\"></div> ");
+    "<div ui-view=\"homeFeed\"></div> \n" +
+    "");
 }]);
 
 angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -628,21 +629,36 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "            </div>\n" +
     "            <div class=\"spacing-5\"></div>\n" +
     "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "            <md-card ng-repeat=\"post in posts\">\n" +
-    "                <md-card-title>\n" +
-    "                    <md-card-title-text>\n" +
-    "                    <a href=\"/member/{{post.user.username}}\">\n" +
-    "                    <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "                    <h3>{{post.user.username}}</h3>\n" +
-    "                    </a>\n" +
-    "                    <p>{{post.post}}</p>\n" +
-    "                    </md-card-title-text>\n" +
-    "                </md-card-title>\n" +
-    "                <md-card-title>\n" +
-    "                    <a>like</a> \n" +
-    "                    <a>reply</a>\n" +
-    "                </md-card-title>\n" +
+    "                <div style=\"padding:24px 16px 16px\">\n" +
+    "                    <div style=\"padding:24px 16px 16px\">\n" +
+    "                        <a href=\"/member/{{post.user.username}}\">\n" +
+    "                            <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                            <h3>{{post.user.username}}</h3>\n" +
+    "                        </a>\n" +
+    "                        <p>{{post.post}}</p>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div style=\"padding:24px 16px 16px\">\n" +
+    "                    <div style=\"padding:24px 16px 16px\">\n" +
+    "                        <a href=\"#\" ng-click=\"\" class=\"pull-left\"><i class=\"fa fa-thumbs-up\"></i></a> \n" +
+    "                        <a href=\"post/{{post.id}}\" class=\"pull-right\"><i class=\"fa fa-link\"></i></a>\n" +
+    "                        <div class=\"profilePost\">\n" +
+    "                            <form role=\"form\">\n" +
+    "                                <md-input-container class=\"md-block\">\n" +
+    "                                    <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                                </md-input-container>\n" +
+    "                            </form>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
     "            </md-card>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "            <div class=\"spacing-15\"></div>\n" +
     "            <h3>trending votes</h3>\n" +
@@ -678,6 +694,7 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "");
 }]);
 
@@ -793,9 +810,9 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "                        <p>{{user.state}}</p>\n" +
     "                    </div>\n" +
     "                    <div class=\"social\">\n" +
-    "                        <a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "                        <a ng-show=\"user.socialAccounts.twitter.profileUrl\" href=\"{{user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "                        <a ng-show=\"user.socialAccounts.google.profileUrl\" href=\"{{user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "                        <a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "                        <a ng-show=\"user.socialAccounts.twitter.profileUrl\" href=\"{{user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "                        <a ng-show=\"user.socialAccounts.google.profileUrl\" href=\"{{user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -805,6 +822,8 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
     "");
 }]);
 
@@ -1171,6 +1190,36 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templ
     "</div>");
 }]);
 
+angular.module("post/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("post/index.tpl.html",
+    "<div class=\"container\">\n" +
+    "	<md-card>\n" +
+    "		<div style=\"padding:24px 16px 16px\">\n" +
+    "            <div style=\"padding:24px 16px 16px\">\n" +
+    "                <a href=\"/member/{{post.user.username}}\">\n" +
+    "                    <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                    <h3>{{post.user.username}}</h3>\n" +
+    "                </a>\n" +
+    "                <p>{{post.post}}</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div style=\"padding:24px 16px 16px\">\n" +
+    "            <div style=\"padding:24px 16px 16px\">\n" +
+    "                <a href=\"#\" ng-click=\"\" class=\"pull-left\"><i class=\"fa fa-thumbs-up\"></i></a> \n" +
+    "                <a href=\"post/{{post.id}}\" class=\"pull-right\"><i class=\"fa fa-link\"></i></a>\n" +
+    "                <div class=\"profilePost\">\n" +
+    "                    <form role=\"form\">\n" +
+    "                        <md-input-container class=\"md-block\">\n" +
+    "                            <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                        </md-input-container>\n" +
+    "                    </form>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "	</md-card>\n" +
+    "</div>");
+}]);
+
 angular.module("register/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("register/index.tpl.html",
     "<!--register-->\n" +
@@ -1348,9 +1397,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "								<p>{{user.state}}</p>\n" +
     "							</div>\n" +
     "							<div class=\"social\">\n" +
-    "								<a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "								<a ng-show=\"user.socialAccounts.twitter.profileUrl\" href=\"{{user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "								<a ng-show=\"user.socialAccounts.google.profileUrl\" href=\"{{user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "								<a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "								<a ng-show=\"user.socialAccounts.twitter.profileUrl\" href=\"{{user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "								<a ng-show=\"user.socialAccounts.google.profileUrl\" href=\"{{user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
     "							</div>\n" +
     "						</div>\n" +
     "					</div>\n" +
@@ -1365,9 +1414,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "								<p>{{user.state}}</p>\n" +
     "							</div>\n" +
     "							<div class=\"social\">\n" +
-    "								<a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "								<a ng-show=\"user.socialAccounts.twitter.profileUrl\" href=\"{{user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "								<a ng-show=\"user.socialAccounts.google.profileUrl\" href=\"{{user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "								<a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "								<a ng-show=\"user.socialAccounts.twitter.profileUrl\" href=\"{{user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "								<a ng-show=\"user.socialAccounts.google.profileUrl\" href=\"{{user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
     "							</div>\n" +
     "						</div>\n" +
     "					</div>\n" +
@@ -1439,9 +1488,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "							<p>{{searchResult.state}}</p>\n" +
     "						</div>\n" +
     "						<div class=\"social\">\n" +
-    "							<a ng-show=\"searchResult.socialAccounts.facebook.profileUrl\" href=\"{{searchResult.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "							<a ng-show=\"searchResult.socialAccounts.twitter.profileUrl\" href=\"{{searchResult.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "							<a ng-show=\"searchResult.socialAccounts.google.profileUrl\" href=\"{{searchResult.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
+    "							<a ng-show=\"searchResult.socialAccounts.facebook.profileUrl\" href=\"{{searchResult.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "							<a ng-show=\"searchResult.socialAccounts.twitter.profileUrl\" href=\"{{searchResult.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "							<a ng-show=\"searchResult.socialAccounts.google.profileUrl\" href=\"{{searchResult.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
     "						</div>\n" +
     "					</div>\n" +
     "				</div>\n" +
@@ -1511,41 +1560,41 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"{{vote.plusCount}}  Yes\" active=\"active\">\n" +
     "				<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"vote in yesVotes\">\n" +
-    "					<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
-    "						<div class=\"image\" style=\"background-image: url('{{vote.user.coverUrl}}')\">\n" +
-    "							<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" class=\"avatar\" src=\"{{vote.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
-    "						</div>\n" +
-    "						<div class=\"info\">\n" +
-    "							<h2 class=\"name\"><a href=\"member/{{vote.user.username}}\">{{vote.user.username}}</a></h2>\n" +
-    "							<h3 class=\"position\"><a href=\"member/{{vote.user.username}}\">{{vote.user.title}}</a></h3>\n" +
-    "							<p>Yes</p>\n" +
-    "						</div>\n" +
-    "						<div class=\"social\">\n" +
-    "							<a ng-show=\"vote.user.socialAccounts.facebook.profileUrl\" href=\"{{vote.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "							<a ng-show=\"vote.user.socialAccounts.twitter.profileUrl\" href=\"{{vote.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "							<a ng-show=\"vote.user.socialAccounts.google.profileUrl\" href=\"{{vote.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
-    "						</div>\n" +
-    "					</div>\n" +
-    "				</div>\n" +
+    "	                <div class=\"member-card\">\n" +
+    "	                    <div class=\"image\" style=\"background-image: url('{{vote.user.coverUrl}}')\">\n" +
+    "	                        <img ng-src=\"{{vote.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"info\">\n" +
+    "	                        <h2 class=\"name\"><a href=\"member/{{vote.user.username}}\">{{vote.user.username}}</a></h2>\n" +
+    "	                        <h4 class=\"position\">{{vote.user.title}}</h4>\n" +
+    "	                        <p>{{vote.user.state}}</p>\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"social\">\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.facebook.profileUrl\" href=\"{{vote.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.twitter.profileUrl\" href=\"{{vote.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.google.profileUrl\" href=\"{{vote.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
+    "	                    </div>\n" +
+    "	                </div>\n" +
+    "	            </div>\n" +
     "		    </uib-tab>\n" +
     "		    <uib-tab heading=\"{{vote.minusCount}}  No\">\n" +
     "				<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"vote in noVotes\">\n" +
-    "					<div style=\"margin:10px; box-shadow: 2px 2px 10px #999;\">\n" +
-    "						<div class=\"image\" style=\"background-image: url('{{vote.user.coverUrl}}')\">\n" +
-    "							<img alt=\"\" style=\"position:absolute;left:0;right0;margin:0 auto;margin-top:4em\" class=\"avatar\" src=\"{{vote.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
-    "						</div>\n" +
-    "						<div class=\"info\">\n" +
-    "							<h2 class=\"name\"><a href=\"member/{{vote.user.username}}\">{{vote.user.username}}</a></h2>\n" +
-    "							<h3 class=\"position\"><a href=\"member/{{vote.user.username}}\">{{vote.user.title}}</a></h3>\n" +
-    "							<p>No</p>\n" +
-    "						</div>\n" +
-    "						<div class=\"social\">\n" +
-    "							<a ng-show=\"vote.user.socialAccounts.facebook.profileUrl\" href=\"{{vote.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook\"></i></a>\n" +
-    "							<a ng-show=\"vote.user.socialAccounts.twitter.profileUrl\" href=\"{{vote.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter\"></i></a>\n" +
-    "							<a ng-show=\"vote.user.socialAccounts.google.profileUrl\" href=\"{{vote.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google\"></i></a>\n" +
-    "						</div>\n" +
-    "					</div>\n" +
-    "				</div>\n" +
+    "	                <div class=\"member-card\">\n" +
+    "	                    <div class=\"image\" style=\"background-image: url('{{vote.user.coverUrl}}')\">\n" +
+    "	                        <img ng-src=\"{{vote.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"info\">\n" +
+    "	                        <h2 class=\"name\"><a href=\"member/{{vote.user.username}}\">{{vote.user.username}}</a></h2>\n" +
+    "	                        <h4 class=\"position\">{{vote.user.title}}</h4>\n" +
+    "	                        <p>{{vote.user.state}}</p>\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"social\">\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.facebook.profileUrl\" href=\"{{vote.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.twitter.profileUrl\" href=\"{{vote.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.google.profileUrl\" href=\"{{vote.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
+    "	                    </div>\n" +
+    "	                </div>\n" +
+    "	            </div>\n" +
     "		    </uib-tab>\n" +
     "		</uib-tabset>\n" +
     "	<div>\n" +

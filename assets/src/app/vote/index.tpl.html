@@ -39,41 +39,41 @@
 		    </uib-tab>
 			<uib-tab heading="{{vote.plusCount}}  Yes" active="active">
 				<div class="col-lg-4 col-sm-6" ng-repeat="vote in yesVotes">
-					<div style="margin:10px; box-shadow: 2px 2px 10px #999;">
-						<div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
-							<img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" class="avatar" src="{{vote.user.avatarUrl}}" err-src="/images/avatar.png">
-						</div>
-						<div class="info">
-							<h2 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h2>
-							<h3 class="position"><a href="member/{{vote.user.username}}">{{vote.user.title}}</a></h3>
-							<p>Yes</p>
-						</div>
-						<div class="social">
-							<a ng-show="vote.user.socialAccounts.facebook.profileUrl" href="{{vote.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
-							<a ng-show="vote.user.socialAccounts.twitter.profileUrl" href="{{vote.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
-							<a ng-show="vote.user.socialAccounts.google.profileUrl" href="{{vote.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
-						</div>
-					</div>
-				</div>
+	                <div class="member-card">
+	                    <div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
+	                        <img ng-src="{{vote.user.avatarUrl}}" err-src="/images/avatar.png">
+	                    </div>
+	                    <div class="info">
+	                        <h2 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h2>
+	                        <h4 class="position">{{vote.user.title}}</h4>
+	                        <p>{{vote.user.state}}</p>
+	                    </div>
+	                    <div class="social">
+	                        <a ng-show="vote.user.socialAccounts.facebook.profileUrl" href="{{vote.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+	                        <a ng-show="vote.user.socialAccounts.twitter.profileUrl" href="{{vote.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+	                        <a ng-show="vote.user.socialAccounts.google.profileUrl" href="{{vote.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+	                    </div>
+	                </div>
+	            </div>
 		    </uib-tab>
 		    <uib-tab heading="{{vote.minusCount}}  No">
 				<div class="col-lg-4 col-sm-6" ng-repeat="vote in noVotes">
-					<div style="margin:10px; box-shadow: 2px 2px 10px #999;">
-						<div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
-							<img alt="" style="position:absolute;left:0;right0;margin:0 auto;margin-top:4em" class="avatar" src="{{vote.user.avatarUrl}}" err-src="/images/avatar.png">
-						</div>
-						<div class="info">
-							<h2 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h2>
-							<h3 class="position"><a href="member/{{vote.user.username}}">{{vote.user.title}}</a></h3>
-							<p>No</p>
-						</div>
-						<div class="social">
-							<a ng-show="vote.user.socialAccounts.facebook.profileUrl" href="{{vote.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
-							<a ng-show="vote.user.socialAccounts.twitter.profileUrl" href="{{vote.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
-							<a ng-show="vote.user.socialAccounts.google.profileUrl" href="{{vote.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
-						</div>
-					</div>
-				</div>
+	                <div class="member-card">
+	                    <div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
+	                        <img ng-src="{{vote.user.avatarUrl}}" err-src="/images/avatar.png">
+	                    </div>
+	                    <div class="info">
+	                        <h2 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h2>
+	                        <h4 class="position">{{vote.user.title}}</h4>
+	                        <p>{{vote.user.state}}</p>
+	                    </div>
+	                    <div class="social">
+	                        <a ng-show="vote.user.socialAccounts.facebook.profileUrl" href="{{vote.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+	                        <a ng-show="vote.user.socialAccounts.twitter.profileUrl" href="{{vote.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+	                        <a ng-show="vote.user.socialAccounts.google.profileUrl" href="{{vote.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+	                    </div>
+	                </div>
+	            </div>
 		    </uib-tab>
 		</uib-tabset>
 	<div>

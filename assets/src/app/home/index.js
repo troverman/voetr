@@ -78,7 +78,6 @@ angular.module( 'voetr.home', [
 	 $scope.currentUser = config.currentUser;
 	 if($scope.currentUser){$state.go('home.feed')}
  	 else{$state.go('home.intro')}
-
 }])
 .controller( 'IntroCtrl', ['$rootScope', '$sailsSocket', '$scope', 'billCount', 'BillModel', 'bills', 'committeeCount', 'CommitteeModel', 'committees', 'config', 'RepresentativeModel', 'userCount', 'UserModel', 'users', function IntroController( $rootScope, $sailsSocket, $scope, billCount, BillModel, bills, committeeCount, CommitteeModel, committees, config, RepresentativeModel, userCount, UserModel, users ) {
 	$scope.currentUser = config.currentUser;
@@ -238,12 +237,9 @@ angular.module( 'voetr.home', [
 
 		//set vote as voted with style.. --
 		var index = $scope.votes.indexOf(newVote);
-		console.log(index)
 		if (voteInteger == 1){$scope.votes[index].class = 'upVote'}
 		if (voteInteger == -1){$scope.votes[index].class = 'downVote'}
-		console.log($scope.votes[index])
         VoteVoteModel.create($scope.newVote).then(function(model) {
-        	console.log(model)
             $scope.newVote = {};
         });
     };
@@ -257,6 +253,33 @@ angular.module( 'voetr.home', [
 			Array.prototype.push.apply($scope.votes, votes);
 		});
 	};
+
+	/*
+	var vm = this;
+	vm.gmapsService = new google.maps.places.AutocompleteService();
+	vm.search = search;
+
+	function getResults(address) {
+		var deferred = $q.defer();
+		vm.gmapsService.getQueryPredictions({input: address}, function (data) {
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	};
+
+	function search(address) {
+		var deferred = $q.defer();
+		getResults(address).then(
+			function (predictions) {
+			var results = [];
+			for (var i = 0, prediction; prediction = predictions[i]; i++) {
+				results.push(prediction.description);
+			}
+			deferred.resolve(results);
+		});
+		return deferred.promise;
+	};
+	*/
 
     $sailsSocket.subscribe('post', function (envelope) {
 	    switch(envelope.verb) {
@@ -303,31 +326,5 @@ angular.module( 'voetr.home', [
 	            break;
 	    }
     });
-
-	/*var vm = this;
-	vm.gmapsService = new google.maps.places.AutocompleteService();
-	vm.search = search;
-
-	function getResults(address) {
-		var deferred = $q.defer();
-		vm.gmapsService.getQueryPredictions({input: address}, function (data) {
-			deferred.resolve(data);
-		});
-		return deferred.promise;
-	};
-
-	function search(address) {
-		var deferred = $q.defer();
-		getResults(address).then(
-			function (predictions) {
-			var results = [];
-			for (var i = 0, prediction; prediction = predictions[i]; i++) {
-				results.push(prediction.description);
-			}
-			deferred.resolve(results);
-		});
-		return deferred.promise;
-	};*/
-
 
 }])
