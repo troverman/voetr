@@ -38,7 +38,7 @@ module.exports = {
             console.log(committeeMemberCount);
             Committee.update({id: model.committee}, {memberCount: committeeMemberCount}).then(function(updated){
                 console.log('Committee Member Count Updated')
-                Committee.publishUpdate(model.committee, updated);
+                Committee.publishUpdate(model.committee, updated[0]);
             });
             return next();
         });

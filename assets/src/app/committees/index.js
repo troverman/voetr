@@ -57,7 +57,8 @@ angular.module( 'voetr.committees', [
 	            $scope.committees.unshift(envelope.data);
 	            break;
 	        case 'updated':
-                var index = $scope.committees.map(function(obj){return obj.id}).indexOf(envelope.data.id)
+                var index = $scope.committees.map(function(obj){return obj.id}).indexOf(envelope.data.id);
+                console.log(index);
                 $scope.committees[index] = envelope.data
 	            break;
 	        case 'destroyed':

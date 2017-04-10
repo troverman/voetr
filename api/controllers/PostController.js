@@ -152,7 +152,7 @@ module.exports = {
 			user: user,
 			//meansOfContact: meansOfContact
 		};
-		Post.create(model)
+		Post.update(model)
 		.exec(function(err, model) {
 			if (err) {return console.log(err);}
 			else {
