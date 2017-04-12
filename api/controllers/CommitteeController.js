@@ -34,6 +34,7 @@ module.exports = {
 	getChildren: function(req, res) {
 		Committee.find()
 		.where({parent: req.param('id')})
+		.sort('memberCount DESC')
 		.then(function(model) {
 			Committee.subscribe(req, model);
 			res.json(model);
