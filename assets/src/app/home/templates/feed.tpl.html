@@ -2,6 +2,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
+
+
             <img style="position:relative;top:0em" class="avatar" ng-src="{{currentUser.avatarUrl}}"/>
             <h2><a href="/member/{{currentUser.username}}"><b>{{currentUser.username}}</a></b></h2>
             <div class="spacing-5"></div>
@@ -21,6 +23,8 @@
                 <uib-tab heading="Votes">
                 </uib-tab>
             </uib-tabset>
+
+            
         </div>
         <div class="col-md-8">      
             <div class="spacing-5"></div>
@@ -37,47 +41,44 @@
             <md-card ng-repeat="post in posts">
                 <div style="padding:16px 16px 16px">
 
-
-                        <div>
-                            <a href="/member/{{post.user.username}}">
-                                <img class="post-img" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-                                <h4 class="post-name">{{post.user.username}}</h4>
-                            </a>
-                            <div class="pull-right">
-                                <span class="grey" am-time-ago="post.updatedAt"></span>
-                                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
-                            </div>
+                    <div>
+                        <a href="/member/{{post.user.username}}">
+                            <img class="post-img" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+                            <h4 class="post-name">{{post.user.username}}</h4>
+                        </a>
+                        <div class="pull-right">
+                            <span class="grey" am-time-ago="post.updatedAt"></span>
+                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
                         </div>
+                    </div>
 
-                        <div class="post-container">
-                            <p>{{post.post}}</p>
-                        </div>
+                    <div class="post-container">
+                        <p>{{post.post}}</p>
+                    </div>
 
-                        <div class="post-action-container">
-                            <div class="pull-left">
-                                <a href="#" ng-click=""><i class="fa fa-angle-up grey"></i></a> 
-                                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
-                                <a href="#">reply</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
-                            </div>
+                    <div class="post-action-container">
+                        <div class="pull-left">
+                            <a href="#" ng-click=""><i class="fa fa-angle-up grey"></i></a> 
+                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+                            <a href="#">reply</a>
                         </div>
+                        <div class="pull-right">
+                            <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
+                        </div>
+                    </div>
 
-                         <!--
-                        <div class="profilePost">
-                            <form role="form">
-                                <md-input-container class="md-block">
-                                    <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
-                                </md-input-container>
-                            </form>
-                        </div>
-                        -->
+                     <!--
+                    <div class="profilePost">
+                        <form role="form">
+                            <md-input-container class="md-block">
+                                <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                            </md-input-container>
+                        </form>
+                    </div>
+                    -->
 
                 </div>
             </md-card>
-
-
 
 
             <div class="spacing-15"></div>
