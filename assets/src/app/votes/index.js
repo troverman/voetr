@@ -12,7 +12,7 @@ angular.module( 'voetr.votes', [
 		},
 		resolve: {
             votes: ['VoteModel', function(VoteModel) {
-				return VoteModel.getSome(20, 0, 'voteCount DESC');
+				return VoteModel.getSome(20, 0, 'createdAt DESC');
 				////BillVote
             }]
         }

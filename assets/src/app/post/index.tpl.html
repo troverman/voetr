@@ -1,18 +1,32 @@
 <div class="container">
-	<md-card>
-		<div style="padding:24px 16px 16px">
-            <div style="padding:24px 16px 16px">
-                <a href="/member/{{post.user.username}}">
-                    <img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-                    <h3>{{post.user.username}}</h3>
-                </a>
-                <p>{{post.post}}</p>
-            </div>
-        </div>
-        <div style="padding:24px 16px 16px">
-            <div style="padding:24px 16px 16px">
-                <a href="#" ng-click="" class="pull-left"><i class="fa fa-thumbs-up"></i></a> 
-                <a href="post/{{post.id}}" class="pull-right"><i class="fa fa-link"></i></a>
+    <md-card>
+        <div style="padding:16px 16px 16px">
+
+
+                <div>
+                    <a href="/member/{{post.user.username}}">
+                        <img style="width:48px;height:48px;display:inline" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+                        <h4 style="display:inline">{{post.user.username}}</h4>
+                    </a>
+                    <span am-time-ago="post.updatedAt"></span>
+                </div>
+
+                <div style="margin-left:58px;overflow:hidden;">
+                    <p style="font-size:20px;word-wrap: break-word;">{{post.post}}</p>
+                </div>
+
+                <div>
+                    <div class="pull-left">
+                        <a href="#" ng-click=""><i class="fa fa-thumbs-up"></i></a> 
+                        <a href="#" ng-click=""><i class="fa fa-thumbs-down"></i></a> 
+                        <a href="#">reply</a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="post/{{post.id}}"><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+
+                 <!--
                 <div class="profilePost">
                     <form role="form">
                         <md-input-container class="md-block">
@@ -20,7 +34,8 @@
                         </md-input-container>
                     </form>
                 </div>
-            </div>
+                -->
+
         </div>
-	</md-card>
+    </md-card>
 </div>

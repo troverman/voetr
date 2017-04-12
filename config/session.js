@@ -52,8 +52,10 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
+
+  // redis://rediscloud:v1EemdfR19vK1Yao@redis-14595.c12.us-east-1-4.ec2.cloud.redislabs.com:14595
   // host: 'localhost',
-  // port: 6379,
+  // port: 14595,
   // ttl: <redis session TTL in seconds>,
   // db: 0,
   // pass: <redis auth password>,

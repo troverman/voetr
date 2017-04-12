@@ -50,7 +50,6 @@ angular.module( 'voetr.home', [
             }
         },
 		resolve: {
-			//check to see which one of these has long load time
 			constituents: ['config', 'RepresentativeModel',function(config, RepresentativeModel) {
 				return RepresentativeModel.getConstituents(config.currentUser);
             }],
@@ -60,14 +59,15 @@ angular.module( 'voetr.home', [
             representatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
 				return RepresentativeModel.getRepresentatives(config.currentUser);
             }],
-			user: ['config', 'UserModel', function(config, UserModel){
+			user: ['UserModel', function(UserModel){
 				return UserModel.getMine();
         	}],
 			userVotes: ['config', 'VoteVoteModel', function(config, VoteVoteModel){
-				return VoteVoteModel.getByUser(currentUser.id, 25, 0, 'createdAt DESC')
+				//return VoteVoteModel.getByUser(config.currentUser.id, 25, 0, 'createdAt DESC');
+				//slow?
         	}],
 			votes: ['config', 'VoteModel', function(config, VoteModel) {
-				return VoteModel.getSome(25, 0, 'voteCount DESC');
+				return VoteModel.getSome(25, 0, 'createdAt DESC');
             }],
         }
     })

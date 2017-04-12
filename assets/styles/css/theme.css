@@ -624,6 +624,33 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   color: #1ba0a9;
 }
 
+.post-img{
+    width:48px;
+    height:48px;
+    display:inline-block;
+    border-radius:4px;
+}
+.post-name{
+    display:inline-block;
+    position:relative;
+    top:-10px;
+    left:7px;
+}
+.post-container{
+    margin-top:-21px;
+    margin-left:61px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    max-height:400px
+}
+.post-container p{
+    font-size:18px;
+    word-wrap: break-word;
+}
+.post-action-container{
+  margin-left:61px;
+}
+
 /* Bootstrap nav breakpoint override */
 
 @media (max-width: 991px) {

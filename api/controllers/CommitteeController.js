@@ -22,7 +22,6 @@ module.exports = {
 		var sort = req.query.sort;
 		Committee.getSome(limit, skip, sort)
 		.then(function(models) {
-			console.log('subscribe')
 			Committee.watch(req);
 			Committee.subscribe(req, models);
 			res.json(models);

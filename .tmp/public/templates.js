@@ -314,7 +314,7 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "<md-divider></md-divider>\n" +
     "<div class=\"spacing-10\"></div>\n" +
     "<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "    <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "    <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
     "<div class=\"spacing-50\"></div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
@@ -559,7 +559,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "<md-divider></md-divider>\n" +
     "<div class=\"spacing-10\"></div>\n" +
     "<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "    <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "    <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
     "<div class=\"spacing-50\"></div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
@@ -593,7 +593,7 @@ angular.module("home/index.tpl.html", []).run(["$templateCache", function ($temp
 
 angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("home/templates/feed.tpl.html",
-    "<div class=\"spacing-25\"></div>\n" +
+    "<div class=\"spacing-15\"></div>\n" +
     "<div class=\"container\">\n" +
     "    <div class=\"row\">\n" +
     "        <div class=\"col-md-4\">\n" +
@@ -629,23 +629,37 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "            </div>\n" +
     "            <div class=\"spacing-5\"></div>\n" +
     "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "            <md-card ng-repeat=\"post in posts\">\n" +
-    "                <div style=\"padding:24px 16px 16px\">\n" +
-    "                    <div style=\"padding:24px 16px 16px\">\n" +
-    "                        <a href=\"/member/{{post.user.username}}\">\n" +
-    "                            <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "                            <h3>{{post.user.username}}</h3>\n" +
-    "                        </a>\n" +
-    "                        <p>{{post.post}}</p>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div style=\"padding:24px 16px 16px\">\n" +
-    "                    <div style=\"padding:24px 16px 16px\">\n" +
-    "                        <a href=\"#\" ng-click=\"\" class=\"pull-left\"><i class=\"fa fa-thumbs-up\"></i></a> \n" +
-    "                        <a href=\"post/{{post.id}}\" class=\"pull-right\"><i class=\"fa fa-link\"></i></a>\n" +
+    "                <div style=\"padding:16px 16px 16px\">\n" +
+    "\n" +
+    "\n" +
+    "                        <div>\n" +
+    "                            <a href=\"/member/{{post.user.username}}\">\n" +
+    "                                <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                                <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
+    "                            </a>\n" +
+    "                            <div class=\"pull-right\">\n" +
+    "                                <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
+    "                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"post-container\">\n" +
+    "                            <p>{{post.post}}</p>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"post-action-container\">\n" +
+    "                            <div class=\"pull-left\">\n" +
+    "                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-up grey\"></i></a> \n" +
+    "                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                                <a href=\"#\">reply</a>\n" +
+    "                            </div>\n" +
+    "                            <div class=\"pull-right\">\n" +
+    "                                <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                         <!--\n" +
     "                        <div class=\"profilePost\">\n" +
     "                            <form role=\"form\">\n" +
     "                                <md-input-container class=\"md-block\">\n" +
@@ -653,7 +667,8 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                                </md-input-container>\n" +
     "                            </form>\n" +
     "                        </div>\n" +
-    "                    </div>\n" +
+    "                        -->\n" +
+    "\n" +
     "                </div>\n" +
     "            </md-card>\n" +
     "\n" +
@@ -688,7 +703,7 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "            </md-card>\n" +
     "            <br><br>\n" +
     "            <div ng-click=\"loadMoreVotes()\" style=\"text-align:center\">\n" +
-    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "            </div>\n" +
     "            <div class=\"spacing-50\"></div>\n" +
     "        </div>\n" +
@@ -752,7 +767,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "                </md-card-title>\n" +
     "            </md-card> \n" +
     "            <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -769,7 +784,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "                </md-card-title>\n" +
     "            </md-card>\n" +
     "            <div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
-    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -817,7 +832,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "                </div>\n" +
     "            </div>\n" +
     "            <div ng-click=\"loadMoreMembers()\" style=\"text-align:center\">\n" +
-    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -994,43 +1009,92 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "	</div>\n" +
     "	<div class=\"spacing-25\"></div>\n" +
     "	<!--gotta make this unified with universally styled cards-->\n" +
-    "	<md-card ng-repeat=\"post in posts\">\n" +
-    "		<md-card-title>\n" +
-    "			<md-card-title-text>\n" +
-    "			<a href=\"member/{{post.user.username}}\">\n" +
-    "				<img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "				<h4>{{post.user.username}}</h4>\n" +
-    "			</a>\n" +
-    "			<p>{{post.post}}</p>\n" +
-    "			</md-card-title-text>\n" +
-    "		</md-card-title>\n" +
-    "	</md-card>\n" +
+    "    <md-card ng-repeat=\"post in posts\">\n" +
+    "        <div style=\"padding:16px 16px 16px\">\n" +
+    "\n" +
+    "\n" +
+    "                <div>\n" +
+    "                    <a href=\"/member/{{post.user.username}}\">\n" +
+    "                        <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                        <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
+    "                    </a>\n" +
+    "                    <div class=\"pull-right\">\n" +
+    "                        <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
+    "                        <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div class=\"post-container\">\n" +
+    "                    <p>{{post.post}}</p>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div class=\"post-action-container\">\n" +
+    "                    <div class=\"pull-left\">\n" +
+    "                        <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-up grey\"></i></a> \n" +
+    "                        <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                        <a href=\"#\">reply</a>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"pull-right\">\n" +
+    "                        <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                 <!--\n" +
+    "                <div class=\"profilePost\">\n" +
+    "                    <form role=\"form\">\n" +
+    "                        <md-input-container class=\"md-block\">\n" +
+    "                            <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                        </md-input-container>\n" +
+    "                    </form>\n" +
+    "                </div>\n" +
+    "                -->\n" +
+    "\n" +
+    "        </div>\n" +
+    "    </md-card>\n" +
     "	<md-card ng-repeat=\"vote in votes\">\n" +
-    "		<md-card-title>\n" +
-    "			<a href=\"member/{{vote.user.username}}\">\n" +
-    "				<img style=\"max-width:64px\" ng-src=\"{{vote.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{vote.user.username}}\">\n" +
-    "				<h4>{{vote.user.username}}</h4>\n" +
-    "			</a>\n" +
-    "			<p>{{vote.voteString}} on behalf of {{constituents.length}} constitutent<span ng-show=\"constituents.length > 1\">s</span></p>\n" +
-    "		</md-card-title>\n" +
-    "		<md-card-title>\n" +
-    "			<div style=\"float:right\">\n" +
+    "        <div style=\"padding:16px 16px 16px\">\n" +
+    "\n" +
+    "\n" +
+    "			<div>\n" +
+    "	            <a href=\"/member/{{vote.user.username}}\">\n" +
+    "	                <img class=\"post-img\" ng-src=\"{{vote.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{vote.user.username}}\">\n" +
+    "	                <h4 class=\"post-name\">{{vote.user.username}}</h4>\n" +
+    "	            </a>\n" +
+    "	            <div class=\"pull-right\">\n" +
+    "	                <span class=\"grey\" am-time-ago=\"vote.updatedAt\"></span>\n" +
+    "	                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	            </div>\n" +
+    "	        </div>\n" +
+    "\n" +
+    "            <div class=\"post-container\">\n" +
+    "				<p>{{vote.voteString}}<!-- on behalf of {{constituents.length}} constitutent<span ng-show=\"constituents.length > 1\">s</span>--></p>\n" +
     "				<a href=\"/vote/{{vote.vote.id}}\">{{vote.vote.title}}</a> for \n" +
+    "				<br>\n" +
     "				<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "				<br><br>\n" +
     "			</div>\n" +
-    "		</md-card-title>\n" +
-    "		<md-card-title>\n" +
-    "			<a>like</a> \n" +
-    "			<a>reply</a>\n" +
-    "		</md-card-title>\n" +
+    "\n" +
+    " 			<div class=\"post-action-container\">\n" +
+    "                <div class=\"pull-left\">\n" +
+    "                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-up grey\"></i></a> \n" +
+    "                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                    <a href=\"#\">reply</a>\n" +
+    "                </div>\n" +
+    "                <div class=\"pull-right\">\n" +
+    "                    <a href=\"votevote/{{vote.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "\n" +
+    "		</div>\n" +
     "	</md-card>\n" +
     "	<div class=\"spacing-10\"></div>\n" +
-    "	<div ng-show=\"votes.legnth != voteCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
+    "	<!--<div ng-show=\"votes.legnth != voteCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
     "		<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
     "	</div>\n" +
     "	<div ng-show=\"posts.legnth != postCount\" ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
     "		<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
-    "	</div>\n" +
+    "	</div>-->\n" +
     "</div>");
 }]);
 
@@ -1041,7 +1105,7 @@ angular.module("member/templates/bills.tpl.html", []).run(["$templateCache", fun
     "    	{{bill.title}}\n" +
     "    </md-card>\n" +
     "    <div class=\"spacing-10\"></div>\n" +
-    "	<button ng-show=\"bills.length != billCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "	<button ng-show=\"bills.length != billCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>");
 }]);
 
@@ -1057,7 +1121,7 @@ angular.module("member/templates/committees.tpl.html", []).run(["$templateCache"
     "        <md-card-title>\n" +
     "    </md-card>\n" +
     "    <div class=\"spacing-10\"></div>\n" +
-    "	<button ng-show=\"committees.length != committeeCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "	<button ng-show=\"committees.length != committeeCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>");
 }]);
 
@@ -1082,7 +1146,7 @@ angular.module("member/templates/constituents.tpl.html", []).run(["$templateCach
     "		</div>\n" +
     "	</div>\n" +
     "	<div class=\"spacing-10\"></div>\n" +
-    "	<button ng-show=\"constituents.length != constituentCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "	<button ng-show=\"constituents.length != constituentCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>");
 }]);
 
@@ -1107,7 +1171,7 @@ angular.module("member/templates/representatives.tpl.html", []).run(["$templateC
     "		</div>\n" +
     "	</div>\n" +
     "	<div class=\"spacing-10\"></div>\n" +
-    "	<button ng-show=\"representatives.length != representativeCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "	<button ng-show=\"representatives.length != representativeCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>");
 }]);
 
@@ -1124,7 +1188,7 @@ angular.module("member/templates/votes.tpl.html", []).run(["$templateCache", fun
     "		</md-card-title>\n" +
     "	</md-card>\n" +
     "	<div class=\"spacing-10\"></div>\n" +
-    "	<button ng-show=\"votes.length != voteCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "	<button ng-show=\"votes.length != voteCount\" ng-click=\"loadMore()\" class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "\n" +
     "</div>");
 }]);
@@ -1193,20 +1257,34 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templ
 angular.module("post/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("post/index.tpl.html",
     "<div class=\"container\">\n" +
-    "	<md-card>\n" +
-    "		<div style=\"padding:24px 16px 16px\">\n" +
-    "            <div style=\"padding:24px 16px 16px\">\n" +
-    "                <a href=\"/member/{{post.user.username}}\">\n" +
-    "                    <img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "                    <h3>{{post.user.username}}</h3>\n" +
-    "                </a>\n" +
-    "                <p>{{post.post}}</p>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div style=\"padding:24px 16px 16px\">\n" +
-    "            <div style=\"padding:24px 16px 16px\">\n" +
-    "                <a href=\"#\" ng-click=\"\" class=\"pull-left\"><i class=\"fa fa-thumbs-up\"></i></a> \n" +
-    "                <a href=\"post/{{post.id}}\" class=\"pull-right\"><i class=\"fa fa-link\"></i></a>\n" +
+    "    <md-card>\n" +
+    "        <div style=\"padding:16px 16px 16px\">\n" +
+    "\n" +
+    "\n" +
+    "                <div>\n" +
+    "                    <a href=\"/member/{{post.user.username}}\">\n" +
+    "                        <img style=\"width:48px;height:48px;display:inline\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "                        <h4 style=\"display:inline\">{{post.user.username}}</h4>\n" +
+    "                    </a>\n" +
+    "                    <span am-time-ago=\"post.updatedAt\"></span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div style=\"margin-left:58px;overflow:hidden;\">\n" +
+    "                    <p style=\"font-size:20px;word-wrap: break-word;\">{{post.post}}</p>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div>\n" +
+    "                    <div class=\"pull-left\">\n" +
+    "                        <a href=\"#\" ng-click=\"\"><i class=\"fa fa-thumbs-up\"></i></a> \n" +
+    "                        <a href=\"#\" ng-click=\"\"><i class=\"fa fa-thumbs-down\"></i></a> \n" +
+    "                        <a href=\"#\">reply</a>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"pull-right\">\n" +
+    "                        <a href=\"post/{{post.id}}\"><i class=\"fa fa-link\"></i></a>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                 <!--\n" +
     "                <div class=\"profilePost\">\n" +
     "                    <form role=\"form\">\n" +
     "                        <md-input-container class=\"md-block\">\n" +
@@ -1214,9 +1292,10 @@ angular.module("post/index.tpl.html", []).run(["$templateCache", function ($temp
     "                        </md-input-container>\n" +
     "                    </form>\n" +
     "                </div>\n" +
-    "            </div>\n" +
+    "                -->\n" +
+    "\n" +
     "        </div>\n" +
-    "	</md-card>\n" +
+    "    </md-card>\n" +
     "</div>");
 }]);
 
@@ -1341,7 +1420,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					</md-card>\n" +
     "			        <br><br>\n" +
     "			        <div ng-click=\"loadMoreVotes()\" style=\"text-align:center\">\n" +
-    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "			        </div>\n" +
     "    			</uib-tab>\n" +
     "				<uib-tab heading=\"Results\" ng-show=\"searchResults\">\n" +
@@ -1368,7 +1447,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "			            </md-card-title>\n" +
     "			        </md-card>\n" +
     "			        <div ng-click=\"loadMoreBills()\" style=\"text-align:center\">\n" +
-    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE</button>\n" +
+    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "			        </div>\n" +
     "    			</uib-tab>\n" +
     "				<uib-tab heading=\"Committees\">\n" +
@@ -1380,7 +1459,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "						</md-card-title>\n" +
     "					</md-card>\n" +
     "					<div ng-click=\"loadMoreCommittees()\" style=\"text-align:center\">\n" +
-    "						<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "						<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "					</div>\n" +
     "    			</uib-tab>\n" +
     "				<uib-tab heading=\"{{userCount}} Members\">\n" +
@@ -1446,7 +1525,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					</md-card>\n" +
     "			        <br><br>\n" +
     "			        <div ng-click=\"loadMoreVotes()\" style=\"text-align:center\">\n" +
-    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "			        	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "			        </div>\n" +
     "    			</uib-tab>\n" +
     "			</uib-tabset>\n" +
@@ -1637,7 +1716,7 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "<md-divider></md-divider>\n" +
     "<div class=\"spacing-10\"></div>\n" +
     "<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
-    "	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-caret-down\"></i></button>\n" +
+    "	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
     "<div class=\"spacing-100\"></div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
