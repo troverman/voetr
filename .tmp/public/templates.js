@@ -218,6 +218,28 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "		    </uib-tab>\n" +
     "		    <uib-tab heading=\"Activity\">\n" +
     "		    	{{actions}}\n" +
+    "\n" +
+    "		    	<div class=\"profilePost\">\n" +
+    "					<form role=\"form\">\n" +
+    "						<md-input-container class=\"md-block\">\n" +
+    "							<textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "						</md-input-container>\n" +
+    "						<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "					</form>\n" +
+    "		        </div>\n" +
+    "		        <md-card ng-repeat=\"post in posts\">\n" +
+    "					<md-card-title>\n" +
+    "					<md-card-title-text>\n" +
+    "						<a href=\"member/{{post.user.username}}\">\n" +
+    "							<img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "							<p>{{post.user.username}}</p>\n" +
+    "						</a>\n" +
+    "						<p>{{post.post}}</p>\n" +
+    "					</md-card-title-text>\n" +
+    "					</md-card-title>\n" +
+    "		        </md-card>\n" +
+    "\n" +
+    "\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Discussion\">\n" +
     "				<div class=\"profilePost\">\n" +
@@ -1615,6 +1637,27 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "    	<br>\n" +
     "		<uib-tabset>\n" +
     "			<uib-tab heading=\"Activity\" active=\"active\">\n" +
+    "\n" +
+    "				<div class=\"profilePost\">\n" +
+    "					<form role=\"form\">\n" +
+    "						<md-input-container class=\"md-block\">\n" +
+    "							<textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "						</md-input-container>\n" +
+    "						<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "					</form>\n" +
+    "		        </div>\n" +
+    "		        <md-card ng-repeat=\"post in posts\">\n" +
+    "					<md-card-title>\n" +
+    "					<md-card-title-text>\n" +
+    "						<a href=\"member/{{post.user.username}}\">\n" +
+    "							<img style=\"max-width:64px\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "							<p>{{post.user.username}}</p>\n" +
+    "						</a>\n" +
+    "						<p>{{post.post}}</p>\n" +
+    "					</md-card-title-text>\n" +
+    "					</md-card-title>\n" +
+    "		        </md-card>\n" +
+    "\n" +
     "		    </uib-tab>\n" +
     "			<uib-tab heading=\"Discussion\">\n" +
     "				<div class=\"profilePost\">\n" +
