@@ -9,24 +9,12 @@
 			</div>
 			<div class="pull-right member-tab-container">
 				<ul class="member-tabs">
-					<li>
-						<a href="member/{{member.username}}">Activity</a>
-					</li>
-					<!--<li>
-						<a href="member/{{member.username}}/bills">{{committeeCount}} Bills</a>
-					</li>-->
-					<li>
-						<a href="member/{{member.username}}/committees">{{committeeCount}} Committees</a>
-					</li>
-					<li>
-						<a href="member/{{member.username}}/constituents">{{constituentCount}} Constituents</a>
-					</li>
-					<li>
-						<a href="member/{{member.username}}/representatives">{{representativeCount}} Representatives</a>
-					</li>
-					<li>
-						<a href="member/{{member.username}}/votes">{{voteCount}} Votes</a>
-					</li>
+					<li><a href="member/{{member.username}}">Activity</a></li>
+					<!--<li><a href="member/{{member.username}}/bills">{{committeeCount}} Bills</a></li>-->
+					<li><a href="member/{{member.username}}/committees">{{committeeCount}} Committees</a></li>
+					<li><a href="member/{{member.username}}/constituents">{{constituentCount}} Constituents</a></li>
+					<li><a href="member/{{member.username}}/representatives">{{representativeCount}} Representatives</a></li>
+					<li><a href="member/{{member.username}}/votes">{{voteCount}} Votes</a></li>
 					<li ng-show="currentUser.id != member.id">
 						<a ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">Elect</a>
 						<a ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">Unelect</a>
@@ -51,7 +39,7 @@
 			</div>
 			<div class="pull-right">
 				<div class="spacing-10"></div>
-				<h5 ng-show="member.phone"><a style="color:grey" href="tel:{{member.phone}}"><i class="fa fa-phone"></i> {{member.phone}}</a></h5>
+				<h5 ng-show="member.phone"><a ng-repeat="phone in member.phone.split(',')" style="color:grey;padding:5px" href="tel:{{phone}}" ng-show="phone.length>0"><i class="fa fa-phone"></i> {{phone}}</a></h5>
 				<h5 ng-show="showFax"><span style="color:grey"><i class="fa fa-fax"></i> {{member.fax}}</span></h5>
 				<a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}"  target="_blank"><span class="grey facebook-icon"><i class="fa fa-facebook"></i> Facebook</span></a>
 				<a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}"  target="_blank"><span class="grey twitter-icon"><i class="fa fa-twitter"></i> Twitter</span></a>
