@@ -12,7 +12,7 @@ angular.module( 'voetr.committees', [
 		},
 		resolve: {
             committees: ['CommitteeModel', function(CommitteeModel) {
-				return CommitteeModel.getSome(100,0, 'createdAt DESC');
+				return CommitteeModel.getSome(100,0, 'memberCount DESC');
             }]
         }
 	});
@@ -24,7 +24,7 @@ angular.module( 'voetr.committees', [
     $scope.currentUser = config.currentUser;
     $scope.newCommittee = {};
     $scope.skip = 0;
-	$scope.sort = 'createdAt DESC';
+	$scope.sort = 'memberCount DESC';
 
 	$scope.selectSort = function(sort){
 		$scope.sort = sort;

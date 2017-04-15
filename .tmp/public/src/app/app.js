@@ -52,10 +52,10 @@ angular.module( 'voetr', [
 })
 .controller( 'AppCtrl', ['$rootScope', '$scope', 'config', function AppCtrl ( $rootScope, $scope, config ) {
     config.currentUser = window.currentUser;
-    $rootScope.$on('$stateChangeStart',function(){
+    $rootScope.$on('$stateChangeStart',function(info, state){
         $rootScope.stateIsLoading = true;
     });
-    $rootScope.$on('$stateChangeSuccess',function(){
+    $rootScope.$on('$stateChangeSuccess',function(info, state){
         $rootScope.stateIsLoading = false;
     });
 }])

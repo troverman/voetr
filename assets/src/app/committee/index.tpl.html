@@ -4,7 +4,6 @@
         <h1 style="text-align:left">{{committee.title}}</h1>
     </div>
 </div>
-
 <div class="member-tab-container container">
 	<ul style="padding:0px;" class="member-tabs">
 		<li><a href="/committee/{{committee.urlTitle}}">Activity</a></li>
@@ -22,9 +21,7 @@
 	</ul>
 </div>
 <md-divider></md-divider>
-
 <div class="container" ng-show="editCommitteeToggle"><p>edit committee form</p></div>
-
 <div class="committee-container">
 	<div ui-view="committeeActivity"></div>
 	<div ui-view="committeeBills"></div>
@@ -33,7 +30,5 @@
 	<div ui-view="committeeMembers"></div>
 	<div ui-view="committeeVotes"></div>
 </div>
-
 <div class="spacing-25"></div>
-
 <div ng-include="'footer/index.tpl.html'"></div>

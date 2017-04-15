@@ -35,8 +35,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "		</div>\n" +
     "	</div>\n" +
     "</div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("account/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -162,13 +161,10 @@ angular.module("account/index.tpl.html", []).run(["$templateCache", function ($t
     "	<p>send letter</p>\n" +
     "	<!--<p>all activity, per vote.. on creation of bill, on profile comment</p>-->\n" +
     "\n" +
-    "	<div style=\"height:100px;\"></div>\n" +
+    "	<div class=\"spacing-50\"></div>\n" +
     "\n" +
     "</div>\n" +
-    "\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -293,9 +289,8 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "		</uib-tabset>\n" +
     "		<div class=\"spacing-100\"></div>\n" +
     "	</div>\n" +
-    "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "</div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -338,8 +333,7 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "    <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
     "<div class=\"spacing-50\"></div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("committee/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -350,7 +344,6 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function (
     "        <h1 style=\"text-align:left\">{{committee.title}}</h1>\n" +
     "    </div>\n" +
     "</div>\n" +
-    "\n" +
     "<div class=\"member-tab-container container\">\n" +
     "	<ul style=\"padding:0px;\" class=\"member-tabs\">\n" +
     "		<li><a href=\"/committee/{{committee.urlTitle}}\">Activity</a></li>\n" +
@@ -368,9 +361,7 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function (
     "	</ul>\n" +
     "</div>\n" +
     "<md-divider></md-divider>\n" +
-    "\n" +
     "<div class=\"container\" ng-show=\"editCommitteeToggle\"><p>edit committee form</p></div>\n" +
-    "\n" +
     "<div class=\"committee-container\">\n" +
     "	<div ui-view=\"committeeActivity\"></div>\n" +
     "	<div ui-view=\"committeeBills\"></div>\n" +
@@ -379,16 +370,13 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function (
     "	<div ui-view=\"committeeMembers\"></div>\n" +
     "	<div ui-view=\"committeeVotes\"></div>\n" +
     "</div>\n" +
-    "\n" +
     "<div class=\"spacing-25\"></div>\n" +
-    "\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("committee/templates/activity.tpl.html",
-    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "<div class=\"container\">\n" +
     "    <div class=\"profilePost\">\n" +
     "        <form role=\"form\">\n" +
     "            <md-input-container class=\"md-block\">\n" +
@@ -472,7 +460,7 @@ angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", 
     "        </form>\n" +
     "    </div>\n" +
     "</div>\n" +
-    "<div class=\"container bill-list-container\" style=\"min-height:100vh\">\n" +
+    "<div class=\"container bill-list-container\">\n" +
     "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
     "        <div class=\"bill-item\">\n" +
     "            <div>\n" +
@@ -495,7 +483,7 @@ angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", 
 
 angular.module("committee/templates/committees.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("committee/templates/committees.tpl.html",
-    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "<div class=\"container\">\n" +
     "    <div class=\"committee-title\">\n" +
     "        <h2><a href=\"committee/{{committee.parent.urlTitle}}\">{{committee.parent.title}}</a></h2>\n" +
     "    </div>\n" +
@@ -512,7 +500,7 @@ angular.module("committee/templates/committees.tpl.html", []).run(["$templateCac
 
 angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("committee/templates/discussion.tpl.html",
-    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "<div class=\"container\">\n" +
     "    <div class=\"profilePost\">\n" +
     "        <form role=\"form\">\n" +
     "            <md-input-container class=\"md-block\">\n" +
@@ -567,7 +555,7 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
 
 angular.module("committee/templates/members.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("committee/templates/members.tpl.html",
-    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "<div class=\"container\">\n" +
     "    <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"member in members\">\n" +
     "        <div class=\"member-card\">\n" +
     "            <div class=\"image\" style=\"background-image: url('{{member.user.coverUrl}}')\">\n" +
@@ -591,7 +579,7 @@ angular.module("committee/templates/members.tpl.html", []).run(["$templateCache"
 
 angular.module("committee/templates/votes.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("committee/templates/votes.tpl.html",
-    "<div class=\"container\" style=\"min-height:100vh\">\n" +
+    "<div class=\"container\">\n" +
     "</div>");
 }]);
 
@@ -642,8 +630,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "    <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
     "<div class=\"spacing-50\"></div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("footer/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -790,8 +777,7 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -919,59 +905,11 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "    </div>\n" +
     "</div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "\n" +
     "");
 }]);
 
 angular.module("login/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("login/index.tpl.html",
-    "<!--login-->\n" +
-    "<!--<div class=\"login-form container\" style=\"min-height:100%;\">\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-md-12\">\n" +
-    "            <h3>Login</h3>\n" +
-    "            <md-divider></md-divider><br>\n" +
-    "            <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"identifier\" placeholder=\"Username\">\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\">\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <div class=\"col-sm-offset-1 col-sm-10\">\n" +
-    "                        <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </form>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"row\">\n" +
-    "        <div style=\"text-align:center\">\n" +
-    "            <a href=\"#\">forgot password?</a>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"row\">\n" +
-    "        <div style=\"text-align:center\">\n" +
-    "            <a href=\"/auth/facebook\">facebook</a>\n" +
-    "            <a href=\"/auth/twitter\">twitter</a>\n" +
-    "            <a href=\"/auth/google\">google</a>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"row\">\n" +
-    "        <div style=\"text-align:center\">\n" +
-    "            <a href=\"/register\">register an account</a>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>-->\n" +
-    "<!--<div ng-include=\"'footer/index.tpl.html'\"></div>-->\n" +
-    "\n" +
     "<div class=\"log-background\">\n" +
     "    <div class=\"blkoverlay\"></div>\n" +
     "    <div class=\"log-form\">\n" +
@@ -992,7 +930,7 @@ angular.module("login/index.tpl.html", []).run(["$templateCache", function ($tem
     "        </div> \n" +
     "    </div>\n" +
     "</div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("member/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -1059,8 +997,8 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		<div ui-view=\"memberVotes\"></div>\n" +
     "	</div>\n" +
     "	<div class=\"spacing-50\"></div>\n" +
-    "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "</div>");
+    "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -1365,60 +1303,12 @@ angular.module("post/index.tpl.html", []).run(["$templateCache", function ($temp
     "\n" +
     "        </div>\n" +
     "    </md-card>\n" +
-    "</div>");
+    "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("register/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("register/index.tpl.html",
-    "<!--register-->\n" +
-    "<!--<div class=\"register-form container\">\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-md-12\">\n" +
-    "            <h3>Create an Account</h3>\n" +
-    "            <md-divider></md-divider><br>\n" +
-    "\n" +
-    "            <form class=\"form-horizontal\" role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <label for=\"inputUsername3\" class=\"col-sm-2 control-label\">Username</label>\n" +
-    "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"text\" class=\"form-control\" id=\"inputUsername3\" name=\"username\" placeholder=\"Username\" value=\"\">\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n" +
-    "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" name=\"email\" placeholder=\"Email\" value=\"\">\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n" +
-    "                    <div class=\"col-sm-10\">\n" +
-    "                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" name=\"password\" placeholder=\"Password\" value=\"\">\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"form-group\" style=\"\">\n" +
-    "                    <div class=\"col-sm-offset-1 col-sm-10\">\n" +
-    "                        <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </form>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <md-divider></md-divider><br>\n" +
-    "    <div class=\"row\">\n" +
-    "        <div style=\"text-align:center\">\n" +
-    "            <a href=\"/auth/facebook\">facebook</a>\n" +
-    "            <a href=\"/auth/twitter\">twitter</a>\n" +
-    "            <a href=\"/auth/google\">google</a>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"row\">\n" +
-    "        <div style=\"text-align:center\">\n" +
-    "            <a href=\"/login\">already have an account?</a>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>-->\n" +
-    "\n" +
     "<div class=\"log-background\">\n" +
     "    <div class=\"blkoverlay\"></div>\n" +
     "    <div class=\"log-form\">\n" +
@@ -1440,9 +1330,7 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function ($
     "        </div> \n" +
     "    </div>\n" +
     "</div>\n" +
-    "\n" +
-    "\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("search/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -1660,9 +1548,8 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "		</div>\n" +
     "		<div class=\"spacing-15\"></div>\n" +
     "	</div>\n" +
-    "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "</div>\n" +
-    "");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -1767,7 +1654,8 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "		    </uib-tab>\n" +
     "		</uib-tabset>\n" +
     "	<div>\n" +
-    "</div>");
+    "</div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
 
 angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
@@ -1808,7 +1696,6 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "<div ng-click=\"loadMore()\" style=\"text-align:center\">\n" +
     "	<button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
-    "<div class=\"spacing-100\"></div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
-    "");
+    "<div class=\"spacing-50\"></div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);
