@@ -362,7 +362,7 @@ angular.module("committee/index.tpl.html", []).run(["$templateCache", function (
     "</div>\n" +
     "<md-divider></md-divider>\n" +
     "<div class=\"container\" ng-show=\"editCommitteeToggle\"><p>edit committee form</p></div>\n" +
-    "<div class=\"committee-container\">\n" +
+    "<div class=\"committee-container container\">\n" +
     "	<div ui-view=\"committeeActivity\"></div>\n" +
     "	<div ui-view=\"committeeBills\"></div>\n" +
     "	<div ui-view=\"committeeCommittees\"></div>\n" +
@@ -426,22 +426,21 @@ angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache
     "\n" +
     "        </div>\n" +
     "    </md-card>\n" +
-    "    <div class=\"billContainer\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "        <div class=\"bill-item\">\n" +
+    "    <md-card ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "        <div style=\"padding:16px 16px 16px\">\n" +
     "            <div>\n" +
     "                <h4>\n" +
-    "                    {{bill.voteCount}}\n" +
+    "                    <!--{{bill.voteCount}}\n" +
     "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
-    "                    <a href=\"bill/{{bill._id}}/{{bill.urlTitle}}\">{{bill.title}}</a>\n" +
+    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>-->\n" +
+    "                    <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
     "                </h4>\n" +
     "            </div>\n" +
-    "            <div>\n" +
-    "                <a href=\"bill/{{bill._id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
-    "            </div>\n" +
+    "            <!--<div>\n" +
+    "                <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.posts.length}} posts, {{bill.votes.length}} votes</a>\n" +
+    "            </div>-->\n" +
     "        </div>\n" +
-    "        <md-divider></md-divider>\n" +
-    "    </div>\n" +
+    "    </md-card>\n" +
     "</div>\n" +
     "");
 }]);
@@ -460,23 +459,22 @@ angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", 
     "        </form>\n" +
     "    </div>\n" +
     "</div>\n" +
-    "<div class=\"container bill-list-container\">\n" +
-    "    <div class=\"bill-container\" ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
-    "        <div class=\"bill-item\">\n" +
+    "<div class=\"container\">\n" +
+    "    <md-card ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "        <div style=\"padding:16px 16px 16px\">\n" +
     "            <div>\n" +
     "                <h4>\n" +
-    "                    {{bill.voteCount}}\n" +
+    "                    <!--{{bill.voteCount}}\n" +
     "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>\n" +
+    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>-->\n" +
     "                    <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
     "                </h4>\n" +
     "            </div>\n" +
-    "            <div>\n" +
-    "                <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>\n" +
-    "            </div>\n" +
+    "            <!--<div>\n" +
+    "                <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.posts.length}} posts, {{bill.votes.length}} votes</a>\n" +
+    "            </div>-->\n" +
     "        </div>\n" +
-    "        <md-divider></md-divider>\n" +
-    "    </div>\n" +
+    "    </md-card>\n" +
     "</div>\n" +
     "");
 }]);
@@ -563,7 +561,7 @@ angular.module("committee/templates/members.tpl.html", []).run(["$templateCache"
     "            </div>\n" +
     "            <div class=\"info\">\n" +
     "                <h2 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h2>\n" +
-    "                <p>{{member.user.title}}</p>\n" +
+    "                <p>{{member.title}}</p>\n" +
     "                <p>{{member.user.state}}</p>\n" +
     "            </div>\n" +
     "            <div class=\"social\">\n" +

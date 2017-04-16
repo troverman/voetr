@@ -10,21 +10,20 @@
         </form>
     </div>
 </div>
-<div class="container bill-list-container">
-    <div class="bill-container" ng-repeat="bill in bills | orderBy:'-voteCount'">
-        <div class="bill-item">
+<div class="container">
+    <md-card ng-repeat="bill in bills | orderBy:'-voteCount'">
+        <div style="padding:16px 16px 16px">
             <div>
                 <h4>
-                    {{bill.voteCount}}
+                    <!--{{bill.voteCount}}
                     <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
-                    <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>
+                    <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>-->
                     <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.title}}</a>
                 </h4>
             </div>
-            <div>
-                <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.comments.length}} comments, {{bill.votes.length}} votes</a>
-            </div>
+            <!--<div>
+                <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.posts.length}} posts, {{bill.votes.length}} votes</a>
+            </div>-->
         </div>
-        <md-divider></md-divider>
-    </div>
+    </md-card>
 </div>

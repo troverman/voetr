@@ -15,9 +15,21 @@ angular.module( 'voetr.committee', [
             committee: ['$stateParams', 'CommitteeModel', function($stateParams, CommitteeModel) {
                 return CommitteeModel.getByUrl($stateParams.path);
             }],
+            billCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
+                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
+            }],
+            committeeCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
+                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
+            }],
             memberCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
                 return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
-            }]
+            }],
+            postCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
+                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
+            }],
+            voteCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
+                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
+            }],
         }
 	})
     .state( 'committee.activity', {
