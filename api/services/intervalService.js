@@ -188,7 +188,7 @@ function recentBills(){
 
 module.exports.intervalService = function(){
 
-	req.session.intervalService = true;
+	//req.session.intervalService = true;
 
 	for (x in Object.keys(states)){
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
