@@ -2,53 +2,74 @@
  * Policy Mappings
  * (sails.config.policies)
  *
- * Policies are simple functions which run **before** your controllers.
- * You can apply one or more policies to a given controller, or protect
- * its actions individually.
- *
- * Any policy file (e.g. `api/policies/authenticated.js`) can be accessed
- * below by its filename, minus the extension, (e.g. "authenticated")
- *
- * For more information on how policies work, see:
- * http://sailsjs.org/#/documentation/concepts/Policies
- *
- * For more information on configuring policies, check out:
- * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.policies.html
  */
 
 
 module.exports.policies = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
-  * access)                                                                  *
-  *                                                                          *
-  ***************************************************************************/
-
   '*': true,
-  '*': [ 'passport' ]
+  '*': ['passport'],
 
-  // '*': true,
 
-  /***************************************************************************
-  *                                                                          *
-  * Here's an example of mapping some policies to run before a controller    *
-  * and its actions                                                          *
-  *                                                                          *
-  ***************************************************************************/
-	// RabbitController: {
 
-		// Apply the `false` policy as the default for all of RabbitController's actions
-		// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-		// '*': false,
 
-		// For the action `nurture`, apply the 'isRabbitMother' policy
-		// (this overrides `false` above)
-		// nurture	: 'isRabbitMother',
+  //gotta do the policy that can only create -- update with an id that is your session -- oh that's not coming from the frontend -- okay
+  //may want to switch to beare auth.... hmm
+  /*
+  BillController: {
+    create: ['sessionAuth'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
 
-		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-		// before letting any users feed our rabbits
-		// feed : ['isNiceToAnimals', 'hasRabbitFood']
-	// }
+  CommitteeController: {
+    create: ['sessionAuth'],
+    update: ['sessionAuth', 'isRecordOwner'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+
+  CommitteeMemberController: {
+    create: ['sessionAuth'],
+    update: ['sessionAuth', 'isRecordOwner'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+
+  FollowerController: {
+    create: ['sessionAuth'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+
+  PostController: {
+    create: ['sessionAuth'],
+    update: ['sessionAuth', 'isRecordOwner'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+
+  RepresentativeController: {
+    create: ['sessionAuth'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+  */
+
+  UserController: {
+    update: ['sessionAuth', 'isRecordOwner'],
+    upload: ['sessionAuth', 'isRecordOwner'],
+    removePassport: ['sessionAuth', 'isRecordOwner'],
+  },
+
+  /*
+  VoteController: {
+    create: ['sessionAuth'],
+    update: ['sessionAuth', 'isRecordOwner'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+
+  VoteVoteController: {
+    create: ['sessionAuth'],
+    update: ['sessionAuth', 'isRecordOwner'],
+    destroy: ['sessionAuth', 'isRecordOwner'],
+  },
+  */
+
+
+
 };

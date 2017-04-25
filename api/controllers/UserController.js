@@ -80,7 +80,7 @@ module.exports = {
 	},
 
 	update: function(req,res){
-		var id = req.param('id');
+		var id = req.session.user.id
 		var model = {
 			//email: req.param('email'),
 			firstName : req.param('firstName'),
@@ -137,7 +137,7 @@ module.exports = {
 	},
 
 	removePassport: function(req,res){
-		var id = req.user.id;
+		var id = req.session.user.id;
 		var provider = req.param("provider");
 		Passport.destroy({user: id, provider: provider})
 		.then(function(passport){

@@ -5,6 +5,7 @@
 	</div>
 </div>
 <md-list class="container">
+    <div class="spacing-15"></div>
 	<div class="dropdown sort-dropdown noselect">
 		<a class="dropdown-toggle noselect" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 			<h4 class="noselect">Sort by {{sort}}<span class="caret"></span></h4>
@@ -17,6 +18,7 @@
 			<li><a class="sort-a" ng-click="selectSort('voteCount ASC')"><h5>Lowest Votes</h5></a></li>
 		</ul>
 	</div>
+	<div class="spacing-15"></div>
 	<md-list-item ng-repeat="vote in votes">
 		<div class="md-list-item-text" layout="column">
 			<h3 style="font-size:25px">

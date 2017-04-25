@@ -188,14 +188,16 @@ function recentBills(){
 
 module.exports.intervalService = function(){
 
+	req.session.intervalService = true;
+
 	for (x in Object.keys(states)){
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
 	//dataService.stateBills('nc', 1, 25);
 
 	//dataService.cityCommittees();
-	dataService.stateCommittees();
-	dataService.federalCommittees();
+	//dataService.stateCommittees();
+	//dataService.federalCommittees();
 	//dataService.nationalCommittees();
 
 	//dataService.stateLegislators();

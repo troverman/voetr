@@ -164,6 +164,9 @@ module.exports = {
 										var title = billData.title;
 										var urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase();
 										var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
+
+										//https://www.gpo.gov/fdsys/pkg/BILLS-115sres37is/html/BILLS-115sres37is.htm
+										//'https://www.gpo.gov/fdsys/pkg/BILLS-'+congress+type+'/html/BILLS-'+congress+type+'.htm'
 										//console.log(fullTextLink)
 										request(fullTextLink, function (error, response, body) {
 											if (body){if (body.trim().substring(0, 2)=="<!"){body = null;}}

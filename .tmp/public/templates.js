@@ -302,6 +302,7 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"container\">\n" +
+    "    <div class=\"spacing-15\"></div>\n" +
     "    <div class=\"dropdown sort-dropdown noselect\">\n" +
     "        <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
     "            <h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
@@ -314,6 +315,7 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "            <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Lowest Rated</h5></a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
+    "    <div class=\"spacing-15\"></div>\n" +
     "    <md-card ng-repeat=\"bill in bills\">\n" +
     "        <md-card-title>\n" +
     "            <md-card-title-text>\n" +
@@ -590,6 +592,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"container\">\n" +
+    "    <div class=\"spacing-15\"></div>\n" +
     "    <div class=\"dropdown sort-dropdown noselect\">\n" +
     "        <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
     "            <h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
@@ -600,6 +603,7 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "            <li><a class=\"sort-a\" ng-click=\"selectSort('memberCount DESC')\"><h5>Most Popular</h5></a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
+    "    <div class=\"spacing-15\"></div>\n" +
     "    <div ng-show=\"currentUser\">\n" +
     "        <form role=\"form\">\n" +
     "            <md-input-container class=\"md-block\">\n" +
@@ -707,8 +711,22 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                            <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
     "                        </a>\n" +
     "                        <div class=\"pull-right\">\n" +
+    "\n" +
+    "\n" +
     "                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "\n" +
+    "                            <div class=\"dropdown sort-dropdown noselect\">\n" +
+    "                                <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+    "                                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                                </a>\n" +
+    "                                <ul class=\"dropdown-menu\">\n" +
+    "                                    <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount DESC')\"><h5>Delete</h5></a></li>\n" +
+    "                                    <hr class=\"sort-hr\">\n" +
+    "                                    <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Share</h5></a></li>\n" +
+    "                                </ul>\n" +
+    "                            </div>\n" +
+    "\n" +
+    "\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
@@ -1665,6 +1683,7 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "	</div>\n" +
     "</div>\n" +
     "<md-list class=\"container\">\n" +
+    "    <div class=\"spacing-15\"></div>\n" +
     "	<div class=\"dropdown sort-dropdown noselect\">\n" +
     "		<a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
     "			<h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
@@ -1677,6 +1696,7 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "			<li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Lowest Votes</h5></a></li>\n" +
     "		</ul>\n" +
     "	</div>\n" +
+    "	<div class=\"spacing-15\"></div>\n" +
     "	<md-list-item ng-repeat=\"vote in votes\">\n" +
     "		<div class=\"md-list-item-text\" layout=\"column\">\n" +
     "			<h3 style=\"font-size:25px\">\n" +
