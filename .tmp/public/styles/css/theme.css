@@ -514,13 +514,14 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 }
 .log-background {
   z-index: 1;
-  background: url(../../images/congress.jpg) no-repeat center center fixed;
+  //background: url(../../images/congress.jpg) no-repeat center center fixed;
+  background: url(../../images/bill.jpg) no-repeat center center fixed;
   //background: url(../../images/internetProtest2.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 100vh;
+  //height: 100vh;
   padding-top:5%;
   padding-bottom:5%;
   width: 100%;
@@ -537,9 +538,9 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 }
 .log-form {
   z-index: 3;
-  width: 40%;
+  width: 45%;
   min-width: 320px;
-  max-width: 475px;
+  max-width: 575px;
   background: #fff;
   //top: 20%;
   position: relative;
@@ -579,6 +580,8 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   font-weight: 200;
 }
 .log-form input {
+  font-weight:400;
+  font-size:16px;
   display: block;
   margin: auto auto;
   width: 100%;

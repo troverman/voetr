@@ -11,19 +11,22 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "<div class=\"about-container\">\n" +
     "	<div id=\"section1\">\n" +
     "		<div class=\"container\">\n" +
-    "			<h2>the voice of the internet</h2>\n" +
-    "			<p>directly impact the political landscape</p>\n" +
-    "			<img style=\"height:64px\" src=\"http://www.freeiconspng.com/uploads/vote-icon-19.png\"/>\n" +
+    "			<!--<h2>the voice of the internet</h2>-->\n" +
+    "			<h2>directly impact the political landscape</h2>\n" +
+    "			<br>\n" +
+    "			<h4>build empowerment though the creation of constituent coalitions.</h4>\n" +
+    "			<h4>change consensus though direct input on policy decisions.</h4>\n" +
     "		</div>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
     "		<div class=\"container\">\n" +
     "			<h4>direct your impact though input on policy</h4>\n" +
-    "			<p>decision making influence in the power of your hands</p>\n" +
+    "			<h5>decision making influence in the power of your hands</h5>\n" +
     "		</div>\n" +
     "	</div>\n" +
     "	<div id=\"section3\">\n" +
     "		<div class=\"container\">\n" +
+    "			<h3>create of constituent coalitions</h3>\n" +
     "			<h4>elect representatives and serve your constituents</h4>\n" +
     "	    	<p>with continual elections, select others to represent you at any time</p>\n" +
     "	    </div>\n" +
@@ -791,7 +794,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "<div class=\"imageContainer\">\n" +
     "    <video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\" playsinline></video>\n" +
     "    <div class=\"imageContainerDiv container\">  \n" +
-    "        <h1 style=\"text-align:center\">build empowerment, change consensus</h1>\n" +
+    "        <h1 style=\"\">build empowerment, change consensus</h1>\n" +
     "    </div>\n" +
     "</div>\n" +
     "<div id=\"about\">\n" +
@@ -917,7 +920,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
 angular.module("login/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("login/index.tpl.html",
     "<div class=\"log-background\">\n" +
-    "    <div class=\"blkoverlay\"></div>\n" +
+    "    <!--<div class=\"blkoverlay\"></div>-->\n" +
     "    <div class=\"log-form\">\n" +
     "        <h2><span class=\"inline-logo\"><i style=\"color:#2ab996\" class=\"fa fa-check\"></i>oetr</span> - login</h2>\n" +
     "        <form role=\"form\" action=\"/auth/local\" method=\"post\">\n" +
@@ -1317,7 +1320,7 @@ angular.module("post/index.tpl.html", []).run(["$templateCache", function ($temp
 angular.module("register/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("register/index.tpl.html",
     "<div class=\"log-background\">\n" +
-    "    <div class=\"blkoverlay\"></div>\n" +
+    "    <!--<div class=\"blkoverlay\"></div>-->\n" +
     "    <div class=\"log-form\">\n" +
     "        <h2><span class=\"inline-logo\"><i style=\"color:#2ab996\" class=\"fa fa-check\"></i>oetr</span> - register</h2>\n" +
     "        <form role=\"form\" action=\"/auth/local/register\" method=\"post\">\n" +
@@ -1337,7 +1340,16 @@ angular.module("register/index.tpl.html", []).run(["$templateCache", function ($
     "        </div> \n" +
     "    </div>\n" +
     "</div>\n" +
-    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
+    "\n" +
+    "\n" +
+    "<!--\n" +
+    "<div class=\"row\" style=\"text-align:center;margin-top:20px\">\n" +
+    "    <div class=\"col-xs-4\"><a style=\"width:100%;\" class=\"btn btn-block btn-social btn-facebook\" href=\"/auth/facebook\"><span class=\"fa fa-facebook\"></span> Facebook</a></div>\n" +
+    "    <div class=\"col-xs-4\"><a style=\"width:100%;\" class=\"btn btn-block btn-social btn-twitter\" href=\"/auth/twitter\"><span class=\"fa fa-twitter\"></span> Twitter</a></div>\n" +
+    "    <div class=\"col-xs-4\"><a style=\"width:100%\" class=\"btn btn-block btn-social btn-google\" href=\"/auth/google\"><span class=\"fa fa-google\"></span> Google</a></div>\n" +
+    "</div>\n" +
+    "-->");
 }]);
 
 angular.module("search/index.tpl.html", []).run(["$templateCache", function ($templateCache) {

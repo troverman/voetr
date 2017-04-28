@@ -74,10 +74,11 @@ angular.module( 'voetr.home', [
 
 }])
 
-.controller( 'HomeCtrl', ['$scope', '$state', 'config', function HomeController( $scope, $state, config ) {
-	 $scope.currentUser = config.currentUser;
-	 if($scope.currentUser){$state.go('home.feed')}
- 	 else{$state.go('home.intro')}
+.controller( 'HomeCtrl', ['$scope', '$state', 'config', 'titleService', function HomeController( $scope, $state, config, titleService ) {
+	titleService.setTitle('voetr');
+	$scope.currentUser = config.currentUser;
+	if($scope.currentUser){$state.go('home.feed')}
+ 	else{$state.go('home.intro')}
 }])
 .controller( 'IntroCtrl', ['$rootScope', '$sailsSocket', '$scope', 'billCount', 'BillModel', 'bills', 'committeeCount', 'CommitteeModel', 'committees', 'config', 'RepresentativeModel', 'userCount', 'UserModel', 'users', function IntroController( $rootScope, $sailsSocket, $scope, billCount, BillModel, bills, committeeCount, CommitteeModel, committees, config, RepresentativeModel, userCount, UserModel, users ) {
 	$scope.currentUser = config.currentUser;
