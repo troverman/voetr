@@ -579,6 +579,8 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   font-weight: 200;
 }
 .log-form input {
+  font-weight:400;
+  font-size:16px;
   display: block;
   margin: auto auto;
   width: 100%;
