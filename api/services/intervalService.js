@@ -188,8 +188,6 @@ function recentBills(){
 
 module.exports.intervalService = function(){
 
-	//req.session.intervalService = true;
-
 	for (x in Object.keys(states)){
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
@@ -204,7 +202,6 @@ module.exports.intervalService = function(){
 	//dataService.federalLegislators();
 
 	//dataService.federalBillsProPublica(0)
-	//setInterval(dataService.federalBills.bind(null, 1, 20), 14400000);
 	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
     //multithreading...

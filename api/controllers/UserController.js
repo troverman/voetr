@@ -59,6 +59,10 @@ module.exports = {
 		});
 	},
 
+	getActivity: function(req, res) {
+
+	},
+
 	create: function (req, res) {
 		var model = {
 			username: req.param('username'),

@@ -225,7 +225,14 @@ angular.module( 'voetr.home', [
 		$scope.newPost.user = $scope.currentUser.id;
 		$scope.newPost.profile = $scope.currentUser.id
 		PostModel.create($scope.newPost).then(function(model){
-			$scope.newPost = {}
+			$scope.newPost = {};
+		});
+	};
+
+	$scope.deletePost = function(post){
+		$scope.newPost.id = post;
+		PostModel.delete($scope.newPost).then(function(model){
+			$scope.newPost = {};
 		});
 	};
 

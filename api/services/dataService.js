@@ -715,7 +715,8 @@ module.exports = {
 								//}
 								//console.log(actions[0].type)
 
-								var sponsorIds = sponsors.map(function(obj){if (obj.leg_id!=null){return obj.leg_id}else{return []}});
+								var sponsorIds = [];
+								if(sponsors){sponsorIds = sponsors.map(function(obj){if (obj.leg_id!=null){return obj.leg_id}else{return []}})};
 								User.find({leg_id:sponsorIds})
 								.then(function(userModel) {
 									var userModelIds = userModel.map(function(obj){return obj.id})

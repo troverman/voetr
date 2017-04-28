@@ -65,6 +65,13 @@ module.exports = {
 		});
 	},
 
+	getActivity: function(req, res) {
+
+		//recent posts, recent votes, recent bills, committeemembers
+						//committeemembers, committeebills, 
+
+	},
+
 	create: function (req, res) {
 		var parent = req.param('parent');
 		var title = req.param('title');

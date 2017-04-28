@@ -112,7 +112,7 @@ module.exports.routes = {
   'get /api/post/filter/user': 'PostController.getByUser',
   'get /api/post/filter/vote': 'PostController.getByVote',
   'post /api/post': 'PostController.create',
-  'delete /api/post/:id': 'PostController.destroy',
+  'delete /api/post': 'PostController.destroy',
   'post /api/post/:id': 'PostController.update',
 
   /**

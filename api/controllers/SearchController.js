@@ -5,6 +5,13 @@
 
 module.exports = {
 
+	activity: function (req, res) {
+		var searchQuery = req.param('searchQuery');
+
+		
+	},
+
+
 	search: function (req, res) {
 		var searchQuery = req.param('searchQuery');
 		sails.log(searchQuery);

@@ -54,8 +54,9 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
     };
 
     this.delete = function(model) {
-        var url = utils.prepareUrl('post/' + model.id);
-        return $sailsSocket.delete(url).then(success, error);
+        var url = utils.prepareUrl('post');
+        var query = {params:{id:model}};
+        return $sailsSocket.delete(url, query).then(success, error);
     };
 
     var success = function(response) {

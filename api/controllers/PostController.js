@@ -163,7 +163,10 @@ module.exports = {
 	},
 
 	destroy: function (req, res) {
-		var id = req.param('id');
+		var id = req.query.id;
+
+		//should only be able to delete owned posts -- model.user --> session.user.id etc
+		
 		if (!id) {return res.badRequest('No id provided.');}
 		// Otherwise, find and destroy the model in question
 		Post.findOne(id).exec(function(err, model) {
