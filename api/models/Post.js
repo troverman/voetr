@@ -72,7 +72,10 @@ module.exports = {
         .limit(limiting)
         .skip(skipping)
         .populate('user')
+        .populate('profile')
+        .populate('committee')
         .populate('bill')
+        .populate('vote')
         .then(function (models) {
             return models;
         });
@@ -85,7 +88,10 @@ module.exports = {
         .limit(limiting)
         .skip(skipping)
         .populate('user')
+        .populate('profile')
         .populate('committee')
+        .populate('bill')
+        .populate('vote')
         .then(function (models) {
             return models;
         });
@@ -99,6 +105,9 @@ module.exports = {
         .skip(skipping)
         .populate('user')
         .populate('profile')
+        .populate('committee')
+        .populate('bill')
+        .populate('vote')
         .then(function (models) {
             return models;
         });
@@ -112,6 +121,9 @@ module.exports = {
         .skip(skipping)
         .populate('user')
         .populate('profile')
+        .populate('committee')
+        .populate('bill')
+        .populate('vote')
         .then(function (models) {
             return models;
         });
@@ -124,6 +136,9 @@ module.exports = {
         .limit(limiting)
         .skip(skipping)
         .populate('user')
+        .populate('profile')
+        .populate('committee')
+        .populate('bill')
         .populate('vote')
         .then(function (models) {
             return models;

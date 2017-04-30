@@ -40,7 +40,9 @@
 			<div class="pull-right">
 				<div class="spacing-10"></div>
 				<h5 ng-show="member.phone"><a ng-repeat="phone in member.phone.split(',')" style="color:grey;padding:5px" href="tel:{{phone}}" ng-show="phone.length>0"><i class="fa fa-phone"></i> {{phone}}</a></h5>
-				<h5 ng-show="showFax"><span style="color:grey"><i class="fa fa-fax"></i> {{member.fax}}</span></h5>
+				<h5 ng-show="member.fax">
+					<a ng-repeat="fax in member.fax.split(',')" style="color:grey;padding:5px" href="https://www.fax2dc.com" ng-show="phone.length>0"><i class="fa fa-fax"></i> {{fax}}</a>
+				</h5>
 				<a ng-show="member.socialAccounts.facebook.profileUrl" href="{{member.socialAccounts.facebook.profileUrl}}"  target="_blank"><span class="grey facebook-icon"><i class="fa fa-facebook"></i> Facebook</span></a>
 				<a ng-show="member.socialAccounts.twitter.profileUrl" href="{{member.socialAccounts.twitter.profileUrl}}"  target="_blank"><span class="grey twitter-icon"><i class="fa fa-twitter"></i> Twitter</span></a>
 				<a ng-show="member.socialAccounts.google.profileUrl" href="{{member.socialAccounts.google.profileUrl}}"  target="_blank"><span class="grey google-icon"><i class="fa fa-google"></i> Google</span></a>

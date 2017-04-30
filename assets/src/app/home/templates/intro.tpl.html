@@ -42,15 +42,15 @@
                 <md-card-title>
                     <md-card-title-text>
                     <h4>
-                        <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{plusCount}}</button>
-                        <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{minusCount}}</button>
+                        <!--<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{plusCount}}</button>
+                        <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{minusCount}}</button>-->
                         <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
                     </h4>
                     </md-card-title-text>
                 </md-card-title>
             </md-card> 
             <div ng-click="loadMoreBills()" style="text-align:center">
-                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
+                <button style="margin-top:25px;" class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                 </md-card-title>
             </md-card>
             <div ng-click="loadMoreCommittees()" style="text-align:center">
-                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
+                <button style="margin-top:25px;" class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
             </div>
         </div>
     </div>
@@ -82,11 +82,11 @@
             <div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">
                 <div class="member-card">
                     <div class="image" style="background-image: url('{{user.coverUrl}}')">
-                        <img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png">
+                        <a href="member/{{user.username}}"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
                     </div>
                     <div class="info">
-                        <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
-                        <h4 class="position">{{user.title}}</h4>
+                        <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
+                        <h5 class="position">{{user.title || 'voetr member'}}</h5>
                         <p>{{user.state}}</p>
                     </div>
                     <div class="social">
@@ -100,11 +100,11 @@
             <div class="col-lg-4 col-sm-6" ng-repeat="user in users">
                 <div class="member-card">
                     <div class="image" style="background-image: url('{{user.coverUrl}}')">
-                        <img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png">
+                        <a href="member/{{user.username}}"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
                     </div>
                     <div class="info">
-                        <h2 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
-                        <h4 class="position">{{user.title}}</h4>
+                        <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
+                        <h5 class="position">{{user.title}}</h5>
                         <p>{{user.state}}</p>
                     </div>
                     <div class="social">
@@ -115,7 +115,7 @@
                 </div>
             </div>
             <div ng-click="loadMoreMembers()" style="text-align:center">
-                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
+                <button style="margin-top:25px;" class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
             </div>
         </div>
     </div>

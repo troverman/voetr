@@ -192,32 +192,43 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 }
 
 .image {
-  height: 250px;
+  //height: 95px;
+  height: 125px;
   background: center center no-repeat;
   background-size: cover;
 }
 
 .image img{
   position:absolute;
-  margin-top:4em;
-  left: 0;
-  right: 0;
+  left: 12%;
+  top:14%;
   margin: 0 auto;
   background: #fff;
-  height: 15em;
+  height: 11em;
   padding: 0.25em;
   border-radius: .4em;
+  max-width:10em;
 }
 
 .info {
-  height: 125px;
+  padding:10px;
+  height: 100px;
   background: #FAFAFA;
-  text-align: center;
+  text-align: right;
+  padding-right:5%;
+  padding-left:50%;
+  overflow:hidden;
+}
+
+.info h4{
+  margin:0px;
+  overflow:hidden;
+  //word-break: break-all;
 }
 
 .info p{
   color: #666;
-  padding: 0px 60px;
+  margin:0px;
 }
 
 .light {
@@ -256,8 +267,6 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
     left: 0px;
 
 }
-
-
 
 .footer a{
   color:white;
@@ -312,8 +321,9 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 .social {
   height: 40px;
   background: #DAE0DE;
-  text-align: center;
+  text-align: right;
   padding-top: 12px;
+  padding-right:20px;
 }
 
 .social a i{font-size:20px; color:#636363;}
@@ -590,12 +600,21 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   border-bottom: 1px solid #eaeaea;
   padding: 1.25em;
   color: #757575;
+  //border: 2px solid #ddd;
 }
 .log-form input:focus {
   outline: none;
   -webkit-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
   -moz-box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
   box-shadow: inset 0px 0px 5px 2px rgba(42,185,150,0.3);
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+
+  //border-color: #002c54;
+  //color: #002c54;
+  //font-weight: bold;
 }
 .btn-green{
   display: inline-block;
@@ -659,7 +678,7 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
     word-wrap: break-word;
 }
 .post-action-container{
-  margin-left:61px;
+    margin-left:61px;
 }
 
 /* Bootstrap nav breakpoint override */
