@@ -24,6 +24,7 @@ angular.module( 'voetr.bills', [
     $scope.bills = bills;
 	$scope.skip = 0;
 	$scope.sort = 'createdAt DESC';
+	$scope.sortText = {'trendingScore DESC':'Trending','createdAt DESC':'Most Recent', 'voteCount DESC': 'Most Voted'}
 
 	$scope.selectSort = function(sort){
 		$scope.sort = sort;

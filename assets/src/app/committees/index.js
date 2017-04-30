@@ -25,6 +25,7 @@ angular.module( 'voetr.committees', [
     $scope.newCommittee = {};
     $scope.skip = 0;
 	$scope.sort = 'memberCount DESC';
+	$scope.sortText = {'trendingScore DESC':'Trending','createdAt DESC':'Date Created', 'memberCount DESC': 'Member Count'}
 
 	$scope.selectSort = function(sort){
 		$scope.sort = sort;

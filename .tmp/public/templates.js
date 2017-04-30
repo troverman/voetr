@@ -308,14 +308,14 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "    <div class=\"spacing-10\"></div>\n" +
     "    <div class=\"dropdown sort-dropdown noselect\">\n" +
     "        <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-    "            <h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
+    "            <h4 class=\"noselect\">{{sortText[sort]}}<span class=\"caret\"></span></h4>\n" +
     "        </a>\n" +
     "        <ul class=\"dropdown-menu\">\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('trendingScore DESC')\"><h5>Trending</h5></a></li>\n" +
+    "            <hr class=\"sort-hr\">\n" +
     "            <li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Most Recent</h5></a></li>\n" +
     "            <hr class=\"sort-hr\">\n" +
-    "            <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount DESC')\"><h5>Highest Rated</h5></a></li>\n" +
-    "            <hr class=\"sort-hr\">\n" +
-    "            <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Lowest Rated</h5></a></li>\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('voteCount DESC')\"><h5>Most Voted</h5></a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
     "    <div class=\"spacing-10\"></div>\n" +
@@ -565,7 +565,7 @@ angular.module("committee/templates/members.tpl.html", []).run(["$templateCache"
     "                <img ng-src=\"{{member.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
     "            </div>\n" +
     "            <div class=\"info\">\n" +
-    "                <h2 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h2>\n" +
+    "                <h4 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h4>\n" +
     "                <p>{{member.title}}</p>\n" +
     "                <p>{{member.user.state}}</p>\n" +
     "            </div>\n" +
@@ -598,12 +598,14 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
     "    <div class=\"spacing-10\"></div>\n" +
     "    <div class=\"dropdown sort-dropdown noselect\">\n" +
     "        <a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-    "            <h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
+    "            <h4 class=\"noselect\">{{sortText[sort]}}<span class=\"caret\"></span></h4>\n" +
     "        </a>\n" +
     "        <ul class=\"dropdown-menu\">\n" +
-    "            <li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Most Recent</h5></a></li>\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('trendingScore DESC')\"><h5>Trending</h5></a></li>\n" +
     "            <hr class=\"sort-hr\">\n" +
-    "            <li><a class=\"sort-a\" ng-click=\"selectSort('memberCount DESC')\"><h5>Most Popular</h5></a></li>\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('memberCount DESC')\"><h5>Member Count</h5></a></li>\n" +
+    "            <hr class=\"sort-hr\">\n" +
+    "            <li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Date Created</h5></a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
     "    <div class=\"spacing-10\"></div>\n" +
@@ -1729,14 +1731,14 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "    <div class=\"spacing-10\"></div>\n" +
     "	<div class=\"dropdown sort-dropdown noselect\">\n" +
     "		<a class=\"dropdown-toggle noselect\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-    "			<h4 class=\"noselect\">Sort by {{sort}}<span class=\"caret\"></span></h4>\n" +
+    "            <h4 class=\"noselect\">{{sortText[sort]}}<span class=\"caret\"></span></h4>\n" +
     "		</a>\n" +
     "		<ul class=\"dropdown-menu\">\n" +
+    "			<li><a class=\"sort-a\" ng-click=\"selectSort('trendingScore DESC')\"><h5>Trending</h5></a></li>\n" +
+    "			<hr class=\"sort-hr\">\n" +
     "			<li><a class=\"sort-a\" ng-click=\"selectSort('createdAt DESC')\"><h5>Most Recent</h5></a></li>\n" +
     "			<hr class=\"sort-hr\">\n" +
     "			<li><a class=\"sort-a\" ng-click=\"selectSort('voteCount DESC')\"><h5>Most Votes</h5></a></li>\n" +
-    "			<hr class=\"sort-hr\">\n" +
-    "			<li><a class=\"sort-a\" ng-click=\"selectSort('voteCount ASC')\"><h5>Lowest Votes</h5></a></li>\n" +
     "		</ul>\n" +
     "	</div>\n" +
     "	<div class=\"spacing-10\"></div>\n" +

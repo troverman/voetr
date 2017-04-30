@@ -26,6 +26,7 @@ angular.module( 'voetr.votes', [
 	$scope.skip = 0;
     $scope.votes = votes;
     $scope.sort = 'voteCount DESC';
+	$scope.sortText = {'trendingScore DESC':'Trending','createdAt DESC':'Most Recent', 'voteCount DESC': 'Most Votes'}
 
 	$scope.createVote = function(voteInteger, newVote) {
         if ($scope.currentUser){
