@@ -910,8 +910,6 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "            <h2>{{userCount}} members</h2>\n" +
     "            <md-divider></md-divider><br>\n" +
     "            <button ng-show=\"!gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default\">find representatives</button><br>\n" +
-    "            <i ng-show=\"gettingRepresentatives\" style=\"font-size:48px\" class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n" +
-    "\n" +
     "            <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in officialRepresentatives\">\n" +
     "                <div class=\"member-card\">\n" +
     "                    <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
@@ -1338,20 +1336,17 @@ angular.module("post/index.tpl.html", []).run(["$templateCache", function ($temp
     "                        <a href=\"#\" ng-click=\"\"><i class=\"fa fa-thumbs-down\"></i></a> \n" +
     "                        <a href=\"#\">reply</a>\n" +
     "                    </div>\n" +
-    "                    <div class=\"pull-right\">\n" +
-    "                        <a href=\"post/{{post.id}}\"><i class=\"fa fa-link\"></i></a>\n" +
-    "                    </div>\n" +
     "                </div>\n" +
     "\n" +
-    "                 <!--\n" +
     "                <div class=\"profilePost\">\n" +
     "                    <form role=\"form\">\n" +
     "                        <md-input-container class=\"md-block\">\n" +
     "                            <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
     "                        </md-input-container>\n" +
     "                    </form>\n" +
+    "                    <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "\n" +
     "                </div>\n" +
-    "                -->\n" +
     "\n" +
     "        </div>\n" +
     "    </md-card>\n" +

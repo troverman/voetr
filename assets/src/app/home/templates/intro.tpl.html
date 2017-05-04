@@ -77,8 +77,6 @@
             <h2>{{userCount}} members</h2>
             <md-divider></md-divider><br>
             <button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
-            <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-
             <div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">
                 <div class="member-card">
                     <div class="image" style="background-image: url('{{user.coverUrl}}')">
