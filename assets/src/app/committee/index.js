@@ -265,10 +265,22 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeCommitteesCtrl', ['$sailsSocket', '$scope', 'committee', 'committees', 'config', function CommitteeBillCtrl($sailsSocket, $scope, committee, committees, config) {
+.controller( 'CommitteeCommitteesCtrl', ['$location', '$sailsSocket', '$scope', 'committee', 'committees', 'config', function CommitteeBillCtrl($location, $sailsSocket, $scope, committee, committees, config) {
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.committees = committees;
+    $scope.newCommittee = {};
+
+    $scope.createCommittee = function() {
+        if($scope.currentUser){
+            $scope.newCommittee.user = $scope.currentUser.id;
+            $scope.committee.parent = $scope.committee
+            CommitteeModel.create($scope.newCommittee).then(function(model) {
+                $scope.newCommittee = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
 
 }])
 

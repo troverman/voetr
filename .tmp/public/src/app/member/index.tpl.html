@@ -19,10 +19,11 @@
 						<a ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">Elect</a>
 						<a ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">Unelect</a>
 					</li>
-					<li ng-show="currentUser.id != member.id">
+					<!--<li ng-show="currentUser.id != member.id">
 						<a class="btn btn-default" ng-click="">Follow</a>
-					</li>
+					</li>-->
 					<li ng-show="currentUser.id == member.id">
+						<!--<a class="btn btn-default" href=""member/{{member.username}}/edit">Edit Profile</a>-->
 						<a class="btn btn-default" href="account">Edit Profile</a>
 					</li>
 				</ul>

@@ -177,6 +177,11 @@ angular.module( 'voetr.home', [
     $scope.userVotes = userVotes
     $scope.votes = votes;
 
+    $scope.reply = function(post){
+    	var index = $scope.posts.map(function(obj){return obj.id}).indexOf(post.id);
+    	$scope.posts[index].showReply = !$scope.posts[index].showReply
+    };
+
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
 	    	$scope.gettingRepresentatives = true;
@@ -222,9 +227,11 @@ angular.module( 'voetr.home', [
         });
     };
 
-    $scope.createPost = function(){
+    $scope.createPost = function(post){
 		$scope.newPost.user = $scope.currentUser.id;
-		$scope.newPost.profile = $scope.currentUser.id
+		$scope.newPost.profile = $scope.currentUser.id;
+		$scope.newPost.postModel = post;
+		$scope.newPost.post = $scope.newPost.post || post.newPost.post // new post or post reply
 		PostModel.create($scope.newPost).then(function(model){
 			$scope.newPost = {};
 		});

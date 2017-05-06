@@ -105,6 +105,24 @@ angular.module( 'voetr.member', [
             }],
         }
     })
+
+    /*
+    .state( 'member.edit', {
+        url: '/edit',
+        views: {
+            "memberBills": {
+                controller: 'MemberEditCtrl',
+                templateUrl: 'member/templates/edit.tpl.html'
+            }
+        },
+        resolve: {
+            user: ['UserModel', function(UserModel){
+                return UserModel.getMine();
+            }]
+        }
+    })
+    */
+
     .state( 'member.representatives', {
         url: '/representatives',
         views: {
