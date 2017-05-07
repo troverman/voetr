@@ -683,7 +683,7 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                    <div class=\"spacing-10\"></div>\n" +
     "                    <h5><a href=\"member/{{user.username}}/committees\">Committees - {{user.committeeCount}}</a></h5>\n" +
     "                    <h5><a href=\"member/{{user.username}}/constituents\">Constituents - {{user.constituentCount}}</a></h5>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/representatives\">Representatives - {{user.representativeCount}}</a></h5>\n" +
+    "                    <!--<h5><a href=\"member/{{user.username}}/representatives\">Representatives - {{user.representativeCount}}</a></h5>-->\n" +
     "                    <h5><a href=\"member/{{user.username}}/votes\">Votes - {{user.voteCount}}</a></h5>\n" +
     "                    <div class=\"spacing-25\"></div>\n" +
     "                </div>\n" +
@@ -699,19 +699,6 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "            \n" +
     "        </div>\n" +
     "        <div class=\"col-md-8\">      \n" +
-    "            <!--\n" +
-    "            <div class=\"spacing-5\"></div>\n" +
-    "            <div class=\"profilePost\">\n" +
-    "                <form role=\"form\">\n" +
-    "                    <md-input-container class=\"md-block\">\n" +
-    "                        <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"what's happening? engage!\"></textarea>\n" +
-    "                    </md-input-container>\n" +
-    "                </form>\n" +
-    "                <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
-    "            </div>\n" +
-    "            -->\n" +
-    "\n" +
-    "            <div class=\"spacing-10\"></div>\n" +
     "\n" +
     "            <md-card>\n" +
     "                <div style=\"padding:16px 16px 16px\">\n" +
@@ -1020,7 +1007,7 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "		<md-divider></md-divider>\n" +
     "		<div class=\"container\">\n" +
     "			<div class=\"pull-left\">\n" +
-    "				<h2>{{member.firstName}} {{member.lastName}}</h2>\n" +
+    "				<h2>{{member.firstName}} {{member.lastName}} <i ng-show=\"member.identificationUrl\" class=\"fa fa-check\"></i></h2>\n" +
     "				<h5><span class=\"grey\">@{{member.username}}</span></h5>\n" +
     "				<h5 ng-show=\"member.title\"><span class=\"grey\">{{member.title}}</span></h5>\n" +
     "				<h5 ng-show=\"member.district\"><span class=\"grey\">District {{member.district}}</span></h5>\n" +

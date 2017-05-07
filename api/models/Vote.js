@@ -71,6 +71,15 @@ module.exports = {
         .skip(skipping)
         .populate('bill')
         .then(function (models) {
+
+            //models.forEach(function(model) {
+                //var id = req.session.user.id;
+                //VoteVote.find({vote:model.vote, bill:model.bill, user:req.session.user.id})
+                //.then(function(model) {
+                //    console.log(model)
+                //});
+            //});
+
             return models;
         });
     },

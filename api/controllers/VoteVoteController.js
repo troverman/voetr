@@ -19,6 +19,15 @@ module.exports = {
 		});
 	*/
 
+	//getVote: function(req, res) {
+
+	//	VoteVote.find({vote:req.query.vote, bill:req.query.vote, user:req.query.vote})
+	//	.then(function(model) {
+	//		res.json(model);
+	//	});
+
+	//},
+
 	getByBill: function(req, res) {
 		//if req.query.bill...., if req.query.vote
 		var bill = req.query.bill
@@ -100,12 +109,12 @@ module.exports = {
 		if (req.param('voteInteger') == 1){model.voteString = "Yes"}
 		if (req.param('voteInteger') == -1){model.voteString = "No"}
 
-		console.log(req.param('vote'))
-
 		VoteVote.create(model)
 		.exec(function(err, model) {
 			if (err) {return console.log(err);}
 			else {
+
+				/*
 				VoteVote.count()
 				.where({vote: req.param('vote')})
 				.exec(function(err, voteVoteCount) {
@@ -122,13 +131,13 @@ module.exports = {
 						User.publishUpdate(req.param('user'), updated);
 					});
 				});
+				*/
+
 				VoteVote.getOne(model.id).then(function(votevote){
 					VoteVote.publishCreate(votevote[0]);
-
 					contactService.sendEmail(votevote[0]);
 					contactService.sendFax(votevote[0]);
 					contactService.sendMail(votevote[0])
-
 					res.json(votevote[0]);
 				});
 			}

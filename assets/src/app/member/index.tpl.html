@@ -32,7 +32,7 @@
 		<md-divider></md-divider>
 		<div class="container">
 			<div class="pull-left">
-				<h2>{{member.firstName}} {{member.lastName}}</h2>
+				<h2>{{member.firstName}} {{member.lastName}} <i ng-show="member.identificationUrl" class="fa fa-check"></i></h2>
 				<h5><span class="grey">@{{member.username}}</span></h5>
 				<h5 ng-show="member.title"><span class="grey">{{member.title}}</span></h5>
 				<h5 ng-show="member.district"><span class="grey">District {{member.district}}</span></h5>

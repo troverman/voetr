@@ -33,23 +33,31 @@ module.exports = {
         VoteVote.find({user: model.user, bill:model.bill, vote:model.vote})
         .then(function(voteVote){
             if (voteVote.length == 0){
-                console.log('new')
                 return next(null, voteVote);
             }
             else{
                 if(voteVote[0].voteInteger != model.voteInteger){  
                     VoteVote.update({id: voteVote[0].id}, model)
-                    .then(function(model){
-                        console.log('updated')
-                        Vote.find({id: model.vote}).then(function(voteModel){
-                            if (voteVote[0].voteInteger == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
-                            if (voteVote[0].voteInteger == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
-                            voteModel[0].voteCount = voteVoteCount;
-                            Vote.update({id: model.vote}, voteModel[0]).exec(function afterwards(err, updated){
-                                Vote.publishUpdate(model.vote, updated);
-                            });
-                        }); 
-                        VoteVote.publishUpdate(model[0].id, model);
+                    .then(function(){
+                        VoteVote.count()
+                        .where({vote:model.vote})
+                        .then(function(voteVoteCount){
+                            Vote.find({id: model.vote}).then(function(voteModel){
+                                if (model.voteInteger == 1){
+                                    voteModel[0].plusCount = voteModel[0].plusCount + 1;
+                                    voteModel[0].minusCount = voteModel[0].minusCount - 1;
+                                }
+                                if (model.voteInteger == -1){
+                                    voteModel[0].minusCount = voteModel[0].minusCount + 1;
+                                    voteModel[0].plusCount = voteModel[0].plusCount - 1;
+                                }
+                                voteModel[0].voteCount = voteVoteCount;
+                                Vote.update({id: model.vote}, voteModel[0]).exec(function afterwards(err, updated){
+                                    Vote.publishUpdate(model.vote, updated);
+                                });
+                            }); 
+                        });
+                        VoteVote.publishUpdate(model.id, model);
                     });
                 }
             }
@@ -61,8 +69,8 @@ module.exports = {
         .where({vote:model.vote})
         .then(function(voteVoteCount){
             Vote.find({id: model.vote}).then(function(voteModel){
-                if (model.vote.voteInteger == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
-                if (model.vote.voteInteger == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
+                if (model.voteInteger == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
+                if (model.voteInteger == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
                 voteModel[0].voteCount = voteVoteCount;
                 Vote.update({id: model.vote}, voteModel[0]).exec(function afterwards(err, updated){
                     Vote.publishUpdate(model.vote, updated);
