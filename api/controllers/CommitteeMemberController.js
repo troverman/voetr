@@ -49,9 +49,14 @@ module.exports = {
 					Committee.update({id: req.param('committee')}, {memberCount: committeeMemberCount}).exec(function afterwards(err, updated){
 						Committee.publishUpdate(req.param('committee'), updated);
 					});
+					User.update({id: req.param('user')}, {committeeCount:committeeMemberCount}).exec(function afterwards(err, updated){
+						User.publishUpdate(req.param('user'), updated);
+					});
 				});
-				//gotta be the populated member
-				CommitteeMember.publishCreate(member);
+				CommitteeMember.getOne(model.id).then(function(committeeMember){
+					CommitteeMember.publishCreate(committeeMember[0]);
+					res.json(committeeMember[0]);
+				});
 			}
 		});
 	},

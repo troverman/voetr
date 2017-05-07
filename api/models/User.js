@@ -108,6 +108,22 @@ module.exports = {
             collection: 'representative',
             via: 'representative'
         },
+        committeeCount: {
+            type: 'integer'
+            defaultsTo: 0
+        },
+        constituentCount: {
+            type: 'integer'
+            defaultsTo: 0
+        },
+        representativeCount: {
+            type: 'integer'
+            defaultsTo: 0
+        },
+        voteCount: {
+            type: 'integer'
+            defaultsTo: 0
+        },
         passports: {
           collection: 'Passport',
           via: 'user'
@@ -122,7 +138,7 @@ module.exports = {
 
     afterCreate: function(model,next){
 
-        var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/brasil.jpg', 'images/natural.jpg' ,'images/nature.jpg']
+        var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/natural.jpg' ,'images/nature.jpg']
         var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
         model.coverUrl = coverUrlArray[randInt];
 
@@ -132,7 +148,7 @@ module.exports = {
             //res.json(model);
             return next(null, model);
         });
-        
+
         //emailService.sendTemplate('welcome', model.email, 'Welcome To Voetr!', {username: model.username});
     },
 

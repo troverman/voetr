@@ -19,7 +19,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "		</div>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
-    "		<div class=\"container\">\n" +
+    "		<div class=\"container\" style=\"text-align:right\">\n" +
     "			<h4>direct your impact though input on policy</h4>\n" +
     "			<h5>decision making influence in the power of your hands</h5>\n" +
     "		</div>\n" +
@@ -32,7 +32,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "	    </div>\n" +
     "	</div>\n" +
     "	<div id=\"section4\">\n" +
-    "		<div class=\"container\">\n" +
+    "		<div class=\"container\" style=\"text-align:right\">\n" +
     "			<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
     "			<h4>power to the people</h4>\n" +
     "		</div>\n" +
@@ -568,6 +568,7 @@ angular.module("committee/templates/members.tpl.html", []).run(["$templateCache"
     "                <h4 class=\"name\"><a href=\"member/{{member.user.username}}\">{{member.user.username}}</a></h4>\n" +
     "                <p>{{member.title}}</p>\n" +
     "                <p>{{member.user.state}}</p>\n" +
+    "                <!--{{member.constituentCount}}-->\n" +
     "            </div>\n" +
     "            <div class=\"social\">\n" +
     "                <a ng-show=\"member.user.socialAccounts.facebook.profileUrl\" href=\"{{member.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
@@ -679,15 +680,12 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                </div>\n" +
     "                <div class=\"info\" style=\"height:200px\">\n" +
     "                    <h4 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
-    "\n" +
     "                    <div class=\"spacing-10\"></div>\n" +
-    "                    <h5>Bills - {{committees.length}}</h5>\n" +
-    "                    <h5>Committees - {{committees.length}}</h5>\n" +
-    "                    <h5>Constituents - {{constituents.length}}</h5>\n" +
-    "                    <h5>Representatives - {{representatives.length}}</h5>\n" +
-    "                    <h5>Votes - {{votes.length}}</h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/committees\">Committees - 0</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/constituents\">Constituents - 0</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/representatives\">Representatives - 0</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/votes\">Votes - 0</a></h5>\n" +
     "                    <div class=\"spacing-25\"></div>\n" +
-    "\n" +
     "                </div>\n" +
     "                <div class=\"social\">\n" +
     "                    <a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
@@ -1536,7 +1534,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					<md-card ng-repeat=\"committee in committees\" class=\"col-sm-12\">\n" +
     "						<md-card-title>\n" +
     "							<md-card-title-text>\n" +
-    "								<h4><a href=\"/committee/{{committee.urlTitle}}\"><span class=\"\">{{committee.title}}</span></a></h4>\n" +
+    "								<h4><a href=\"/committee/{{committee.urlTitle}}\">{{committee.title}}</a></h4>\n" +
     "							</md-card-title-text>\n" +
     "						</md-card-title>\n" +
     "					</md-card>\n" +
