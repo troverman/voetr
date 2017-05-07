@@ -42,8 +42,8 @@ module.exports = {
                     .then(function(model){
                         console.log('updated')
                         Vote.find({id: model.vote}).then(function(voteModel){
-                            if (model.vote.voteInteger == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
-                            if (model.vote.voteInteger == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
+                            if (voteVote[0].voteInteger == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
+                            if (voteVote[0].voteInteger == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
                             voteModel[0].voteCount = voteVoteCount;
                             Vote.update({id: model.vote}, voteModel[0]).exec(function afterwards(err, updated){
                                 Vote.publishUpdate(model.vote, updated);
