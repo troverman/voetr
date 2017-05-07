@@ -40,10 +40,14 @@ module.exports = {
                 console.log('Committee Member Count Updated')
                 Committee.publishUpdate(model.committee, updated[0]);
             });
-            User.update({id: model.user}, {committeeCount:committeeMemberCount}).exec(function afterwards(err, updated){
-                User.publishUpdate(model.user, updated[0]);
+            CommitteeMember.count()
+            .where({user: model.user})
+            .then(function(committeeMemberCount){
+                User.update({id: model.user}, {committeeCount:committeeMemberCount}).exec(function afterwards(err, updated){
+                    User.publishUpdate(model.user, updated[0]);
+                });
+                return next();
             });
-            return next();
         });
     },
 

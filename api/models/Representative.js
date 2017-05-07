@@ -38,15 +38,15 @@ module.exports = {
             User.update({id: model.constituent}, {representativeCount:constituentCount}).exec(function afterwards(err, updated){
                 User.publishUpdate(model.user, updated[0]);
             });
-            Representative.count()
-            .where({representative: model.representative})
-            .then(function(representativeCount){
-                User.update({id: model.representative}, {constituentCount:representativeCount}).exec(function afterwards(err, updated){
-                    User.publishUpdate(model.user, updated[0]);
-                });
-                return next();
+        });
+        Representative.count()
+        .where({representative: model.representative})
+        .then(function(representativeCount){
+            User.update({id: model.representative}, {constituentCount:representativeCount}).exec(function afterwards(err, updated){
+                User.publishUpdate(model.user, updated[0]);
             });
         });
+        return next();
     },
 
 
