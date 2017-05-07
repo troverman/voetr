@@ -70,12 +70,13 @@ module.exports = {
         });
         VoteVote.count()
         .where({user:model.user})
+        .then(function(voteVoteCount){
+
             User.update({id: model.user}, {voteCount:voteVoteCount}).exec(function afterwards(err, updated){
                 User.publishUpdate(model.user, updated);
             });
         });
         return next(null, model);
-
     },
 
     getOne: function(id) {
