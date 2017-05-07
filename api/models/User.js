@@ -109,19 +109,19 @@ module.exports = {
             via: 'representative'
         },
         committeeCount: {
-            type: 'integer'
+            type: 'integer',
             defaultsTo: 0
         },
         constituentCount: {
-            type: 'integer'
+            type: 'integer',
             defaultsTo: 0
         },
         representativeCount: {
-            type: 'integer'
+            type: 'integer',
             defaultsTo: 0
         },
         voteCount: {
-            type: 'integer'
+            type: 'integer',
             defaultsTo: 0
         },
         passports: {
