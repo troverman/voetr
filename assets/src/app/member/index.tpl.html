@@ -11,10 +11,10 @@
 				<ul class="member-tabs">
 					<li><a href="member/{{member.username}}">Activity</a></li>
 					<!--<li><a href="member/{{member.username}}/bills">{{committeeCount}} Bills</a></li>-->
-					<li><a href="member/{{member.username}}/committees">{{committeeCount}} Committees</a></li>
-					<li><a href="member/{{member.username}}/constituents">{{constituentCount}} Constituents</a></li>
-					<li><a href="member/{{member.username}}/representatives">{{representativeCount}} Representatives</a></li>
-					<li><a href="member/{{member.username}}/votes">{{voteCount}} Votes</a></li>
+					<li><a href="member/{{member.username}}/committees">{{member.committeeCount}} Committees</a></li>
+					<li><a href="member/{{member.username}}/constituents">{{member.constituentCount}} Constituents</a></li>
+					<li><a href="member/{{member.username}}/representatives">{{member.representativeCount}} Representatives</a></li>
+					<li><a href="member/{{member.username}}/votes">{{member.voteCount}} Votes</a></li>
 					<li ng-show="currentUser.id != member.id">
 						<a ng-show="!isFollowing" class="btn btn-default" ng-click="selectAsRepresentative()">Elect</a>
 						<a ng-show="isFollowing" class="btn btn-default" ng-click="removeRepresentative()">Unelect</a>
