@@ -201,11 +201,10 @@ angular.module( 'voetr.member', [
 
     $sailsSocket.subscribe('representative', function (envelope) {
         switch(envelope.verb) {
-            console.log(envelope.data)
             case 'created':
                 if(envelope.data.representative.id == member.id){
                     $scope.constituentCount = constituentCount.constituentCount + 1;
-                   // RepresentativeModel.getRepresentativeCount(member.id).then(function(representativeCount){});
+                    //RepresentativeModel.getRepresentativeCount(member.id).then(function(representativeCount){});
                 }
                 if(envelope.data.constituent.id == member.id){
                     $scope.representativeCount = representativeCount.representativeCount + 1;
@@ -269,7 +268,6 @@ angular.module( 'voetr.member', [
     });
 
     $sailsSocket.subscribe('votevote', function (envelope) {
-        console.log(envelope)
         switch(envelope.verb) {
             case 'created':
                 $scope.votes.unshift(envelope.data);

@@ -51,7 +51,7 @@ module.exports = {
     afterCreate: function(model, next){
         VoteVote.count()
         .where({user: model.user, bill:model.bill, vote:model.vote})
-        .then(function(voteCount){
+        .then(function(voteVoteCount){
             Vote.find({id: model.vote}).then(function(voteModel){
                 if (req.param('voteInteger') == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
                 if (req.param('voteInteger') == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
@@ -60,7 +60,7 @@ module.exports = {
                     Vote.publishUpdate(model.vote, updated);
                 });
             });
-            Bill.update({id:model.bill, voteCount: voteCount}).exec(function afterwards(err, updated){
+            Bill.update({id:model.bill, voteCount: voteVoteCount}).exec(function afterwards(err, updated){
                 Bill.publishUpdate(model.bill, updated[0]);
             });
             User.update({id: model.user}, {voteCount:voteVoteCount}).exec(function afterwards(err, updated){

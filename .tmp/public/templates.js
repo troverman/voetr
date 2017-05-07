@@ -681,10 +681,10 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                <div class=\"info\" style=\"height:200px\">\n" +
     "                    <h4 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
     "                    <div class=\"spacing-10\"></div>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/committees\">Committees - 0</a></h5>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/constituents\">Constituents - 0</a></h5>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/representatives\">Representatives - 0</a></h5>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/votes\">Votes - 0</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/committees\">Committees - {{user.committeeCount}}</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/constituents\">Constituents - {{user.constituentCount}}</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/representatives\">Representatives - {{user.representativeCount}}</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/votes\">Votes - {{user.voteCount}}</a></h5>\n" +
     "                    <div class=\"spacing-25\"></div>\n" +
     "                </div>\n" +
     "                <div class=\"social\">\n" +
