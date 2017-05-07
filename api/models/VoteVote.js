@@ -64,7 +64,7 @@ module.exports = {
                 Bill.publishUpdate(model.bill, updated[0]);
             });
             User.update({id: model.user}, {voteCount:voteVoteCount}).exec(function afterwards(err, updated){
-                User.publishUpdate(req.param('user'), updated);
+                User.publishUpdate(model.user, updated);
             });
             return next(null, model);
         });
