@@ -17,31 +17,19 @@
  			<uib-tabset active="1">
  			    <uib-tab index="1" heading="Trending">
 					<md-card ng-repeat="vote in votes">
-						<md-card-title>
-							<md-card-title-text>
-								<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
-								<div class="margin-5"></div>
-								<h4>
-									<b>+ {{vote.plusCount-vote.minusCount}}</b>
-									<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
-										<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
-									</button>
-									<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
-										<i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
-									</button>
-									<br><br>
-									<span class="subtitle">({{vote.voteCount}} total votes)</span>
-								</h4>
-								<div class="margin-10"></div>
-								<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
-								<br><br>
-							</md-card-title-text>
-						</md-card-title>
+				        <div style="padding:16px 16px 16px">
+							<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
+							<div class="spacing-10"></div>
+							<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+							<div class="spacing-10"></div>
+							<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)">
+								<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
+							</button>
+							<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)">
+								<i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
+							</button>
+						</div>
 					</md-card>
-			        <br><br>
-			        <div ng-click="loadMoreVotes()" style="text-align:center">
-			        	<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
-			        </div>
     			</uib-tab>
 				<uib-tab heading="Results" ng-show="searchResults">
 					<div class='md-padding'>
@@ -56,31 +44,21 @@
     			</uib-tab>
 				<uib-tab heading="Bills">
 			    	<md-card ng-repeat="bill in bills">
-			        	<md-card-title>
-			            	<md-card-title-text>
-				            	<h4>
-					                <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
-					                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
-					                <a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
-				            	</h4>
-			            	</md-card-title-text>
-			            </md-card-title>
+						<div class="card-container">
+			            	<h4><a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
+							<div class="spacing-10"></div>
+			            	<button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
+				            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
+				        </div>
 			        </md-card>
-			        <div ng-click="loadMoreBills()" style="text-align:center">
-			        	<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
-			        </div>
     			</uib-tab>
 				<uib-tab heading="Committees">
-					<md-card ng-repeat="committee in committees" class="col-sm-12">
-						<md-card-title>
-							<md-card-title-text>
-								<h4><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h4>
-							</md-card-title-text>
-						</md-card-title>
-					</md-card>
-					<div ng-click="loadMoreCommittees()" style="text-align:center">
-						<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
-					</div>
+					<md-card ng-repeat="committee in committees">
+				        <div class="card-container">
+				            <h3><a href="/committee/{{committee.urlTitle}}">{{committee.title}}</a></h3>
+				            <p><span style="color:grey">{{committee.memberCount}} members</span></p>
+				        </div>
+				    </md-card>
     			</uib-tab>
 				<uib-tab heading="{{userCount}} Members">
 					<button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br><br>
@@ -122,34 +100,21 @@
     			</uib-tab>
     			<uib-tab heading="Votes">
 					<md-card ng-repeat="vote in votes">
-						<md-card-title>
-							<md-card-title-text>
-								<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
-								<div class="margin-5"></div>
-								<h4>
-									<b>+ {{vote.plusCount-vote.minusCount}}</b>
-									<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)">
-										<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
-									</button>
-									<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)">
-										<i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
-									</button>
-									<br><br>
-									<span class="subtitle">({{vote.voteCount}} total votes)</span>
-								</h4>
-								<div class="margin-10"></div>
-								<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
-								<br><br>
-							</md-card-title-text>
-						</md-card-title>
+				        <div style="padding:16px 16px 16px">
+							<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
+							<div class="spacing-10"></div>
+							<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+							<div class="spacing-10"></div>
+							<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)">
+								<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
+							</button>
+							<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)">
+								<i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
+							</button>
+						</div>
 					</md-card>
-			        <br><br>
-			        <div ng-click="loadMoreVotes()" style="text-align:center">
-			        	<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
-			        </div>
     			</uib-tab>
 			</uib-tabset>
-			<div class="spacing-50"></div>
 	    </div>
 	</div>
 	<div ng-show="searchQuery">
@@ -209,7 +174,13 @@
 				</md-card>
 			</div>
 		</div>
-		<div class="spacing-15"></div>
 	</div>
+	<div class="spacing-15"></div>
+	<md-divider></md-divider>
+	<div class="spacing-25"></div>
+	<div ng-click="loadMore()" class="container" style="text-align:center">
+	    <button style="width:100%" class="btn btn-default">MORE <i class="fa fa-angle-down"></i></button>
+	</div>
+	<div class="spacing-25"></div>
+	<div ng-include="'footer/index.tpl.html'"></div>
 </div>
-<div ng-include="'footer/index.tpl.html'"></div>

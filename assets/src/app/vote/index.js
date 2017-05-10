@@ -78,16 +78,16 @@ angular.module( 'voetr.vote', [
         else{$location.path('/login')}
     };
 
-    /*$sailsSocket.subscribe('post', function (envelope) {
+    $sailsSocket.subscribe('post', function (envelope) {
         switch(envelope.verb) {
             case 'created':
-                $scope.votes.unshift(envelope.data);
+                $scope.posts.unshift(envelope.data);
                 break;
             case 'destroyed':
-                lodash.remove($scope.votes, {id: envelope.id});
+                lodash.remove($scope.posts, {id: envelope.id});
                 break;
         }
-    });*/
+    });
 
     $sailsSocket.subscribe('votevote', function (envelope) {
         switch(envelope.verb) {

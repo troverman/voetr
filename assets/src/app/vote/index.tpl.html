@@ -1,25 +1,21 @@
 <div ui-view="vote">
 	<div class="voteContainer container">
-		<h3>
-			{{vote.voteCount}} ({{vote.plusCount-vote.minusCount}}) - 
-			<!--<button class="btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
-        	<button class="btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>-->
-			{{vote.title}}
-		</h3>
-		<h4><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h4>
-		<md-divider></md-divider>
+		<h3>{{vote.title}}</h3>
+		<div class="spacing-10"></div>
+		<h5><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h5>
+		<div class="spacing-10"></div>
 		<div class="row">
-			<button class="col-xs-6 btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
-        	<button class="col-xs-6 btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
+			<button class="col-xs-6 btn btn-default upVote" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
+        	<button class="col-xs-6 btn btn-default downVote" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
     	</div>
     	<br>
 		<uib-tabset>
 			<uib-tab heading="Activity" active="active">
-
+				<div class="spacing-10"></div>
 				<div class="profilePost">
 					<form role="form">
 						<md-input-container class="md-block">
-							<textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+							<textarea placeholder="What's up?" ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post"></textarea>
 						</md-input-container>
 						<button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
 					</form>
@@ -38,10 +34,11 @@
 
 		    </uib-tab>
 			<uib-tab heading="Discussion">
+				<div class="spacing-10"></div>
 				<div class="profilePost">
 					<form role="form">
 						<md-input-container class="md-block">
-							<textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
+							<textarea placeholder="What's up?" ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post"></textarea>
 						</md-input-container>
 						<button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
 					</form>
@@ -59,6 +56,7 @@
 		        </md-card>
 		    </uib-tab>
 			<uib-tab heading="{{vote.plusCount}}  Yes" active="active">
+				<div class="spacing-10"></div>
 				<div class="col-lg-4 col-sm-6" ng-repeat="vote in yesVotes">
 	                <div class="member-card">
 	                    <div class="image" style="background-image: url('{{vote.user.coverUrl}}')">
@@ -78,6 +76,7 @@
 	            </div>
 		    </uib-tab>
 		    <uib-tab heading="{{vote.minusCount}}  No">
+		    	<div class="spacing-10"></div>
 				<div class="col-lg-4 col-sm-6" ng-repeat="vote in noVotes">
 	                <div class="member-card">
 	                    <div class="image" style="background-image: url('{{vote.user.coverUrl}}')">

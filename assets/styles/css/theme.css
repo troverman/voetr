@@ -186,9 +186,13 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 }
 
 .member-card{
-  margin:10px;
+  margin-bottom:30px;
   box-shadow: 2px 2px 10px #999;
   overflow:hidden
+}
+
+.card-container{
+  padding:16px 16px 16px
 }
 
 .image {
@@ -200,7 +204,7 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 
 .image img{
   position:absolute;
-  left: 12%;
+  left: 10%;
   top:14%;
   margin: 0 auto;
   background: #fff;

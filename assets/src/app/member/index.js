@@ -227,13 +227,15 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberActivityCtrl', ['$location','$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'titleService', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, titleService, userPosts, votes, VoteVoteModel) {
+.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'titleService', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, titleService, userPosts, votes, VoteVoteModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
 	$scope.votes = votes;
+
     //sloppy
     $scope.posts = profilePosts.concat(userPosts);
+
     $scope.skip = 0;
     $scope.newPost = {};
     $scope.createPost = function(){
@@ -248,9 +250,11 @@ angular.module( 'voetr.member', [
     };
 
     $scope.loadMore = function() {
+        $rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
         //Activity Model -- SearchModel? etc... --> prolly SearchByMember(member.id)
         VoteVoteModel.getByUser($scope.member.id, 25, $scope.skip).then(function(committees) {
+            $rootScope.stateIsLoading = false;
             Array.prototype.push.apply($scope.committees, committees);
             console.log($scope.committees);
         });
@@ -280,7 +284,7 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberBillsCtrl', ['$sailsSocket', '$scope', 'BillModel', 'bills', 'CommitteeMemberModel', 'config', 'member', 'titleService', function MemberController( $sailsSocket, $scope, CommitteeMemberModel, bills, CommitteeMemberModel, config, member, titleService ) {
+.controller( 'MemberBillsCtrl', ['$rootScope', '$sailsSocket', '$scope', 'BillModel', 'bills', 'CommitteeMemberModel', 'config', 'member', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, CommitteeMemberModel, bills, CommitteeMemberModel, config, member, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
@@ -288,6 +292,7 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
 
     $scope.loadMore = function() {
+        //$rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
         //CommitteeMemberModel.getConstituents($scope.member.id, 25, $scope.skip).then(function(committees) {
         //    Array.prototype.push.apply($scope.committees, committees);
@@ -307,7 +312,7 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberCommitteesCtrl', ['$sailsSocket', '$scope', 'committeeCount', 'CommitteeMemberModel', 'committees', 'config', 'member', 'titleService', function MemberController( $sailsSocket, $scope, committeeCount, CommitteeMemberModel, committees, config, member, titleService ) {
+.controller( 'MemberCommitteesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'committeeCount', 'CommitteeMemberModel', 'committees', 'config', 'member', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, committeeCount, CommitteeMemberModel, committees, config, member, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
@@ -316,8 +321,10 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
 
     $scope.loadMore = function() {
+        $rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
         CommitteeMemberModel.getSome('user', $scope.member.id, 25, $scope.skip).then(function(committees) {
+            $rootScope.stateIsLoading = false;
             Array.prototype.push.apply($scope.committees, committees);
         });
     };
@@ -335,7 +342,7 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberConstituentsCtrl', ['$sailsSocket', '$scope', 'config', 'constituentCount', 'constituents', 'member', 'RepresentativeModel', 'titleService', function MemberController( $sailsSocket, $scope, config, constituentCount, constituents, member, RepresentativeModel, titleService ) {
+.controller( 'MemberConstituentsCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'constituentCount', 'constituents', 'member', 'RepresentativeModel', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, config, constituentCount, constituents, member, RepresentativeModel, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
@@ -344,8 +351,10 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
 
     $scope.loadMore = function() {
+        $rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
         RepresentativeModel.getConstituents($scope.member.id, 25, $scope.skip).then(function(constituents) {
+            $rootScope.stateIsLoading = false;
             Array.prototype.push.apply($scope.constituents, constituents);
         });
     };
@@ -368,7 +377,7 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberRepresentativesCtrl', ['$sailsSocket', '$scope', 'config', 'member', 'representativeCount', 'RepresentativeModel', 'representatives', 'titleService', function MemberController( $sailsSocket, $scope, config, member, representativeCount, RepresentativeModel, representatives, titleService ) {
+.controller( 'MemberRepresentativesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'representativeCount', 'RepresentativeModel', 'representatives', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, config, member, representativeCount, RepresentativeModel, representatives, titleService ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
@@ -377,8 +386,10 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
 
     $scope.loadMore = function() {
+        $rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
         RepresentativeModel.getRepresentatives($scope.member.id, 25, $scope.skip).then(function(representatives) {
+            $rootScope.stateIsLoading = false;
             Array.prototype.push.apply($scope.representatives, representatives);
         });
     };
@@ -400,7 +411,7 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberVotesCtrl', ['$sailsSocket', '$scope', 'config', 'member', 'titleService', 'voteCount', 'votes', 'VoteVoteModel', function MemberController( $sailsSocket, $scope, config, member, titleService, voteCount, votes, VoteVoteModel ) {
+.controller( 'MemberVotesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'titleService', 'voteCount', 'votes', 'VoteVoteModel', function MemberController( $rootScope, $sailsSocket, $scope, config, member, titleService, voteCount, votes, VoteVoteModel ) {
     titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
@@ -409,8 +420,10 @@ angular.module( 'voetr.member', [
     $scope.skip = 0;
 
     $scope.loadMore = function() {
+        $rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
         VoteVoteModel.getByUser($scope.member.id, 25, $scope.skip).then(function(votes) {
+            $rootScope.stateIsLoading = false;
             Array.prototype.push.apply($scope.votes, votes);
         });
     };

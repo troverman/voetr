@@ -114,25 +114,6 @@ module.exports = {
 			if (err) {return console.log(err);}
 			else {
 
-				/*
-				VoteVote.count()
-				.where({vote: req.param('vote')})
-				.exec(function(err, voteVoteCount) {
-					console.log(voteVoteCount);
-					Vote.find({id: req.param('vote')}).then(function(voteModel){
-						if (req.param('voteInteger') == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}
-						if (req.param('voteInteger') == -1){voteModel[0].minusCount = voteModel[0].minusCount + 1;}
-						voteModel[0].voteCount = voteVoteCount;
-						Vote.update({id: req.param('vote')}, voteModel[0]).exec(function afterwards(err, updated){
-							Vote.publishUpdate(req.param('vote'), updated);
-						});
-					});
-					User.update({id: req.param('user')}, {voteCount:voteVoteCount}).exec(function afterwards(err, updated){
-						User.publishUpdate(req.param('user'), updated);
-					});
-				});
-				*/
-
 				VoteVote.getOne(model.id).then(function(votevote){
 					VoteVote.publishCreate(votevote[0]);
 					contactService.sendEmail(votevote[0]);

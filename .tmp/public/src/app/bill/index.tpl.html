@@ -1,37 +1,38 @@
 <div ui-view="bill">
-	<div class="billContainer container" style="min-height:100vh">
-		<h3>0 - {{bill.title}}</h3>
+	<div class="container">
+		<div class="spacing-10"></div>
+		<h4>{{bill.title}}</h4>
 		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
 		<div ng-repeat="committee in bill.committees">
 			<p><a href="committee/{{committee.urlTitle}}">{{committee.title}}</a></p>
 		</div>
 		<div class="spacing-10"></div>
 		<div class="row">
-			<button class="col-xs-6 btn btn-default" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
-        	<button class="col-xs-6 btn btn-default" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
+			<button class="col-xs-6 btn btn-default upVote" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
+        	<button class="col-xs-6 btn btn-default downVote" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
     	</div>
     	<div class="spacing-10"></div>
 		<uib-tabset>
 			<uib-tab heading="Info" active="active">
+			    <div class="spacing-10"></div>
 				<div class="col-lg-4 col-sm-6">
 					<div class="member-card">
 						<div class="image" style="background-image: url('{{bill.user.coverUrl}}')">
-							<img ng-src="{{bill.user.avatarUrl}}" err-src="/images/avatar.png">
+							<a href="member/{{bill.user.username}}"><img ng-src="{{bill.user.avatarUrl}}" err-src="/images/avatar.png"></a>
 						</div>
 						<div class="info">
                         	<h4 class="name"><a href="member/{{bill.user.username}}">{{bill.user.username}}</a></h4>
-						    <h5>{{bill.user.title}}</h5>
-							<h5>{{bill.user.state}}</h5>
+                			<h5 class="position">{{bill.user.title || 'voetr member'}}</h5>
+							<p>{{bill.user.state}}</p>
 						</div>
 						<div class="social">
-							<a ng-show="bill.user.socialAccounts.facebook.profileUrl" href="{{bill.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook"></i></a>
-							<a ng-show="bill.user.socialAccounts.twitter.profileUrl" href="{{bill.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter"></i></a>
-							<a ng-show="bill.user.socialAccounts.google.profileUrl" href="{{bill.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google"></i></a>
+							<a ng-show="bill.user.socialAccounts.facebook.profileUrl" href="{{bill.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+							<a ng-show="bill.user.socialAccounts.twitter.profileUrl" href="{{bill.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+							<a ng-show="bill.user.socialAccounts.google.profileUrl" href="{{bill.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-8">
-					<br>
 					<p>{{bill.billContent.current_status_description}}</p>
 					<p>{{bill.billContent.current_status_label}}</p>
 					<div ng-show="bill.summary">
@@ -43,7 +44,6 @@
 		    </uib-tab>
 		    <uib-tab heading="Activity">
 		    	{{actions}}
-
 		    	<div class="profilePost">
 					<form role="form">
 						<md-input-container class="md-block">
@@ -63,8 +63,6 @@
 					</md-card-title-text>
 					</md-card-title>
 		        </md-card>
-
-
 		    </uib-tab>
 			<uib-tab heading="Discussion">
 				<div class="profilePost">
@@ -98,15 +96,16 @@
 				</div>
 			    <div class="voteContainer" ng-show="votes.length!=0">
 					<md-card ng-repeat="vote in bill.votes">
-						<md-card-title>
-							<h4>
-				      			<button class="btn btn-default" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
-				      			<button class="btn btn-default" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
-								<button class="btn btn-default" ng-click="createVote(0, vote)"><i class="fa fa-question"></i> {{vote.otherCount}}</button>
-				      			({{vote.voteCount}})
-								<a href="/vote/{{vote.id}}">{{vote.result}}: {{vote.title}}</a>
-							</h4>
-						</md-card-title>
+				        <div style="padding:16px 16px 16px">
+							<h4><a href="/vote/{{vote.id}}">{{vote.result}}: {{vote.title}}</a></h4>
+							<div class="spacing-10"></div>
+							<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)">
+								<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
+							</button>
+							<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)">
+								<i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
+							</button>
+						</div>
 					</md-card>
 				</div>
 		    </uib-tab>
@@ -116,7 +115,7 @@
 				</div>
 		    </uib-tab>
 		</uib-tabset>
-		<div class="spacing-100"></div>
 	</div>
+	<div class="spacing-15"></div>
 </div>
 <div ng-include="'footer/index.tpl.html'"></div>

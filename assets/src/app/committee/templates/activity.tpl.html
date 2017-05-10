@@ -57,6 +57,18 @@
                     <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>-->
                     <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.title}}</a>
                 </h4>
+
+                <div>
+                    <div class="pull-left">
+                        <a href="#" ng-click=""><i class="fa fa-angle-up grey"></i></a> 
+                        <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+                        <a href="#">reply</a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
+                    </div>
+                </div>
+
             </div>
             <!--<div>
                 <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.posts.length}} posts, {{bill.votes.length}} votes</a>

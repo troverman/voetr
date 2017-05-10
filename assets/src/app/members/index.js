@@ -6,45 +6,61 @@ angular.module( 'voetr.members', [
 		url: '/members',
 		views: {
 			"main": {
-				controller: 'VotesCtrl',
+				controller: 'MembersCtrl',
 				templateUrl: 'members/index.tpl.html'
 			}
 		},
 		resolve: {
-            members: ['VoteModel', function(VoteModel) {
-				return VoteModel.getSome(20, 0, 'createdAt DESC');
-				////BillVote
-            }]
+			userCount: ['UserModel', function(UserModel){
+				return UserModel.getCount();
+            }],
+            users: ['userCount', 'UserModel', function(userCount, UserModel){
+            	var rand = Math.floor(Math.random() * (userCount.userCount + 1));
+				return UserModel.getSome(33, rand);
+            }],
         }
 	});
 }])
 
-.controller( 'VotesCtrl', ['$location', '$rootScope', '$scope', '$sailsSocket', 'config', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function VotesCtrl( $location, $rootScope, $scope, $sailsSocket, config, titleService, VoteModel, votes, VoteVoteModel) {
+.controller( 'MembersCtrl', ['$location', '$rootScope', '$scope', '$sailsSocket', 'config', 'RepresentativeModel', 'titleService', 'UserModel', 'users', function MembersCtrl( $location, $rootScope, $scope, $sailsSocket, config, RepresentativeModel, titleService, UserModel, users) {
 	titleService.setTitle('members - voetr');
 	$scope.currentUser = config.currentUser;
-	$scope.newVote = {};
 	$scope.skip = 0;
-    $scope.members = members;
-    $scope.sort = 'voteCount DESC';
-	$scope.sortText = {'trendingScore DESC':'Trending','createdAt DESC':'Most Recent', 'voteCount DESC': 'Most Votes'}
+    $scope.users = users;
+    $scope.sort = 'createdAt DESC';
+	$scope.sortText = {'trendingScore DESC':'Trending','createdAt DESC':'Most Recent', 'voteCount DESC': 'Most Votes'};
+
+	$scope.getLatLng = function() {
+	    if (navigator.geolocation) {
+	    	$scope.gettingRepresentatives = true;
+	    	$rootScope.stateIsLoading = true;
+	        navigator.geolocation.getCurrentPosition(function (position) {
+                lat = position.coords.latitude; 
+                lng = position.coords.longitude;
+	        	RepresentativeModel.getByLocation(lat, lng).then(function(representatives){
+	        		$scope.officialRepresentatives = representatives;
+	        		$rootScope.stateIsLoading = false;
+					$scope.gettingRepresentatives = false;
+	        	});
+	        });
+	    }
+	};
 
     $scope.selectSort = function(sort){
 		$scope.sort = sort;
 		$rootScope.stateIsLoading = true;
-		//BillVote
-		VoteModel.getSome(50, $scope.skip, $scope.sort).then(function(votes) {
+		UserModel.getSome(50, $scope.skip, $scope.sort).then(function(votes) {
 			$rootScope.stateIsLoading = false;
 			$scope.votes = votes;
 		});
 	};
 
     $scope.loadMore = function() {
-		$scope.skip = $scope.skip + 50;
 		$rootScope.stateIsLoading = true;
-		//BillVote
-		VoteModel.getSome(50,$scope.skip, $scope.sort).then(function(votes) {
+		$scope.skip = $scope.skip + 21;
+		UserModel.getSome(33, $scope.skip).then(function(users) {
 			$rootScope.stateIsLoading = false;
-			Array.prototype.push.apply($scope.votes, votes);
+			Array.prototype.push.apply($scope.users, users);
 		});
 	};
 
