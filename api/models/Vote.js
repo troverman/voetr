@@ -64,8 +64,9 @@ module.exports = {
         });
     },
 
-    getSome: function(limiting, skipping, sort) {
+    getSome: function(limiting, skipping, sort, startDate, endDate, filter) {
         return Vote.find()
+        .where(filter)
         .sort(sort)
         .limit(limiting)
         .skip(skipping)
@@ -79,7 +80,8 @@ module.exports = {
                 //    console.log(model)
                 //});
             //});
-
+        
+            console.log(models)
             return models;
         });
     },

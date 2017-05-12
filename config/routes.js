@@ -132,6 +132,8 @@ module.exports.routes = {
    * Search routes
    */
   'get /api/search/:searchQuery': 'SearchController.search',
+  'get /api/trending': 'SearchController.getTrending',
+
 
   /**
    * User routes
@@ -149,6 +151,7 @@ module.exports.routes = {
    * Vote routes
    */
   'get /api/vote': 'VoteController.getSome',
+  'get /api/vote/activity': 'VoteController.getActivity',
   'get /api/vote/:id': 'VoteController.getOne',
   'get /api/vote/bill/:id': 'VoteController.getByBill',
   'post /api/vote': 'VoteController.create',

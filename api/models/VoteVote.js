@@ -104,6 +104,21 @@ module.exports = {
         });
     },
 
+    getSome: function(limiting, skipping, sort, filter) {
+        return VoteVote.find()
+        .where(JSON.parse(filter))
+        .sort(sort)
+        .limit(limiting)
+        .skip(skipping)
+        .populate('bill')
+        .populate('user')
+        .populate('vote')
+        .then(function (models) {
+            console.log(models)
+            return models;
+        });
+    },
+
     getByBill: function(bill) {
         console.log(bill)
         return VoteVote.find()

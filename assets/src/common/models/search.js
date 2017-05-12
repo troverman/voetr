@@ -7,6 +7,11 @@ angular.module('models.search', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url).then(success, error);
     };
 
+    this.getTrending = function() {
+        var url = utils.prepareUrl('trending');
+        return $sailsSocket.get(url).then(success, error);
+    };
+
     var success = function(response) {
         return response.data;
     };

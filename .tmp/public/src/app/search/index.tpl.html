@@ -16,8 +16,78 @@
           	<div class="spacing-25"></div>
  			<uib-tabset active="1">
  			    <uib-tab index="1" heading="Trending">
+
+					<md-card ng-repeat="result in searchResults">
+
+						<div ng-show="result.model=='vote'" class="card-container">
+							<a href="/vote/{{result.id}}"><h4 style="display: inline-block;position: relative">{{result.title}}</h4></a>
+							<div class="pull-right">
+								<span style="color:grey" am-time-ago="result.updatedAt"></span>
+							</div>
+
+							<div class="spacing-10"></div>
+							<a href="/bill/{{result.bill.id}}/{{result.bill.title}}">{{result.bill.title}}</a>
+							<div class="spacing-10"></div>
+							<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, result)">
+								<i class="fa fa-caret-up vBlue"></i> <b>{{result.plusCount}}</b>
+							</button>
+							<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, result)">
+								<i class="fa fa-caret-down red-color"></i>  <b>{{result.minusCount}}</b>
+							</button>
+						</div>
+
+				        <div ng-show="result.model=='post'" class="card-container">
+							<div class="post-controller-container">
+		                        <a href="/member/{{result.user.username}}">
+		                            <img class="post-img" ng-src="{{result.user.avatarUrl}}" class="md-card-image" alt="{{result.user.username}}">
+		                            <h4 class="post-name">{{result.user.username}}</h4>
+		                        </a>
+		                        <div class="pull-right">
+		                            <span style="color:grey" am-time-ago="result.updatedAt"></span>
+		                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a>
+		                            <!--
+		                            <div class="btn-group" uib-dropdown is-open="status.isopen">
+		                              <button uib-dropdown-toggle ng-disabled="disabled">
+		                                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+		                              </button>
+		                              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+		                                <li role="menuitem"><a href="#">Share</a></li>
+		                                <li role="menuitem"><a href="#">Delete</a></li>
+		                              </ul>
+		                            </div>
+		                            -->
+		                        </div>
+		                    </div>
+
+		                    <div class="post-container">
+		                        <div ng-show="result.profile.id != result.user.id">
+		                            <div class="spacing-5"></div>
+		                            <a ng-show="result.bill" href="bill/{{result.bill.id}}/1"><h4>{{result.bill.title}}</h4></a>
+		                            <a ng-show="result.committee" href="committee/{{result.committee.urlTitle}}"><h4>{{result.committee.title}}</h4></a>
+		                            <a ng-show="result.profile" href="member/{{result.profile.username}}"><h4>{{result.profile.username}}</h4></a>
+		                            <a ng-show="result.vote" href="vote/{{result.vote.id}}"><h4>{{result.vote.title}}</h4></a>
+		                            <div class="spacing-5"></div>
+		                        </div>
+		                        <p>{{post.post}}</p>
+		                    </div>
+
+		                    <div class="post-action-container">
+		                        <div class="pull-left">
+		                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+		                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+		                            <a href="#" class="grey" ng-click="reply(result)"><i class="fa fa-reply"></i> reply </a>
+		                        </div>
+		                        <div class="pull-right">
+		                            <a href="post/{{result.id}}"><i class="fa fa-link grey"></i></a>
+		                        </div>
+		                    </div>
+
+						</div>
+					</md-card>
+
+
 					<md-card ng-repeat="vote in votes">
-				        <div style="padding:16px 16px 16px">
+				        <div class="card-container">
 							<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
 							<div class="spacing-10"></div>
 							<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
@@ -32,20 +102,120 @@
 					</md-card>
     			</uib-tab>
 				<uib-tab heading="Results" ng-show="searchResults">
-					<div class='md-padding'>
-			            <md-card ng-repeat="searchResult in searchResults">
-			              <md-card-title>
-			                <md-card-title-text>
-								<a href="{{searchResult.urlTitle}}">{{searchResult}}</a>
-							</md-card-title-text>
-			              </md-card-title>
-			            </md-card>
-			        </div>
+
+
+					<div ng-repeat="result in searchResults">
+						<md-card ng-show="result.model=='vote'">
+							<div class="card-container">
+								<a href="/vote/{{result.id}}"><h4 style="display: inline-block;position: relative">{{result.title}}</h4></a>
+								<div class="pull-right">
+									<span style="color:grey" am-time-ago="result.updatedAt"></span>
+								</div>
+
+								<div class="spacing-10"></div>
+								<a href="/bill/{{result.bill.id}}/{{result.bill.title}}">{{result.bill.title}}</a>
+								<div class="spacing-10"></div>
+								<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, result)">
+									<i class="fa fa-caret-up vBlue"></i> <b>{{result.plusCount}}</b>
+								</button>
+								<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, result)">
+									<i class="fa fa-caret-down red-color"></i>  <b>{{result.minusCount}}</b>
+								</button>
+							</div>
+						</md-card>
+
+						<md-card ng-show="result.model=='post'">
+					        <div class="card-container">
+								<div class="post-controller-container">
+			                        <a href="/member/{{result.user.username}}">
+			                            <img class="post-img" ng-src="{{result.user.avatarUrl}}" class="md-card-image" alt="{{result.user.username}}">
+			                            <h4 class="post-name">{{result.user.username}}</h4>
+			                        </a>
+			                        <div class="pull-right">
+			                            <span style="color:grey" am-time-ago="result.updatedAt"></span>
+			                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a>
+			                            <!--
+			                            <div class="btn-group" uib-dropdown is-open="status.isopen">
+			                              <button uib-dropdown-toggle ng-disabled="disabled">
+			                                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+			                              </button>
+			                              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+			                                <li role="menuitem"><a href="#">Share</a></li>
+			                                <li role="menuitem"><a href="#">Delete</a></li>
+			                              </ul>
+			                            </div>
+			                            -->
+			                        </div>
+			                    </div>
+
+			                    <div class="post-container">
+			                        <div ng-show="result.profile.id != result.user.id">
+			                            <div class="spacing-5"></div>
+			                            <a ng-show="result.bill" href="bill/{{result.bill.id}}/1"><h4>{{result.bill.title}}</h4></a>
+			                            <a ng-show="result.committee" href="committee/{{result.committee.urlTitle}}"><h4>{{result.committee.title}}</h4></a>
+			                            <a ng-show="result.profile" href="member/{{result.profile.username}}"><h4>{{result.profile.username}}</h4></a>
+			                            <a ng-show="result.vote" href="vote/{{result.vote.id}}"><h4>{{result.vote.title}}</h4></a>
+			                            <div class="spacing-5"></div>
+			                        </div>
+			                        <p>{{post.post}}</p>
+			                    </div>
+
+			                    <div class="post-action-container">
+			                        <div class="pull-left">
+			                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+			                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+			                            <a href="#" class="grey" ng-click="reply(result)"><i class="fa fa-reply"></i> reply </a>
+			                        </div>
+			                        <div class="pull-right">
+			                            <a href="post/{{result.id}}"><i class="fa fa-link grey"></i></a>
+			                        </div>
+			                    </div>
+							</div>
+						</md-card>
+
+						<md-card ng-show="result.model=='bill'">
+							<div class="card-container">
+				            	<h4><a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{result.title}}</a></h4>
+								<div class="spacing-10"></div>
+				            	<button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{result.plusCount}}</button>
+					            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{result.minusCount}}</button>
+					        </div>
+						</md-card>
+
+						<md-card ng-show="result.model=='committee'">
+							<div class="card-container">
+								<div class="card-container">
+					            	<h3><a href="/committee/{{result.urlTitle}}">{{result.title}}</a></h3>
+            						<p><span style="color:grey">{{result.memberCount}} members</span></p>
+						        </div>
+					        </div>
+						</md-card>
+
+					    <div ng-show="result.model=='user'" class="col-lg-4 col-sm-6">
+							<div class="member-card">
+								<div class="image" style="background-image: url('{{result.coverUrl}}')">
+									<img ng-src="{{result.avatarUrl}}" err-src="/images/avatar.png">
+								</div>
+								<div class="info">
+									<h4 class="name"><a href="member/{{result.username}}">{{result.username}}</a></h4>
+									<h5 class="position"><a href="memberresultuser.username}}">{{result.title}}</a></h5>
+									<p>{{result.state}}</p>
+								</div>
+								<div class="social">
+									<a ng-show="result.socialAccounts.facebook.profileUrl" href="{{result.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+									<a ng-show="result.socialAccounts.twitter.profileUrl" href="{{result.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+									<a ng-show="result.socialAccounts.google.profileUrl" href="{{result.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					
     			</uib-tab>
 				<uib-tab heading="Bills">
 			    	<md-card ng-repeat="bill in bills">
 						<div class="card-container">
-			            	<h4><a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
+			            	<h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
 							<div class="spacing-10"></div>
 			            	<button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
 				            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
@@ -125,6 +295,9 @@
 			</div>
 		</div>
 		<div class="container">
+
+
+			<!--
 			<uib-tabset>
 				<uib-tab heading="Top">
     			</uib-tab>
@@ -139,40 +312,117 @@
     			<uib-tab heading="Votes">
     			</uib-tab>
 			</uib-tabset>
+			-->
+
+
 			<div class="spacing-15"></div>
-			<div ng-repeat="searchResult in searchResults">
-				<div class="col-lg-4 col-sm-6" ng-show="searchResult.username">
+
+			<div ng-repeat="result in searchResults">
+				<md-card ng-show="result.model=='vote'">
+					<div class="card-container">
+						<a href="/vote/{{result.id}}"><h4 style="display: inline-block;position: relative">{{result.title}}</h4></a>
+						<div class="pull-right">
+							<span style="color:grey" am-time-ago="result.updatedAt"></span>
+						</div>
+
+						<div class="spacing-10"></div>
+						<a href="/bill/{{result.bill.id}}/{{result.bill.title}}">{{result.bill.title}}</a>
+						<div class="spacing-10"></div>
+						<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, result)">
+							<i class="fa fa-caret-up vBlue"></i> <b>{{result.plusCount}}</b>
+						</button>
+						<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, result)">
+							<i class="fa fa-caret-down red-color"></i>  <b>{{result.minusCount}}</b>
+						</button>
+					</div>
+				</md-card>
+
+				<md-card ng-show="result.model=='post'">
+			        <div class="card-container">
+						<div class="post-controller-container">
+	                        <a href="/member/{{result.user.username}}">
+	                            <img class="post-img" ng-src="{{result.user.avatarUrl}}" class="md-card-image" alt="{{result.user.username}}">
+	                            <h4 class="post-name">{{result.user.username}}</h4>
+	                        </a>
+	                        <div class="pull-right">
+	                            <span style="color:grey" am-time-ago="result.updatedAt"></span>
+	                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a>
+	                            <!--
+	                            <div class="btn-group" uib-dropdown is-open="status.isopen">
+	                              <button uib-dropdown-toggle ng-disabled="disabled">
+	                                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+	                              </button>
+	                              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+	                                <li role="menuitem"><a href="#">Share</a></li>
+	                                <li role="menuitem"><a href="#">Delete</a></li>
+	                              </ul>
+	                            </div>
+	                            -->
+	                        </div>
+	                    </div>
+
+	                    <div class="post-container">
+	                        <div ng-show="result.profile.id != result.user.id">
+	                            <div class="spacing-5"></div>
+	                            <a ng-show="result.bill" href="bill/{{result.bill.id}}/1"><h4>{{result.bill.title}}</h4></a>
+	                            <a ng-show="result.committee" href="committee/{{result.committee.urlTitle}}"><h4>{{result.committee.title}}</h4></a>
+	                            <a ng-show="result.profile" href="member/{{result.profile.username}}"><h4>{{result.profile.username}}</h4></a>
+	                            <a ng-show="result.vote" href="vote/{{result.vote.id}}"><h4>{{result.vote.title}}</h4></a>
+	                            <div class="spacing-5"></div>
+	                        </div>
+	                        <p>{{post.post}}</p>
+	                    </div>
+
+	                    <div class="post-action-container">
+	                        <div class="pull-left">
+	                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+	                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+	                            <a href="#" class="grey" ng-click="reply(result)"><i class="fa fa-reply"></i> reply </a>
+	                        </div>
+	                        <div class="pull-right">
+	                            <a href="post/{{result.id}}"><i class="fa fa-link grey"></i></a>
+	                        </div>
+	                    </div>
+					</div>
+				</md-card>
+
+				<md-card ng-show="result.model=='bill'">
+					<div class="card-container">
+		            	<h4><a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{result.title}}</a></h4>
+						<div class="spacing-10"></div>
+		            	<button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{result.plusCount}}</button>
+			            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{result.minusCount}}</button>
+			        </div>
+				</md-card>
+
+				<md-card ng-show="result.model=='committee'">
+					<div class="card-container">
+						<div class="card-container">
+			            	<h3><a href="/committee/{{result.urlTitle}}">{{result.title}}</a></h3>
+    						<p><span style="color:grey">{{result.memberCount}} members</span></p>
+				        </div>
+			        </div>
+				</md-card>
+
+			    <div ng-show="result.model=='user'" class="col-lg-4 col-sm-6">
 					<div class="member-card">
-						<div class="image" style="background-image: url('{{searchResult.coverUrl}}')">
-							<img ng-src="{{searchResult.avatarUrl}}" err-src="/images/avatar.png">
+						<div class="image" style="background-image: url('{{result.coverUrl}}')">
+							<img ng-src="{{result.avatarUrl}}" err-src="/images/avatar.png">
 						</div>
 						<div class="info">
-							<h4 class="name"><a href="member/{{searchResult.username}}">{{searchResult.username}}</a></h4>
-							<h5 class="position"><a href="member/{{searchResult.username}}">{{searchResult.title}}</a></h5>
-							<p>{{searchResult.state}}</p>
+							<h4 class="name"><a href="member/{{result.username}}">{{result.username}}</a></h4>
+							<h5 class="position"><a href="memberresultuser.username}}">{{result.title}}</a></h5>
+							<p>{{result.state}}</p>
 						</div>
 						<div class="social">
-							<a ng-show="searchResult.socialAccounts.facebook.profileUrl" href="{{searchResult.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
-							<a ng-show="searchResult.socialAccounts.twitter.profileUrl" href="{{searchResult.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
-							<a ng-show="searchResult.socialAccounts.google.profileUrl" href="{{searchResult.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+							<a ng-show="result.socialAccounts.facebook.profileUrl" href="{{result.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+							<a ng-show="result.socialAccounts.twitter.profileUrl" href="{{result.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+							<a ng-show="result.socialAccounts.google.profileUrl" href="{{result.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
 						</div>
 					</div>
 				</div>
-				<md-card ng-show="searchResult.billContent">
-					<md-card-title>
-						<md-card-title-text>
-							<h4><a href="/bill/{{searchResult.id}}/{{searchResult.title}}">{{searchResult.title}}</a></h4>
-						</md-card-title-text>
-					</md-card-title>
-				</md-card>
-				<md-card ng-show="!searchResult.billContent && !searchResult.username">
-					<md-card-title>
-						<md-card-title-text>
-							<h4><a href="/committee/{{searchResult.urlTitle}}">{{searchResult.title}}</a></h4>
-						</md-card-title-text>
-					</md-card-title>
-				</md-card>
 			</div>
+
 		</div>
 	</div>
 	<div class="spacing-15"></div>

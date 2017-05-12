@@ -5,6 +5,34 @@
 
 module.exports = {
 
+	getActivity: function(req,res){
+
+		//Post//.find({createdAt: { '>': start, '<': end }})
+		//.find({vote:req.query.vote})
+		//.then(function(postModel){
+		//	VoteVote.find({vote:req.query.vote})
+				//.then(function(voteVoteModel){
+		//	});
+
+		//});
+		console.log(req.query.limit, req.query.skip, req.query.sort, req.query.filter)
+
+		Post.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter).then(function(postModel){
+
+			VoteVote.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter).then(function(voteModel){
+
+				var combinedModel = postModel.concat(voteModel);
+				combinedModel.sort(function(a,b) {return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
+
+				res.json(combinedModel);
+
+			})
+
+		})
+
+
+	},
+
 	getOne: function(req, res) {
 		Vote.getOne(req.param('id'))
 		.spread(function(model) {
@@ -17,10 +45,25 @@ module.exports = {
 	},
 
 	getSome: function(req, res) {
+		var filter = {};
+		if (req.query.filter){
+			if (req.query.filter.endDate){
+				var startDate = new Date();
+				startDate.setMonth(startDate.getDay() - req.query.filter.dayCount);
+				filter.createdAt = { '>': startDate, '<': endDate };
+			}
+			if(req.query.filter.user){
+				filter.user = req.query.filter.user;
+			}
+		}
+
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
-		Vote.getSome(limit, skip, sort)
+
+		console.log(filter)
+
+		Vote.getSome(limit, skip, sort, filter)
 		.then(function(models) {
 			Vote.watch(req);
 			Vote.subscribe(req, models);

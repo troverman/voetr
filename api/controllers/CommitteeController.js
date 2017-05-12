@@ -5,6 +5,13 @@
 
 module.exports = {
 
+	getActivity: function(req, res){
+
+		//VoteVote
+		//CommitteeMember
+		//Post
+	},
+
 	getOne: function(req, res) {
 		Committee.getOne(req.param('id'))
 		.spread(function(model) {

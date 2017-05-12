@@ -21,7 +21,7 @@ angular.module( 'voetr.search', [
         },
         resolve: {
             searchResults: ['SearchModel', function(SearchModel) {
-                return SearchModel.search('');
+                return SearchModel.getTrending();
             }],
             bills: ['BillModel', function(BillModel){
                 return BillModel.getSome(10, 0, 'createdAt DESC');

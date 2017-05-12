@@ -1,6 +1,12 @@
 angular.module('models.vote', ['lodash', 'services', 'sails.io',])
 
 .service('VoteModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
+
+    this.getActivity = function(limit, skip, sort, model) {
+        var url = utils.prepareUrl('vote/activity');
+        var query = {params:{limit:limit, skip:skip, sort: sort, filter:{vote: model}}};
+        return $sailsSocket.get(url, query).then(success, error);
+    };
     
     this.getOne = function(model) {
         var url = utils.prepareUrl('vote/' + model);

@@ -5,6 +5,10 @@
 
 module.exports = {
 
+	getActivity: function(req, res){
+
+	},
+
 	getOne: function(req, res) {
 		Bill.getOne(req.param('id'))
 		.spread(function(model) {

@@ -117,7 +117,7 @@
             <md-divider></md-divider>
             <div class="spacing-5"></div>
             <md-card ng-repeat="vote in votes">
-                <div style="padding:16px 16px 16px">
+                <div class="card-contianer">
                     <h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
                     <div class="spacing-10"></div>
                     <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>

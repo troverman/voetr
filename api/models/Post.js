@@ -50,8 +50,9 @@ module.exports = {
         });
     },
 
-    getSome: function(limiting, skipping, sort) {
+    getSome: function(limiting, skipping, sort, filter) {
         return Post.find()
+        .where(JSON.parse(filter))
         .sort(sort)
         .limit(limiting)
         .skip(skipping)
@@ -61,6 +62,7 @@ module.exports = {
         .populate('bill')
         .populate('vote')
         .then(function (models) {
+            console.log(models)
             return models;
         });
     },

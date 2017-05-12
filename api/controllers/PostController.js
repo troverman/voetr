@@ -17,11 +17,8 @@ module.exports = {
 	},
 
 	getSome: function(req, res) {
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
 		//filter based on param (committee) etc?? -->
-		Post.getSome(limit, skip, sort)
+		Post.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter)
 		.then(function(models) {
 			Post.watch(req);
 			Post.subscribe(req, models);

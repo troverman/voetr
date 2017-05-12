@@ -1,5 +1,28 @@
 module.exports = {
 
+	getActivity: function(req, res){
+
+		//CommitteeMember.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter).then(function(models){
+
+		//})
+
+		//GOTTA GET WHEN OTHER FILTER FOR POST == PROFILE + USER
+		
+		Post.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter).then(function(postModels){
+
+			VoteVote.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter).then(function(voteModels){
+
+				var combinedModels = postModel.concat(voteModel);
+				combinedModels.sort(function(a,b) {return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
+
+				res.json(combinedModels);
+
+			});
+
+		});
+
+	},
+
 	getOne: function(req, res) {
 		User.getOne(req.param('id'))
 		.spread(function(model) {
@@ -11,11 +34,8 @@ module.exports = {
 	},
 
 	getSome: function(req, res) {
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		//req.query.username
-		User.getSome(limit, skip, sort)
+
+		User.getSome(req.query.limit, req.query.skip, req.query.sort)
 		.then(function(models) {
 			User.watch(req);
 			User.subscribe(req, models);
