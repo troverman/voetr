@@ -21,9 +21,6 @@ angular.module( 'voetr.committee', [
             committeeCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
                 return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
             }],
-            memberCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
-                return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
-            }],
             postCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
                 return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
             }],
@@ -87,7 +84,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             posts: ['committee', 'PostModel', function(committee, PostModel) {
-                return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
+                return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt DESC');
             }],
          }
     })
@@ -101,7 +98,7 @@ angular.module( 'voetr.committee', [
         },
         resolve: {
             members: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel) {
-                return CommitteeMemberModel.getSome('committee', committee.id, 24, 0);
+                return CommitteeMemberModel.getSome('committee', committee.id, 24, 0, 'createdAt DESC');
             }],
             memberCount: ['committee', 'CommitteeMemberModel', function(committee, CommitteeMemberModel){
                 return CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id);
@@ -125,14 +122,13 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeCtrl', ['$location', '$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'memberCount', 'titleService', function CommitteeCtrl( $location, $sailsSocket, $scope, committee, CommitteeMemberModel, config, memberCount, titleService) {
+.controller( 'CommitteeCtrl', ['$location', '$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'titleService', function CommitteeCtrl( $location, $sailsSocket, $scope, committee, CommitteeMemberModel, config, titleService) {
     $scope.committee = committee;
     $scope.currentUser = config.currentUser;
     titleService.setTitle(committee.title + ' - voetr');
     if (committee == undefined){$location.url('committees')};
     $scope.editCommitteeToggle = false;
     $scope.billCount = 0;
-    $scope.memberCount = memberCount.committeeMemberCount;
     $scope.newMember = {};
     $scope.voteCount = 0;
 
@@ -150,14 +146,12 @@ angular.module( 'voetr.committee', [
         $scope.editCommitteeToggle = $scope.editCommitteeToggle ? false : true;
     };
 
-    $sailsSocket.subscribe('committeemember', function (envelope) {
+    $sailsSocket.subscribe('committee', function (envelope) {
         console.log(envelope)
         switch(envelope.verb) {
-            case 'created':
+            case 'updated':
                 if (envelope.data.committee == $scope.committee.id){
-                    CommitteeMemberModel.getCommitteeMemberCount('committee', committee.id).then(function(memberCount){
-                        $scope.memberCount = memberCount.committeeMemberCount;
-                    });
+                    $scope.committee = envelope.data.committee;
                 }
                 break;
         }

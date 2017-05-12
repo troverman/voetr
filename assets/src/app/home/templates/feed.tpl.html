@@ -31,7 +31,7 @@
         <div class="col-md-8">      
 
             <md-card>
-                <div style="padding:16px 16px 16px">
+                <div class="card-container">
                     <div class="post-controller-container">
                         <a href="/member/{{user.username}}">
                             <img class="post-img" ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
@@ -52,7 +52,7 @@
             <div class="spacing-10"></div>
 
             <md-card ng-repeat="post in posts">
-                <div style="padding:16px 16px 16px">
+                <div class="card-container">
 
                     <div class="post-controller-container">
                         <a href="/member/{{post.user.username}}">

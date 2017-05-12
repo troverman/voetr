@@ -41,15 +41,14 @@
                     </div>
                 </div>
 
-                 <!--
-                <div class="profilePost">
+                <div style="margin-left:61px;" ng-show="post.showReply">
                     <form role="form">
                         <md-input-container class="md-block">
-                            <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                            <textarea ng-model="post.newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
                         </md-input-container>
+                        <button ng-click="createPost(post)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
                     </form>
                 </div>
-                -->
 
         </div>
     </md-card>
@@ -80,21 +79,23 @@
                 <div class="pull-left">
                     <a href="#" ng-click=""><i class="fa fa-angle-up grey"></i></a> 
                     <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
-                    <a href="#">reply</a>
+                    <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
                 </div>
                 <div class="pull-right">
                     <a href="votevote/{{vote.id}}"><i class="fa fa-link grey"></i></a>
                 </div>
             </div>
 
+            <div style="margin-left:61px;" ng-show="vote.showReply">
+                <form role="form">
+                    <md-input-container class="md-block">
+                        <textarea ng-model="post.newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                    </md-input-container>
+                    <button ng-click="createPost(post)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+                </form>
+            </div>
 
 		</div>
 	</md-card>
 	<div class="spacing-10"></div>
-	<!--<div ng-show="votes.legnth != voteCount" ng-click="loadMore()" style="text-align:center">
-		<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
-	</div>
-	<div ng-show="posts.legnth != postCount" ng-click="loadMore()" style="text-align:center">
-		<button class="btn btn-default col-xs-10 col-xs-offset-1">MORE</button>
-	</div>-->
 </div>

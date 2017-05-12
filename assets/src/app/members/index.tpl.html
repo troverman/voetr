@@ -54,6 +54,7 @@
                 <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
                 <h5 class="position">{{user.title}}</h5>
                 <p>{{user.state}}</p>
+                <a href="member/{{user.username}}/constituents"><p>{{user.constituentCount}} constituents</p></a>
             </div>
             <div class="social">
                 <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>

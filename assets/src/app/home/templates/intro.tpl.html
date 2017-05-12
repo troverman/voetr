@@ -74,7 +74,7 @@
 
     <div id="members">
         <div class="container">
-            <h2>{{userCount}} members</h2>
+            <h2><a href="/members">{{userCount}} members</a></h2>
             <md-divider></md-divider><br>
             <button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>
             <div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">

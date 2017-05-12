@@ -169,7 +169,7 @@ angular.module( 'voetr.member', [
     $scope.voteCount = voteCount.voteCount;
     if(config.currentUser){$scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0}
     $scope.showFax = false;
-    if (member.fax && member.fax != ','){$scope.showFax = true}
+    if (member.fax && member.fax != ','){$scope.showFax = true};
 
     $scope.selectAsRepresentative = function(){
         if($scope.currentUser){
@@ -235,6 +235,15 @@ angular.module( 'voetr.member', [
 
     //sloppy
     $scope.posts = profilePosts.concat(userPosts);
+
+
+
+    $scope.reply = function(post){
+        var index = $scope.posts.map(function(obj){return obj.id}).indexOf(post.id);
+        $scope.posts[index].showReply = !$scope.posts[index].showReply
+    };
+
+
 
     $scope.skip = 0;
     $scope.newPost = {};

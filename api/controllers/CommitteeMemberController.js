@@ -43,19 +43,9 @@ module.exports = {
 		.exec(function(err, member) {
 			if (err) {return console.log(err);}
 			else {
-				CommitteeMember.count()
-				.where({committee: req.param('committee')})
-				.exec(function(err, committeeMemberCount) {
-					Committee.update({id: req.param('committee')}, {memberCount: committeeMemberCount}).exec(function afterwards(err, updated){
-						Committee.publishUpdate(req.param('committee'), updated);
-					});
-					User.update({id: req.param('user')}, {committeeCount:committeeMemberCount}).exec(function afterwards(err, updated){
-						User.publishUpdate(req.param('user'), updated);
-					});
-				});
-				CommitteeMember.getOne(model.id).then(function(committeeMember){
-					CommitteeMember.publishCreate(committeeMember[0]);
-					res.json(committeeMember[0]);
+				CommitteeMember.getOne(member.id).then(function(committeeMember){
+					CommitteeMember.publishCreate(committeeMember);
+					res.json(committeeMember);
 				});
 			}
 		});

@@ -20,16 +20,11 @@
     </div>
     <div class="spacing-10"></div>
     <md-card ng-repeat="bill in bills">
-        <md-card-title>
-            <md-card-title-text>
+        <div class="card-container">
             <h4>
-                {{bill.voteCount}}
-                <button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.plusCount}}</button>
-                <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.minusCount}}</button>
                 <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a>
             </h4>
-            </md-card-title-text>
-        </md-card-title>
+        </div>
     </md-card>
 </div>
 <div class="spacing-25"></div>

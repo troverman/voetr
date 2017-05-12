@@ -21,15 +21,35 @@
 					</form>
 		        </div>
 		        <md-card ng-repeat="post in posts">
-					<md-card-title>
-					<md-card-title-text>
-						<a href="member/{{post.user.username}}">
-							<img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-							<p>{{post.user.username}}</p>
-						</a>
-						<p>{{post.post}}</p>
-					</md-card-title-text>
-					</md-card-title>
+					<div class="card-container">
+
+						<div class="post-controller-container">
+	                        <a href="/member/{{post.user.username}}">
+	                            <img class="post-img" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+	                            <h4 class="post-name">{{post.user.username}}</h4>
+	                        </a>
+	                        <div class="pull-right">
+	                            <span class="grey" am-time-ago="post.updatedAt"></span>
+	                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a>
+	                        </div>
+	                    </div>
+
+	                    <div class="post-container">
+	                        <p>{{post.post}}</p>
+	                    </div>
+
+	                    <div class="post-action-container">
+	                        <div class="pull-left">
+	                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+	                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+	                            <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
+	                        </div>
+	                        <div class="pull-right">
+	                            <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
+	                        </div>
+	                    </div>
+
+					</div>
 		        </md-card>
 
 		    </uib-tab>
@@ -44,15 +64,35 @@
 					</form>
 		        </div>
 		        <md-card ng-repeat="post in posts">
-					<md-card-title>
-					<md-card-title-text>
-						<a href="member/{{post.user.username}}">
-							<img style="max-width:64px" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-							<p>{{post.user.username}}</p>
-						</a>
-						<p>{{post.post}}</p>
-					</md-card-title-text>
-					</md-card-title>
+					<div class="card-container">
+
+						<div class="post-controller-container">
+	                        <a href="/member/{{post.user.username}}">
+	                            <img class="post-img" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
+	                            <h4 class="post-name">{{post.user.username}}</h4>
+	                        </a>
+	                        <div class="pull-right">
+	                            <span class="grey" am-time-ago="post.updatedAt"></span>
+	                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a>
+	                        </div>
+	                    </div>
+
+	                    <div class="post-container">
+	                        <p>{{post.post}}</p>
+	                    </div>
+
+	                    <div class="post-action-container">
+	                        <div class="pull-left">
+	                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+	                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+	                            <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
+	                        </div>
+	                        <div class="pull-right">
+	                            <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
+	                        </div>
+	                    </div>
+
+					</div>
 		        </md-card>
 		    </uib-tab>
 			<uib-tab heading="{{vote.plusCount}}  Yes" active="active">

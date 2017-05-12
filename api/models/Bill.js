@@ -23,6 +23,9 @@ module.exports = {
         //    collection: 'committee',
         //    via: 'bills'
         //},
+        congressGovUrl: {
+            type: 'string',
+        },
         fullText: {
             type: 'string',
         },

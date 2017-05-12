@@ -142,7 +142,7 @@ module.exports = {
 						var billData = body.results[0];
 						for (x in billData.bills){
 							var billId = billData.bills[x].bill_id;
-							console.log(billId)
+							//console.log(billId)
 							var model= {
 								url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'.json',
 								json: true,
@@ -155,6 +155,7 @@ module.exports = {
 										var actions = billData.actions;
 										var committees = billData.committees; // find committee by urltitle...					
 										var congress = billData.congress;
+										var congressGovUrl = billData.congressdotgov_url;
 										var number = billData.number.replace(/\D/g,'');
 										var officialId = billData.bill_id;
 										var officialUrl = billData.congressdotgov_url;
@@ -177,6 +178,7 @@ module.exports = {
 												var model = {
 													actions: actions,
 													committees: committees,
+													congressGovUrl: congressGovUrl,
 													fullText: body,
 													officialId: officialId,
 													summary: summary,
@@ -199,7 +201,7 @@ module.exports = {
 														Bill.update({officialId: officialId}, model)
 														.then(function(billModel){
 															console.log('BILL UPDATED');
-															//console.log(billModel)
+															console.log(billModel[0].title)
 															dataService.federalVotes(billModel[0]);
 														});
 													}
@@ -248,6 +250,9 @@ module.exports = {
 						var urlTitle;
 						if (title){urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase()}
 						var upcoming = billData.upcoming;
+						var congressGovUrl = 'https://www.congress.gov/bill/'+congress+'th-congress/'+type+'-bill/'+number;
+						console.log(type);
+						console.log(billData);
 						var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
 						request(fullTextLink, function (error, response, body) {
 							if (body){if (body.trim().substring(0, 2)=="<!"){body = null;}}
@@ -265,6 +270,7 @@ module.exports = {
 											actions: actions,
 											//committee: committeeIds, //testing
 											committees: committees,
+											//congressGovUrl: congressGovUrl,
 											fullText: body,
 											keywords: keywords,
 											officialId: officialId,
