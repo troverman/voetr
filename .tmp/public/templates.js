@@ -1611,21 +1611,6 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "						</div>\n" +
     "					</md-card>\n" +
     "\n" +
-    "\n" +
-    "					<md-card ng-repeat=\"vote in votes\">\n" +
-    "				        <div class=\"card-container\">\n" +
-    "							<h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
-    "							<div class=\"spacing-10\"></div>\n" +
-    "							<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
-    "							<div class=\"spacing-10\"></div>\n" +
-    "							<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\">\n" +
-    "								<i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +
-    "							</button>\n" +
-    "							<button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\">\n" +
-    "								<i class=\"fa fa-caret-down red-color\"></i>  <b>{{vote.minusCount}}</b>\n" +
-    "							</button>\n" +
-    "						</div>\n" +
-    "					</md-card>\n" +
     "    			</uib-tab>\n" +
     "				<uib-tab heading=\"Results\" ng-show=\"searchResults\">\n" +
     "\n" +

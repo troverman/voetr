@@ -1,5 +1,5 @@
 .imageContainer {
-  background:rgb(36,36,46);
+  background:rgba(26,26,36, 0.84);
   overflow:hidden;
   min-height: 500px;
   font-family: 'Jura', sans-serif;
@@ -19,7 +19,7 @@
   margin-bottom:auto;
 }
 .imageContainerSmall {
-  background:rgb(36,36,46);
+  background:rgba(36,36,46, 0.84);
   overflow:hidden;
   min-height: 200px;
   font-family: 'Jura', sans-serif;
