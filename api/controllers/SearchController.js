@@ -14,15 +14,14 @@ module.exports = {
 	getTrending: function(req,res){
 		var filter = {};
 		var startDate = new Date();
-		startDate.setMonth(startDate.getDay() - 7);
 		var endDate = new Date();
-
-		filter.createdAt = { '>': startDate, '<': endDate };
-
 		var limit = req.query.limit;
 		var skip = req.query.skip;
-		
-		Post.getSome(100,0,'createdAt Desc', startDate, endDate)
+
+		startDate.setMonth(startDate.getDay() - 7);
+		filter.createdAt = { '>': startDate, '<': endDate };
+
+		Post.getSome(100,0,'createdAt Desc', filter)
 		.then(function(postModel){
 
 			postModel.map(function (obj) {
