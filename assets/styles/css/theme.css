@@ -263,7 +263,8 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
     padding:50px;
     background-color:#24242e;
     color: white;
-    font-family: 'Jura', sans-serif;
+    //font-family: 'Jura', sans-serif;
+    font-family: sans-serif;
 
     position: absolute;
     right: 0px;
@@ -400,7 +401,8 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   max-width: 100%;
 }
 .nav {
-  font-family: "Jura";
+  //font-family: "Jura";
+  font-family: sans-serif;
   font-size:20px;
 }
 .nav input {
