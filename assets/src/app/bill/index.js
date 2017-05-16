@@ -28,6 +28,9 @@ angular.module( 'voetr.bill', [
             posts: ['bill', 'PostModel', function(bill, PostModel) {
                 return PostModel.getByBill(bill.id);
             }],
+            user: ['UserModel', function(UserModel){
+                return UserModel.getMine();
+            }],
             votes: ['bill', 'VoteModel', function(bill, VoteModel) {
                 return VoteModel.getByBill(bill.id);
             }]
@@ -36,7 +39,7 @@ angular.module( 'voetr.bill', [
 
 }])
 
-.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, config, lodash, PostModel, posts, seoService, titleService, VoteModel, votes, VoteVoteModel ) {
+.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'user', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, config, lodash, PostModel, posts, seoService, titleService, user, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
     seoService.setDescription(bill.title);
     seoService.setKeywords('bill, voetr, votes, legislation');
@@ -47,6 +50,7 @@ angular.module( 'voetr.bill', [
     $scope.newPost = {};
     $scope.newVote = {};
     $scope.posts = posts;
+    $scope.user = user;
     $scope.votes = votes;
 
      $scope.createPost = function(){

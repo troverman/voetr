@@ -39,12 +39,13 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a href="/member/{{currentUser.username}}">
-                                <img style="max-height:32px" src="{{currentUser.avatarUrl}}"/>
-                                {{currentUser.username}}
+                                <img style="max-height:32px;max-width:32px;" src="{{currentUser.avatarUrl}}"/> {{currentUser.username}}
                             </a>
                         </li>
-                        <!--<li><a href="/notifications">notifications</a></li>-->
                         <li><a href="/account">account</a></li>
+                        <li><a href="#">0 notifications</a></li>
+                        <li><a href="#">settings</a></li>
+
                         <li role="separator" class="divider"></li>
                         <li><a href="/logout">log out</a></li>
                     </ul>

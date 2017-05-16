@@ -1,11 +1,19 @@
 <div ui-view="member">
 	<div class="profile-header">
 		<div class="member-cover">
-			<img ng-src="{{member.coverUrl}}" err-src="/images/avatar.png" />
+			<img ng-src="{{member.coverUrl}}" err-src="/images/avatar.png"/>
+			<div class=""></div>
 		</div>
 		<div class="container">
 			<div class="pull-left">
-				<img class="avatar" ng-src="{{member.avatarUrl}}"/>
+				<div style="">
+					<img class="avatar" ng-src="{{member.avatarUrl}}"/>
+					<div class=""></div>
+				</div>
+
+				<!--<a class="btn btn-default" style="position:absolute;le" href="account" ng-show="true">Save</a>
+			  	<span id="overlay_text" style="position: relative; top: -10px; z-index: 3;">OVERLAY</span>-->
+
 			</div>
 			<div class="pull-right member-tab-container">
 				<ul class="member-tabs">
@@ -24,7 +32,8 @@
 					</li>-->
 					<li ng-show="currentUser.id == member.id">
 						<!--<a class="btn btn-default" href=""member/{{member.username}}/edit">Edit Profile</a>-->
-						<a class="btn btn-default" href="account">Edit Profile</a>
+						<a class="btn btn-default" href="member/{{member.username}}/edit">Edit Profile</a>
+						<a class="btn btn-default" href="account" ng-show="false">Save</a>
 					</li>
 				</ul>
 			</div>
@@ -59,8 +68,10 @@
 		<div ui-view="memberBills"></div>
 		<div ui-view="memberCommittees"></div>
 		<div ui-view="memberConstituents"></div>
+		<div ui-view="memberEdit"></div>
 		<div ui-view="memberRepresentatives"></div>
 		<div ui-view="memberVotes"></div>
 	</div>
+	<div class="spacing-25"></div>	
 </div>
 <div ng-include="'footer/index.tpl.html'"></div>

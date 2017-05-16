@@ -39,12 +39,15 @@ angular.module( 'voetr.vote', [
                 if(config.currentUser){return RepresentativeModel.getRepresentatives(config.currentUser)}
                 else{return null}
             }],
+            user: ['UserModel', function(UserModel){
+                return UserModel.getMine();
+            }],
         }
     })
 
 }])
 
-.controller( 'VoteCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'lodash', 'myRepresentatives', 'PostModel', 'posts', 'results', 'titleService', 'vote', 'votes', 'VoteVoteModel', function VoteController( $location, $sailsSocket, $scope, config, lodash, myRepresentatives, PostModel, posts, results, titleService, vote, votes, VoteVoteModel) {
+.controller( 'VoteCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'lodash', 'myRepresentatives', 'PostModel', 'posts', 'results', 'titleService', 'user', 'vote', 'votes', 'VoteVoteModel', function VoteController( $location, $sailsSocket, $scope, config, lodash, myRepresentatives, PostModel, posts, results, titleService, user, vote, votes, VoteVoteModel) {
 	titleService.setTitle(vote.title + '- voetr');
     $scope.currentUser = config.currentUser;
     $scope.noVotes = votes.filter(function(obj){return obj.voteInteger == -1});
@@ -54,6 +57,7 @@ angular.module( 'voetr.vote', [
     $scope.posts = posts
     $scope.results = results;
     console.log(results);
+    $scope.user = user;
 	$scope.vote = vote;
 	$scope.votes = votes;
     $scope.yesVotes = votes.filter(function(obj){return obj.voteInteger == 1});

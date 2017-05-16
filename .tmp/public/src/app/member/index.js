@@ -31,7 +31,7 @@ angular.module( 'voetr.member', [
             }],
             voteCount: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
                 return VoteVoteModel.getUserCount(member.id);
-            }]
+            }],
         }
 	})
     .state( 'member.index', {
@@ -51,6 +51,9 @@ angular.module( 'voetr.member', [
             }],
             representatives: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
                 return RepresentativeModel.getRepresentatives(member.id);
+            }],
+            user: ['UserModel', function(UserModel){
+                return UserModel.getMine();
             }],
             votes: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
                 return VoteVoteModel.getByUser(member.id, 25, 0, 'createdAt DESC');
@@ -105,12 +108,10 @@ angular.module( 'voetr.member', [
             }],
         }
     })
-
-    /*
     .state( 'member.edit', {
         url: '/edit',
         views: {
-            "memberBills": {
+            "memberEdit": {
                 controller: 'MemberEditCtrl',
                 templateUrl: 'member/templates/edit.tpl.html'
             }
@@ -118,11 +119,9 @@ angular.module( 'voetr.member', [
         resolve: {
             user: ['UserModel', function(UserModel){
                 return UserModel.getMine();
-            }]
+            }],
         }
     })
-    */
-
     .state( 'member.representatives', {
         url: '/representatives',
         views: {
@@ -227,22 +226,21 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'titleService', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, titleService, userPosts, votes, VoteVoteModel) {
+.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'titleService', 'user', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, titleService, user, userPosts, votes, VoteVoteModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
+    $scope.user = user;
 	$scope.votes = votes;
 
     //sloppy
     $scope.posts = profilePosts.concat(userPosts);
 
 
-
     $scope.reply = function(post){
         var index = $scope.posts.map(function(obj){return obj.id}).indexOf(post.id);
         $scope.posts[index].showReply = !$scope.posts[index].showReply
     };
-
 
 
     $scope.skip = 0;
@@ -383,6 +381,125 @@ angular.module( 'voetr.member', [
                 break;
         }
     });
+
+}])
+
+.controller( 'MemberEditCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'titleService', 'Upload', 'user', 'UserModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, titleService, Upload, user, UserModel ) {
+    titleService.setTitle(member.username + ' - voetr');
+    $scope.currentUser = config.currentUser;
+    $scope.member = member;
+
+    if (!$scope.currentUser){$location.path('/')};
+
+    $scope.user = user;
+
+    $scope.localPassport = $scope.user.passports.filter(function(e){return e.protocol == 'local'});
+    $scope.facebookPassport = $scope.user.passports.filter(function(e){return e.provider == 'facebook'}).length>0;
+    $scope.twitterPassport = $scope.user.passports.filter(function(e){return e.provider == 'twitter'}).length>0;
+    $scope.googlePassport = $scope.user.passports.filter(function(e){return e.provider == 'google'}).length>0;
+
+    $scope.uploadAvatar = function(file){
+        if (file){
+            $rootScope.stateIsLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $rootScope.stateIsLoading = false;
+                $scope.user.avatarUrl = response.data.amazonUrl;
+                $scope.accountSave();
+            },
+            function(err){
+                $rootScope.stateIsLoading = false;
+            },
+            function (evt) {
+                $scope.avatarPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
+    };
+
+    $scope.uploadCover = function(file){
+        if (file){
+            $rootScope.stateIsLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $rootScope.stateIsLoading = false;
+                $scope.user.coverUrl = response.data.amazonUrl;
+                $scope.accountSave();//probably should have a save button here -- if not save delete failed file
+            },
+            function(err){
+                $rootScope.stateIsLoading = false;
+            },
+            function (evt) {
+                $scope.coverPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
+    };
+
+    $scope.uploadIdentification = function(file){
+        if (file){
+            $rootScope.stateIsLoading = true;
+            Upload.upload({
+                url: '/api/user/upload',
+                method: 'POST',
+                data: {picture: file}
+            })
+            .then(function(response){
+                $rootScope.stateIsLoading = false;
+                $scope.user.identificationUrl = response.data.amazonUrl;
+                $scope.accountSave();//probably should have a save button here -- if not save delete failed file
+            },
+            function(err){
+                $rootScope.stateIsLoading = false;
+            },
+            function (evt) {
+                $scope.identificationPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            })
+        }
+    };
+
+    $scope.removePassport = function(provider) {
+        UserModel.removePassport(provider)
+        .then(function(result) {
+            $scope.user.passports = $scope.user.passports.filter(function(val, ind, arr) {
+                return !(arr[ind].identifier === result[0].identifier);
+            });
+            $scope.facebookPassport = $scope.user.passports.filter(function(e){return e.provider == 'facebook'}).length>0;
+            $scope.twitterPassport = $scope.user.passports.filter(function(e){return e.provider == 'twitter'}).length>0;
+            $scope.googlePassport = $scope.user.passports.filter(function(e){return e.provider == 'google'}).length>0;
+            $scope.user.socialAccounts[(result[0].provider).toString()] = {}
+            //UserModel.update(user)
+        });
+    };
+
+    $scope.hasSinglePassport = function() {
+        return $scope.user.passports.length <= 1;
+    }
+
+    $scope.accountSave = function(){
+        $rootScope.stateIsLoading = true;
+        var model = {
+            id: $scope.user.id,
+            firstName: $scope.user.firstName,
+            lastName: $scope.user.lastName,
+            avatarUrl: $scope.user.avatarUrl,
+            coverUrl: $scope.user.coverUrl,
+            identificationUrl: $scope.user.identificationUrl,
+            address: $scope.user.address,
+        };
+        UserModel.update(model).then(function(){
+            $rootScope.stateIsLoading = false;
+        });
+    };
+
+
+
 
 }])
 

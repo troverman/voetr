@@ -1,5 +1,7 @@
 <div class="container">
-    <div class="profilePost">
+
+
+    <div ng-show="!currentUser" class="profilePost">
         <form role="form">
             <md-input-container class="md-block">
                 <textarea ng-model="newPost.post" md-maxlength="150" rows="5" md-select-on-focus aria-label="new post"></textarea>
@@ -7,7 +9,28 @@
             <button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
-   <md-card ng-repeat="post in posts">
+
+    <md-card ng-show="currentUser">
+        <div class="card-container">
+            <div class="post-controller-container">
+                <a href="/member/{{user.username}}">
+                    <img class="post-img" ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
+                    <h4 class="post-name">{{user.username}}</h4>
+                </a>
+            </div>
+            <div style="margin-left:61px;">
+                <form role="form">
+                    <md-input-container class="md-block">
+                        <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder="what's happening"></textarea>
+                    </md-input-container>
+                    <button ng-click="createPost()" type="submit" class="btn btn-default pull-right"><i class="fa fa-paper-plane"></i> Submit</button>
+                </form>
+            </div>
+        </div>
+    </md-card>
+
+
+    <md-card ng-repeat="post in posts">
         <div style="padding:16px 16px 16px">
 
             <div>
@@ -27,9 +50,9 @@
 
             <div class="post-action-container">
                 <div class="pull-left">
-                    <a href="#" ng-click=""><i class="fa fa-angle-up grey"></i></a> 
-                    <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
-                    <a href="#">reply</a>
+                    <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+                    <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+                    <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
                 </div>
                 <div class="pull-right">
                     <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>

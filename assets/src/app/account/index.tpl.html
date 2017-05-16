@@ -38,26 +38,6 @@
 	<br><br>
 	<md-divider></md-divider>
 
-	<!--
-	<h3>Update Avatar</h3>
-	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadAvatar($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
-		<div>Drag photos or click here to upload.</div>
-	</div>
-	<p ng-show="avatarLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
-	<div ng-show="avatarLoading" class="progress">
-		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{avatarPercentage}}%;"></div>
-	</div>
-
-	<h3>Update Cover</h3>
-	<div ngf-accept="'image/*'" ngf-drop ngf-select="uploadCover($file)" ng-model="file" class="drop-box" ngf-drag-over-class="dragover" ngf-allow-dir="true">
-		<div>Drag photos or click here to upload.</div>
-	</div>
-	<p ng-show="coverLoading" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>&nbsp;{{pp}}%</p>
-	<div ng-show="coverLoading" class="progress">
-		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{coverPercentage}}%;"></div>
-	</div>
-	-->
-
 	<h3>Verified Account</h3>
 	<md-divider></md-divider>
 	<h4>government identification</h4>
@@ -75,7 +55,6 @@
 		<input ng-model="user.address" required name="address" type="text">
 		<button type="submit" class="btn btn-default">Save</button>
 	</md-input-container>
-	<!--<p>ssn</p>-->
 
 	<h3>Connected Accounts</h3>
 	<md-divider></md-divider><br>
@@ -87,7 +66,6 @@
 	<a ng-show="facebookPassport" class="btn btn-default" ng-click="removePassport('facebook')">disconnect facebook</a>
 
 	<br><br>
-	<a ng-show="!twitterPassport"class="btn btn-default" href="/auth/twitter">connect twitter</a>
 	<a href="{{user.socialAccounts.twitter.profileUrl}}">
 		<img style="height:64px;" src="{{user.socialAccounts.twitter.profilePic}}">
 		<span>{{user.socialAccounts.twitter.handle}}</span>
@@ -105,7 +83,6 @@
 
 	<br><br>
 	<!--<a class="btn btn-default" href="/auth/btc">connect btc wallet</a>-->
-
 
 	<h3>Settings</h3>
 	<md-divider></md-divider><br>

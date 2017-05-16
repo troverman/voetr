@@ -43,7 +43,10 @@ angular.module( 'voetr.committee', [
             }],
             posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
-            }]
+            }],
+            user: ['UserModel', function(UserModel){
+                return UserModel.getMine();
+            }],
          }
     })
     .state( 'committee.bills', {
@@ -85,6 +88,9 @@ angular.module( 'voetr.committee', [
         resolve: {
             posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt DESC');
+            }],
+            user: ['UserModel', function(UserModel){
+                return UserModel.getMine();
             }],
          }
     })
@@ -159,11 +165,12 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeActivityCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'titleService', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, committee, CommitteeModel, PostModel, posts, titleService, VoteVoteModel) {
+.controller( 'CommitteeActivityCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'titleService', 'user', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, committee, CommitteeModel, PostModel, posts, titleService, user, VoteVoteModel) {
     $scope.committee = committee;
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;
     $scope.posts = posts;
+    $scope.user = user;
     $scope.newBill = {};
     $scope.newPost = {};
     $scope.newVote = {};
@@ -278,11 +285,12 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'config', 'PostModel', 'posts', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, config, PostModel, posts) {
+.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'config', 'PostModel', 'posts', 'user', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, config, PostModel, posts, user) {
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
-    $scope.newPost = {};
     $scope.posts = posts;
+    $scope.user = user;
+    $scope.newPost = {};
 
     $scope.createPost = function(){
         if($scope.currentUser){

@@ -1,7 +1,7 @@
 <div ui-view="vote">
 	<div class="voteContainer container">
+		<div class="spacing-5"></div>
 		<h3>{{vote.title}}</h3>
-		<div class="spacing-10"></div>
 		<h5><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h5>
 		<div class="spacing-10"></div>
 		<div class="row">
@@ -12,7 +12,9 @@
 		<uib-tabset>
 			<uib-tab heading="Activity" active="active">
 				<div class="spacing-10"></div>
-				<div class="profilePost">
+
+
+				<div ng-show="!currentUser" class="profilePost">
 					<form role="form">
 						<md-input-container class="md-block">
 							<textarea placeholder="What's up?" ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post"></textarea>
@@ -20,6 +22,38 @@
 						<button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
 					</form>
 		        </div>
+
+			    <md-card ng-show="currentUser">
+			        <div class="card-container">
+			            <div class="post-controller-container">
+			                <a href="/member/{{currentUser.username}}">
+			                    <img class="post-img" ng-src="{{currentUser.avatarUrl}}" class="md-card-image" alt="{{currentUser.username}}">
+			                    <h4 class="post-name">{{currentUser.username}}</h4>
+			                </a>
+			            </div>
+			            <div style="margin-left:61px;">
+			                <form role="form">
+			                    <md-input-container class="md-block">
+			                        <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder="what's happening"></textarea>
+			                    </md-input-container>
+			                    <button ng-click="createPost()" type="submit" class="btn btn-default pull-right"><i class="fa fa-paper-plane"></i> Submit</button>
+			                </form>
+			            </div>
+			        </div>
+			    </md-card>
+
+
+
+
+				<!--
+				<md-card ng-repeat="result in results">
+					{{result}}
+			    </md-card>
+				-->
+
+
+
+
 		        <md-card ng-repeat="post in posts">
 					<div class="card-container">
 
@@ -55,7 +89,9 @@
 		    </uib-tab>
 			<uib-tab heading="Discussion">
 				<div class="spacing-10"></div>
-				<div class="profilePost">
+
+
+				<div ng-show="!currentUser" class="profilePost">
 					<form role="form">
 						<md-input-container class="md-block">
 							<textarea placeholder="What's up?" ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post"></textarea>
@@ -63,6 +99,28 @@
 						<button ng-click="createPost()" type="submit" class="btn btn-default">Submit</button>
 					</form>
 		        </div>
+
+			    <md-card ng-show="currentUser">
+			        <div class="card-container">
+			            <div class="post-controller-container">
+			                <a href="/member/{{user.username}}">
+			                    <img class="post-img" ng-src="{{user.avatarUrl}}" class="md-card-image" alt="{{user.username}}">
+			                    <h4 class="post-name">{{user.username}}</h4>
+			                </a>
+			            </div>
+			            <div style="margin-left:61px;">
+			                <form role="form">
+			                    <md-input-container class="md-block">
+			                        <textarea ng-model="newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder="what's happening"></textarea>
+			                    </md-input-container>
+			                    <button ng-click="createPost()" type="submit" class="btn btn-default pull-right"><i class="fa fa-paper-plane"></i> Submit</button>
+			                </form>
+			            </div>
+			        </div>
+			    </md-card>
+
+
+
 		        <md-card ng-repeat="post in posts">
 					<div class="card-container">
 
@@ -105,6 +163,9 @@
 	                    <div class="info">
 	                        <h4 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h4>
 	                        <h5 class="position">{{vote.user.title}}</h5>
+	                        <p ng-show="vote.user.constituentCount > 0">
+	                        	Yes for <a ng-show="vote.user.constituentCount > 0" href="member/{{vote.user.username}}/constituents">{{vote.user.constituentCount}} constituent<span ng-show="vote.user.constituentCount!=1">s</span></a>
+	                        </p>
 	                        <p>{{vote.user.state}}</p>
 	                    </div>
 	                    <div class="social">
@@ -125,6 +186,9 @@
 	                    <div class="info">
 	                        <h4 class="name"><a href="member/{{vote.user.username}}">{{vote.user.username}}</a></h4>
 	                        <h5 class="position">{{vote.user.title}}</h5>
+	                        <p ng-show="vote.user.constituentCount > 0">
+	                        	No for <a href="member/{{vote.user.username}}/constituents">{{vote.user.constituentCount}} constituent<span ng-show="vote.user.constituentCount!=1">s</span></a>
+	                        </p>
 	                        <p>{{vote.user.state}}</p>
 	                    </div>
 	                    <div class="social">

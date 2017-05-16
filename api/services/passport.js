@@ -133,7 +133,8 @@ passport.connect = function (req, query, profile, next) {
   , identifier : query.identifier.toString()
   }, function (err, passport) {
     console.log('googleupdating-----_~~~');
-    console.log()
+    console.log(err);
+    console.log(passport)
     if (err) {
       return next(err);
     }

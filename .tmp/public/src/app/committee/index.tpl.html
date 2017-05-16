@@ -10,11 +10,11 @@
 		<li><a href="/committee/{{committee.urlTitle}}/bills">{{billCount}} Bills</a></li>
 		<li><a href="/committee/{{committee.urlTitle}}/committees">Committees</a></li>
 		<li><a href="/committee/{{committee.urlTitle}}/discussion">Discussion</a></li>
-		<li><a href="/committee/{{committee.urlTitle}}/members">{{committee.memberCount}} Member<span ng-show="committee.memberCount>1">s</span></a></li>
+		<li><a href="/committee/{{committee.urlTitle}}/members">{{committee.memberCount}} Member<span ng-show="committee.memberCount!=1">s</span></a></li>
 		<li><a href="/committee/{{committee.urlTitle}}/votes">{{voteCount}} Votes</a></li>
-		<li ng-show="currentUser">
+		<!--<li ng-show="currentUser">
 			<a class="btn btn-default" ng-click="toggleEditCommittee()">Edit</a>
-		</li>
+		</li>-->
 		<li ng-show="currentUser">
 			<a class="btn btn-default" ng-click="createMember()">Join</a>
 		</li>

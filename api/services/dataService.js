@@ -704,7 +704,12 @@ module.exports = {
 			        			var officialId = billData.id;
 			        			var sponsors = billData.sponsors;
 			        			var state = billData.state;
+			        			var sources = billData.sources;
+			        			var subjects = billData.subjects;
+			        			//subjects.concat(billData.scraped_subjects)
 								var title = billData.title;
+								var type = billData.type;
+								//console.log(type)
 								var urlTitle;
 								if (body.title){urlTitle = body.title.replace(/ /g,"-").toLowerCase();}
 								if (!body.title){urlTitle = ''}
@@ -731,7 +736,8 @@ module.exports = {
 										committee: 1, //-->multiple committees, or in the most granular, we need state here tho..
 										title: title,
 										urlTitle: urlTitle,
-										user: userModelIds[0]
+										user: userModelIds[0],
+										keywords: subjects
 									};
 									Bill.find({officialId:officialId})
 									.then(function(billModel) {

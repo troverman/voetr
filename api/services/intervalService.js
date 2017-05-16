@@ -201,7 +201,7 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	dataService.federalBillsProPublica(0)
+	//dataService.federalBillsProPublica(0)
 	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
     //multithreading...
