@@ -8,14 +8,13 @@
                 <div class="image" style="background-image: url('{{user.coverUrl}}')">
                     <a href="member/{{user.username}}"><img style="top:5%" ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
                 </div>
-                <div class="info" style="height:200px">
+                <div class="info" style="height:100%">
                     <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
                     <div class="spacing-10"></div>
                     <h5><a href="member/{{user.username}}/committees">Committees - {{user.committeeCount}}</a></h5>
                     <h5><a href="member/{{user.username}}/constituents">Constituents - {{user.constituentCount}}</a></h5>
                     <!--<h5><a href="member/{{user.username}}/representatives">Representatives - {{user.representativeCount}}</a></h5>-->
                     <h5><a href="member/{{user.username}}/votes">Votes - {{user.voteCount}}</a></h5>
-                    <div class="spacing-25"></div>
                 </div>
                 <div class="social">
                     <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
