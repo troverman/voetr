@@ -131,6 +131,11 @@ module.exports.routes = {
   /**
    * Search routes
    */
+  'get /api/search/committeeActivity': 'SearchController.getMemberActivity',
+  'get /api/search/billActivity': 'SearchController.getMemberActivity',
+  'get /api/search/memberActivity': 'SearchController.getMemberActivity',
+  'get /api/search/voteActivity': 'SearchController.getMemberActivity',
+  
   'get /api/search/:searchQuery': 'SearchController.search',
   'get /api/trending': 'SearchController.getTrending',
 

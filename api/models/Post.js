@@ -63,7 +63,6 @@ module.exports = {
         .populate('bill')
         .populate('vote')
         .then(function (models) {
-            console.log(models)
             return models;
         });
     },

@@ -5,10 +5,76 @@
 
 module.exports = {
 
-	activity: function (req, res) {
-		var searchQuery = req.param('searchQuery');
+	getMemberActivity: function (req, res) {
+		var filter = req.query.filter;
+		var limit = req.query.limit;
+		var skip = req.query.skip;
 
-		
+		Post.getSome(100,0,'createdAt Desc', {profile:filter})
+		.then(function(postModel){
+			postModel.map(function (obj) {
+				obj.model = 'post';
+			});
+
+			//var id = JSON.parse(filter).profile;
+			var profileFilter = {};
+			profileFilter.user = filter;
+			profileFilter.profile = {'!': filter};
+
+			Post.getSome(100,0,'createdAt Desc', profileFilter)
+			.then(function(postProfileModel){
+				postProfileModel.map(function (obj) {
+					obj.model = 'post';
+				});
+
+				var combinedModels = postModel.concat(postProfileModel);
+
+				VoteVote.getSome(100,0,'createdAt Desc', {user:filter})
+				.then(function(voteModel){
+					voteModel.map(function (obj) {
+						obj.model = 'vote';
+					});
+
+					var combinedCombinedModels = combinedModels.concat(voteModel);
+					combinedCombinedModels.sort(function(a,b){return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
+					res.json(combinedCombinedModels);
+
+
+					//CommitteeMember.getSome(100,0,'createdAt Desc', {user:filter})
+					//.then(function(commmitteeMemberModel){
+						//commmitteeMemberModel.map(function (obj) {
+							//obj.model = 'committeeMember';
+						//});
+
+						//new constituent -- new rep
+
+						//var combinedCombinedCombinedModels = combinedCombinedModels.concat(commmitteeMemberModel);
+						//combinedCombinedCombinedModels.sort(function(a,b){return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
+						//res.json(combinedCombinedCombinedModels);
+
+					//});
+
+				});
+
+			});
+
+		});
+
+	},
+
+	getMemberFeed: function (req, res) {
+
+		//get posts from committees member is a part of
+		//get bills from committees
+		//get votes from committees
+		//get votes from activity
+		//get posts from representives
+		//get votevotes from representatives
+
+		//get info from constituents?
+
+
+
 	},
 
 	getTrending: function(req,res){
@@ -30,8 +96,7 @@ module.exports = {
 
 			Vote.getSome(100,0,'createdAt Desc', filter)
 			.then(function(voteModel){
-				console.log(voteModel);
-
+				//console.log(voteModel);
 				voteModel.map(function (obj) {
 					obj.model = 'vote';
 				});
@@ -40,12 +105,9 @@ module.exports = {
 
 				res.json(combinedModels);
 
-
 			});
 
-
 		});
-
 
 	},
 

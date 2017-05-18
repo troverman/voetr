@@ -123,17 +123,21 @@
   height:300px;
 }
 #section2{
-  height:350px;
+  //height:350px;
   background-color:rgb(225,225,225);
   padding-top:5%;
+  padding-bottom:5%;
 }
 #section3{
-  height:350px;
+  //height:350px;
   background-color:rgb(215,215,215);
   padding-top:5%;
+  padding-bottom:5%;
+
 }
 #section4{
   height:350px;
   background-color:rgb(225,225,225);
   padding-top:5%;
+  padding-bottom:5%;
 }

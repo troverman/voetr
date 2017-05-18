@@ -5,27 +5,24 @@
 
 module.exports = {
 
-	/*
 	getSome: function(req, res) {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
-		var filter = req.query.filter; //--> {filterType:filterParam} --> {bill:bill.id}
+		var filter = req.query.filter;
 		VoteVote.getSome(limit, skip, sort, filter)
 		.then(function(model) {
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);
 			res.json(model);
 		});
-	*/
+	},
 
 	//getVote: function(req, res) {
-
 	//	VoteVote.find({vote:req.query.vote, bill:req.query.vote, user:req.query.vote})
 	//	.then(function(model) {
 	//		res.json(model);
 	//	});
-
 	//},
 
 	getByBill: function(req, res) {
@@ -67,7 +64,7 @@ module.exports = {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
-		VoteVote.getByUser(user, limit, skip, sort)
+		VoteVote.getByUser(limit, skip, sort, user)
 		.then(function(model) {
 			VoteVote.watch(req);
 			VoteVote.subscribe(req, model);

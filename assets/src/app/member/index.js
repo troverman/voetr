@@ -43,6 +43,9 @@ angular.module( 'voetr.member', [
             }
         },
 		resolve: {
+            results: ['member', 'SearchModel', function(member, SearchModel) {
+                return SearchModel.getMemberActivity(100, 0, 'createdAt DESC', member.id);
+            }],
             profilePosts: ['member', 'PostModel', function(member, PostModel) {
                 return PostModel.getByProfile(member.id, 100, 0, 'createdAt DESC');
             }],
@@ -226,12 +229,15 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'titleService', 'user', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, titleService, user, userPosts, votes, VoteVoteModel) {
+.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'results', 'titleService', 'user', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, results, titleService, user, userPosts, votes, VoteVoteModel) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
+    $scope.results = results;
     $scope.user = user;
 	$scope.votes = votes;
+
+    console.log(results)
 
     //sloppy
     $scope.posts = profilePosts.concat(userPosts);

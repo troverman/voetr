@@ -47,16 +47,17 @@ module.exports = {
 	},
 
 	getMine: function(req,res){
-		var me = req.user.id;
-		User.findOne(me)
-		.populate('passports')
-		.then(function(user){
-			return res.json(user);
-		})
-		.catch(function(err){
-			return res.negotiate(err);
-		});
-
+		if (req.user){
+			var me = req.user.id;
+			User.findOne(me)
+			.populate('passports')
+			.then(function(user){
+				return res.json(user);
+			})
+			.catch(function(err){
+				return res.negotiate(err);
+			});
+		}
 	},
 
 	getCount: function(req, res) {
