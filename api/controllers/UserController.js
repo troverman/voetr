@@ -58,6 +58,7 @@ module.exports = {
 				return res.negotiate(err);
 			});
 		}
+		else{return res.json();}
 	},
 
 	getCount: function(req, res) {

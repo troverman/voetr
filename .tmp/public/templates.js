@@ -423,9 +423,14 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "    <div class=\"spacing-10\"></div>\n" +
     "    <md-card ng-repeat=\"bill in bills\">\n" +
     "        <div class=\"card-container\">\n" +
-    "            <h4>\n" +
-    "                <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
-    "            </h4>\n" +
+    "            <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
+    "            <div class=\"post-action-container\">\n" +
+    "                <div class=\"pull-left\">\n" +
+    "                    <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
+    "                    <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "                    <a href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </md-card>\n" +
     "</div>\n" +

@@ -16,7 +16,6 @@ module.exports = {
 				obj.model = 'post';
 			});
 
-			//var id = JSON.parse(filter).profile;
 			var profileFilter = {};
 			profileFilter.user = filter;
 			profileFilter.profile = {'!': filter};
@@ -28,9 +27,9 @@ module.exports = {
 				});
 
 				var combinedModels = postModel.concat(postProfileModel);
-
 				VoteVote.getSome(100,0,'createdAt Desc', {user:filter})
 				.then(function(voteModel){
+					console.log(voteModel)
 					voteModel.map(function (obj) {
 						obj.model = 'vote';
 					});
@@ -38,7 +37,6 @@ module.exports = {
 					var combinedCombinedModels = combinedModels.concat(voteModel);
 					combinedCombinedModels.sort(function(a,b){return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
 					res.json(combinedCombinedModels);
-
 
 					//CommitteeMember.getSome(100,0,'createdAt Desc', {user:filter})
 					//.then(function(commmitteeMemberModel){
@@ -51,7 +49,6 @@ module.exports = {
 						//var combinedCombinedCombinedModels = combinedCombinedModels.concat(commmitteeMemberModel);
 						//combinedCombinedCombinedModels.sort(function(a,b){return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
 						//res.json(combinedCombinedCombinedModels);
-
 					//});
 
 				});
