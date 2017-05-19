@@ -235,6 +235,7 @@
 				    </md-card>
     			</uib-tab>
 				<uib-tab heading="{{userCount}} Members">
+					<div class="spacing-5"></div>
 					<button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br><br>
 			        <i ng-show="gettingRepresentatives" style="font-size:48px" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 					<div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">

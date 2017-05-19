@@ -27,17 +27,17 @@ angular.module( 'voetr.search', [
                 return BillModel.getSome(10, 0, 'createdAt DESC');
             }],
             committees: ['CommitteeModel', function(CommitteeModel){
-                return CommitteeModel.getSome(10, 0, 'createdAt DESC');
+                return CommitteeModel.getSome(10, 0, 'memberCount DESC');
             }],
             users: ['userCount', 'UserModel', function(userCount, UserModel){
                 var rand = Math.floor(Math.random() * (userCount.userCount + 1));
-                return UserModel.getSome(33, rand);
+                return UserModel.getSome(33, 0, 'constituentCount DESC');
             }],
             userCount: ['UserModel', function(UserModel){
                 return UserModel.getCount();
             }],
             votes: ['VoteModel', function(VoteModel){
-                return VoteModel.getSome(10, 0, 'createdAt DESC');
+                return VoteModel.getSome(10, 0, 'voteCount DESC');
             }],
         }
     })

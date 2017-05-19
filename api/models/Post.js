@@ -51,7 +51,7 @@ module.exports = {
     },
 
     getSome: function(limiting, skipping, sort, filter) {
-        console.log(filter)
+        //console.log(filter)
         return Post.find()
         .where(JSON.parse(JSON.stringify(filter)))
         .sort(sort)

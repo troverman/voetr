@@ -105,6 +105,7 @@ module.exports = {
     },
 
     getSome: function(limiting, skipping, sort, filter) {
+        console.log(skipping)
         return VoteVote.find()
         .where(JSON.parse(JSON.stringify(filter)))
         .sort(sort)
@@ -130,6 +131,7 @@ module.exports = {
     },
 
     getByUser: function(limiting, skipping, sort, user) {
+        console.log(skipping)
         return VoteVote.find()
         .where({user: user})
         .sort(sort)

@@ -14,8 +14,7 @@ angular.module( 'voetr.members', [
 			userCount: ['UserModel', function(UserModel){
 				return UserModel.getCount();
             }],
-            users: ['userCount', 'UserModel', function(userCount, UserModel){
-            	var rand = Math.floor(Math.random() * (userCount.userCount + 1));
+            users: ['UserModel', function(UserModel){
 				return UserModel.getSome(33, 0, 'constituentCount DESC');
             }],
         }

@@ -10,33 +10,75 @@ module.exports = {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 
-		Post.getSome(100,0,'createdAt Desc', {profile:filter})
+		var startDate = new Date();
+		var endDate = new Date();
+
+		//startDate.setMonth(startDate.getDay() - 7);
+		//var createdAt = { '>': startDate, '<': endDate };
+		//limit date -
+		//-- at each callback interval
+
+		//limit - skip isnt the best on multiple models..
+		//gotta keep these models in date order...
+
+		Post.getSome(limit, skip, 'createdAt Desc', {profile:filter})
 		.then(function(postModel){
 			postModel.map(function (obj) {
 				obj.model = 'post';
 			});
 
+			//limit - postModel.length
+
 			var profileFilter = {};
 			profileFilter.user = filter;
 			profileFilter.profile = {'!': filter};
 
-			Post.getSome(100,0,'createdAt Desc', profileFilter)
+			Post.getSome(limit, skip, 'createdAt Desc', profileFilter)
 			.then(function(postProfileModel){
 				postProfileModel.map(function (obj) {
 					obj.model = 'post';
 				});
 
 				var combinedModels = postModel.concat(postProfileModel);
-				VoteVote.getSome(100,0,'createdAt Desc', {user:filter})
+
+				Post.watch(req);
+				Post.subscribe(req, combinedModels);
+
+				VoteVote.getSome(limit, skip, 'createdAt Desc', {user:filter})
 				.then(function(voteModel){
-					console.log(voteModel)
+					//console.log(voteModel)
 					voteModel.map(function (obj) {
 						obj.model = 'vote';
 					});
 
+					VoteVote.watch(req);
+					VoteVote.subscribe(req, voteModel);
+
 					var combinedCombinedModels = combinedModels.concat(voteModel);
+
+					var voteOccurances = combinedCombinedModels.filter(function(obj){
+					    return obj.model === 'vote';
+					}).length;
+					console.log(voteOccurances);
+
+					var postOccurances = combinedCombinedModels.filter(function(obj){
+					    return obj.model === 'post';
+					}).length;
+					console.log(postOccurances);
+
+					//--> use a smart return to get 3 skip values. :)
+					//problem.. 26th value in diff model of limit, skip is not soreted by date. 
+					//solution use date filters 
+
+					//--roder by date filters vs model..????
+
+
 					combinedCombinedModels.sort(function(a,b){return (a.createdAt < b.createdAt) ? 1 : ((b.createdAt < a.createdAt) ? -1 : 0);}); 
 					res.json(combinedCombinedModels);
+
+
+					//>:(
+					//res.json(combinedCombinedModels.slice(0, limit));
 
 					//CommitteeMember.getSome(100,0,'createdAt Desc', {user:filter})
 					//.then(function(commmitteeMemberModel){
@@ -81,17 +123,19 @@ module.exports = {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 
+
+
 		startDate.setMonth(startDate.getDay() - 7);
 		filter.createdAt = { '>': startDate, '<': endDate };
 
-		Post.getSome(100,0,'createdAt Desc', filter)
+		Post.getSome(50,0,'createdAt Desc', filter)
 		.then(function(postModel){
 
 			postModel.map(function (obj) {
 				obj.model = 'post';
 			});
 
-			Vote.getSome(100,0,'createdAt Desc', filter)
+			Vote.getSome(50,0,'createdAt Desc', filter)
 			.then(function(voteModel){
 				//console.log(voteModel);
 				voteModel.map(function (obj) {

@@ -44,22 +44,10 @@ angular.module( 'voetr.member', [
         },
 		resolve: {
             results: ['member', 'SearchModel', function(member, SearchModel) {
-                return SearchModel.getMemberActivity(100, 0, 'createdAt DESC', member.id);
-            }],
-            profilePosts: ['member', 'PostModel', function(member, PostModel) {
-                return PostModel.getByProfile(member.id, 100, 0, 'createdAt DESC');
-            }],
-            userPosts: ['member', 'PostModel', function(member, PostModel) {
-                return PostModel.getByUser(member.id, 100, 0, 'createdAt DESC');
-            }],
-            representatives: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
-                return RepresentativeModel.getRepresentatives(member.id);
+                return SearchModel.getMemberActivity(25, 0, 'createdAt DESC', member.id);
             }],
             user: ['UserModel', function(UserModel){
                 return UserModel.getMine();
-            }],
-            votes: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
-                return VoteVoteModel.getByUser(member.id, 25, 0, 'createdAt DESC');
             }]
         }
     })
@@ -229,23 +217,16 @@ angular.module( 'voetr.member', [
 
 }])
 
-.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'profilePosts', 'RepresentativeModel', 'results', 'titleService', 'user', 'userPosts', 'votes', 'VoteVoteModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, profilePosts, RepresentativeModel, results, titleService, user, userPosts, votes, VoteVoteModel) {
+.controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'RepresentativeModel', 'results', 'SearchModel', 'titleService', 'user', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, RepresentativeModel, results, SearchModel, titleService, user) {
 	titleService.setTitle(member.username + ' - voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
     $scope.results = results;
     $scope.user = user;
-	$scope.votes = votes;
 
-    console.log(results)
-
-    //sloppy
-    $scope.posts = profilePosts.concat(userPosts);
-
-
-    $scope.reply = function(post){
-        var index = $scope.posts.map(function(obj){return obj.id}).indexOf(post.id);
-        $scope.posts[index].showReply = !$scope.posts[index].showReply
+    $scope.reply = function(result){
+        var index = $scope.results.map(function(obj){return obj.id}).indexOf(result.id);
+        $scope.results[index].showReply = !$scope.posts[index].showReply
     };
 
 
@@ -265,21 +246,22 @@ angular.module( 'voetr.member', [
     $scope.loadMore = function() {
         $rootScope.stateIsLoading = true;
         $scope.skip = $scope.skip + 25;
-        //Activity Model -- SearchModel? etc... --> prolly SearchByMember(member.id)
-        VoteVoteModel.getByUser($scope.member.id, 25, $scope.skip).then(function(committees) {
+        SearchModel.getMemberActivity(25, $scope.skip, 'createdAt DESC', $scope.member.id).then(function(results) {
             $rootScope.stateIsLoading = false;
-            Array.prototype.push.apply($scope.committees, committees);
-            console.log($scope.committees);
+            $scope.newResults = results;
+            Array.prototype.push.apply($scope.results, results);
         });
     };
 
     $sailsSocket.subscribe('post', function (envelope) {
+        console.log(envelope)
         switch(envelope.verb) {
             case 'created':
-                $scope.posts.unshift(envelope.data);
+                envelope.data.model = 'post';
+                $scope.results.unshift(envelope.data);
                 break;
             case 'destroyed':
-                lodash.remove($scope.posts, {id: envelope.id});
+                lodash.remove($scope.results, {id: envelope.id});
                 break;
         }
     });
@@ -287,10 +269,11 @@ angular.module( 'voetr.member', [
     $sailsSocket.subscribe('votevote', function (envelope) {
         switch(envelope.verb) {
             case 'created':
-                $scope.votes.unshift(envelope.data);
+                envelope.data.model = 'vote';
+                $scope.results.unshift(envelope.data);
                 break;
             case 'destroyed':
-                lodash.remove($scope.votes, {id: envelope.id});
+                lodash.remove($scope.results, {id: envelope.id});
                 break;
         }
     });

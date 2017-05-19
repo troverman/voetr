@@ -21,6 +21,7 @@
 					<li ng-show="billCount"><a href="member/{{member.username}}/bills">{{billCount}} Bill<span ng-show="committee.memberCount!=1">s</span></a></li>
 					<li><a href="member/{{member.username}}/committees">{{committeeCount}} Committee<span ng-show="committeeCount!=1">s</span></a></li>
 					<li><a href="member/{{member.username}}/constituents">{{constituentCount}} Constituent<span ng-show="constituentCount!=1">s</span></a></li>
+					<!--<li><a href="member/{{member.username}}/posts">{{postCount}} Post<span ng-show="voteCount>=!1">s</span></a></li>-->
 					<li><a href="member/{{member.username}}/representatives">{{representativeCount}} Representative<span ng-show="representativeCount!=1">s</span></a></li>
 					<li><a href="member/{{member.username}}/votes">{{voteCount}} Vote<span ng-show="voteCount>=!1">s</span></a></li>
 					<li ng-show="currentUser.id != member.id">
