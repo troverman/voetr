@@ -393,7 +393,7 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   font-size: 16px
 }
 .dropdown-menu > li > a {
-  font-weight: 600;
+  font-weight: 300;
 }
 .navbar-header {
   max-width: 100%;

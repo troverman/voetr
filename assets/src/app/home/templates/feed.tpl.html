@@ -11,10 +11,10 @@
                 <div class="info" style="height:100%">
                     <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h2>
                     <div class="spacing-10"></div>
-                    <h5><a href="member/{{user.username}}/committees">Committees - {{user.committeeCount}}</a></h5>
-                    <h5><a href="member/{{user.username}}/constituents">Constituents - {{user.constituentCount}}</a></h5>
+                    <h5><a href="member/{{user.username}}/committees">{{user.committeeCount}} Committees</a></h5>
+                    <h5><a href="member/{{user.username}}/constituents">{{user.constituentCount}} Constituents</a></h5>
                     <!--<h5><a href="member/{{user.username}}/representatives">Representatives - {{user.representativeCount}}</a></h5>-->
-                    <h5><a href="member/{{user.username}}/votes">Votes - {{user.voteCount}}</a></h5>
+                    <h5><a href="member/{{user.username}}/votes">{{user.voteCount}} Votes</a></h5>
                 </div>
                 <div class="social">
                     <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
@@ -60,18 +60,13 @@
                         </a>
                         <div class="pull-right">
                             <span class="grey" am-time-ago="post.updatedAt"></span>
-                            <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a>
-                            <!--
-                            <div class="btn-group" uib-dropdown is-open="status.isopen">
-                              <button uib-dropdown-toggle ng-disabled="disabled">
-                                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
-                              </button>
-                              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a href="#">Share</a></li>
-                                <li role="menuitem"><a href="#">Delete</a></li>
-                              </ul>
+                            <div style="display:inline" uib-dropdown is-open="status.isopen">
+                                <a uib-dropdown-toggle ng-disabled="disabled" href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+                                <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem"><a href="#">Share</a></li>
+                                    <li role="menuitem"><a href="#">Delete</a></li>
+                                </ul>
                             </div>
-                            -->
                         </div>
                     </div>
 
@@ -92,7 +87,9 @@
                             <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
                             <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
                             <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
+                            <a href="#" class="grey"><i class="fa fa-share"></i> share </a>
                         </div>
+
                         <div class="pull-right">
                             <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
                         </div>

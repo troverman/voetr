@@ -260,7 +260,13 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "	                        </a>\n" +
     "	                        <div class=\"pull-right\">\n" +
     "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "	                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
+    "	                            </div>\n" +
     "	                        </div>\n" +
     "	                    </div>\n" +
     "\n" +
@@ -294,8 +300,6 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "					</form>\n" +
     "		        </div>\n" +
     "\n" +
-    "\n" +
-    "\n" +
     "				<!--<div ng-show=\"!currentUser\" class=\"profilePost\">\n" +
     "			        <form role=\"form\">\n" +
     "			            <md-input-container class=\"md-block\">\n" +
@@ -325,8 +329,6 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "			    </md-card>\n" +
     "\n" +
     "\n" +
-    "\n" +
-    "\n" +
     "		        <md-card ng-repeat=\"post in posts\">\n" +
     "\n" +
     "			        <div class=\"card-container\">\n" +
@@ -337,7 +339,13 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "	                        </a>\n" +
     "	                        <div class=\"pull-right\">\n" +
     "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "	                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
+    "	                            </div>\n" +
     "	                        </div>\n" +
     "	                    </div>\n" +
     "\n" +
@@ -518,8 +526,6 @@ angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache
     "    </md-card>\n" +
     "\n" +
     "\n" +
-    "\n" +
-    "\n" +
     "    <md-card ng-repeat=\"post in posts\">\n" +
     "        <div class=\"card-container\">\n" +
     "\n" +
@@ -530,7 +536,13 @@ angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache
     "                </a>\n" +
     "                <div class=\"pull-right\">\n" +
     "                    <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                    <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "                        <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                        <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "                        </ul>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -687,7 +699,13 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
     "                </a>\n" +
     "                <div class=\"pull-right\">\n" +
     "                    <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                    <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "                        <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                        <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "                        </ul>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -844,10 +862,10 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                <div class=\"info\" style=\"height:100%\">\n" +
     "                    <h4 class=\"name\"><a href=\"member/{{user.username}}\">{{user.username}}</a></h2>\n" +
     "                    <div class=\"spacing-10\"></div>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/committees\">Committees - {{user.committeeCount}}</a></h5>\n" +
-    "                    <h5><a href=\"member/{{user.username}}/constituents\">Constituents - {{user.constituentCount}}</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/committees\">{{user.committeeCount}} Committees</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/constituents\">{{user.constituentCount}} Constituents</a></h5>\n" +
     "                    <!--<h5><a href=\"member/{{user.username}}/representatives\">Representatives - {{user.representativeCount}}</a></h5>-->\n" +
-    "                    <h5><a href=\"member/{{user.username}}/votes\">Votes - {{user.voteCount}}</a></h5>\n" +
+    "                    <h5><a href=\"member/{{user.username}}/votes\">{{user.voteCount}} Votes</a></h5>\n" +
     "                </div>\n" +
     "                <div class=\"social\">\n" +
     "                    <a ng-show=\"user.socialAccounts.facebook.profileUrl\" href=\"{{user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
@@ -893,18 +911,13 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                        </a>\n" +
     "                        <div class=\"pull-right\">\n" +
     "                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
-    "                            <!--\n" +
-    "                            <div class=\"btn-group\" uib-dropdown is-open=\"status.isopen\">\n" +
-    "                              <button uib-dropdown-toggle ng-disabled=\"disabled\">\n" +
-    "                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
-    "                              </button>\n" +
-    "                              <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
-    "                                <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
-    "                                <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
-    "                              </ul>\n" +
+    "                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "                                </ul>\n" +
     "                            </div>\n" +
-    "                            -->\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "\n" +
@@ -925,7 +938,9 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
     "                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
     "                            <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
+    "                            <a href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
     "                        </div>\n" +
+    "\n" +
     "                        <div class=\"pull-right\">\n" +
     "                            <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
     "                        </div>\n" +
@@ -1256,7 +1271,13 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "                </a>\n" +
     "                <div class=\"pull-right\">\n" +
     "                    <span class=\"grey\" am-time-ago=\"result.updatedAt\"></span>\n" +
-    "                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                    <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "                        <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                        <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "                        </ul>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -1267,8 +1288,8 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "                <div class=\"spacing-10\"></div>\n" +
     "                <a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{result.bill.title}}</a>\n" +
     "                <div class=\"spacing-10\"></div>\n" +
-    "                <button ng-class=\"{'upVoted': result.voteString=='Yes' || result.voteString=='Yea'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{result.vote.plusCount}}</button>\n" +
-    "                <button ng-class=\"{'downVoted': result.voteString=='No' || result.voteString=='Nay'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{result.vote.minusCount}}</button>\n" +
+    "                <button ng-class=\"{'upVoted': result.voteString=='Yes' || result.voteString=='Yea'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{result.vote.plusCount}}</button>\n" +
+    "                <button ng-class=\"{'downVoted': result.voteString=='No' || result.voteString=='Nay'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{result.vote.minusCount}}</button>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"spacing-15\"></div>\n" +
@@ -1302,7 +1323,13 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "                </a>\n" +
     "                <div class=\"pull-right\">\n" +
     "                    <span class=\"grey\" am-time-ago=\"result.updatedAt\"></span>\n" +
-    "                    <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                    <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "                        <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "                        <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "                            <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "                        </ul>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -1566,8 +1593,8 @@ angular.module("member/templates/votes.tpl.html", []).run(["$templateCache", fun
     "			<div class=\"spacing-10\"></div>\n" +
     "			<a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
-    "            <button ng-class=\"{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{vote.vote.plusCount}}</button>\n" +
-    "            <button ng-class=\"{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{vote.vote.minusCount}}</button>\n" +
+    "            <button ng-class=\"{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{vote.vote.plusCount}}</button>\n" +
+    "            <button ng-class=\"{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{vote.vote.minusCount}}</button>\n" +
     "    	</div>\n" +
     "\n" +
     "	</md-card>\n" +
@@ -1677,11 +1704,12 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templ
     "    .navbar-inverse .navbar-toggle:hover .icon-bar{background-color:#fff;}\n" +
     "    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {color:#717171; background-color:#e1e1e1;}\n" +
     "    md-progress-linear .md-container {background-color: #e1e1e1!important;}\n" +
+    "    .container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse{margin-right:0px!important;margin-left:0px!important}\n" +
     "</style>\n" +
     "<div ng-controller=\"NavCtrl\" class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\n" +
     "    <div class=\"container\">\n" +
     "        <div class=\"navbar-header\">\n" +
-    "            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
+    "            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\" style=\"margin-right:0px;padding:9px 15px\">\n" +
     "                <span class=\"sr-only\">Toggle navigation</span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
@@ -1702,7 +1730,7 @@ angular.module("nav/index.tpl.html", []).run(["$templateCache", function ($templ
     "            <ul class=\"nav navbar-nav navbar-right\">\n" +
     "                <li class=\"dropdown\" ng-show=\"currentUser\">\n" +
     "                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-    "                        {{currentUser.username}} <span class=\"caret\"></span>\n" +
+    "                        {{currentUser.username}} <span class=\"fa fa-angle-down\"></span>\n" +
     "                    </a>\n" +
     "                    <ul class=\"dropdown-menu\">\n" +
     "                        <li>\n" +
@@ -1876,18 +1904,13 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "		                        </a>\n" +
     "		                        <div class=\"pull-right\">\n" +
     "		                            <span style=\"color:grey\" am-time-ago=\"result.updatedAt\"></span>\n" +
-    "		                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
-    "		                            <!--\n" +
-    "		                            <div class=\"btn-group\" uib-dropdown is-open=\"status.isopen\">\n" +
-    "		                              <button uib-dropdown-toggle ng-disabled=\"disabled\">\n" +
-    "		                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
-    "		                              </button>\n" +
-    "		                              <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
-    "		                                <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
-    "		                                <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
-    "		                              </ul>\n" +
+    "		                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "		                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "		                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "		                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "		                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "		                                </ul>\n" +
     "		                            </div>\n" +
-    "		                            -->\n" +
     "		                        </div>\n" +
     "		                    </div>\n" +
     "\n" +
@@ -1950,18 +1973,13 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "			                        </a>\n" +
     "			                        <div class=\"pull-right\">\n" +
     "			                            <span style=\"color:grey\" am-time-ago=\"result.updatedAt\"></span>\n" +
-    "			                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
-    "			                            <!--\n" +
-    "			                            <div class=\"btn-group\" uib-dropdown is-open=\"status.isopen\">\n" +
-    "			                              <button uib-dropdown-toggle ng-disabled=\"disabled\">\n" +
-    "			                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
-    "			                              </button>\n" +
-    "			                              <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
-    "			                                <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
-    "			                                <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
-    "			                              </ul>\n" +
+    "			                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "			                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "			                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "			                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "			                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "			                                </ul>\n" +
     "			                            </div>\n" +
-    "			                            -->\n" +
     "			                        </div>\n" +
     "			                    </div>\n" +
     "\n" +
@@ -2183,18 +2201,13 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "	                        </a>\n" +
     "	                        <div class=\"pull-right\">\n" +
     "	                            <span style=\"color:grey\" am-time-ago=\"result.updatedAt\"></span>\n" +
-    "	                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
-    "	                            <!--\n" +
-    "	                            <div class=\"btn-group\" uib-dropdown is-open=\"status.isopen\">\n" +
-    "	                              <button uib-dropdown-toggle ng-disabled=\"disabled\">\n" +
-    "	                                <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
-    "	                              </button>\n" +
-    "	                              <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
-    "	                                <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
-    "	                                <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
-    "	                              </ul>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
     "	                            </div>\n" +
-    "	                            -->\n" +
     "	                        </div>\n" +
     "	                    </div>\n" +
     "\n" +
@@ -2225,7 +2238,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "\n" +
     "				<md-card ng-show=\"result.model=='bill'\">\n" +
     "					<div class=\"card-container\">\n" +
-    "		            	<h4><a href=\"/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}\">{{result.title}}</a></h4>\n" +
+    "		            	<h4><a href=\"/bill/{{result.id}}/{{result.title.replace(' ','-')}}\">{{result.title}}</a></h4>\n" +
     "						<div class=\"spacing-10\"></div>\n" +
     "		            	<button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{result.plusCount}}</button>\n" +
     "			            <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{result.minusCount}}</button>\n" +
@@ -2342,7 +2355,13 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "	                        </a>\n" +
     "	                        <div class=\"pull-right\">\n" +
     "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "	                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
+    "	                            </div>\n" +
     "	                        </div>\n" +
     "	                    </div>\n" +
     "\n" +
@@ -2409,7 +2428,13 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "	                        </a>\n" +
     "	                        <div class=\"pull-right\">\n" +
     "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
-    "	                            <a href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
+    "	                            </div>\n" +
     "	                        </div>\n" +
     "	                    </div>\n" +
     "\n" +

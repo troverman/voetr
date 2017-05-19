@@ -11,11 +11,12 @@
     .navbar-inverse .navbar-toggle:hover .icon-bar{background-color:#fff;}
     .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {color:#717171; background-color:#e1e1e1;}
     md-progress-linear .md-container {background-color: #e1e1e1!important;}
+    .container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse{margin-right:0px!important;margin-left:0px!important}
 </style>
 <div ng-controller="NavCtrl" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="margin-right:0px;padding:9px 15px">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
