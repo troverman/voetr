@@ -15,8 +15,8 @@
 			<div class="spacing-10"></div>
 			<a href="/bill/{{result.bill.id}}/{{result.bill.title}}">{{vote.bill.title}}</a>
 			<div class="spacing-10"></div>
-            <button ng-class="{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{vote.vote.plusCount}}</button>
-            <button ng-class="{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{vote.vote.minusCount}}</button>
+            <button ng-class="{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-angle-up"></i>  {{vote.vote.plusCount}}</button>
+            <button ng-class="{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-angle-down"></i>  {{vote.vote.minusCount}}</button>
     	</div>
 
 	</md-card>
