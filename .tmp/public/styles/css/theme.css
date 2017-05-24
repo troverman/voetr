@@ -721,6 +721,7 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
     .collapse.in {
         display: block !important;
     }
+    #search-link{width:100%;}
 }
 
 /* End Bootstrap nav breakpoint override */

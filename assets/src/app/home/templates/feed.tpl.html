@@ -56,8 +56,14 @@
                     <div class="post-controller-container">
                         <a href="/member/{{post.user.username}}">
                             <img class="post-img" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
-                            <h4 class="post-name">{{post.user.username}}</h4>
+                            <h4 class="post-name">
+                                {{post.user.username}}
+                            </h4>
                         </a>
+                        <a ng-show="post.bill" href="bill/{{post.bill.id}}/1"><h4>{{post.bill.title}}</h4></a>
+                        <a ng-show="post.committee" href="committee/{{post.committee.urlTitle}}"><h4>{{post.committee.title}}</h4></a>
+                        <a ng-show="post.profile && post.profile.id != post.user.id" href="member/{{post.profile.username}}"><h4>{{post.profile.username}}</h4></a>
+                        <a ng-show="post.vote" href="vote/{{post.vote.id}}"><h4>{{post.vote.title}}</h4></a>
                         <div class="pull-right">
                             <span class="grey" am-time-ago="post.updatedAt"></span>
                             <div style="display:inline" uib-dropdown is-open="status.isopen">
@@ -71,14 +77,6 @@
                     </div>
 
                     <div class="post-container">
-                        <div ng-show="post.profile.id != post.user.id">
-                            <div class="spacing-5"></div>
-                            <a ng-show="post.bill" href="bill/{{post.bill.id}}/1"><h4>{{post.bill.title}}</h4></a>
-                            <a ng-show="post.committee" href="committee/{{post.committee.urlTitle}}"><h4>{{post.committee.title}}</h4></a>
-                            <a ng-show="post.profile" href="member/{{post.profile.username}}"><h4>{{post.profile.username}}</h4></a>
-                            <a ng-show="post.vote" href="vote/{{post.vote.id}}"><h4>{{post.vote.title}}</h4></a>
-                            <div class="spacing-5"></div>
-                        </div>
                         <p>{{post.post}}</p>
                     </div>
 

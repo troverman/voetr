@@ -25,10 +25,10 @@
 			<div class="spacing-10"></div>
 			<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
 			<div class="spacing-10"></div>
-			<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)">
+			<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-xs-6" ng-click="createVote(1, vote)">
 				<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
 			</button>
-			<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)">
+			<button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-xs-6" ng-click="createVote(-1, vote)">
 				<i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
 			</button>
 		</div>

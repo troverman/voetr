@@ -907,8 +907,14 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                    <div class=\"post-controller-container\">\n" +
     "                        <a href=\"/member/{{post.user.username}}\">\n" +
     "                            <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
-    "                            <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
+    "                            <h4 class=\"post-name\">\n" +
+    "                                {{post.user.username}}\n" +
+    "                            </h4>\n" +
     "                        </a>\n" +
+    "                        <a ng-show=\"post.bill\" href=\"bill/{{post.bill.id}}/1\"><h4>{{post.bill.title}}</h4></a>\n" +
+    "                        <a ng-show=\"post.committee\" href=\"committee/{{post.committee.urlTitle}}\"><h4>{{post.committee.title}}</h4></a>\n" +
+    "                        <a ng-show=\"post.profile && post.profile.id != post.user.id\" href=\"member/{{post.profile.username}}\"><h4>{{post.profile.username}}</h4></a>\n" +
+    "                        <a ng-show=\"post.vote\" href=\"vote/{{post.vote.id}}\"><h4>{{post.vote.title}}</h4></a>\n" +
     "                        <div class=\"pull-right\">\n" +
     "                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
     "                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
@@ -922,14 +928,6 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                    </div>\n" +
     "\n" +
     "                    <div class=\"post-container\">\n" +
-    "                        <div ng-show=\"post.profile.id != post.user.id\">\n" +
-    "                            <div class=\"spacing-5\"></div>\n" +
-    "                            <a ng-show=\"post.bill\" href=\"bill/{{post.bill.id}}/1\"><h4>{{post.bill.title}}</h4></a>\n" +
-    "                            <a ng-show=\"post.committee\" href=\"committee/{{post.committee.urlTitle}}\"><h4>{{post.committee.title}}</h4></a>\n" +
-    "                            <a ng-show=\"post.profile\" href=\"member/{{post.profile.username}}\"><h4>{{post.profile.username}}</h4></a>\n" +
-    "                            <a ng-show=\"post.vote\" href=\"vote/{{post.vote.id}}\"><h4>{{post.vote.title}}</h4></a>\n" +
-    "                            <div class=\"spacing-5\"></div>\n" +
-    "                        </div>\n" +
     "                        <p>{{post.post}}</p>\n" +
     "                    </div>\n" +
     "\n" +
@@ -969,10 +967,10 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                    <div class=\"spacing-10\"></div>\n" +
     "                    <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "                    <div class=\"spacing-10\"></div>\n" +
-    "                    <button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\">\n" +
+    "                    <button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\">\n" +
     "                        <i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +
     "                    </button>\n" +
-    "                    <button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\">\n" +
+    "                    <button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\">\n" +
     "                        <i class=\"fa fa-caret-down red-color\"></i>  <b>{{vote.minusCount}}</b>\n" +
     "                    </button>\n" +
     "                </div>\n" +
@@ -1288,8 +1286,8 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "                <div class=\"spacing-10\"></div>\n" +
     "                <a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{result.bill.title}}</a>\n" +
     "                <div class=\"spacing-10\"></div>\n" +
-    "                <button ng-class=\"{'upVoted': result.voteString=='Yes' || result.voteString=='Yea'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{result.vote.plusCount}}</button>\n" +
-    "                <button ng-class=\"{'downVoted': result.voteString=='No' || result.voteString=='Nay'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{result.vote.minusCount}}</button>\n" +
+    "                <button ng-class=\"{'upVoted': result.voteString=='Yes' || result.voteString=='Yea'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{result.vote.plusCount}}</button>\n" +
+    "                <button ng-class=\"{'downVoted': result.voteString=='No' || result.voteString=='Nay'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{result.vote.minusCount}}</button>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"spacing-15\"></div>\n" +
@@ -1593,8 +1591,8 @@ angular.module("member/templates/votes.tpl.html", []).run(["$templateCache", fun
     "			<div class=\"spacing-10\"></div>\n" +
     "			<a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
-    "            <button ng-class=\"{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{vote.vote.plusCount}}</button>\n" +
-    "            <button ng-class=\"{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{vote.vote.minusCount}}</button>\n" +
+    "            <button ng-class=\"{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{vote.vote.plusCount}}</button>\n" +
+    "            <button ng-class=\"{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{vote.vote.minusCount}}</button>\n" +
     "    	</div>\n" +
     "\n" +
     "	</md-card>\n" +
@@ -2537,10 +2535,10 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "			<div class=\"spacing-10\"></div>\n" +
     "			<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
-    "			<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\">\n" +
+    "			<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\">\n" +
     "				<i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +
     "			</button>\n" +
-    "			<button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\">\n" +
+    "			<button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\">\n" +
     "				<i class=\"fa fa-caret-down red-color\"></i>  <b>{{vote.minusCount}}</b>\n" +
     "			</button>\n" +
     "		</div>\n" +
