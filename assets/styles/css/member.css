@@ -11,7 +11,7 @@
 }
 
 .member-cover{
-	height:17em;
+	max-height:17em;
 	width: 100%;
 	overflow: hidden;
 }
