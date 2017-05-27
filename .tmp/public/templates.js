@@ -13,9 +13,8 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "		<div class=\"container\">\n" +
     "			<h2>directly impact the political landscape</h2>\n" +
     "			<br>\n" +
-    "			<h4>build empowerment though the creation of constituent coalitions.</h4>\n" +
+    "			<h4>build empowerment though creating constituent coalitions.</h4>\n" +
     "			<!--ability to create citizen colitions-->\n" +
-    "\n" +
     "			<h4>change consensus though direct input on policy decisions.</h4>\n" +
     "		</div>\n" +
     "	</div>\n" +
@@ -663,7 +662,7 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
     "    <div ng-show=\"!currentUser\" class=\"profilePost\">\n" +
     "        <form role=\"form\">\n" +
     "            <md-input-container class=\"md-block\">\n" +
-    "                <textarea ng-model=\"newPost.post\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "                <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
     "            </md-input-container>\n" +
     "            <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
     "        </form>\n" +
@@ -1006,7 +1005,8 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "            <div class=\"col-md-6\">\n" +
     "                <h1>be part of the movement</h1>\n" +
     "                <h4>direct your impact though input on policy</h4>\n" +
-    "                <h4>create coalitions of representation</h4>\n" +
+    "                <!--<h4>create coalitions of representation</h4>-->\n" +
+    "                <h4>create constituent coalitions</h4>\n" +
     "                <br><br>\n" +
     "                <a href=\"/about\" class=\"btn btn-default\">learn more</a>\n" +
     "                <!--reduce polarization-->\n" +
