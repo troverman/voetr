@@ -22,7 +22,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "		<div class=\"container\">\n" +
     "			<div class=\"row\">\n" +
     "				<div class=\"col-sm-6\">\n" +
-    "					<img src=\"images/voetr-about2.png\" style=\"max-width:100%\">\n" +
+    "					<img src=\"images/voetr-new.png\" style=\"max-width:100%\">\n" +
     "		    	</div>\n" +
     "				<div class=\"col-sm-6\" style=\"text-align:right\">\n" +
     "					<h4>direct your impact though input on policy</h4>\n" +
