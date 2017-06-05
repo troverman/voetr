@@ -108,6 +108,7 @@ module.exports.routes = {
   'get /api/post/:id': 'PostController.getOne',
   'get /api/post/filter/bill': 'PostController.getByBill',
   'get /api/post/filter/committee': 'PostController.getByCommittee',
+  'get /api/post/filter/post': 'PostController.getByPost',
   'get /api/post/filter/profile': 'PostController.getByProfile',
   'get /api/post/filter/user': 'PostController.getByUser',
   'get /api/post/filter/vote': 'PostController.getByVote',

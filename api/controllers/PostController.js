@@ -66,15 +66,22 @@ module.exports = {
 		var limit = req.query.limit;
 		var skip = req.query.skip;
 		var sort = req.query.sort;
-		Post.find({postModel:post})
-		.then(function(models) {
-			models
-			//for x in models
-			//Post.find({postModel:models[x]})
-		})
-		.fail(function(err) {
-			// An error occured
-		});
+		console.log(post)
+		if (post){
+			Post.find({postModel:post})
+			.populate('user')
+			.then(function(models) {
+				console.log(models)
+				Post.watch(req);
+				Post.subscribe(req, models);
+				res.json(models);
+				//for x in models
+				//Post.find({postModel:models[x]})
+			})
+			.fail(function(err) {
+				// An error occured
+			});
+		}
 	},
 
 	getByProfile: function(req, res) {
@@ -127,6 +134,7 @@ module.exports = {
 
 	create: function (req, res) {
 		var post = req.param('post');
+		var postModel = req.param('postModel');
 		var bill = req.param('bill');
 		var profile = req.param('profile');
 		var committee = req.param('committee');
@@ -135,6 +143,7 @@ module.exports = {
 		var meansOfContact = req.param('meansOfContact');
 		var model = {
 			post: post,
+			postModel: postModel,
 			bill: bill,
 			profile: profile,
 			committee: committee,

@@ -25,6 +25,12 @@ angular.module('models.post', ['lodash', 'services', 'sails.io',])
         return $sailsSocket.get(url, query).then(success, error);
     };
 
+    this.getByPost = function(model, limit, skip, sort) {
+        var url = utils.prepareUrl('post/filter/post');
+        var query = {params:{post:model, limit:limit, skip:skip, sort: sort}};
+        return $sailsSocket.get(url, query).then(success, error);
+    };
+
     this.getByProfile = function(model, limit, skip, sort) {
         var url = utils.prepareUrl('post/filter/profile');
         var query = {params:{profile:model, limit:limit, skip:skip, sort: sort}};
