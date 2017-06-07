@@ -46,18 +46,27 @@ angular.module( 'voetr.post', [
 		PostModel.getByPost(post).then(function(postModels){
 			//$scope.post.postChilren = postModels;
 
-
 			for (x in postModels){
 				//post children needs to be mapped recursivly.....
 				var index = $scope.postChildren.map(function(obj){return obj.id}).indexOf(post);
 				if (index != -1){
+
+					//postModel[x]--childId
+					//post--parentid
+
+					//var lol = function(){
+						//lol()
+					//}
+
+
+					//$scope.posts[index].children[index1].children[index2].children....
+
 					$scope.postChildren[index].children = [];
 					$scope.postChildren[index].children.push(postModels[x]);
-					console.log()
 					console.log(index)
 					console.log($scope.postChildren)
-
 					$scope.getPostChildren(postModels[x].id);
+
 				}
 			}
 
@@ -73,10 +82,10 @@ angular.module( 'voetr.post', [
 	$sailsSocket.subscribe('post', function (envelope) {
 	    switch(envelope.verb) {
 	        case 'created':
-	            //$scope.posts.unshift(envelope.data);
+	            $scope.postChildren.unshift(envelope.data);
 	            break;
 	        case 'destroyed':
-	            //lodash.remove($scope.posts, {id: envelope.id});
+	            $scope.postChildren.unshift(envelope.data);
 	            break;
 	    }
     });
