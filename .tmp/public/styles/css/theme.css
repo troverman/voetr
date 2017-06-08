@@ -195,6 +195,11 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
   padding:16px 16px 16px
 }
 
+.verticalRow{
+  display: flex;
+    align-items: center;
+}
+
 .image {
   //height: 95px;
   height: 125px;
@@ -682,6 +687,12 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input {
 }
 .post-action-container{
     margin-left:61px;
+}
+
+@media (max-width: 767px) {
+    .verticalRow {
+        display: block;
+    }
 }
 
 /* Bootstrap nav breakpoint override */

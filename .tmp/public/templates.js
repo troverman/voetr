@@ -2,18 +2,6 @@ angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("about/index.tpl.html",
-    "<style>\n" +
-    ".verticalRow{\n" +
-    "	display: flex;\n" +
-    "    align-items: center;\n" +
-    "}\n" +
-    "@media (max-width: 767px) {\n" +
-    "    .verticalRow {\n" +
-    "        display: block; /* Turn off the flexible box layout */\n" +
-    "    }\n" +
-    "}\n" +
-    "</style>\n" +
-    "\n" +
     "<div class=\"imageContainer\">\n" +
     "	<video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\" playsinline></video>\n" +
     "	<div class=\"imageContainerDiv container\">  \n" +
@@ -25,8 +13,8 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "		<div class=\"container\">\n" +
     "			<h2>directly impact the political landscape</h2>\n" +
     "			<br>\n" +
-    "			<h4>build empowerment though creating constituent coalitions.</h4>\n" +
-    "			<h4>change consensus though direct input on policy decisions.</h4>\n" +
+    "			<h4>build empowerment by creating constituent coalitions</h4>\n" +
+    "			<h4>change consensus though direct input on policy decisions</h4>\n" +
     "		</div>\n" +
     "	</div>\n" +
     "	<div id=\"section2\">\n" +
@@ -62,8 +50,8 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "		<div class=\"container\" style=\"text-align:left\">\n" +
     "			<div class=\"row verticalRow\">\n" +
     "				<div class=\"col-sm-8\">\n" +
-    "					<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
     "					<h3>power to the people</h3>\n" +
+    "					<img style=\"height:64px;\" src=\"images/voetr_icon.png\"/>\n" +
     "				</div>\n" +
     "				<div class=\"col-sm-4\">\n" +
     "					<img src=\"images/voetr-about3.png\" style=\"max-width:100%\">\n" +
@@ -737,7 +725,7 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
     "                <div class=\"pull-left\">\n" +
     "                    <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
     "                    <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
-    "                    <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
+    "                    <a href=\"post/{{post.id}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
     "                </div>\n" +
     "                <div class=\"pull-right\">\n" +
     "                    <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
@@ -933,9 +921,11 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                        </a>\n" +
     "\n" +
     "\n" +
+    "                        <!--\n" +
     "                        <a ng-show=\"post.bill\" href=\"bill/{{post.bill.id}}/1\"><h4>{{post.bill.title}}</h4></a>\n" +
     "                        <a ng-show=\"post.committee\" href=\"committee/{{post.committee.urlTitle}}\"><h4>{{post.committee.title}}</h4></a>\n" +
     "                        <a ng-show=\"post.profile && post.profile.id != post.user.id\" href=\"member/{{post.profile.username}}\"><h4>{{post.profile.username}}</h4></a>\n" +
+    "                        -->\n" +
     "\n" +
     "                        \n" +
     "                        <a ng-show=\"post.vote\" href=\"vote/{{post.vote.id}}\"><h4>{{post.vote.title}}</h4></a>\n" +
@@ -952,13 +942,16 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                    </div>\n" +
     "\n" +
     "                    <div class=\"post-container\">\n" +
+    "                        <a ng-show=\"post.bill\" href=\"bill/{{post.bill.id}}/1\"><h4>{{post.bill.title}}</h4></a>\n" +
+    "                        <a ng-show=\"post.committee\" href=\"committee/{{post.committee.urlTitle}}\"><h4>{{post.committee.title}}</h4></a>\n" +
+    "                        <a ng-show=\"post.profile && post.profile.id != post.user.id\" href=\"member/{{post.profile.username}}\"><h4>{{post.profile.username}}</h4></a>\n" +
     "                        <p>{{post.post}}</p>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <div class=\"post-action-container\">\n" +
     "                        <div class=\"pull-left\">\n" +
-    "                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
-    "                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "                            <a href=\"#\" ng-click=\"likePost(post)\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
+    "                            <a href=\"#\" ng-click=\"dislikePost(post)\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
     "                            <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
     "                            <a href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
     "                        </div>\n" +

@@ -182,6 +182,32 @@ angular.module( 'voetr.home', [
     	$scope.posts[index].showReply = !$scope.posts[index].showReply
     };
 
+    $scope.likePost = function(post) {
+        if ($scope.currentUser){
+            $scope.newVote.user = config.currentUser.id;
+            $scope.newVote.post = post.id;
+            $scope.newVote.voteInteger = 1;
+            console.log($scope.newVote);
+            //VoteVoteModel.create($scope.newVote).then(function(model) {
+            //    $scope.newVote = {};
+            //});
+        }
+        else{$location.path('/register');}
+    };
+
+    $scope.dislikePost = function(post) {
+        if ($scope.currentUser){
+            $scope.newVote.user = config.currentUser.id;
+            $scope.newVote.post = post.id;
+            $scope.newVote.voteInteger = -1;
+            console.log($scope.newVote);
+            //VoteVoteModel.create($scope.newVote).then(function(model) {
+            //    $scope.newVote = {};
+            //});
+        }
+        else{$location.path('/register');}
+    };
+
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
 	    	$scope.gettingRepresentatives = true;

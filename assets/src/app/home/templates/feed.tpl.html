@@ -62,9 +62,11 @@
                         </a>
 
 
+                        <!--
                         <a ng-show="post.bill" href="bill/{{post.bill.id}}/1"><h4>{{post.bill.title}}</h4></a>
                         <a ng-show="post.committee" href="committee/{{post.committee.urlTitle}}"><h4>{{post.committee.title}}</h4></a>
                         <a ng-show="post.profile && post.profile.id != post.user.id" href="member/{{post.profile.username}}"><h4>{{post.profile.username}}</h4></a>
+                        -->
 
                         
                         <a ng-show="post.vote" href="vote/{{post.vote.id}}"><h4>{{post.vote.title}}</h4></a>
@@ -81,13 +83,16 @@
                     </div>
 
                     <div class="post-container">
+                        <a ng-show="post.bill" href="bill/{{post.bill.id}}/1"><h4>{{post.bill.title}}</h4></a>
+                        <a ng-show="post.committee" href="committee/{{post.committee.urlTitle}}"><h4>{{post.committee.title}}</h4></a>
+                        <a ng-show="post.profile && post.profile.id != post.user.id" href="member/{{post.profile.username}}"><h4>{{post.profile.username}}</h4></a>
                         <p>{{post.post}}</p>
                     </div>
 
                     <div class="post-action-container">
                         <div class="pull-left">
-                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
-                            <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+                            <a href="#" ng-click="likePost(post)" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+                            <a href="#" ng-click="dislikePost(post)" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
                             <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
                             <a href="#" class="grey"><i class="fa fa-share"></i> share </a>
                         </div>
