@@ -139,48 +139,48 @@ module.exports = {
 			if (body && body.geonames && body.geonames.length > 0){
 				var nameData = body.geonames;
 				async.eachSeries(nameData, function (committeeData, nextCommittee){
-					var countryName = committeeData.countryName;
-					var title = committeeData.name;
-					var urlTitle = title.replace(/ /g,"-").toLowerCase();
-					var model = {
-						parent: parentId,
-						title: title,
-						urlTitle: urlTitle
-					};
-					Committee.find({urlTitle:urlTitle}).then(function(committeeModel){
-						if (committeeModel.length === 0){
-							Committee.create(model)
-							.then(function(committeeModel) {
-								console.log('~~~Committee CREATED~~~');
-								console.log(committeeModel)
-								process.nextTick(nextCommittee);
-							  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username);
-								Committee.publishCreate(committeeModel);
-							});
-						}
-						else{
-							//IDK is this is best duplicate solution
-							//duplicate town names n stuff
-							//causes errors -- alcoa -- blount county -- alabama.. lol
-							for (x in committeeModel){
-								if (model.parent =! committeeModel[x].parent){
-									console.log(model.parent)
-									//might wanna add the parent urlTitle to the unique string ? 
-									model.urlTitle = model.urlTitle + '.8';
-									Committee.create(model)
-									.then(function(committeeModel) {
-										console.log('~~~Committee CREATED~~~');
-										console.log(committeeModel)
-										process.nextTick(nextCommittee);
-									  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username);
-										Committee.publishCreate(committeeModel);
-									});
-								}
+					if (committeeData.fcl=='A'){
+						console.log(committeeData.fcl)
+						console.log(committeeData.fcode)
+						console.log(committeeData.countryName)
+						var countryName = committeeData.countryName;
+						var fcl = committeeData.fcl;
+						var fcode =  committeeData.fcode;
+						var geonameId = committeeData.geonameId;
+						var lat = committeeData.lat;
+						var lng = committeeData.lng;
+						var title = committeeData.name;
+						var urlTitle = title.replace(/ /g,"-").replace(/./g,'').replace(/,/g,'').replace(/[()]/g, '').toLowerCase();
+						var model = {
+							//fcl: fcl,
+							//fcode: fcode,
+							geonameId: geonameId,
+							lat: lat,
+							lng: lng,
+							parent: parentId,
+							title: title,
+							urlTitle: urlTitle
+						};
+						Committee.find({urlTitle:urlTitle, parent:parentId}).then(function(committeeModel){
+							if (committeeModel.length === 0){
+								Committee.create(model)
+								.then(function(committeeModel) {
+									console.log('~~~Committee CREATED~~~');
+									console.log(committeeModel)
+									process.nextTick(nextCommittee);
+								  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username);
+									Committee.publishCreate(committeeModel);
+								});
+							}
+							else{
 								process.nextTick(nextCommittee);
 								dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username);
 							}
-						}
-					});
+						});
+					}
+					else{
+						process.nextTick(nextCommittee);
+					}
 				});
 			}
 		});
@@ -199,10 +199,11 @@ module.exports = {
 				Committee.find({urlTitle:urlTitle}).then(function(committeeModel){
 					//problem with duplicates
 					if (committeeModel.length === 0){
-						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'troverman');
+						//dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr5');
 					}
 					else{
-						console.log(committeeModel[0]);
+						//console.log(committeeModel[0]);
+						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr5');
 					}
 					process.nextTick(nextCommittee);
 				});
@@ -219,7 +220,7 @@ module.exports = {
 				headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'},
 			};
 			request(model, function (error, response, body) {
-				if (!error && body.results) {
+				if (!error && body && body.results) {
 					if (body.results.length>0){
 						var billData = body.results[0];
 						for (x in billData.bills){

@@ -33,6 +33,26 @@ module.exports = {
         },
     },
 
+    beforeValidate: function(values, cb) {
+        Committee.find({urlTitle:values.urlTitle}).then(function(committeeModel){
+            if (committeeModel.length === 0){
+                cb();
+            }
+            else{
+                Committee.find({id:values.parent}).then(function(committeeModel){
+                    if (committeeModel.length === 0){
+                        values.urlTitle = values.urlTitle + '.8';
+                        cb();
+                    }
+                    else{
+                        values.urlTitle = committeeModel[0].urlTitle + '-' + values.urlTitle;
+                        cb();
+                    }
+                });
+            }
+        });
+    },
+
     getOne: function(id) {
         return Committee.findOne(id)
         .populate('parent')

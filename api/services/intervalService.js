@@ -1,3 +1,4 @@
+var async = require('async');
 var request = require('request');
 var govTrack = require('govtrack-node');
 var Q = require('q');
@@ -189,9 +190,9 @@ function recentBills(){
 module.exports.intervalService = function(){
 
 	for (x in Object.keys(states)){
-		dataService.stateBills(Object.keys(states)[x], 1, 25);
+		//dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
-	dataService.stateBills('nc', 1, 25);
+	//dataService.stateBills('nc', 1, 25);
 
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
@@ -206,34 +207,42 @@ module.exports.intervalService = function(){
 	//dataService.getNamesWorld();
 
 	//US
-	dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'troverman');
+	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'voetr3');
 
 	//NC
-	dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr1');
+	//dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr1');
 
 	//TN
-	dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746', 'voetr2');
+	//dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746', 'voetr2');
 
 	//india
-	dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a', 'voetr3');
+	//dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a', 'voetr3');
 
 	//china
-	dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c', 'voetr4');
+	//dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c', 'voetr4');
 
 	//uk
-	dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5');
+	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5');
 
-	dataService.federalBillsProPublica(0);
-	dataService.federalBillsProPublica(100);
-	dataService.federalBillsProPublica(200);
-	dataService.federalBillsProPublica(300);
-	dataService.federalBillsProPublica(400);
-	dataService.federalBillsProPublica(500);
-	dataService.federalBillsProPublica(600);
-	dataService.federalBillsProPublica(700);
-	dataService.federalBillsProPublica(800);
+	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
-	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
+	var billCount = 0;
+	while(billCount<10000){
+		setTimeout(function () {
+			dataService.federalBillsProPublica(billCount);
+			billCount = billCount + 20;
+			console.log(billCount)
+		}, 300000);
+	}
+
+	async.eachSeries(Object.keys(states), function (iterator, nextIteration){ 
+		setTimeout(function () {
+			//could do a while to get past state bills--> too much tho
+			dataService.stateBills(iterator, 1, 50);
+			process.nextTick(nextIteration);
+		}, 180000);
+	});
+
 
     //multithreading...
     /*var cluster = require('cluster'),
