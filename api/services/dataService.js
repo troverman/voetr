@@ -129,36 +129,26 @@ module.exports = {
 		});
 	},
 
-	getGeoNamesByParent: function(geoNameParentId, parentId){
+	getGeoNamesByParent: function(geoNameParentId, parentId, username){
+		//voetr1, voetr2, voetr3, voetr4, voetr5, troverman
 		var model = {
-			url:'http://api.geonames.org/childrenJSON?geonameId='+geoNameParentId+'&username=troverman&maxRows=1000000',
+			url:'http://api.geonames.org/childrenJSON?geonameId='+geoNameParentId+'&username='+username+'&maxRows=1000000',
 			json: true,
 		};
 		request(model, function (error, response, body) {
 			if (body && body.geonames && body.geonames.length > 0){
 				var nameData = body.geonames;
-				//console.log(nameData)
 				async.eachSeries(nameData, function (committeeData, nextCommittee){
-					//console.log(committeeData)
-					//console.log(nameData)
-					//--find by title --> country states :)
 					var countryName = committeeData.countryName;
 					var title = committeeData.name;
 					var urlTitle = title.replace(/ /g,"-").toLowerCase();
-					//console.log(countryName, title, nameData[x].geonameId);
 					var model = {
 						parent: parentId,
 						title: title,
 						urlTitle: urlTitle
 					};
-					//duplicate town names n stuff
-
-					//causes errors -- alcoa -- blount county -- alabama.. lol
-
-					//Committee.findOrCreate({title:title}, model).then(function(models){
-					Committee.find({urlTitle:urlTitle/*, parent:parentId*/}).then(function(committeeModel){
+					Committee.find({urlTitle:urlTitle}).then(function(committeeModel){
 						if (committeeModel.length === 0){
-							//console.log(model.parent)
 							Committee.create(model)
 							.then(function(committeeModel) {
 								console.log('~~~Committee CREATED~~~');
@@ -170,8 +160,11 @@ module.exports = {
 						}
 						else{
 							//IDK is this is best duplicate solution
+							//duplicate town names n stuff
+							//causes errors -- alcoa -- blount county -- alabama.. lol
 							for (x in committeeModel){
 								if (model.parent =! committeeModel[x].parent){
+									console.log(model.parent)
 									//might wanna add the parent urlTitle to the unique string ? 
 									model.urlTitle = model.urlTitle + '.8';
 									Committee.create(model)
@@ -183,15 +176,8 @@ module.exports = {
 										Committee.publishCreate(committeeModel);
 									});
 								}
-								//console.log(committeeModel[0].id)
 								process.nextTick(nextCommittee);
 								dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id);
-								/*Committee.update({title: officialId}, committeeModel)
-								.then(function(billModel){
-									console.log('Committee UPDATED');
-									console.log(billModel[0].title)
-									dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].parent);
-								});*/
 							}
 						}
 					});
@@ -200,9 +186,9 @@ module.exports = {
 		});
 	},
 
-	getNamesTest: function(parentId){
+	getNamesWorld: function(){
 		var model = {
-			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=troverman',
+			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=voetr4',
 			json: true,
 		};
 		request(model, function (error, response, body) {

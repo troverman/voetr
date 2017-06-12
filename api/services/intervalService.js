@@ -201,29 +201,34 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	//dataService.getNamesTest(1);
+	//world
+	//dataService.getNamesWorld();
+
+
+	//serbia has dups
+	//589d5eedccfbd7ecba29389b
 
 	//US
-	dataService.getGeoNamesByParent(6252001);
+	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213');
 
 	//NC
-	//dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d');
+	dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr1');
 
 	//TN
-	//dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746');
+	dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746', 'voetr2');
 
 	//india
-	//dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a');
+	dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a', 'voetr3');
 
 	//china
-	//dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c');
+	dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c', 'voetr4');
 
 	//uk
-	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0');
+	dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5');
 
 
 	//dataService.federalBillsProPublica(0)
-	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
+	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
     //multithreading...
     /*var cluster = require('cluster'),
