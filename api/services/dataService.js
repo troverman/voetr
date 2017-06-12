@@ -150,10 +150,12 @@ module.exports = {
 						var lat = committeeData.lat;
 						var lng = committeeData.lng;
 						var title = committeeData.name;
-						var urlTitle = title.replace(/ /g,"-").replace(/./g,'').replace(/,/g,'').replace(/[()]/g, '').toLowerCase();
+						var urlTitle = title.replace(/ /g,"-").replace(/\./g,'').replace(/[()]/g, '').toLowerCase();
+						console.log(urlTitle)
 						var model = {
 							//fcl: fcl,
 							//fcode: fcode,
+							isOfficial: true,
 							geonameId: geonameId,
 							lat: lat,
 							lng: lng,

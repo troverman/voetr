@@ -207,7 +207,7 @@ module.exports.intervalService = function(){
 	//dataService.getNamesWorld();
 
 	//US
-	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'voetr3');
+	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'troverman');
 
 	//NC
 	//dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr1');
@@ -226,14 +226,13 @@ module.exports.intervalService = function(){
 
 	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
+	
 	var billCount = 0;
-	while(billCount<10000){
-		setTimeout(function () {
-			dataService.federalBillsProPublica(billCount);
-			billCount = billCount + 20;
-			console.log(billCount)
-		}, 300000);
-	}
+	setTimeout(function () {
+		dataService.federalBillsProPublica(billCount);
+		billCount = billCount + 20;
+		console.log(billCount)
+	}, 300000);
 
 	async.eachSeries(Object.keys(states), function (iterator, nextIteration){ 
 		setTimeout(function () {
@@ -242,6 +241,7 @@ module.exports.intervalService = function(){
 			process.nextTick(nextIteration);
 		}, 180000);
 	});
+	
 
 
     //multithreading...
