@@ -831,12 +831,24 @@ angular.module("committees/index.tpl.html", []).run(["$templateCache", function 
 
 angular.module("footer/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("footer/index.tpl.html",
+    "<style>\n" +
+    "	.footer-left {text-align: left;padding:10px;}\n" +
+    "	.footer-right {text-align: right;padding:10px}\n" +
+    "	@media (max-width: 767px) {\n" +
+    "	    .footer-left {\n" +
+    "	        text-align: center;\n" +
+    "	    }\n" +
+    "	    .footer-right{\n" +
+    "	        text-align: center;\n" +
+    "	    }\n" +
+    "	}\n" +
+    "</style>\n" +
     "<div class=\"footer\" ng-controller=\"FooterCtrl\">\n" +
     "	<div class=\"container\">\n" +
-    "		<div class=\"pull-left\">\n" +
+    "		<div class=\"footer-left col-md-6 col-sm-6  col-xs-12\">\n" +
     "			{{date | date:'yyyy'}} <a href=\"/\">voetr</a>\n" +
     "		</div>\n" +
-    "		<div class=\"pull-right\">\n" +
+    "		<div class=\"footer-right col-md-6 col-sm-6 col-xs-12\">\n" +
     "			<a href=\"/about\">about</a>\n" +
     "			<a href=\"/search\">discover</a>\n" +
     "			<a href=\"/bills\">bills</a>\n" +

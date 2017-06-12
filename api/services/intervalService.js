@@ -201,8 +201,29 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	dataService.federalBillsProPublica(0)
-	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
+	//dataService.getNamesTest(1);
+
+	//US
+	dataService.getGeoNamesByParent(6252001);
+
+	//NC
+	//dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d');
+
+	//TN
+	//dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746');
+
+	//india
+	//dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a');
+
+	//china
+	//dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c');
+
+	//uk
+	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0');
+
+
+	//dataService.federalBillsProPublica(0)
+	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
     //multithreading...
     /*var cluster = require('cluster'),

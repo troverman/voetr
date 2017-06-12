@@ -1,9 +1,21 @@
+<style>
+	.footer-left {text-align: left;padding:10px;}
+	.footer-right {text-align: right;padding:10px}
+	@media (max-width: 767px) {
+	    .footer-left {
+	        text-align: center;
+	    }
+	    .footer-right{
+	        text-align: center;
+	    }
+	}
+</style>
 <div class="footer" ng-controller="FooterCtrl">
 	<div class="container">
-		<div class="pull-left">
+		<div class="footer-left col-md-6 col-sm-6  col-xs-12">
 			{{date | date:'yyyy'}} <a href="/">voetr</a>
 		</div>
-		<div class="pull-right">
+		<div class="footer-right col-md-6 col-sm-6 col-xs-12">
 			<a href="/about">about</a>
 			<a href="/search">discover</a>
 			<a href="/bills">bills</a>
