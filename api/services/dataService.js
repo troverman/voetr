@@ -154,7 +154,7 @@ module.exports = {
 								console.log('~~~Committee CREATED~~~');
 								console.log(committeeModel)
 								process.nextTick(nextCommittee);
-							  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id);
+							  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username);
 								Committee.publishCreate(committeeModel);
 							});
 						}
@@ -172,12 +172,12 @@ module.exports = {
 										console.log('~~~Committee CREATED~~~');
 										console.log(committeeModel)
 										process.nextTick(nextCommittee);
-									  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id);
+									  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username);
 										Committee.publishCreate(committeeModel);
 									});
 								}
 								process.nextTick(nextCommittee);
-								dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id);
+								dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username);
 							}
 						}
 					});
@@ -193,13 +193,20 @@ module.exports = {
 		};
 		request(model, function (error, response, body) {
 			var countryData = body.geonames;
-			for(x in countryData){
-				var title = countryData[x].countryName;
+			async.eachSeries(countryData, function (committeeData, nextCommittee){
+				var title = committeeData.countryName;
 				var urlTitle = title.replace(/ /g,"-").toLowerCase();
-				Committee.find({urlTitle:urlTitle/*, parent:parentId*/}).then(function(committeeModel){
-					dataService.getGeoNamesByParent(countryData[x].geonameId, committeeModel[0].id);
+				Committee.find({urlTitle:urlTitle}).then(function(committeeModel){
+					//problem with duplicates
+					if (committeeModel.length === 0){
+						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'troverman');
+					}
+					else{
+						console.log(committeeModel[0]);
+					}
+					process.nextTick(nextCommittee);
 				});
-			}
+			});
 		});
 	},
 

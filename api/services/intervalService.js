@@ -189,9 +189,9 @@ function recentBills(){
 module.exports.intervalService = function(){
 
 	for (x in Object.keys(states)){
-		//dataService.stateBills(Object.keys(states)[x], 1, 25);
+		dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
-	//dataService.stateBills('nc', 1, 25);
+	dataService.stateBills('nc', 1, 25);
 
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
@@ -202,14 +202,11 @@ module.exports.intervalService = function(){
 	//dataService.federalLegislators();
 
 	//world
+	//dangerous alg :|
 	//dataService.getNamesWorld();
 
-
-	//serbia has dups
-	//589d5eedccfbd7ecba29389b
-
 	//US
-	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213');
+	dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'troverman');
 
 	//NC
 	dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr1');
@@ -226,8 +223,16 @@ module.exports.intervalService = function(){
 	//uk
 	dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5');
 
+	dataService.federalBillsProPublica(0);
+	dataService.federalBillsProPublica(100);
+	dataService.federalBillsProPublica(200);
+	dataService.federalBillsProPublica(300);
+	dataService.federalBillsProPublica(400);
+	dataService.federalBillsProPublica(500);
+	dataService.federalBillsProPublica(600);
+	dataService.federalBillsProPublica(700);
+	dataService.federalBillsProPublica(800);
 
-	//dataService.federalBillsProPublica(0)
 	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
     //multithreading...

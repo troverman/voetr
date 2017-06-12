@@ -2,6 +2,12 @@ angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("about/index.tpl.html",
+    "<style>\n" +
+    "#section3{\n" +
+    "	color:white;\n" +
+    "	background-color: #2ab996;\n" +
+    "}\n" +
+    "</style>\n" +
     "<div class=\"imageContainer\">\n" +
     "	<video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\" playsinline></video>\n" +
     "	<div class=\"imageContainerDiv container\">  \n" +
