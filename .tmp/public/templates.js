@@ -11,7 +11,8 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "<div class=\"imageContainer\">\n" +
     "	<video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\" playsinline></video>\n" +
     "	<div class=\"imageContainerDiv container\">  \n" +
-    "		<h1>build empowerment, change consensus</h1>\n" +
+    "		<!--<h1>build empowerment, change consensus</h1>-->\n" +
+    "		<h1>build coalitions, create impact</h1>\n" +
     "	</div>\n" +
     "</div>\n" +
     "<div class=\"about-container\">\n" +

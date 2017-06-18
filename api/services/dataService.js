@@ -129,20 +129,20 @@ module.exports = {
 		});
 	},
 
-	getGeoNamesByParent: function(geoNameParentId, parentId, username){
+	getGeoNamesByParent: function(geoNameParentId, parentId, username, nestLevel){
 		//voetr1, voetr2, voetr3, voetr4, voetr5, troverman
+		if (!nestLevel){var nestLevel=0}
+		nestLevel++;
 		var model = {
 			url:'http://api.geonames.org/childrenJSON?geonameId='+geoNameParentId+'&username='+username+'&maxRows=1000000',
 			json: true,
 		};
 		request(model, function (error, response, body) {
+			//console.log(body)
 			if (body && body.geonames && body.geonames.length > 0){
 				var nameData = body.geonames;
 				async.eachSeries(nameData, function (committeeData, nextCommittee){
 					if (committeeData.fcl=='A'){
-						console.log(committeeData.fcl)
-						console.log(committeeData.fcode)
-						console.log(committeeData.countryName)
 						var countryName = committeeData.countryName;
 						var fcl = committeeData.fcl;
 						var fcode =  committeeData.fcode;
@@ -151,7 +151,10 @@ module.exports = {
 						var lng = committeeData.lng;
 						var title = committeeData.name;
 						var urlTitle = title.replace(/ /g,"-").replace(/\./g,'').replace(/[()]/g, '').toLowerCase();
-						console.log(urlTitle)
+						//console.log(committeeData.fcl)
+						//console.log(committeeData.fcode)
+						//console.log(committeeData.countryName)
+						//console.log(urlTitle)
 						var model = {
 							//fcl: fcl,
 							//fcode: fcode,
@@ -163,21 +166,45 @@ module.exports = {
 							title: title,
 							urlTitle: urlTitle
 						};
-						Committee.find({urlTitle:urlTitle, parent:parentId}).then(function(committeeModel){
+
+						//messes up with modified urlTitles... aka georgia or repeated dup county names. --> lat lng?  
+						//lol gotta update legacy state lat: lng..
+						Committee.find({urlTitle:urlTitle, parent:parentId}/*{lat:lat, lng:lng}*/).then(function(committeeModel){
+							//console.log(nestLevel);
 							if (committeeModel.length === 0){
-								Committee.create(model)
-								.then(function(committeeModel) {
-									console.log('~~~Committee CREATED~~~');
-									console.log(committeeModel)
-									process.nextTick(nextCommittee);
-								  	dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username);
-									Committee.publishCreate(committeeModel);
+								//georgia edge case..
+								//way too much -- update to lat lng... 
+								//cuz this keeps going.. 
+								Committee.find({id:parentId}).then(function(parentModel){
+									urlTitle = parentModel[0].urlTitle + '-' + urlTitle;
+									Committee.find({urlTitle:urlTitle, parent:parentId}).then(function(committeeModel){
+										if (committeeModel.length === 0){
+											Committee.create(model)
+											.then(function(committeeModel) {
+												console.log(committeeModel);
+												Committee.publishCreate(committeeModel);
+												if (nestLevel < 2){
+											  		dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username, nestLevel);
+											  	}
+											});
+										}
+										//remove this after lat lng update..
+										else{
+											//Committee.update({id:committeeModel[0].id}, model);
+											if (nestLevel < 2){
+												dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username, nestLevel);
+											}
+										}
+									});
 								});
 							}
 							else{
-								process.nextTick(nextCommittee);
-								dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username);
+								//Committee.update({id:committeeModel[0].id}, model).then((lol)=>console.log(lol));
+								if (nestLevel < 2){
+									dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username, nestLevel);
+								}
 							}
+							process.nextTick(nextCommittee);
 						});
 					}
 					else{
@@ -190,7 +217,7 @@ module.exports = {
 
 	getNamesWorld: function(){
 		var model = {
-			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=voetr4',
+			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=voetr1',
 			json: true,
 		};
 		request(model, function (error, response, body) {
@@ -199,13 +226,11 @@ module.exports = {
 				var title = committeeData.countryName;
 				var urlTitle = title.replace(/ /g,"-").toLowerCase();
 				Committee.find({urlTitle:urlTitle}).then(function(committeeModel){
-					//problem with duplicates
 					if (committeeModel.length === 0){
 						//dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr5');
 					}
 					else{
-						//console.log(committeeModel[0]);
-						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr5');
+						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr1', 2);
 					}
 					process.nextTick(nextCommittee);
 				});
@@ -238,7 +263,7 @@ module.exports = {
 									if (body.results.length>0){
 										var billData = body.results[0];
 										var actions = billData.actions;
-										var committees = billData.committees; // find committee by urltitle...					
+										var committees = billData.committees;				
 										var congress = billData.congress;
 										var congressGovUrl = billData.congressdotgov_url;
 										var number = billData.number.replace(/\D/g,'');
@@ -251,47 +276,125 @@ module.exports = {
 										var urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase();
 										var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
 
+									
 										//https://www.gpo.gov/fdsys/pkg/BILLS-115sres37is/html/BILLS-115sres37is.htm
 										//'https://www.gpo.gov/fdsys/pkg/BILLS-'+congress+type+'/html/BILLS-'+congress+type+'.htm'
 										//console.log(fullTextLink)
 										request(fullTextLink, function (error, response, body) {
 											if (body){if (body.trim().substring(0, 2)=="<!"){body = null;}}
-											User.find({bioguide_id:billData.sponsor_id})
-											.then(function(sponsor){
-												var user = 1;
-												if (sponsor.length != 0){var user = sponsor[0].id}
-												var model = {
-													actions: actions,
-													committees: committees,
-													congressGovUrl: congressGovUrl,
-													fullText: body,
-													officialId: officialId,
-													summary: summary,
-													summaryShort: summaryShort,
-													title: title,
-													urlTitle: urlTitle,
-													user: user
-												};
-												Bill.find({officialId:officialId})
-												.then(function(billModel) {
-													if (billModel.length === 0){
-														Bill.create(model)
-														.then(function(billModel) {
-															console.log('BILL CREATED');
-															dataService.federalVotes(billModel);
-															Bill.publishCreate(billModel);
-														});
-													}
-													else{
-														Bill.update({officialId: officialId}, model)
-														.then(function(billModel){
-															console.log('BILL UPDATED');
-															console.log(billModel[0].title)
-															dataService.federalVotes(billModel[0]);
-														});
-													}
+
+											var model= {
+												url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/subjects.json',
+												json: true,
+												headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+											};
+
+											request(model, function (error, response, body) {
+												var billData = body.results[0];
+												var subjects = billData.subjects;
+												//this is for keywords
+
+												console.log(subjects);
+												console.log(committees);
+												
+												User.find({bioguide_id:billData.sponsor_id})
+												.then(function(sponsor){
+													var user = 1;
+													if (sponsor.length != 0){var user = sponsor[0].id}
+													var model = {
+														actions: actions,
+														committees: committees,
+														congressGovUrl: congressGovUrl,
+														fullText: body,
+														officialId: officialId,
+														summary: summary,
+														summaryShort: summaryShort,
+														title: title,
+														urlTitle: urlTitle,
+														user: user
+													};
+													Bill.find({officialId:officialId})
+													.then(function(billModel) {
+														if (billModel.length === 0){
+															Bill.create(model)
+															.then(function(billModel) {
+																console.log('BILL CREATED');
+
+
+
+																//BillCommittee
+																//async.eachSeries(committees, function (committeeData, nextCommittee){
+
+																	//var billCommitteeModel
+																	//Committee.find({urlTitle:committeeData}).then(function(committeeModel){
+																		//var billCommitteeModel
+
+																	//})
+																	// find committee by urltitle... var committeess	
+
+																	//BillCommittee.create()
+																	//process.nextTick(nextCommittee);
+
+																//});
+
+																//var model= {
+																///	url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/cosponsors.json',
+																//	json: true,
+																//	headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+																//};
+																//request(model, function (error, response, body) {
+																//});
+
+																//BillMember
+																//async though each user - create BillMember
+
+
+																dataService.federalVotes(billModel);
+																Bill.publishCreate(billModel);
+															});
+														}
+														else{
+															Bill.update({officialId: officialId}, model)
+															.then(function(billModel){
+																console.log('BILL UPDATED');
+																console.log(billModel[0].title);
+
+
+																//BillCommittee
+																//async.eachSeries(committees, function (committeeData, nextCommittee){
+
+																	//var billCommitteeModel
+																	//Committee.find({urlTitle:committeeData}).then(function(committeeModel){
+																		//var billCommitteeModel
+
+																	//})
+																	// find committee by urltitle... var committeess	
+
+																	//BillCommittee.create()
+																	//process.nextTick(nextCommittee);
+
+																//});
+
+																//var model= {
+																///	url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/cosponsors.json',
+																//	json: true,
+																//	headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+																//};
+																//request(model, function (error, response, body) {
+																//});
+
+																//BillMember
+																//async though each user - create BillMember
+
+
+
+																dataService.federalVotes(billModel[0]);
+															});
+														}
+													});
 												});
 											});
+
 										});
 									}
 								}
