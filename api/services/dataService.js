@@ -142,7 +142,7 @@ module.exports = {
 			if (body && body.geonames && body.geonames.length > 0){
 				var nameData = body.geonames;
 				async.eachSeries(nameData, function (committeeData, nextCommittee){
-					if (committeeData.fcl=='A'){
+					if (committeeData.fcl=='A' || committeeData.fcode=='PPLA' || committeeData.fcode=='PPLA2' || committeeData.fcode=='PPLA3'){
 						var countryName = committeeData.countryName;
 						var fcl = committeeData.fcl;
 						var fcode =  committeeData.fcode;
@@ -167,44 +167,32 @@ module.exports = {
 							urlTitle: urlTitle
 						};
 
+						//console.log(model)
+
+
+
 						//messes up with modified urlTitles... aka georgia or repeated dup county names. --> lat lng?  
 						//lol gotta update legacy state lat: lng..
-						Committee.find({urlTitle:urlTitle, parent:parentId}/*{lat:lat, lng:lng}*/).then(function(committeeModel){
-							//console.log(nestLevel);
+						Committee.find({lat:lat, lng:lng, geonameId: geonameId}).then(function(committeeModel){
+							//console.log(committeeModel)
 							if (committeeModel.length === 0){
-								//georgia edge case..
-								//way too much -- update to lat lng... 
-								//cuz this keeps going.. 
-								Committee.find({id:parentId}).then(function(parentModel){
-									urlTitle = parentModel[0].urlTitle + '-' + urlTitle;
-									Committee.find({urlTitle:urlTitle, parent:parentId}).then(function(committeeModel){
-										if (committeeModel.length === 0){
-											Committee.create(model)
-											.then(function(committeeModel) {
-												console.log(committeeModel);
-												Committee.publishCreate(committeeModel);
-												if (nestLevel < 2){
-											  		dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username, nestLevel);
-											  	}
-											});
-										}
-										//remove this after lat lng update..
-										else{
-											//Committee.update({id:committeeModel[0].id}, model);
-											if (nestLevel < 2){
-												dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username, nestLevel);
-											}
-										}
-									});
+								Committee.create(model)
+								.then(function(committeeModel) {
+									console.log(committeeModel);
+									Committee.publishCreate(committeeModel);
+									if (nestLevel < 2){
+								  		dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel.id, username, nestLevel);
+								  	}
 								});
+								process.nextTick(nextCommittee);
 							}
 							else{
 								//Committee.update({id:committeeModel[0].id}, model).then((lol)=>console.log(lol));
 								if (nestLevel < 2){
 									dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, username, nestLevel);
 								}
+								process.nextTick(nextCommittee);
 							}
-							process.nextTick(nextCommittee);
 						});
 					}
 					else{
@@ -217,7 +205,7 @@ module.exports = {
 
 	getNamesWorld: function(){
 		var model = {
-			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=voetr1',
+			url: 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=troverman',
 			json: true,
 		};
 		request(model, function (error, response, body) {
@@ -230,7 +218,7 @@ module.exports = {
 						//dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr5');
 					}
 					else{
-						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'voetr1', 2);
+						dataService.getGeoNamesByParent(committeeData.geonameId, committeeModel[0].id, 'troverman', 0);
 					}
 					process.nextTick(nextCommittee);
 				});
@@ -294,9 +282,13 @@ module.exports = {
 												var subjects = billData.subjects;
 												//this is for keywords
 
-												console.log(subjects);
-												console.log(committees);
-												
+												for (x in subjects){
+													console.log(subjects[x].name);
+												}
+												for (x in committees){
+													console.log(committees[x].toLowerCase().replace(/ /g,"-"));
+												}
+
 												User.find({bioguide_id:billData.sponsor_id})
 												.then(function(sponsor){
 													var user = 1;
@@ -320,20 +312,15 @@ module.exports = {
 															.then(function(billModel) {
 																console.log('BILL CREATED');
 
-
-
 																//BillCommittee
 																//async.eachSeries(committees, function (committeeData, nextCommittee){
 
 																	//var billCommitteeModel
 																	//Committee.find({urlTitle:committeeData}).then(function(committeeModel){
 																		//var billCommitteeModel
-
+																		//BillCommittee.create()
+																		//process.nextTick(nextCommittee);
 																	//})
-																	// find committee by urltitle... var committeess	
-
-																	//BillCommittee.create()
-																	//process.nextTick(nextCommittee);
 
 																//});
 
@@ -366,13 +353,9 @@ module.exports = {
 																	//var billCommitteeModel
 																	//Committee.find({urlTitle:committeeData}).then(function(committeeModel){
 																		//var billCommitteeModel
-
+																		//BillCommittee.create()
+																		//process.nextTick(nextCommittee);
 																	//})
-																	// find committee by urltitle... var committeess	
-
-																	//BillCommittee.create()
-																	//process.nextTick(nextCommittee);
-
 																//});
 
 																//var model= {
@@ -385,7 +368,6 @@ module.exports = {
 
 																//BillMember
 																//async though each user - create BillMember
-
 
 
 																dataService.federalVotes(billModel[0]);

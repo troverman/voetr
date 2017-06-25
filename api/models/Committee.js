@@ -33,7 +33,8 @@ module.exports = {
         },
     },
 
-    beforeValidate: function(values, cb) {
+    beforeCreate: function(values, cb) {
+        console.log(values)
         Committee.find({urlTitle:values.urlTitle}).then(function(committeeModel){
             if (committeeModel.length === 0){
                 cb();
@@ -45,15 +46,12 @@ module.exports = {
                         cb();
                     }
                     else{
-                        //if(values.id != committeeModel[0].id ){
-                            values.urlTitle = committeeModel[0].urlTitle + '-' + values.urlTitle;
-                            Committee.find({urlTitle:values.urlTitle}).then(function(committeeModel){
-                                if (committeeModel.length === 0){
-                                    cb();
-                                }
-                            });
-                        //}
-                        //else{cb();}
+                        values.urlTitle = committeeModel[0].urlTitle + '-' + values.urlTitle;
+                        Committee.find({urlTitle:values.urlTitle}).then(function(committeeModel){
+                            if (committeeModel.length === 0){
+                                cb();
+                            }
+                        });
                     }
                 });
             }

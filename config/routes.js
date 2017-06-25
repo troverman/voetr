@@ -174,7 +174,7 @@ module.exports.routes = {
   'post /api/votevote': 'VoteVoteController.create',
   'delete /api/votevote/:id': 'VoteVoteController.destroy',
 
-  '/.well-known/acme-challenge/26yeRHjK-mgWP_Uz4bZP6OsQ-fslBu14HN9WCkfu5zo': 'NewDataController.ssl',
+  '/.well-known/acme-challenge/PFwzk8k9wB3DDslnHqLpAB50iHpzCYvMqo4IFUI4Pbo': 'NewDataController.ssl',
 
   'get /*': {
     controller: "HomeController",

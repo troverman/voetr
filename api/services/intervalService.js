@@ -233,22 +233,22 @@ module.exports.intervalService = function(){
 	dataService.getNamesWorld();
 
 	//US
-	dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'voetr5');
+	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'voetr5', 1);
 
 	//NC
-	//dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr1');
+	//dataService.getGeoNamesByParent(4482348, '589d7b59a3806e1100faa70d', 'voetr3', -2);
 
 	//TN
-	//dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746', 'voetr2');
+	//dataService.getGeoNamesByParent(4662168, '589d7fc0a3806e1100fad746', 'voetr1', -2);
 
 	//india
-	//dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a', 'voetr3');
+	//dataService.getGeoNamesByParent(1269750, '589d5eedccfbd7ecba29388a', 'voetr3', -1);
 
 	//china
-	//dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c', 'voetr4');
+	//dataService.getGeoNamesByParent(1814991, '589d5eecccfbd7ecba29381c', 'voetr4', -1);
 
 	//uk
-	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5');
+	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5', -1);
 
 	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
