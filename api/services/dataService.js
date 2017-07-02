@@ -1,6 +1,7 @@
 var async = require('async');
 var request = require('request');
-var openCongressApiKey = 'c16a6c623ee54948bac2a010ea6fab70';
+var openCongressApiKey = 'f6907ad0-1af4-4656-add7-657931b439ef';
+var propublicaApiKey = 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx';
 var states = {
     "AL": "Alabama",
     "AK": "Alaska",
@@ -71,11 +72,11 @@ module.exports = {
 		var lat = req.param('lat');
 		var lng = req.param('lng');
 		var stateModel= {
-			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey='+openCongressApiKey,
 			json: true
 		};
 		var federalModel = {
-			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey='+propublicaApiKey,
 			json: true
 		};
 		rp(stateModel).then(function(stateRepresentatives){
@@ -232,19 +233,19 @@ module.exports = {
 			var model= {
 				url: 'https://api.propublica.org/congress/v1/115/'+ chambers[x] +'/bills/introduced.json?offset='+offset,
 				json: true,
-				headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'},
+				headers: {'X-API-Key': propublicaApiKey},
 			};
 			request(model, function (error, response, body) {
+				//console.log(body, error)
 				if (!error && body && body.results) {
 					if (body.results.length>0){
 						var billData = body.results[0];
 						for (x in billData.bills){
 							var billId = billData.bills[x].bill_id;
-							//console.log(billId)
 							var model= {
 								url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'.json',
 								json: true,
-								headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+								headers: {'X-API-Key': propublicaApiKey}
 							};
 							request(model, function (error, response, body) {
 								if (!error && body.results) {
@@ -263,19 +264,15 @@ module.exports = {
 										var title = billData.title;
 										var urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase();
 										var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
-
 										//https://www.gpo.gov/fdsys/pkg/BILLS-115sres37is/html/BILLS-115sres37is.htm
 										//'https://www.gpo.gov/fdsys/pkg/BILLS-'+congress+type+'/html/BILLS-'+congress+type+'.htm'
-										//console.log(fullTextLink)
 										request(fullTextLink, function (error, response, fullTextBody) {
 											if (fullTextBody){if (fullTextBody.trim().substring(0, 2)=="<!"){fullTextBody = null;}}
-
 											var model= {
 												url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/subjects.json',
 												json: true,
-												headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+												headers: {'X-API-Key': propublicaApiKey}
 											};
-
 											request(model, function (error, response, subjectBody) {
 												//var subjects = subjectBody.results[0].subjects;
 												//this is for keywords
@@ -287,7 +284,6 @@ module.exports = {
 													//console.log(committees.length)
 													//var committeeUrl = committees[x].toLowerCase().replace(/ /g,"-");
 												//}
-
 												User.find({bioguide_id:billData.sponsor_id})
 												.then(function(sponsor){
 													var user = 1;
@@ -304,37 +300,31 @@ module.exports = {
 														urlTitle: urlTitle,
 														user: user
 													};
+													//BillMember.create()-??
 													Bill.find({officialId:officialId})
 													.then(function(billModel) {
 														if (billModel.length === 0){
 															Bill.create(model)
 															.then(function(billModel) {
 																console.log('BILL CREATED');
-
-																//BillCommittee
+																//CommitteeBill
 																//async.eachSeries(committees, function (committeeData, nextCommittee){
-
-																	//var billCommitteeModel
+																	//var CommitteeBillModel
 																	//Committee.find({urlTitle:committeeData}).then(function(committeeModel){
 																		//var billCommitteeModel
-																		//BillCommittee.create()
+																		//CommitteeBill.create()
 																		//process.nextTick(nextCommittee);
 																	//})
-
 																//});
-
 																//var model= {
 																///	url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/cosponsors.json',
 																//	json: true,
-																//	headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
+																//	headers: {'X-API-Key': propublicaApiKey}
 																//};
 																//request(model, function (error, response, body) {
 																//});
-
 																//BillMember
 																//async though each user - create BillMember
-
-
 																dataService.federalVotes(billModel);
 																Bill.publishCreate(billModel);
 															});
@@ -342,44 +332,50 @@ module.exports = {
 														else{
 															Bill.update({officialId: officialId}, model)
 															.then(function(billModel){
-																//console.log('BILL UPDATED');
-																//console.log(billModel[0].title);
-
-
-																//BillCommittee
+																console.log('BILL UPDATED');
 																//async.eachSeries(committees, function (committeeData, nextCommittee){
+																var committeeUrl = committees.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/&#39/g,"").replace(/;/g,"")
+																var committeeUrlArray = committeeUrl.split('-');
+																var committeeUrlBody = committeeUrlArray.slice(1,-1).join('-');
+																var refactor = committeeUrlArray[0] + '-' + committeeUrlArray[committeeUrlArray.length-1] + '-on-' + committeeUrlBody;
+																console.log(refactor)
+																Committee.find({urlTitle:{contains: refactor}})
+																.then(function(committeeModel){
+																	//console.log(committeeModel)
+																	if(committeeModel.length > 0){
+																		var committeeBillModel = {
+																			committee: committeeModel[0].id,
+																			bill: billModel[0].id,
+																		}
+																		CommitteeBill.find({committee:committeeModel[0].id, bill: billModel[0].id})
+																		.then(function(foundCommitteeBillModel){
+																			if (foundCommitteeBillModel.length === 0){
+																				CommitteeBill.create(committeeBillModel)
+																				.then(function(committeeBillModel) {
+																					console.log('created committeeBill')
+																				});
+																			}
 
-																	//var billCommitteeModel
-																	//blurg
-
-																	var committeeUrl = committees.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/&#39/g,"").replace(/;/g,"")
-																	var committeeUrlArray = committeeUrl.split('-');
-																	var committeeUrlBody = committeeUrlArray.slice(1,-1).join('-');
-																	var refactor = committeeUrlArray[0] + '-' + committeeUrlArray[committeeUrlArray.length-1] + '-on-' + committeeUrlBody;
-																	console.log(refactor)
-																	Committee.find({urlTitle:{contains: refactor}}).then(function(committeeModel){
-																		//console.log(committeeModel)
-																		//var billCommitteeModel = {
-																			//committee: committeeModel[0].id,
-																			//bill: billModel[0].id
-																		//}
-																		//BillCommittee.create(billCommitteeModel)
-																		//process.nextTick(nextCommittee);
-																	});
+																		});
+																	}
+																	//process.nextTick(nextCommittee);
+																});
 																//});
-
-																//var model= {
-																///	url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/cosponsors.json',
-																//	json: true,
-																//	headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
-																//};
-																//request(model, function (error, response, body) {
-																//});
-
-																//BillMember
-																//async though each user - create BillMember
-
-
+																var model= {
+																	url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/cosponsors.json',
+																	json: true,
+																	headers: {'X-API-Key': propublicaApiKey}
+																};
+																request(model, function (error, response, body) {
+																	console.log('cosponsors!')
+																	console.log(body)
+																	var billMemberModel = {}
+																	//async.eachSeries(committees, function (committeeData, nextCommittee){
+																	//BillMember.create(billMemberModel).then(function(billMemberModel){
+																	//});
+																	//process.nextTick(nextCommittee);
+																	//});
+																});
 																dataService.federalVotes(billModel[0]);
 															});
 														}
@@ -894,17 +890,16 @@ module.exports = {
 								if (body.title){urlTitle = body.title.replace(/ /g,"-").toLowerCase();}
 								if (!body.title){urlTitle = ''}
 
-
-								//var actionsAction = actions.map(function(obj){return obj.action});
-								//for (x in actionsAction){
-								//	var searchQ = actionsAction[x]//.replace(/Ref/g,'').replace(/Com/g,'');
-								//	console.log(searchQ)
-								//	Committee.find({title:{contains:searchQ}})
-								//	.then(function(committee){
-								//		console.log(committee)
-								//	})
-								//}
-								//console.log(actions[0].type)
+								/*var actionsAction = actions.map(function(obj){return obj.actor});
+								for (x in actionsAction){
+									var searchQ = actionsAction[x]//.replace(/Ref/g,'').replace(/Com/g,'');
+									console.log(searchQ)
+									Committee.find({title:{contains:searchQ}})
+									.then(function(committee){
+										//console.log(committee)
+									})
+								}
+								console.log(actions[0].type)*/
 
 								var sponsorIds = [];
 								if(sponsors){sponsorIds = sponsors.map(function(obj){if (obj.leg_id!=null){return obj.leg_id}else{return []}})};

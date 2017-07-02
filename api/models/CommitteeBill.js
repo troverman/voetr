@@ -18,17 +18,8 @@ module.exports = {
         },
         user: {
             model: 'user',
-            required: true
+            //required: true
         }
-    },
-
-    afterCreate: function (committee, next) {
-        // set message.user = to appropriate user model
-        CommitteeBill.getOne(committee.user)
-        .spread(function(user) {
-            committee.user = user;
-            next(null, committee);
-        });
     },
 
     getOne: function(id) {
