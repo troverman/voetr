@@ -228,9 +228,16 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
+	//dataService.federalBillsProPublica(0);
+	/*dataService.federalBillsProPublica(20);
+	dataService.federalBillsProPublica(40);
+	dataService.federalBillsProPublica(60);
+	dataService.federalBillsProPublica(80);
+	dataService.federalBillsProPublica(100);*/
+
 	//world
 	//dangerous alg :|
-	dataService.getNamesWorld();
+	//dataService.getNamesWorld();
 
 	//US
 	//dataService.getGeoNamesByParent(6252001, '589d5cb5771e7fecb9300213', 'voetr5', 1);

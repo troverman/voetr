@@ -264,12 +264,11 @@ module.exports = {
 										var urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase();
 										var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
 
-									
 										//https://www.gpo.gov/fdsys/pkg/BILLS-115sres37is/html/BILLS-115sres37is.htm
 										//'https://www.gpo.gov/fdsys/pkg/BILLS-'+congress+type+'/html/BILLS-'+congress+type+'.htm'
 										//console.log(fullTextLink)
-										request(fullTextLink, function (error, response, body) {
-											if (body){if (body.trim().substring(0, 2)=="<!"){body = null;}}
+										request(fullTextLink, function (error, response, fullTextBody) {
+											if (fullTextBody){if (fullTextBody.trim().substring(0, 2)=="<!"){fullTextBody = null;}}
 
 											var model= {
 												url: 'https://api.propublica.org/congress/v1/115/bills/'+billId.slice(0, - 4)+'/subjects.json',
@@ -277,17 +276,17 @@ module.exports = {
 												headers: {'X-API-Key': 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx'}
 											};
 
-											request(model, function (error, response, body) {
-												var billData = body.results[0];
-												var subjects = billData.subjects;
+											request(model, function (error, response, subjectBody) {
+												//var subjects = subjectBody.results[0].subjects;
 												//this is for keywords
-
-												for (x in subjects){
-													console.log(subjects[x].name);
-												}
-												for (x in committees){
-													console.log(committees[x].toLowerCase().replace(/ /g,"-"));
-												}
+												//console.log(subjects)
+												//for (x in subjects){
+												//	console.log(subjects[x].name);
+												//}
+												//for (x in committees){
+													//console.log(committees.length)
+													//var committeeUrl = committees[x].toLowerCase().replace(/ /g,"-");
+												//}
 
 												User.find({bioguide_id:billData.sponsor_id})
 												.then(function(sponsor){
@@ -297,7 +296,7 @@ module.exports = {
 														actions: actions,
 														committees: committees,
 														congressGovUrl: congressGovUrl,
-														fullText: body,
+														fullText: fullTextBody,
 														officialId: officialId,
 														summary: summary,
 														summaryShort: summaryShort,
@@ -343,19 +342,30 @@ module.exports = {
 														else{
 															Bill.update({officialId: officialId}, model)
 															.then(function(billModel){
-																console.log('BILL UPDATED');
-																console.log(billModel[0].title);
+																//console.log('BILL UPDATED');
+																//console.log(billModel[0].title);
 
 
 																//BillCommittee
 																//async.eachSeries(committees, function (committeeData, nextCommittee){
 
 																	//var billCommitteeModel
-																	//Committee.find({urlTitle:committeeData}).then(function(committeeModel){
-																		//var billCommitteeModel
-																		//BillCommittee.create()
+																	//blurg
+
+																	var committeeUrl = committees.toLowerCase().replace(/ /g,"-").replace(/,/g,"").replace(/&#39/g,"").replace(/;/g,"")
+																	var committeeUrlArray = committeeUrl.split('-');
+																	var committeeUrlBody = committeeUrlArray.slice(1,-1).join('-');
+																	var refactor = committeeUrlArray[0] + '-' + committeeUrlArray[committeeUrlArray.length-1] + '-on-' + committeeUrlBody;
+																	console.log(refactor)
+																	Committee.find({urlTitle:{contains: refactor}}).then(function(committeeModel){
+																		//console.log(committeeModel)
+																		//var billCommitteeModel = {
+																			//committee: committeeModel[0].id,
+																			//bill: billModel[0].id
+																		//}
+																		//BillCommittee.create(billCommitteeModel)
 																		//process.nextTick(nextCommittee);
-																	//})
+																	});
 																//});
 
 																//var model= {
