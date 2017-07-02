@@ -293,6 +293,7 @@ module.exports = {
 														committees: committees,
 														congressGovUrl: congressGovUrl,
 														fullText: fullTextBody,
+														keywords: null,//subjects
 														officialId: officialId,
 														summary: summary,
 														summaryShort: summaryShort,
@@ -1351,6 +1352,8 @@ module.exports = {
 						bill: vote.bill,
 						user: user
 					};
+
+					console.log(user)
 
 					VoteVote.findOrCreate({bill: model.bill, vote: model.vote, user: model.user}, model)
 					.exec(function(err, voteVoteModel) {

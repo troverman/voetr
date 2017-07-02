@@ -228,8 +228,7 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	//dataService.federalBillsProPublica(0);
-	dataService.stateBills('NC', 1, 50);
+	//dataService.federalBillsProPublica(0);	
 	/*dataService.federalBillsProPublica(20);
 	dataService.federalBillsProPublica(40);
 	dataService.federalBillsProPublica(60);
@@ -261,7 +260,7 @@ module.exports.intervalService = function(){
 	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
 	populateBills();
-	populateStateBills();
+	//populateStateBills();
 
 
     //multithreading...
