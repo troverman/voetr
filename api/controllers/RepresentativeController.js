@@ -69,11 +69,11 @@ module.exports = {
 		var lat = req.query.lat;
 		var lng = req.query.lng;
 		var stateModel= {
-			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			url: 'http://openstates.org/api/v1/legislators/geo/?lat='+lat+'&long='+lng+'&active=true&apikey=f6907ad0-1af4-4656-add7-657931b439ef',
 			json: true
 		};
 		var federalModel = {
-			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=c16a6c623ee54948bac2a010ea6fab70',
+			url: 'http://congress.api.sunlightfoundation.com/legislators/locate?latitude='+lat+'&longitude='+lng+'&per_page=all&apikey=hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx',
 			json: true
 		};
 		rp(stateModel).then(function(stateRepresentatives){

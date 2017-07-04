@@ -1,27 +1,17 @@
 /**
 * Bill.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
 */
 
 module.exports = {
 
 	attributes: {
-        posts: {
-            collection: 'post',
-            via: 'bill'
-        },
         committees: {
             type: 'json',
         },
-        //committees: {
-        //    collection: 'committee',
-        //    via: 'bills'
-        //},
         //committee:{
-        //    collection: 'committee',
-        //    via: 'bills'
+        //    collection: 'committeebill',
+        //    via: 'bill'
         //},
         congressGovUrl: {
             type: 'string',
@@ -32,8 +22,24 @@ module.exports = {
         keywords: {
             type: 'string',
         },
+        //members:{
+        //  collection: 'billmember',
+        //  via: 'user'
+        //},
+        minusCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
         officialId: {
             type: 'string',
+        },
+        posts: {
+            collection: 'post',
+            via: 'bill'
+        },
+        plusCount: {
+            type: 'integer',
+            defaultsTo: 0
         },
         relatedBills: {
             type: 'json',
@@ -55,11 +61,9 @@ module.exports = {
         upcoming: {
             type: 'string',
         },
-        user: {
+        user: {//members --
             model: 'user',
             required: true
-            //collection: 'user',
-            //via: 'bills',
         },
         votes: {
             collection: 'vote',
@@ -69,15 +73,6 @@ module.exports = {
             type: 'integer',
             defaultsTo: 0
         },
-        plusCount: {
-            type: 'integer',
-            defaultsTo: 0
-        },
-        minusCount: {
-            type: 'integer',
-            defaultsTo: 0
-        },
-
     },
 
     getOne: function(id) {

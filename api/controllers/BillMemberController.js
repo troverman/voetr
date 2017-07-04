@@ -1,6 +1,6 @@
 /**
  * BillController
- * @description :: Server-side logic for managing Bills
+ * @description :: Server-side logic for managing BillMembers
  */
 
 module.exports = {

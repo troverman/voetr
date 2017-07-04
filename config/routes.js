@@ -57,6 +57,10 @@ module.exports.routes = {
   'delete /api/bill/:id': 'BillController.destroy',
 
   /**
+   * BillMember routes
+   */
+
+  /**
    * BillVote routes
    */
   'get /api/billvote/bill': 'BillVoteController.getByBill',
@@ -79,7 +83,7 @@ module.exports.routes = {
    * CommitteeBill routes
    */
   'get /api/committeebill': 'CommitteeBillController.getSome',
-  'get /api/committeebill/count': 'CommitteeBillController.getCommitteeBillCount',
+  'get /api/committeebill/children': 'CommitteeBillController.getByCommiteeAndChildren',
   'post /api/committeebill': 'CommitteeBillController.create',
   'delete /api/committeebill/:id': 'CommitteeBillController.destroy',
 
@@ -133,7 +137,6 @@ module.exports.routes = {
   'get /api/representative/representatives/:id': 'RepresentativeController.getRepresentatives',
   'get /api/representative/user/constituent/count/:id': 'RepresentativeController.getConstituentCount',
   'get /api/representative/user/representative/count/:id': 'RepresentativeController.getRepresentativeCount',
-
   'post /api/representative': 'RepresentativeController.create',
   'delete /api/representative/:id': 'RepresentativeController.destroy',
 
@@ -144,10 +147,8 @@ module.exports.routes = {
   'get /api/search/billActivity': 'SearchController.getMemberActivity',
   'get /api/search/memberActivity': 'SearchController.getMemberActivity',
   'get /api/search/voteActivity': 'SearchController.getMemberActivity',
-  
   'get /api/search/:searchQuery': 'SearchController.search',
   'get /api/trending': 'SearchController.getTrending',
-
 
   /**
    * User routes

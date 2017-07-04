@@ -90,6 +90,10 @@ module.exports = {
         //    collection: 'bill',
         //    via: 'user'
         //},
+        bills: {
+            collection: 'billmember',
+            via: 'user'
+        },
         committees: {
             collection: 'committeemember',
             via: 'user'

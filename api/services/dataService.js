@@ -515,7 +515,7 @@ module.exports = {
 					};
 					var newCommittee;
 					if (chamber == 'house'){newCommittee = 'United States House of Representatives'}
-					if (chamber == 'senate'){newCommittee = 'United States Sentate'}
+					if (chamber == 'senate'){newCommittee = 'United States senate'}
 					if (chamber == 'joint'){newCommittee = 'United States'}
 					Committee.findOrCreate({urlTitle: unitedStatesModel.urlTitle}, unitedStatesModel)
 					.then(function(committeeModel){
@@ -577,7 +577,7 @@ module.exports = {
 																			console.log('COMMITTEE MEMBER CREATED US');
 																			CommitteeMember.publishCreate(committeeMember);
 																			if (userModel[0].chamber == 'senate'){
-																				Committee.find({urlTitle: 'united-states-sentate'})
+																				Committee.find({urlTitle: 'united-states-senate'})
 																				.exec(function(err, committee) {
 																					if (err) {return console.log(err);}
 																					else {
@@ -1233,7 +1233,7 @@ module.exports = {
 						if (err) {return console.log(err);}
 						else {
 							User.publishCreate(userModel);
-							//GOTTA DO BOTH STATE AND HOUSE / SENTATE ETC --> as well as specific committees
+							//GOTTA DO BOTH STATE AND HOUSE / senate ETC --> as well as specific committees
 							//STARTING COMMITTEE MEMBER CREATION.... THIS IS LEGIT --MAKE CODE ORGANIZED
 							/*Committee.find({urlTitle: userModel.state.replace(/ /g,'-').toLowerCase()})
 							.exec(function(err, committee) {

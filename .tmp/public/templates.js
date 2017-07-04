@@ -588,14 +588,16 @@ angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache
     "\n" +
     "        </div>\n" +
     "    </md-card>\n" +
-    "    <md-card ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "    <md-card ng-repeat=\"committeeBill in bills\">\n" +
     "        <div style=\"padding:16px 16px 16px\">\n" +
     "            <div>\n" +
     "                <h4>\n" +
     "                    <!--{{bill.voteCount}}\n" +
     "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>-->\n" +
-    "                    <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "                    <a href=\"/bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\">{{committeeBill.bill.title}}</a>\n" +
+    "                    <br>\n" +
+    "                    <a href=\"committee/{{committeeBill.committee.urlTitle}}\">{{committeeBill.committee.title}}</a>\n" +
     "                </h4>\n" +
     "\n" +
     "                <div>\n" +
@@ -634,14 +636,14 @@ angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", 
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"container\">\n" +
-    "    <md-card ng-repeat=\"bill in bills | orderBy:'-voteCount'\">\n" +
+    "    <md-card ng-repeat=\"committeeBill in bills\">\n" +
     "        <div style=\"padding:16px 16px 16px\">\n" +
     "            <div>\n" +
     "                <h4>\n" +
     "                    <!--{{bill.voteCount}}\n" +
     "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
     "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>-->\n" +
-    "                    <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.title}}</a>\n" +
+    "                    <a href=\"/bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\">{{committeeBill.bill.title}}</a>\n" +
     "                </h4>\n" +
     "            </div>\n" +
     "            <!--<div>\n" +

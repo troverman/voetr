@@ -2,26 +2,16 @@ angular.module('models.committeeBill', ['lodash', 'services', 'sails.io',])
 
 .service('CommitteeBillModel', ['$sailsSocket', 'utils', function($sailsSocket, utils) {
 
-    this.getSome = function(filter, model, limit, skip, sort) {
+    this.getSome = function(limit, skip, sort, filter) {
         var url = utils.prepareUrl('committeebill');
-        var query = {params:{filter: filter, id: model, limit:limit, skip:skip, sort: sort}};
+        var query = {params:{filter: filter, limit:limit, skip:skip, sort: sort}};
         return $sailsSocket.get(url, query).then(success, error);
     };
 
-    this.getCommitteeMemberCount = function(filter, model) {
-        var url = utils.prepareUrl('committeebill/count');
-        var query = {params:{filter: filter, id: model }};
+    this.getByCommiteeAndChildren = function(limit, skip, sort, committee) {
+        var url = utils.prepareUrl('committeebill/children');
+        var query = {params:{committee: committee, limit:limit, skip:skip, sort: sort}};
         return $sailsSocket.get(url, query).then(success, error);
-    };
-
-    this.create = function(newModel) {
-        var url = utils.prepareUrl('committeebill');
-        return $sailsSocket.post(url, newModel).then(success, error);
-    };
-
-    this.update = function(newModel) {
-        var url = utils.prepareUrl('committeebill');
-        return $sailsSocket.post(url, newModel).then(success, error);
     };
 
     this.delete = function(model) {
@@ -30,6 +20,7 @@ angular.module('models.committeeBill', ['lodash', 'services', 'sails.io',])
     };
 
     var success = function(response) {
+        console.log(response);
         return response.data;
     };
 

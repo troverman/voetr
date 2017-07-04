@@ -11,14 +11,14 @@
     </div>
 </div>
 <div class="container">
-    <md-card ng-repeat="bill in bills | orderBy:'-voteCount'">
+    <md-card ng-repeat="committeeBill in bills">
         <div style="padding:16px 16px 16px">
             <div>
                 <h4>
                     <!--{{bill.voteCount}}
                     <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
                     <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>-->
-                    <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.title}}</a>
+                    <a href="/bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}">{{committeeBill.bill.title}}</a>
                 </h4>
             </div>
             <!--<div>

@@ -38,8 +38,10 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: ['BillModel', 'committee', function(BillModel, committee) {
-                return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
+            bills: ['committee', 'CommitteeBillModel', function(committee, CommitteeBillModel) {
+                //return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
+                //return CommitteeBillModel.getSome(100, 0, 'createdAt DESC', {committee:committee.id});
+                return CommitteeBillModel.getByCommiteeAndChildren(100, 0, 'createdAt DESC', committee.id);
             }],
             posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');
@@ -58,9 +60,9 @@ angular.module( 'voetr.committee', [
             }
         },
         resolve: {
-            bills: ['committee', 'BillModel', function(committee, BillModel) {
-                return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
-                //CommitteeBillMolel
+            bills: ['committee', 'CommitteeBillModel', function(committee, CommitteeBillModel) {
+                //return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
+                return CommitteeBillModel.getSome(100, 0, 'createdAt DESC', {committee:committee.id});
             }]
          }
     })

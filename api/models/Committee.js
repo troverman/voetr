@@ -14,6 +14,10 @@ module.exports = {
         //    via: 'committee',
         //    dominant: true
         //},
+        billCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
         memberCount: {
             type: 'integer',
             defaultsTo: 0
