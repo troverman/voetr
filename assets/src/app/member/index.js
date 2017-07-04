@@ -16,21 +16,9 @@ angular.module( 'voetr.member', [
             member: ['$stateParams', 'UserModel', function($stateParams, UserModel) {
                 return UserModel.getByUsername($stateParams.path);
             }],
-            committeeCount: ['member', 'CommitteeMemberModel', function(member, CommitteeMemberModel) {
-                return CommitteeMemberModel.getCommitteeMemberCount('user', member.id);
-            }],
-            constituentCount: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
-                return RepresentativeModel.getConstituentCount(member.id);
-            }],
             myRepresentatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
                 if(config.currentUser){return RepresentativeModel.getRepresentatives(config.currentUser);}
                 else{return null}
-            }],
-            representativeCount: ['member', 'RepresentativeModel', function(member, RepresentativeModel) {
-                return RepresentativeModel.getRepresentativeCount(member.id);
-            }],
-            voteCount: ['member', 'VoteVoteModel', function(member, VoteVoteModel) {
-                return VoteVoteModel.getUserCount(member.id);
             }],
         }
 	})
@@ -149,14 +137,10 @@ angular.module( 'voetr.member', [
     });
 }])
 
-.controller( 'MemberCtrl', ['$location',  '$sailsSocket', '$scope', 'committeeCount', 'constituentCount', 'config', 'member', 'myRepresentatives', 'representativeCount', 'RepresentativeModel', 'voteCount', function CommitteeCtrl( $location, $sailsSocket, $scope, committeeCount, constituentCount, config, member, myRepresentatives, representativeCount, RepresentativeModel, voteCount) {
+.controller( 'MemberCtrl', ['$location',  '$sailsSocket', '$scope', 'config', 'member', 'myRepresentatives', 'RepresentativeModel', function CommitteeCtrl( $location, $sailsSocket, $scope, config, member, myRepresentatives, RepresentativeModel) {
     $scope.currentUser = config.currentUser;
     $scope.member = member;
-    $scope.committeeCount = committeeCount.committeeMemberCount;
-    $scope.constituentCount = constituentCount.constituentCount;
     $scope.myRepresentatives = myRepresentatives;
-    $scope.representativeCount = representativeCount.representativeCount;
-    $scope.voteCount = voteCount.voteCount;
     if(config.currentUser){$scope.isFollowing = $scope.myRepresentatives.filter(function(e){return e.representative.id == member.id}).length > 0}
     $scope.showFax = false;
     if (member.fax && member.fax != ','){$scope.showFax = true};
@@ -193,20 +177,18 @@ angular.module( 'voetr.member', [
         switch(envelope.verb) {
             case 'created':
                 if(envelope.data.representative.id == member.id){
-                    $scope.constituentCount = constituentCount.constituentCount + 1;
-                    //RepresentativeModel.getRepresentativeCount(member.id).then(function(representativeCount){});
+                    $scope.member.constituentCount = constituentCount.constituentCount + 1;
                 }
                 if(envelope.data.constituent.id == member.id){
-                    $scope.representativeCount = representativeCount.representativeCount + 1;
-                    //RepresentativeModel.getConstituentCount(member.id).then(function(constituentCount){});
+                    $scope.member.representativeCount = representativeCount.representativeCount + 1;
                 }
                 break;
             case 'destroyed':
                 if(envelope.data.representative.id == member.id){
-                    $scope.constituentCount = constituentCount.constituentCount - 1; 
+                    $scope.member.constituentCount = constituentCount.constituentCount - 1; 
                 }
                 if(envelope.data.constituent.id == member.id){
-                    $scope.representativeCount = representativeCount.representativeCount - 1;
+                    $scope.member.representativeCount = representativeCount.representativeCount - 1;
                 }
                 break;
         }

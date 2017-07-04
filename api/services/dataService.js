@@ -93,7 +93,7 @@ module.exports = {
 				representatives.concat(federalRepresentatives);
 				User.find({leg_id:leg_id}).then(function(stateRepresentatives){
 					var representatives = federalRepresentativesModel.concat(stateRepresentatives)
-					//res.json(representatives)
+					res.json(representatives)
 		    	});
 	    	});
 		}).catch(function(err) {console.log(err)});	
@@ -348,6 +348,8 @@ module.exports = {
 																			committee: committeeModel[0].id,
 																			bill: billModel[0].id,
 																		}
+																		console.log('committeeBillModel');
+																		console.log(committeeBillModel)
 																		CommitteeBill.find({committee:committeeModel[0].id, bill: billModel[0].id})
 																		.then(function(foundCommitteeBillModel){
 																			if (foundCommitteeBillModel.length === 0){

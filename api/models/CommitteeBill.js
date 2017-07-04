@@ -8,17 +8,13 @@
 module.exports = {
 
 	attributes: {
-        title: {
-            type: 'string',
-            required: true
-        },
         committee: {
             model: 'committee',
             required: true
         },
-        user: {
-            model: 'user',
-            //required: true
+        bill: {
+            model: 'bill',
+            required: true
         }
     },
 

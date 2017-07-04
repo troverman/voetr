@@ -248,9 +248,9 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "			    <md-card ng-show=\"currentUser\">\n" +
     "			        <div class=\"card-container\">\n" +
     "			            <div class=\"post-controller-container\">\n" +
-    "			                <a href=\"/member/{{user.username}}\">\n" +
-    "			                    <img class=\"post-img\" ng-src=\"{{user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{user.username}}\">\n" +
-    "			                    <h4 class=\"post-name\">{{user.username}}</h4>\n" +
+    "			                <a href=\"/member/{{currentUser.username}}\">\n" +
+    "			                    <img class=\"post-img\" ng-src=\"{{currentUser.avatarUrl}}\" class=\"md-card-image\" alt=\"{{currentUser.username}}\">\n" +
+    "			                    <h4 class=\"post-name\">{{currentUser.username}}</h4>\n" +
     "			                </a>\n" +
     "			            </div>\n" +
     "			            <div style=\"margin-left:61px;\">\n" +
@@ -327,9 +327,9 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "			    <md-card ng-show=\"currentUser\">\n" +
     "			        <div class=\"card-container\">\n" +
     "			            <div class=\"post-controller-container\">\n" +
-    "			                <a href=\"/member/{{user.username}}\">\n" +
-    "			                    <img class=\"post-img\" ng-src=\"{{user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{user.username}}\">\n" +
-    "			                    <h4 class=\"post-name\">{{user.username}}</h4>\n" +
+    "			                <a href=\"/member/{{currentUser.username}}\">\n" +
+    "			                    <img class=\"post-img\" ng-src=\"{{currentUser.avatarUrl}}\" class=\"md-card-image\" alt=\"{{currentUser.username}}\">\n" +
+    "			                    <h4 class=\"post-name\">{{currentUser.username}}</h4>\n" +
     "			                </a>\n" +
     "			            </div>\n" +
     "			            <div style=\"margin-left:61px;\">\n" +
@@ -1196,12 +1196,12 @@ angular.module("member/index.tpl.html", []).run(["$templateCache", function ($te
     "			<div class=\"pull-right member-tab-container\">\n" +
     "				<ul class=\"member-tabs\">\n" +
     "					<li><a href=\"member/{{member.username}}\">Activity</a></li>\n" +
-    "					<li ng-show=\"billCount\"><a href=\"member/{{member.username}}/bills\">{{billCount}} Bill<span ng-show=\"committee.memberCount!=1\">s</span></a></li>\n" +
-    "					<li><a href=\"member/{{member.username}}/committees\">{{committeeCount}} Committee<span ng-show=\"committeeCount!=1\">s</span></a></li>\n" +
-    "					<li><a href=\"member/{{member.username}}/constituents\">{{constituentCount}} Constituent<span ng-show=\"constituentCount!=1\">s</span></a></li>\n" +
+    "					<li ng-show=\"false\"><a href=\"member/{{member.username}}/bills\">{{member.billCount}} Bill<span ng-show=\"member.billCount!=1\">s</span></a></li>\n" +
+    "					<li><a href=\"member/{{member.username}}/committees\">{{member.committeeCount}} Committee<span ng-show=\"member.committeeCount!=1\">s</span></a></li>\n" +
+    "					<li><a href=\"member/{{member.username}}/constituents\">{{member.constituentCount}} Constituent<span ng-show=\"member.constituentCount!=1\">s</span></a></li>\n" +
     "					<!--<li><a href=\"member/{{member.username}}/posts\">{{postCount}} Post<span ng-show=\"voteCount>=!1\">s</span></a></li>-->\n" +
-    "					<li><a href=\"member/{{member.username}}/representatives\">{{representativeCount}} Representative<span ng-show=\"representativeCount!=1\">s</span></a></li>\n" +
-    "					<li><a href=\"member/{{member.username}}/votes\">{{voteCount}} Vote<span ng-show=\"voteCount>=!1\">s</span></a></li>\n" +
+    "					<li><a href=\"member/{{member.username}}/representatives\">{{member.representativeCount}} Representative<span ng-show=\"member.representativeCount!=1\">s</span></a></li>\n" +
+    "					<li><a href=\"member/{{member.username}}/votes\">{{member.voteCount}} Vote<span ng-show=\"member.voteCount!=1\">s</span></a></li>\n" +
     "					<li ng-show=\"currentUser.id != member.id\">\n" +
     "						<a ng-show=\"!isFollowing\" class=\"btn btn-default\" ng-click=\"selectAsRepresentative()\">Elect</a>\n" +
     "						<a ng-show=\"isFollowing\" class=\"btn btn-default\" ng-click=\"removeRepresentative()\">Unelect</a>\n" +
@@ -2522,17 +2522,11 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "			        </div>\n" +
     "			    </md-card>\n" +
     "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "				<!--\n" +
     "				<md-card ng-repeat=\"result in results\">\n" +
     "					{{result}}\n" +
     "			    </md-card>\n" +
     "				-->\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "\n" +
     "		        <md-card ng-repeat=\"post in posts\">\n" +
     "					<div class=\"card-container\">\n" +

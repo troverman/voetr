@@ -4,6 +4,10 @@ module.exports = {
 
 	sendEmail: function(data){
 
+		//Representative.find({constituent:data.user}).then(function(legislators){
+
+		//})
+
 		var templateModel = {
 			legislator: 'Bill Hammond',
 			bill: data.bill,

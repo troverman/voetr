@@ -10,9 +10,6 @@ module.exports.policies = {
   '*': true,
   '*': ['passport'],
 
-
-
-
   //gotta do the policy that can only create -- update with an id that is your session -- oh that's not coming from the frontend -- okay
   //may want to switch to beare auth.... hmm
   /*

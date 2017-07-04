@@ -76,6 +76,14 @@ module.exports.routes = {
   'delete /api/committee/:id': 'CommitteeController.destroy',
 
    /**
+   * CommitteeBill routes
+   */
+  'get /api/committeebill': 'CommitteeBillController.getSome',
+  'get /api/committeebill/count': 'CommitteeBillController.getCommitteeBillCount',
+  'post /api/committeebill': 'CommitteeBillController.create',
+  'delete /api/committeebill/:id': 'CommitteeBillController.destroy',
+
+   /**
    * CommitteeMember routes
    */
   'get /api/committeemember': 'CommitteeMemberController.getSome',

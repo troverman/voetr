@@ -3,6 +3,7 @@ angular.module('models', [
 	'models.billVote',
 	'models.committee',
 	'models.committeeMember',
+	'models.committeeBill',
 	'models.follower',
 	'models.post',
 	'models.representative',

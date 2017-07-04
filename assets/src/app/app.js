@@ -53,6 +53,11 @@ angular.module( 'voetr', [
 })
 .controller( 'AppCtrl', ['$rootScope', '$scope', 'config', function AppCtrl ( $rootScope, $scope, config ) {
     config.currentUser = window.currentUser;
+    //as oppossed to rendering it in the window... get it from the server with the state.. 
+    //UserModel.getMine().then(function(user){
+    //    console.log(user);
+    //    config.currentUser = user;
+    //});
     $rootScope.$on('$stateChangeStart',function(info, state){
         $rootScope.stateIsLoading = true;
     });

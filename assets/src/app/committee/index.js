@@ -60,6 +60,7 @@ angular.module( 'voetr.committee', [
         resolve: {
             bills: ['committee', 'BillModel', function(committee, BillModel) {
                 return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
+                //CommitteeBillModel
             }]
          }
     })
