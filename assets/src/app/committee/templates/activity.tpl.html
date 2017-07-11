@@ -79,7 +79,7 @@
         </div>
     </md-card>
     <md-card ng-repeat="committeeBill in bills">
-        <div style="padding:16px 16px 16px">
+        <div class="card-container">
             <div>
                 <h4>
                     <!--{{bill.voteCount}}
@@ -94,10 +94,10 @@
                     <div class="pull-left">
                         <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
                         <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
-                        <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
+                        <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
                     </div>
                     <div class="pull-right">
-                        <a href="post/{{post.id}}"><i class="fa fa-link grey"></i></a>
+                        <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}"><i class="fa fa-link grey"></i></a>
                     </div>
                 </div>
 

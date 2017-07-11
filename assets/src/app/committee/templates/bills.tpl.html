@@ -12,18 +12,24 @@
 </div>
 <div class="container">
     <md-card ng-repeat="committeeBill in bills">
-        <div style="padding:16px 16px 16px">
+        <div class="card-container">
             <div>
                 <h4>
-                    <!--{{bill.voteCount}}
-                    <button class="btn btn-default" ng-click="createVote(1, bill)"><i class="fa fa-caret-up"></i></button>
-                    <button class="btn btn-default" ng-click="createVote(-1, bill)"><i class="fa fa-caret-down"></i></button>-->
-                    <a href="/bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}">{{committeeBill.bill.title}}</a>
+                    <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}">{{committeeBill.bill.title}}</a>
+                    <br>
+                    <a href="committee/{{committeeBill.committee.urlTitle}}">{{committeeBill.committee.title}}</a>
                 </h4>
+                <div>
+                    <div class="pull-left">
+                        <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
+                        <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+                        <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}"><i class="fa fa-link grey"></i></a>
+                    </div>
+                </div>
             </div>
-            <!--<div>
-                <a href="/bill/{{bill._id}}/{{bill.title}}">{{bill.posts.length}} posts, {{bill.votes.length}} votes</a>
-            </div>-->
         </div>
     </md-card>
 </div>

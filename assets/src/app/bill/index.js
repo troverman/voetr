@@ -25,6 +25,9 @@ angular.module( 'voetr.bill', [
             }
         },
         resolve: {
+            committees: ['bill', 'CommitteeBillModel', function(bill, CommitteeBillModel) {
+                return CommitteeBillModel.getSome(100, 0, 'createdAt DESC', {bill:bill.id});
+            }],
             posts: ['bill', 'PostModel', function(bill, PostModel) {
                 return PostModel.getByBill(bill.id);
             }],
@@ -39,13 +42,14 @@ angular.module( 'voetr.bill', [
 
 }])
 
-.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'user', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, config, lodash, PostModel, posts, seoService, titleService, user, VoteModel, votes, VoteVoteModel ) {
+.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'committees', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'user', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, committees, config, lodash, PostModel, posts, seoService, titleService, user, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
     seoService.setDescription(bill.title);
     seoService.setKeywords('bill, voetr, votes, legislation');
 
 	$scope.bill = bill;
     $scope.billContent = $sce.trustAsHtml($scope.bill.fullText);
+    $scope.committees = committees;
     $scope.currentUser = config.currentUser;
     $scope.newPost = {};
     $scope.newVote = {};

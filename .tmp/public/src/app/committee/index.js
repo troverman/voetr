@@ -40,8 +40,8 @@ angular.module( 'voetr.committee', [
         resolve: {
             bills: ['committee', 'CommitteeBillModel', function(committee, CommitteeBillModel) {
                 //return BillModel.getByCommittee(committee.id, 100, 0, 'voteCount DESC');
-                //return CommitteeBillModel.getSome(100, 0, 'createdAt DESC', {committee:committee.id});
-                return CommitteeBillModel.getByCommiteeAndChildren(100, 0, 'createdAt DESC', committee.id);
+                return CommitteeBillModel.getSome(100, 0, 'createdAt DESC', {committee:committee.id});
+                //return CommitteeBillModel.getByCommiteeAndChildren(100, 0, 'createdAt DESC', committee.id);
             }],
             posts: ['committee', 'PostModel', function(committee, PostModel) {
                 return PostModel.getByCommittee(committee.id, 100, 0, 'createdAt desc');

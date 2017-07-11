@@ -2,10 +2,10 @@
 	<div class="container">
 		<div class="spacing-10"></div>
 		<h4>{{bill.title}}</h4>
-		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
-		<div ng-repeat="committee in bill.committees">
-			<p><a href="committee/{{committee.urlTitle}}">{{committee.title}}</a></p>
+		<div ng-repeat="committeeBill in committees">
+			<p><a href="committee/{{committeeBill.committee.urlTitle}}" class="grey">{{committeeBill.committee.title}}</a></p>
 		</div>
+		<md-subheader ng-bind="bill.createdAt | date:'MM/dd/yyyy h:mma'" class="md-no-sticky"></md-subheader><br>
 		<!--<div class="row">
 			<button class="col-xs-6 btn btn-default upVote" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
         	<button class="col-xs-6 btn btn-default downVote" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>

@@ -104,52 +104,14 @@ module.exports = {
     },
 
     getByCommittee: function(id, limiting, skipping, sort) {
-        //SHOULD HAVE AS A MANY TO MANY RELATION VS JSON STORE
-        //is the bill in a child committee??
-        //we only have commitee.parent..-->
-        //committee.parent == id --> find all the parents of the committee
-        //Committee.find({parent:id})
-        //.then(function(committees){
-        //    console.log(committees)
-        //})
-
-        //us.id
-        //$in id or any 
 
         return Bill.find()
         .where({committees: {contains: id}})
-        //.sort(sort)
-        //.limit(limiting)
-        //.skip(skipping)
-        //.populate('committees')
-        //.populate('relatedBills')
         .populate('votes')
         .then(function (models) {
             return models;
         });
         
-
-        /*return Bill.native(function(err, collection){
-            if (err){return res.negotiate(err)}
-
-            return collection
-            .find({committees:id})
-            .sort(sort)
-            .limit(parseInt(limiting))
-            .skip(parseInt(skipping))
-            //.populate('comments')
-            //.populate('committees')
-            //.populate('relatedBills')
-            //.populate('votes')
-            //.toArray(function(err, results){
-            //    if (err){return res.negotiate(err)
-            //    return results;
-            //})
-            //.then(function (models) {
-            //    return models;
-            //});
-        })*/
-
 
     },
 

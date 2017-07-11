@@ -247,7 +247,9 @@ module.exports = {
 								json: true,
 								headers: {'X-API-Key': propublicaApiKey}
 							};
+							//console.log(model)
 							request(model, function (error, response, body) {
+								//console.log(response)
 								if (!error && body.results) {
 									if (body.results.length>0){
 										var billData = body.results[0];
@@ -339,7 +341,6 @@ module.exports = {
 																var committeeUrlArray = committeeUrl.split('-');
 																var committeeUrlBody = committeeUrlArray.slice(1,-1).join('-');
 																var refactor = committeeUrlArray[0] + '-' + committeeUrlArray[committeeUrlArray.length-1] + '-on-' + committeeUrlBody;
-																console.log(refactor)
 																Committee.find({urlTitle:{contains: refactor}})
 																.then(function(committeeModel){
 																	//console.log(committeeModel)
@@ -371,13 +372,19 @@ module.exports = {
 																};
 																request(model, function (error, response, body) {
 																	console.log('cosponsors!')
-																	console.log(body)
-																	var billMemberModel = {}
-																	//async.eachSeries(committees, function (committeeData, nextCommittee){
-																	//BillMember.create(billMemberModel).then(function(billMemberModel){
-																	//});
-																	//process.nextTick(nextCommittee);
-																	//});
+																	if (!error && body.results) {
+																		console.log(body.results)
+																		//if( body.results.length > 0 && body.results.cosponsors){
+																			var cosponsors = body.results.cosponsors;
+																			console.log(cosponsors);
+																			var billMemberModel = {}
+																			//async.eachSeries(committees, function (committeeData, nextCommittee){
+																			//BillMember.create(billMemberModel).then(function(billMemberModel){
+																			//});
+																			//process.nextTick(nextCommittee);
+																			//});
+																		//}
+																	}
 																});
 																dataService.federalVotes(billModel[0]);
 															});

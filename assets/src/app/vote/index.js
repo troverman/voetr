@@ -102,6 +102,8 @@ angular.module( 'voetr.vote', [
         switch(envelope.verb) {
             case 'created':
                 $scope.votes.unshift(envelope.data);
+                $scope.noVotes = $scope.votes.filter(function(obj){return obj.voteInteger == -1});
+                $scope.yesVotes = $scope.votes.filter(function(obj){return obj.voteInteger == 1});
                 break;
             case 'destroyed':
                 lodash.remove($scope.votes, {id: envelope.id});

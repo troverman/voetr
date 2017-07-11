@@ -4,9 +4,13 @@ module.exports = {
 
 	sendEmail: function(data){
 
-		//Representative.find({constituent:data.user}).then(function(legislators){
+		Representative.find({constituent:data.user}).then(function(legislators){
 
-		//})
+			console.log(legislators)
+
+		});
+
+		console.log(data.user)
 
 		var templateModel = {
 			legislator: 'Bill Hammond',
@@ -44,7 +48,7 @@ module.exports = {
 
 		var template = emailService.prepareTemplate('vote', templateModel);
 
-		console.log(template)
+		//console.log(template)
 
 		/*
 		console.log(data)
