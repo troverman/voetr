@@ -143,6 +143,7 @@ passport.connect = function (req, query, profile, next) {
       // Scenario: A new user is attempting to sign up using a third-party
       //           authentication provider.
       // Action:   Create a new user and assign them a passport.
+
       if (!passport) {
         console.log(user)
         User.create(user, function (err, user) {
@@ -174,8 +175,8 @@ passport.connect = function (req, query, profile, next) {
       // Scenario: An existing user is trying to log in using an already
       //           connected passport.
       // Action:   Get the user associated with the passport.
+
       else {
-        console.log('this is where we should be with fb dood -- register new social acct w/ email+pw combo')
         // If the tokens have changed since the last session, update them
         if (query.hasOwnProperty('tokens') && query.tokens !== passport.tokens) {
           passport.tokens = query.tokens;
