@@ -104,7 +104,8 @@ passport.connect = function (req, query, profile, next) {
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
-    user.socialAccounts.facebook.profilePic = 'https://graph.facebook.com/' + profile.id + '/picture?type=large'
+    user.socialAccounts.facebook.profilePic = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+    console.log(user)
   }
   if (provider == 'google'){
     user.socialAccounts.google = {};

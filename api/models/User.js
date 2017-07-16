@@ -142,18 +142,15 @@ module.exports = {
 
     afterCreate: function(model,next){
 
-        var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/natural.jpg' ,'images/nature.jpg']
+        var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/natural.jpg' ,'images/nature.jpg'];
         var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
         model.coverUrl = coverUrlArray[randInt];
-
         User.update({id: model.id}, model)
         .then(function(model){
-            //User.publishUpdate(id, model);
-            //res.json(model);
+            emailService.sendTemplate('welcome', model.email, 'Welcome To Voetr!', {username: model.username});
             return next(null, model);
         });
 
-        //emailService.sendTemplate('welcome', model.email, 'Welcome To Voetr!', {username: model.username});
     },
 
     getOne: function(id) {
