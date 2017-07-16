@@ -98,7 +98,8 @@ passport.connect = function (req, query, profile, next) {
     else{user.socialAccounts = req.user.socialAccounts;}
   }
 
-  console.log(profile)
+  console.log(profile);
+  console.log(query)
   if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
     user.socialAccounts.facebook.profileUrl = profile.profileUrl;
