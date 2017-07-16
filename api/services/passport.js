@@ -101,7 +101,7 @@ passport.connect = function (req, query, profile, next) {
   console.log(profile);
   if (provider == 'facebook'){
     user.socialAccounts.facebook = {};
-    user.socialAccounts.facebook.profileUrl = profile.profileUrl;
+    user.socialAccounts.facebook.profileUrl = 'https://www.facebook.com' + profile.id//profile.profileUrl;
     user.socialAccounts.facebook.displayName = profile.displayName;
     user.socialAccounts.facebook.profilePic = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
     console.log(user)
