@@ -1,4 +1,5 @@
 <div class="container">
+	<h3 ng-show="bills.length == 0">{{member.username}} has not submitted any bills</h3>
     <md-card ng-repeat="bill in bills">
     	{{bill.title}}
     </md-card>

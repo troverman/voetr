@@ -470,8 +470,6 @@ angular.module( 'voetr.member', [
     };
 
 
-
-
 }])
 
 .controller( 'MemberRepresentativesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'representativeCount', 'RepresentativeModel', 'representatives', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, config, member, representativeCount, RepresentativeModel, representatives, titleService ) {

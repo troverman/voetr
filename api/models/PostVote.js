@@ -12,12 +12,13 @@ module.exports = {
             type: 'string',
             required: true
         },
-        post: {
+        postModel: {
             model: 'post',
-        }
+        },
+        voteVote:{
+            model: 'votevote',
+        },
     },
-
-    //afterCreate --> tag users? or save as an attribute. 
 
 };
 

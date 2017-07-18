@@ -107,7 +107,6 @@ passport.connect = function (req, query, profile, next) {
     console.log(user)
   }
   if (provider == 'google'){
-    consol.e
     user.socialAccounts.google = {};
     user.socialAccounts.google.profileUrl = profile._json.url;
     //TODO: check if no url 
@@ -148,7 +147,8 @@ passport.connect = function (req, query, profile, next) {
       // Action:   Create a new user and assign them a passport.
 
       if (!passport) {
-        console.log(user)
+        console.log(user);
+        //if (!user.username && profile.username){user.username = profile.username}
         User.create(user, function (err, user) {
           console.log(err);
           console.log(user)

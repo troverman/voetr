@@ -33,7 +33,15 @@ module.exports = {
         user: {
             model: 'user',
             required: true
-        }
+        },
+        plusCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
+        minusCount: {
+            type: 'integer',
+            defaultsTo: 0
+        },
     },
 
     //afterCreate --> tag users? or save as an attribute. 

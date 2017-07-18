@@ -41,7 +41,13 @@ angular.module( 'voetr.post', [
 		else{$location.path('/login')}
 	};
 
-	
+	$scope.createVote = function(post){
+		if($scope.currentUser){}
+			console.log(post)
+		//else{$location.path('/login')}
+
+	};
+
 	$scope.getPostChildren = function(post){
 		PostModel.getByPost(post).then(function(postModels){
 			//$scope.post.postChilren = postModels;

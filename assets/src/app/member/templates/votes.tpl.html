@@ -1,4 +1,5 @@
 <div class="container">
+    <h3 ng-show="votes.length == 0">{{member.username}} has not yet voted</h3>
     <md-card ng-repeat="vote in votes">
 
     	<div class="card-container">

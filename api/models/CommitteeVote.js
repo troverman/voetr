@@ -29,14 +29,6 @@ module.exports = {
         });
     },
 
-    //getByCommittee: function(a_url_title) {
-        //return Committee.find({url_title: a_url_title}).exec(function (err, found){})
-        //.then(function (model) {
-            //return [model];
-        //}
-        //);
-    //}
-
 };
 
  
