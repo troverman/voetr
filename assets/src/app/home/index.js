@@ -166,7 +166,7 @@ angular.module( 'voetr.home', [
     });
 
 }])
-.controller( 'FeedCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'constituents', 'PostModel', 'posts', 'RepresentativeModel', 'representatives', 'Upload', 'user', 'userVotes', 'VoteModel', 'votes', 'VoteVoteModel', function FeedController( $rootScope, $sailsSocket, $scope, config, constituents, PostModel, posts, RepresentativeModel, representatives, Upload, user, userVotes, VoteModel, votes, VoteVoteModel ) {
+.controller( 'FeedCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'constituents', 'PostModel', 'posts', 'ReactionModel', 'RepresentativeModel', 'representatives', 'Upload', 'user', 'userVotes', 'VoteModel', 'votes', 'VoteVoteModel', function FeedController( $rootScope, $sailsSocket, $scope, config, constituents, PostModel, posts, ReactionModel, RepresentativeModel, representatives, Upload, user, userVotes, VoteModel, votes, VoteVoteModel ) {
 	$scope.currentUser = config.currentUser;
 	$scope.constituents = constituents;
 	$scope.newPost = {};
