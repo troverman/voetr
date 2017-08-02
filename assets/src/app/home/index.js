@@ -170,6 +170,7 @@ angular.module( 'voetr.home', [
 	$scope.currentUser = config.currentUser;
 	$scope.constituents = constituents;
 	$scope.newPost = {};
+	$scope.newReaction = {};
 	$scope.newVote = {};
 	$scope.posts = posts;
     $scope.representatives = representatives;
@@ -182,31 +183,18 @@ angular.module( 'voetr.home', [
     	$scope.posts[index].showReply = !$scope.posts[index].showReply
     };
 
-    $scope.likePost = function(post) {
-        if ($scope.currentUser){
-            $scope.newVote.user = config.currentUser.id;
-            $scope.newVote.post = post.id;
-            $scope.newVote.voteInteger = 1;
-            console.log($scope.newVote);
-            //VoteVoteModel.create($scope.newVote).then(function(model) {
-            //    $scope.newVote = {};
-            //});
-        }
-        else{$location.path('/register');}
-    };
-
-    $scope.dislikePost = function(post) {
-        if ($scope.currentUser){
-            $scope.newVote.user = config.currentUser.id;
-            $scope.newVote.post = post.id;
-            $scope.newVote.voteInteger = -1;
-            console.log($scope.newVote);
-            //VoteVoteModel.create($scope.newVote).then(function(model) {
-            //    $scope.newVote = {};
-            //});
-        }
-        else{$location.path('/register');}
-    };
+	$scope.createReaction = function(post, reaction){
+		if($scope.currentUser){
+			$scope.newReaction.postModel = post.id;
+			$scope.newReaction.reaction = reaction;
+			$scope.newReaction.user = $scope.currentUser.id;
+			console.log($scope.newReaction)
+			ReactionModel.create($scope.newReaction).then(function(){
+				$scope.newReaction = {};
+			});
+		}
+		else{$location.path('/login')}
+	};
 
     $scope.getLatLng = function() {
 	    if (navigator.geolocation) {
@@ -327,6 +315,10 @@ angular.module( 'voetr.home', [
 	    switch(envelope.verb) {
 	        case 'created':
 	            $scope.posts.unshift(envelope.data);
+	            break;
+	        case 'updated':
+				var index = $scope.posts.map(function(obj){return obj.id}).indexOf(envelope.data.id);
+                $scope.posts[index] = envelope.data;
 	            break;
 	        case 'destroyed':
 	            lodash.remove($scope.posts, {id: envelope.id});

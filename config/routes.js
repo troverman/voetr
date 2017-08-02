@@ -129,6 +129,12 @@ module.exports.routes = {
   'post /api/post/:id': 'PostController.update',
 
   /**
+   * Reaction routes
+   */
+  'post /api/reaction': 'ReactionController.create',
+  'delete /api/reaction/:id': 'ReactionController.destroy',
+
+  /**
    * Representative routes
    */
   'get /api/representative/location': 'RepresentativeController.getByLocation',

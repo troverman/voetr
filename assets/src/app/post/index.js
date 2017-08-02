@@ -22,9 +22,10 @@ angular.module( 'voetr.post', [
 	});
 }])
 
-.controller( 'PostCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'post', 'postChildren', 'PostModel', 'titleService', function PostController( $location, $sailsSocket, $scope, config, post, postChildren, PostModel, titleService ) {
+.controller( 'PostCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'post', 'postChildren', 'PostModel', 'ReactionModel', 'titleService', function PostController( $location, $sailsSocket, $scope, config, post, postChildren, PostModel, ReactionModel, titleService ) {
 	titleService.setTitle('post - voetr');
 	$scope.currentUser = config.currentUser;
+	$scope.newReaction = {};
 	$scope.post = post;
 	$scope.postChildren = postChildren;
 
@@ -41,11 +42,17 @@ angular.module( 'voetr.post', [
 		else{$location.path('/login')}
 	};
 
-	$scope.createVote = function(post){
-		if($scope.currentUser){}
-			console.log(post)
-		//else{$location.path('/login')}
-
+	$scope.createReaction = function(post, reaction){
+		if($scope.currentUser){
+			$scope.newReaction.postModel = post.id;
+			$scope.newReaction.reaction = reaction;
+			$scope.newReaction.user = $scope.currentUser.id;
+			console.log($scope.newReaction)
+			ReactionModel.create($scope.newReaction).then(function(){
+				$scope.newReaction = {};
+			});
+		}
+		else{$location.path('/login')}
 	};
 
 	$scope.getPostChildren = function(post){
@@ -63,7 +70,6 @@ angular.module( 'voetr.post', [
 					//var lol = function(){
 						//lol()
 					//}
-
 
 					//$scope.posts[index].children[index1].children[index2].children....
 
@@ -89,6 +95,10 @@ angular.module( 'voetr.post', [
 	    switch(envelope.verb) {
 	        case 'created':
 	            $scope.postChildren.unshift(envelope.data);
+	            break;
+	        case 'updated':
+	        	console.log(envelope.data)
+	            $scope.post = envelope.data;
 	            break;
 	        case 'destroyed':
 	            $scope.postChildren.unshift(envelope.data);

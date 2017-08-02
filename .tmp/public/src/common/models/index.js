@@ -6,6 +6,7 @@ angular.module('models', [
 	'models.committeeBill',
 	'models.follower',
 	'models.post',
+	'models.reaction',
 	'models.representative',
 	'models.search',
 	'models.user',

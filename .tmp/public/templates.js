@@ -12,7 +12,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "	<video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\" playsinline></video>\n" +
     "	<div class=\"imageContainerDiv container\">  \n" +
     "		<!--<h1>build empowerment, change consensus</h1>-->\n" +
-    "		<h1>build coalitions, create impact</h1>\n" +
+    "		<h1>build empowerment, create impact</h1>\n" +
     "	</div>\n" +
     "</div>\n" +
     "<div class=\"about-container\">\n" +
@@ -977,8 +977,8 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "\n" +
     "                    <div class=\"post-action-container\">\n" +
     "                        <div class=\"pull-left\">\n" +
-    "                            <a href=\"#\" ng-click=\"likePost(post)\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
-    "                            <a href=\"#\" ng-click=\"dislikePost(post)\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "                            <a href=\"#\" ng-click=\"likePost(post)\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "                            <a href=\"#\" ng-click=\"dislikePost(post)\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
     "                            <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
     "                            <a href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
     "                        </div>\n" +
@@ -1845,8 +1845,8 @@ angular.module("post/index.tpl.html", []).run(["$templateCache", function ($temp
     "\n" +
     "            <div class=\"post-action-container\">\n" +
     "                <div class=\"pull-left\">\n" +
-    "                    <a href=\"#\" ng-click=\"createVote(post)\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
-    "                    <a href=\"#\" ng-click=\"createVote(post)\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "                    <a href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "                    <a href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
     "                    <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
     "                </div>\n" +
     "                <div class=\"pull-right\">\n" +
@@ -1906,8 +1906,8 @@ angular.module("post/index.tpl.html", []).run(["$templateCache", function ($temp
     "\n" +
     "                    <div class=\"post-action-container\">\n" +
     "                        <div class=\"pull-left\">\n" +
-    "                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
-    "                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "                            <a href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
+    "                            <a href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
     "                            <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
     "                        </div>\n" +
     "                        <div class=\"pull-right\">\n" +
