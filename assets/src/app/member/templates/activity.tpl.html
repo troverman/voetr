@@ -76,7 +76,7 @@
             <div class="post-action-container">
                 <div class="pull-left">
                     <a href="#" ng-click="createReaction(result, 'like')" class="grey"><i class="fa fa-angle-up"></i> {{result.plusCount}} like </a> 
-                    <a href="#" ng-click="createReaction(result, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{result.minusCount}} dislike </a> 
+                    <a href="#" ng-click="createReaction(result, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{result.plusCount}} dislike </a> 
                     <a href="#" class="grey" ng-click="reply(result)"><i class="fa fa-reply"></i> reply </a>
                 </div>
                 <div class="pull-right">
@@ -102,7 +102,7 @@
                     <h4 class="post-name">{{result.user.username}}</h4>
                 </a>
                 <div class="pull-right">
-                    <span class="grey" am-time-ago="result.createdAt"></span>
+                    <span class="grey" am-time-ago="result.updatedAt"></span>
                     <div style="display:inline" uib-dropdown is-open="status.isopen">
                         <a uib-dropdown-toggle ng-disabled="disabled" href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
                         <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
@@ -125,8 +125,8 @@
 
             <div class="post-action-container">
                 <div class="pull-left">
-                    <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
-                    <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+                    <a href="#" ng-click="createReaction(result, 'like')" class="grey"><i class="fa fa-angle-up"></i> {{result.plusCount}} like </a> 
+                    <a href="#" ng-click="createReaction(result, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{result.minusCount}} dislike </a> 
                     <a href="#" class="grey" ng-click="reply(result)"><i class="fa fa-reply"></i> reply </a>
                 </div>
                 <div class="pull-right">
