@@ -168,7 +168,7 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeActivityCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'titleService', 'user', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, committee, CommitteeModel, PostModel, posts, titleService, user, VoteVoteModel) {
+.controller( 'CommitteeActivityCtrl', ['$location', '$scope', '$sailsSocket', '$stateParams', 'config', 'lodash', 'BillModel', 'bills', 'committee', 'CommitteeModel', 'PostModel', 'posts', 'ReactionModel', 'titleService', 'user', 'VoteVoteModel', function CommitteeHomeCtrl( $location, $scope, $sailsSocket, $stateParams, config, lodash, BillModel, bills, committee, CommitteeModel, PostModel, posts, ReactionModel, titleService, user, VoteVoteModel) {
     $scope.committee = committee;
     $scope.currentUser = config.currentUser;
     $scope.bills = bills;
@@ -184,6 +184,20 @@ angular.module( 'voetr.committee', [
             $scope.newPost.committee = $scope.committee.id
             PostModel.create($scope.newPost).then(function(model){
                 $scope.newPost = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
+    $scope.createReaction = function(post, reaction, type){
+        if($scope.currentUser){
+            if (type == 'post'){$scope.newReaction.postModel = post.id;}
+            if (type == 'bill'){$scope.newReaction.postModel = post.id;}
+            $scope.newReaction.reaction = reaction;
+            $scope.newReaction.user = $scope.currentUser.id;
+            console.log($scope.newReaction)
+            ReactionModel.create($scope.newReaction).then(function(){
+                $scope.newReaction = {};
             });
         }
         else{$location.path('/login')}

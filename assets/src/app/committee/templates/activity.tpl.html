@@ -57,8 +57,8 @@
 
             <div class="post-action-container">
                 <div class="pull-left">
-                    <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
-                    <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+                    <a href="#" ng-click="createReaction(post, 'like', 'post')" class="grey"><i class="fa fa-angle-up"></i> {{post.plusCount}} like </a> 
+                    <a href="#" ng-click="createReaction(post, 'like', 'post')" class="grey"><i class="fa fa-angle-down"></i> {{post.minusCount}} dislike </a> 
                     <a href="#" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
                 </div>
                 <div class="pull-right">
@@ -92,8 +92,8 @@
 
                 <div>
                     <div class="pull-left">
-                        <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
-                        <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
+                        <a href="#" ng-click="createReaction(committeeBill, 'like', 'bill')" class="grey"><i class="fa fa-angle-up"></i> {{committeeBill.plusCount}} like </a> 
+                        <a href="#" ng-click="createReaction(committeeBill, 'like', 'bill')" class="grey"><i class="fa fa-angle-down"></i> {{committeeBill.plusCount}} dislike </a> 
                         <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
                     </div>
                     <div class="pull-right">
