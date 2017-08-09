@@ -1,7 +1,7 @@
 <div class="container">
+    <p ng-show="post.postModel">in response to <a href="post/{{post.postModel}}">post</a></p>
     <md-card style="margin-top:5%;margin-bottom:5%">
         <div class="card-container">
-
             <div class="post-controller-container">
                 <a href="/member/{{post.user.username}}">
                     <img class="post-img" ng-src="{{post.user.avatarUrl}}" class="md-card-image" alt="{{post.user.username}}">
