@@ -1,4 +1,4 @@
-angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/index.tpl.html', 'committee/templates/activity.tpl.html', 'committee/templates/bills.tpl.html', 'committee/templates/committees.tpl.html', 'committee/templates/discussion.tpl.html', 'committee/templates/members.tpl.html', 'committee/templates/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'home/templates/feed.tpl.html', 'home/templates/intro.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'member/templates/activity.tpl.html', 'member/templates/bills.tpl.html', 'member/templates/committees.tpl.html', 'member/templates/constituents.tpl.html', 'member/templates/edit.tpl.html', 'member/templates/representatives.tpl.html', 'member/templates/votes.tpl.html', 'members/index.tpl.html', 'nav/index.tpl.html', 'post/index.tpl.html', 'post/post.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html']);
+angular.module('templates-app', ['about/index.tpl.html', 'account/index.tpl.html', 'bill/index.tpl.html', 'bills/index.tpl.html', 'committee/index.tpl.html', 'committee/templates/activity.tpl.html', 'committee/templates/bills.tpl.html', 'committee/templates/committees.tpl.html', 'committee/templates/discussion.tpl.html', 'committee/templates/members.tpl.html', 'committee/templates/votes.tpl.html', 'committees/index.tpl.html', 'footer/index.tpl.html', 'home/index.tpl.html', 'home/templates/feed.tpl.html', 'home/templates/intro.tpl.html', 'login/index.tpl.html', 'member/index.tpl.html', 'member/templates/activity.tpl.html', 'member/templates/bills.tpl.html', 'member/templates/committees.tpl.html', 'member/templates/constituents.tpl.html', 'member/templates/edit.tpl.html', 'member/templates/representatives.tpl.html', 'member/templates/votes.tpl.html', 'members/index.tpl.html', 'nav/index.tpl.html', 'post/index.tpl.html', 'post/post.tpl.html', 'register/index.tpl.html', 'search/index.tpl.html', 'vote/index.tpl.html', 'votes/index.tpl.html', 'votevote/index.tpl.html']);
 
 angular.module("about/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("about/index.tpl.html",
@@ -351,6 +351,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "	                        <a href=\"/member/{{post.user.username}}\">\n" +
     "	                            <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
     "	                            <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
+    "	                            <p> reaction to bill</p>\n" +
     "	                        </a>\n" +
     "	                        <div class=\"pull-right\">\n" +
     "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
@@ -564,57 +565,44 @@ angular.module("committee/templates/activity.tpl.html", []).run(["$templateCache
     "            <div class=\"post-container\">\n" +
     "                <p>{{post.post}}</p>\n" +
     "            </div>\n" +
-    "\n" +
-    "            <div class=\"post-action-container\">\n" +
-    "                <div class=\"pull-left\">\n" +
-    "                    <a href=\"#\" ng-click=\"createReaction(post, 'like', 'post')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
-    "                    <a href=\"#\" ng-click=\"createReaction(post, 'like', 'post')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
-    "                    <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "                </div>\n" +
-    "                <div class=\"pull-right\">\n" +
-    "                    <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "             <!--\n" +
-    "            <div class=\"profilePost\">\n" +
-    "                <form role=\"form\">\n" +
-    "                    <md-input-container class=\"md-block\">\n" +
-    "                        <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
-    "                    </md-input-container>\n" +
-    "                </form>\n" +
-    "            </div>\n" +
-    "            -->\n" +
-    "\n" +
+    "        </div>\n" +
+    "        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'like', 'post')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'dislike', 'post')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "            <a style=\"\" class=\"pull-right\" href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "        </div>\n" +
+    "        <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"fasle\">\n" +
+    "            <form role=\"form\">\n" +
+    "                <md-input-container class=\"md-block\">\n" +
+    "                    <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                </md-input-container>\n" +
+    "                <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "            </form>\n" +
     "        </div>\n" +
     "    </md-card>\n" +
     "    <md-card ng-repeat=\"committeeBill in bills\">\n" +
     "        <div class=\"card-container\">\n" +
     "            <div>\n" +
-    "                <h4>\n" +
-    "                    <!--{{bill.voteCount}}\n" +
-    "                    <button class=\"btn btn-default\" ng-click=\"createVote(1, bill)\"><i class=\"fa fa-caret-up\"></i></button>\n" +
-    "                    <button class=\"btn btn-default\" ng-click=\"createVote(-1, bill)\"><i class=\"fa fa-caret-down\"></i></button>-->\n" +
-    "                    <a href=\"/bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\">{{committeeBill.bill.title}}</a>\n" +
-    "                    <br>\n" +
-    "                    <a href=\"committee/{{committeeBill.committee.urlTitle}}\">{{committeeBill.committee.title}}</a>\n" +
-    "                </h4>\n" +
-    "\n" +
-    "                <div>\n" +
-    "                    <div class=\"pull-left\">\n" +
-    "                        <a href=\"#\" ng-click=\"createReaction(committeeBill, 'like', 'bill')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{committeeBill.plusCount}} like </a> \n" +
-    "                        <a href=\"#\" ng-click=\"createReaction(committeeBill, 'like', 'bill')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{committeeBill.plusCount}} dislike </a> \n" +
-    "                        <a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"pull-right\">\n" +
-    "                        <a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "\n" +
+    "                <h4><i class=\"fa fa-file-text-o\"></i><a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\"> {{committeeBill.bill.title}}</a></h4>\n" +
+    "                <!--<h4><a href=\"committee/{{committeeBill.committee.urlTitle}}\">{{committeeBill.committee.title}}</a></h4>-->\n" +
+    "                <span class=\"grey\" am-time-ago=\"committeeBill.updatedAt\"></span>\n" +
     "            </div>\n" +
-    "            <!--<div>\n" +
-    "                <a href=\"/bill/{{bill._id}}/{{bill.title}}\">{{bill.posts.length}} posts, {{bill.votes.length}} votes</a>\n" +
-    "            </div>-->\n" +
+    "        </div>\n" +
+    "        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(committeeBill, 'like', 'bill')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{committeeBill.plusCount}} like </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(committeeBill, 'dislike', 'bill')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{committeeBill.minusCount}} dislike </a> \n" +
+    "            <a style=\"padding:5px\" href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comments-o\"></i> comments </a>\n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "        </div>\n" +
+    "        <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"fasle\">\n" +
+    "            <form role=\"form\">\n" +
+    "                <md-input-container class=\"md-block\">\n" +
+    "                    <textarea ng-model=\"committeeBill.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                </md-input-container>\n" +
+    "                <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "            </form>\n" +
     "        </div>\n" +
     "    </md-card>\n" +
     "</div>\n" +
@@ -639,22 +627,24 @@ angular.module("committee/templates/bills.tpl.html", []).run(["$templateCache", 
     "    <md-card ng-repeat=\"committeeBill in bills\">\n" +
     "        <div class=\"card-container\">\n" +
     "            <div>\n" +
-    "                <h4>\n" +
-    "                    <a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\">{{committeeBill.bill.title}}</a>\n" +
-    "                    <br>\n" +
-    "                    <a href=\"committee/{{committeeBill.committee.urlTitle}}\">{{committeeBill.committee.title}}</a>\n" +
-    "                </h4>\n" +
-    "                <div>\n" +
-    "                    <div class=\"pull-left\">\n" +
-    "                        <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
-    "                        <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
-    "                        <a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"pull-right\">\n" +
-    "                        <a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
+    "                <h4><i class=\"fa fa-file-text-o\"></i><a href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\"> {{committeeBill.bill.title}}</a></h4>\n" +
+    "                <h4><a href=\"committee/{{committeeBill.committee.urlTitle}}\">{{committeeBill.committee.title}}</a></h4>\n" +
+    "                <span class=\"grey\" am-time-ago=\"committeeBill.updatedAt\"></span>\n" +
     "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
+    "            <a style=\"padding:5px\" href=\"bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "        </div>\n" +
+    "        <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"fasle\">\n" +
+    "            <form role=\"form\">\n" +
+    "                <md-input-container class=\"md-block\">\n" +
+    "                    <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                </md-input-container>\n" +
+    "                <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "            </form>\n" +
     "        </div>\n" +
     "    </md-card>\n" +
     "</div>\n" +
@@ -671,7 +661,7 @@ angular.module("committee/templates/committees.tpl.html", []).run(["$templateCac
     "        <md-card-title>\n" +
     "            <md-card-title-text>\n" +
     "                <a href=\"/committee/{{committee.urlTitle}}/\"><h3>{{committee.title}}</h3></a>\n" +
-    "                <h5>{{committee.memberCount}} members</h5>\n" +
+    "                <h5 class=\"grey\">{{committee.memberCount}} members</h5>\n" +
     "            </md-card-title-text>\n" +
     "        <md-card-title>\n" +
     "    </md-card>\n" +
@@ -714,7 +704,6 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
     "\n" +
     "    <md-card ng-repeat=\"post in posts\">\n" +
     "        <div style=\"padding:16px 16px 16px\">\n" +
-    "\n" +
     "            <div>\n" +
     "                <a href=\"/member/{{post.user.username}}\">\n" +
     "                    <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
@@ -731,32 +720,24 @@ angular.module("committee/templates/discussion.tpl.html", []).run(["$templateCac
     "                    </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
-    "\n" +
     "            <div class=\"post-container\">\n" +
     "                <p>{{post.post}}</p>\n" +
     "            </div>\n" +
-    "\n" +
-    "            <div class=\"post-action-container\">\n" +
-    "                <div class=\"pull-left\">\n" +
-    "                    <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
-    "                    <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
-    "                    <a href=\"post/{{post.id}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "                </div>\n" +
-    "                <div class=\"pull-right\">\n" +
-    "                    <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "             <!--\n" +
-    "            <div class=\"profilePost\">\n" +
-    "                <form role=\"form\">\n" +
-    "                    <md-input-container class=\"md-block\">\n" +
-    "                        <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
-    "                    </md-input-container>\n" +
-    "                </form>\n" +
-    "            </div>\n" +
-    "            -->\n" +
-    "\n" +
+    "        </div>\n" +
+    "        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "            <a style=\"\" class=\"pull-right\" href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "        </div>\n" +
+    "        <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"fasle\">\n" +
+    "            <form role=\"form\">\n" +
+    "                <md-input-container class=\"md-block\">\n" +
+    "                    <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                </md-input-container>\n" +
+    "                <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "            </form>\n" +
     "        </div>\n" +
     "    </md-card>\n" +
     "</div>");
@@ -946,11 +927,13 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                                {{post.user.username}}\n" +
     "                            </h4>\n" +
     "                        </a>\n" +
-    "                        <i ng-show=\"post.bill || post.committee || (post.profile && post.profile.id != post.user.id)\" class=\"post-name fa fa-caret-right\"></i>\n" +
+    "                        <i ng-show=\"post.bill || post.committee || post.postModel || (post.profile && post.profile.id != post.user.id)\" class=\"post-name fa fa-caret-right\"></i>\n" +
     "                        <a class=\"post-name\" ng-show=\"post.bill\" href=\"bill/{{post.bill.id}}/1\"><h4>{{post.bill.title}}</h4></a>\n" +
     "                        <a class=\"post-name\" ng-show=\"post.committee\" href=\"committee/{{post.committee.urlTitle}}\"><h4>{{post.committee.title}}</h4></a>\n" +
     "                        <a class=\"post-name\" ng-show=\"post.profile && post.profile.id != post.user.id\" href=\"member/{{post.profile.username}}\"><h4>{{post.profile.username}}</h4></a>\n" +
     "                        <a ng-show=\"post.vote\" href=\"vote/{{post.vote.id}}\"><h4>{{post.vote.title}}</h4></a>\n" +
+    "                        <a ng-show=\"post.postModel\" href=\"post/{{post.postModel.id}}\"><h4>{{post.postModel.post}}</h4></a>\n" +
+    "\n" +
     "                        <!--<span class=\"grey\" am-time-ago=\"post.createdAt\"></span>-->\n" +
     "\n" +
     "                        <div class=\"pull-right\">\n" +
@@ -2733,5 +2716,220 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "    <button style=\"width:100%\" class=\"btn btn-default\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "</div>\n" +
     "<div class=\"spacing-25\"></div>\n" +
+    "<div ng-include=\"'footer/index.tpl.html'\"></div>");
+}]);
+
+angular.module("votevote/index.tpl.html", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("votevote/index.tpl.html",
+    "<div ui-view=\"vote\">\n" +
+    "	<div class=\"voteContainer container\">\n" +
+    "		<div class=\"spacing-5\"></div>\n" +
+    "		<h3>{{vote.title}}</h3>\n" +
+    "		<h5><a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></h5>\n" +
+    "		<div class=\"spacing-10\"></div>\n" +
+    "		<div class=\"row\">\n" +
+    "			<button class=\"col-xs-6 btn btn-default upVote\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
+    "        	<button class=\"col-xs-6 btn btn-default downVote\" ng-click=\"createVote(-1)\"><i class=\"fa fa-caret-down\"></i> {{vote.minusCount}}</button>\n" +
+    "    	</div>\n" +
+    "    	<br>\n" +
+    "		<uib-tabset>\n" +
+    "			<uib-tab heading=\"Activity\" active=\"active\">\n" +
+    "				<div class=\"spacing-10\"></div>\n" +
+    "\n" +
+    "\n" +
+    "				<div ng-show=\"!currentUser\" class=\"profilePost\">\n" +
+    "					<form role=\"form\">\n" +
+    "						<md-input-container class=\"md-block\">\n" +
+    "							<textarea placeholder=\"What's up?\" ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "						</md-input-container>\n" +
+    "						<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "					</form>\n" +
+    "		        </div>\n" +
+    "\n" +
+    "			    <md-card ng-show=\"currentUser\">\n" +
+    "			        <div class=\"card-container\">\n" +
+    "			            <div class=\"post-controller-container\">\n" +
+    "			                <a href=\"/member/{{currentUser.username}}\">\n" +
+    "			                    <img class=\"post-img\" ng-src=\"{{currentUser.avatarUrl}}\" class=\"md-card-image\" alt=\"{{currentUser.username}}\">\n" +
+    "			                    <h4 class=\"post-name\">{{currentUser.username}}</h4>\n" +
+    "			                </a>\n" +
+    "			            </div>\n" +
+    "			            <div style=\"margin-left:61px;\">\n" +
+    "			                <form role=\"form\">\n" +
+    "			                    <md-input-container class=\"md-block\">\n" +
+    "			                        <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"what's happening\"></textarea>\n" +
+    "			                    </md-input-container>\n" +
+    "			                    <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default pull-right\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "			                </form>\n" +
+    "			            </div>\n" +
+    "			        </div>\n" +
+    "			    </md-card>\n" +
+    "\n" +
+    "				<!--\n" +
+    "				<md-card ng-repeat=\"result in results\">\n" +
+    "					{{result}}\n" +
+    "			    </md-card>\n" +
+    "				-->\n" +
+    "\n" +
+    "		        <md-card ng-repeat=\"post in posts\">\n" +
+    "					<div class=\"card-container\">\n" +
+    "\n" +
+    "						<div class=\"post-controller-container\">\n" +
+    "	                        <a href=\"/member/{{post.user.username}}\">\n" +
+    "	                            <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "	                            <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
+    "	                        </a>\n" +
+    "	                        <div class=\"pull-right\">\n" +
+    "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
+    "	                            </div>\n" +
+    "	                        </div>\n" +
+    "	                    </div>\n" +
+    "\n" +
+    "	                    <div class=\"post-container\">\n" +
+    "	                        <p>{{post.post}}</p>\n" +
+    "	                    </div>\n" +
+    "\n" +
+    "	                    <div class=\"post-action-container\">\n" +
+    "	                        <div class=\"pull-left\">\n" +
+    "	                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
+    "	                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "	                            <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
+    "	                        </div>\n" +
+    "	                        <div class=\"pull-right\">\n" +
+    "	                            <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "	                        </div>\n" +
+    "	                    </div>\n" +
+    "\n" +
+    "					</div>\n" +
+    "		        </md-card>\n" +
+    "\n" +
+    "		    </uib-tab>\n" +
+    "			<uib-tab heading=\"Discussion\">\n" +
+    "				<div class=\"spacing-10\"></div>\n" +
+    "\n" +
+    "\n" +
+    "				<div ng-show=\"!currentUser\" class=\"profilePost\">\n" +
+    "					<form role=\"form\">\n" +
+    "						<md-input-container class=\"md-block\">\n" +
+    "							<textarea placeholder=\"What's up?\" ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
+    "						</md-input-container>\n" +
+    "						<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
+    "					</form>\n" +
+    "		        </div>\n" +
+    "\n" +
+    "			    <md-card ng-show=\"currentUser\">\n" +
+    "			        <div class=\"card-container\">\n" +
+    "			            <div class=\"post-controller-container\">\n" +
+    "			                <a href=\"/member/{{user.username}}\">\n" +
+    "			                    <img class=\"post-img\" ng-src=\"{{user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{user.username}}\">\n" +
+    "			                    <h4 class=\"post-name\">{{user.username}}</h4>\n" +
+    "			                </a>\n" +
+    "			            </div>\n" +
+    "			            <div style=\"margin-left:61px;\">\n" +
+    "			                <form role=\"form\">\n" +
+    "			                    <md-input-container class=\"md-block\">\n" +
+    "			                        <textarea ng-model=\"newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"what's happening\"></textarea>\n" +
+    "			                    </md-input-container>\n" +
+    "			                    <button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default pull-right\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "			                </form>\n" +
+    "			            </div>\n" +
+    "			        </div>\n" +
+    "			    </md-card>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "		        <md-card ng-repeat=\"post in posts\">\n" +
+    "					<div class=\"card-container\">\n" +
+    "\n" +
+    "						<div class=\"post-controller-container\">\n" +
+    "	                        <a href=\"/member/{{post.user.username}}\">\n" +
+    "	                            <img class=\"post-img\" ng-src=\"{{post.user.avatarUrl}}\" class=\"md-card-image\" alt=\"{{post.user.username}}\">\n" +
+    "	                            <h4 class=\"post-name\">{{post.user.username}}</h4>\n" +
+    "	                        </a>\n" +
+    "	                        <div class=\"pull-right\">\n" +
+    "	                            <span class=\"grey\" am-time-ago=\"post.updatedAt\"></span>\n" +
+    "	                            <div style=\"display:inline\" uib-dropdown is-open=\"status.isopen\">\n" +
+    "	                                <a uib-dropdown-toggle ng-disabled=\"disabled\" href=\"#\" ng-click=\"\"><i class=\"fa fa-angle-down grey\"></i></a> \n" +
+    "	                                <ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Share</a></li>\n" +
+    "	                                    <li role=\"menuitem\"><a href=\"#\">Delete</a></li>\n" +
+    "	                                </ul>\n" +
+    "	                            </div>\n" +
+    "	                        </div>\n" +
+    "	                    </div>\n" +
+    "\n" +
+    "	                    <div class=\"post-container\">\n" +
+    "	                        <p>{{post.post}}</p>\n" +
+    "	                    </div>\n" +
+    "\n" +
+    "	                    <div class=\"post-action-container\">\n" +
+    "	                        <div class=\"pull-left\">\n" +
+    "	                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> 0 like </a> \n" +
+    "	                            <a href=\"#\" ng-click=\"\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> 0 dislike </a> \n" +
+    "	                            <a href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
+    "	                        </div>\n" +
+    "	                        <div class=\"pull-right\">\n" +
+    "	                            <a href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "	                        </div>\n" +
+    "	                    </div>\n" +
+    "\n" +
+    "					</div>\n" +
+    "		        </md-card>\n" +
+    "		    </uib-tab>\n" +
+    "			<uib-tab heading=\"{{vote.plusCount}}  Yes\" active=\"active\">\n" +
+    "				<div class=\"spacing-10\"></div>\n" +
+    "				<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"vote in yesVotes\">\n" +
+    "	                <div class=\"member-card\">\n" +
+    "	                    <div class=\"image\" style=\"background-image: url('{{vote.user.coverUrl}}')\">\n" +
+    "	                        <img ng-src=\"{{vote.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"info\">\n" +
+    "	                        <h4 class=\"name\"><a href=\"member/{{vote.user.username}}\">{{vote.user.username}}</a></h4>\n" +
+    "	                        <h5 class=\"position\">{{vote.user.title}}</h5>\n" +
+    "	                        <p ng-show=\"vote.user.constituentCount > 0\">\n" +
+    "	                        	Yes for <a ng-show=\"vote.user.constituentCount > 0\" href=\"member/{{vote.user.username}}/constituents\">{{vote.user.constituentCount}} constituent<span ng-show=\"vote.user.constituentCount!=1\">s</span></a>\n" +
+    "	                        </p>\n" +
+    "	                        <p>{{vote.user.state}}</p>\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"social\">\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.facebook.profileUrl\" href=\"{{vote.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.twitter.profileUrl\" href=\"{{vote.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.google.profileUrl\" href=\"{{vote.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
+    "	                    </div>\n" +
+    "	                </div>\n" +
+    "	            </div>\n" +
+    "		    </uib-tab>\n" +
+    "		    <uib-tab heading=\"{{vote.minusCount}}  No\">\n" +
+    "		    	<div class=\"spacing-10\"></div>\n" +
+    "				<div class=\"col-lg-4 col-sm-6\" ng-repeat=\"vote in noVotes\">\n" +
+    "	                <div class=\"member-card\">\n" +
+    "	                    <div class=\"image\" style=\"background-image: url('{{vote.user.coverUrl}}')\">\n" +
+    "	                        <img ng-src=\"{{vote.user.avatarUrl}}\" err-src=\"/images/avatar.png\">\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"info\">\n" +
+    "	                        <h4 class=\"name\"><a href=\"member/{{vote.user.username}}\">{{vote.user.username}}</a></h4>\n" +
+    "	                        <h5 class=\"position\">{{vote.user.title}}</h5>\n" +
+    "	                        <p ng-show=\"vote.user.constituentCount > 0\">\n" +
+    "	                        	No for <a href=\"member/{{vote.user.username}}/constituents\">{{vote.user.constituentCount}} constituent<span ng-show=\"vote.user.constituentCount!=1\">s</span></a>\n" +
+    "	                        </p>\n" +
+    "	                        <p>{{vote.user.state}}</p>\n" +
+    "	                    </div>\n" +
+    "	                    <div class=\"social\">\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.facebook.profileUrl\" href=\"{{vote.user.socialAccounts.facebook.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-facebook facebook-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.twitter.profileUrl\" href=\"{{vote.user.socialAccounts.twitter.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-twitter twitter-icon\"></i></a>\n" +
+    "	                        <a ng-show=\"vote.user.socialAccounts.google.profileUrl\" href=\"{{vote.user.socialAccounts.google.profileUrl}}\"  target=\"_blank\"><i class=\"fa fa-google google-icon\"></i></a>\n" +
+    "	                    </div>\n" +
+    "	                </div>\n" +
+    "	            </div>\n" +
+    "		    </uib-tab>\n" +
+    "		</uib-tabset>\n" +
+    "	<div>\n" +
+    "</div>\n" +
     "<div ng-include=\"'footer/index.tpl.html'\"></div>");
 }]);

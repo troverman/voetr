@@ -29,6 +29,7 @@ angular.module( 'voetr', [
     'voetr.search',
     'voetr.vote',
     'voetr.votes',
+    'voetr.votevote',
 ])
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
     $urlRouterProvider.rule(function($injector, $location) {

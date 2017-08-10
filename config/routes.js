@@ -35,6 +35,7 @@ module.exports.routes = {
   'get /search/:searchQuery': 'HomeController.index',
   'get /votes': 'HomeController.index',
   'get /vote/:id': 'HomeController.index',
+  'get /votevote/:id': 'HomeController.index',
 
   'get /login': 'HomeController.index',
   'get /register': 'HomeController.index',

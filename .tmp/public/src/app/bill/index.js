@@ -42,7 +42,7 @@ angular.module( 'voetr.bill', [
 
 }])
 
-.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'committees', 'config', 'lodash', 'PostModel', 'posts', 'seoService', 'titleService', 'user', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, committees, config, lodash, PostModel, posts, seoService, titleService, user, VoteModel, votes, VoteVoteModel ) {
+.controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'committees', 'config', 'lodash', 'PostModel', 'posts', 'ReactionModel', 'seoService', 'titleService', 'user', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, committees, config, lodash, PostModel, posts, ReactionModel, seoService, titleService, user, VoteModel, votes, VoteVoteModel ) {
 	titleService.setTitle(bill.title + ' - voetr');
     seoService.setDescription(bill.title);
     seoService.setKeywords('bill, voetr, votes, legislation');
@@ -52,6 +52,7 @@ angular.module( 'voetr.bill', [
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
     $scope.newPost = {};
+    $scope.newReaction = {};
     $scope.newVote = {};
     $scope.posts = posts;
     $scope.user = user;
@@ -63,6 +64,19 @@ angular.module( 'voetr.bill', [
             $scope.newPost.bill = $scope.bill.id;
             PostModel.create($scope.newPost).then(function(model){
                 $scope.newPost = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
+    $scope.createReaction = function(post, reaction){
+        if($scope.currentUser){
+            $scope.newReaction.postModel = post.id;
+            $scope.newReaction.reaction = reaction;
+            $scope.newReaction.user = $scope.currentUser.id;
+            console.log($scope.newReaction)
+            ReactionModel.create($scope.newReaction).then(function(){
+                $scope.newReaction = {};
             });
         }
         else{$location.path('/login')}
@@ -86,6 +100,10 @@ angular.module( 'voetr.bill', [
             case 'created':
                 $scope.posts.unshift(envelope.data);
                 break;
+            case 'updated':
+                var index = $scope.posts.map(function(obj){return obj.id}).indexOf(envelope.data.id);
+                $scope.posts[index] = envelope.data;
+                break;
             case 'destroyed':
                 lodash.remove($scope.posts, {id: envelope.id});
                 break;
@@ -96,7 +114,6 @@ angular.module( 'voetr.bill', [
         switch(envelope.verb) {
             case 'created':
                 $scope.votes.unshift(envelope.data);
-                //$scope.calculateSum();
                 break;
             case 'destroyed':
                 lodash.remove($scope.votes, {id: envelope.id});

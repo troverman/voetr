@@ -60,11 +60,13 @@
                                 {{post.user.username}}
                             </h4>
                         </a>
-                        <i ng-show="post.bill || post.committee || (post.profile && post.profile.id != post.user.id)" class="post-name fa fa-caret-right"></i>
+                        <i ng-show="post.bill || post.committee || post.postModel || (post.profile && post.profile.id != post.user.id)" class="post-name fa fa-caret-right"></i>
                         <a class="post-name" ng-show="post.bill" href="bill/{{post.bill.id}}/1"><h4>{{post.bill.title}}</h4></a>
                         <a class="post-name" ng-show="post.committee" href="committee/{{post.committee.urlTitle}}"><h4>{{post.committee.title}}</h4></a>
                         <a class="post-name" ng-show="post.profile && post.profile.id != post.user.id" href="member/{{post.profile.username}}"><h4>{{post.profile.username}}</h4></a>
                         <a ng-show="post.vote" href="vote/{{post.vote.id}}"><h4>{{post.vote.title}}</h4></a>
+                        <a ng-show="post.postModel" href="post/{{post.postModel.id}}"><h4>{{post.postModel.post}}</h4></a>
+
                         <!--<span class="grey" am-time-ago="post.createdAt"></span>-->
 
                         <div class="pull-right">

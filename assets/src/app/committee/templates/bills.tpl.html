@@ -14,22 +14,24 @@
     <md-card ng-repeat="committeeBill in bills">
         <div class="card-container">
             <div>
-                <h4>
-                    <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}">{{committeeBill.bill.title}}</a>
-                    <br>
-                    <a href="committee/{{committeeBill.committee.urlTitle}}">{{committeeBill.committee.title}}</a>
-                </h4>
-                <div>
-                    <div class="pull-left">
-                        <a href="#" ng-click="" class="grey"><i class="fa fa-angle-up"></i> 0 like </a> 
-                        <a href="#" ng-click="" class="grey"><i class="fa fa-angle-down"></i> 0 dislike </a> 
-                        <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}" class="grey" ng-click="reply(post)"><i class="fa fa-reply"></i> reply </a>
-                    </div>
-                    <div class="pull-right">
-                        <a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}"><i class="fa fa-link grey"></i></a>
-                    </div>
-                </div>
+                <h4><i class="fa fa-file-text-o"></i><a href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}"> {{committeeBill.bill.title}}</a></h4>
+                <h4><a href="committee/{{committeeBill.committee.urlTitle}}">{{committeeBill.committee.title}}</a></h4>
+                <span class="grey" am-time-ago="committeeBill.updatedAt"></span>
             </div>
+        </div>
+        <div class="" style="padding: 8px 16px 8px;background-color: #f9f9f9">
+            <a style="padding:5px" href="#" ng-click="createReaction(post, 'like')" class="grey"><i class="fa fa-angle-up"></i> {{post.plusCount}} like </a> 
+            <a style="padding:5px" href="#" ng-click="createReaction(post, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{post.minusCount}} dislike </a> 
+            <a style="padding:5px" href="bill/{{committeeBill.bill.id}}/{{committeeBill.bill.title}}" class="grey" ng-click="reply(post)"><i class="fa fa-comment-o"></i> comment </a>
+            <a style="padding:5px" href="#" class="grey"><i class="fa fa-share"></i> share </a>
+        </div>
+        <div style="background-color: #f9f9f9;padding: 8px 16px 16px;" ng-show="fasle">
+            <form role="form">
+                <md-input-container class="md-block">
+                    <textarea ng-model="post.newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                </md-input-container>
+                <button style="width:100%" ng-click="createPost(post)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+            </form>
         </div>
     </md-card>
 </div>

@@ -176,6 +176,7 @@ angular.module( 'voetr.committee', [
     $scope.user = user;
     $scope.newBill = {};
     $scope.newPost = {};
+    $scope.newReaction = {};
     $scope.newVote = {};
 
     $scope.createPost = function(){
@@ -192,24 +193,12 @@ angular.module( 'voetr.committee', [
     $scope.createReaction = function(post, reaction, type){
         if($scope.currentUser){
             if (type == 'post'){$scope.newReaction.postModel = post.id;}
-            if (type == 'bill'){$scope.newReaction.postModel = post.id;}
+            if (type == 'bill'){$scope.newReaction.billModel = post.id;}
             $scope.newReaction.reaction = reaction;
             $scope.newReaction.user = $scope.currentUser.id;
             console.log($scope.newReaction)
             ReactionModel.create($scope.newReaction).then(function(){
                 $scope.newReaction = {};
-            });
-        }
-        else{$location.path('/login')}
-    };
-
-    $scope.createVote = function(newVote, bill) {
-        if ($scope.currentUser){
-            $scope.newVote.bill = bill.id;
-            $scope.newVote.user = config.currentUser.id;
-            $scope.newVote.vote = newVote;
-            VoteVoteModel.create($scope.newVote).then(function(model) {
-                $scope.newVote = {};
             });
         }
         else{$location.path('/login')}
@@ -240,6 +229,10 @@ angular.module( 'voetr.committee', [
         switch(envelope.verb) {
             case 'created':
                 $scope.posts.unshift(envelope.data);
+                break;
+            case 'updated':
+                var index = $scope.posts.map(function(obj){return obj.id}).indexOf(envelope.data.id);
+                $scope.posts[index] = envelope.data;
                 break;
             case 'destroyed':
                 lodash.remove($scope.posts, {id: envelope.id});
@@ -302,12 +295,13 @@ angular.module( 'voetr.committee', [
 
 }])
 
-.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'config', 'PostModel', 'posts', 'user', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, config, PostModel, posts, user) {
+.controller( 'CommitteeDiscussionCtrl', ['$sailsSocket', '$scope', 'committee', 'config', 'PostModel', 'posts', 'ReactionModel', 'user', function CommitteeDiscussionCtrl( $sailsSocket, $scope, committee, config, PostModel, posts, ReactionModel, user) {
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.posts = posts;
     $scope.user = user;
     $scope.newPost = {};
+    $scope.newReaction = {};
 
     $scope.createPost = function(){
         if($scope.currentUser){
@@ -320,10 +314,27 @@ angular.module( 'voetr.committee', [
         else{$location.path('/login')}
     };
 
+    $scope.createReaction = function(post, reaction){
+        if($scope.currentUser){
+            $scope.newReaction.postModel = post.id;
+            $scope.newReaction.reaction = reaction;
+            $scope.newReaction.user = $scope.currentUser.id;
+            console.log($scope.newReaction)
+            ReactionModel.create($scope.newReaction).then(function(){
+                $scope.newReaction = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
     $sailsSocket.subscribe('post', function (envelope) {
         switch(envelope.verb) {
             case 'created':
                 $scope.posts.unshift(envelope.data);
+                break;
+            case 'updated':
+                var index = $scope.posts.map(function(obj){return obj.id}).indexOf(envelope.data.id);
+                $scope.posts[index] = envelope.data;
                 break;
             case 'destroyed':
                 lodash.remove($scope.posts, {id: envelope.id});
