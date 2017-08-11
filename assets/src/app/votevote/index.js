@@ -17,7 +17,7 @@ angular.module( 'voetr.votevote', [
             }]
         }
 	})
-    .state( 'vote.index', {
+    .state( 'votevote.index', {
         url: '',
         views: {
             "vote": {
