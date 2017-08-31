@@ -1,7 +1,7 @@
 <div ui-view="bill">
 	<div class="container">
 		<div class="spacing-10"></div>
-		<h4>{{bill.title}}</h4>
+		<h4><i class="fa fa-file-text-o"></i> {{bill.title}}</h4>
 		<div ng-repeat="committeeBill in committees">
 			<p><a href="committee/{{committeeBill.committee.urlTitle}}" class="grey">{{committeeBill.committee.title}}</a></p>
 		</div>

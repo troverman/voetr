@@ -22,8 +22,7 @@
 	<md-card ng-repeat="vote in votes">
         <div style="padding:16px 16px 16px">
 			<h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
-			<div class="spacing-10"></div>
-			<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+			<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}"><i class="fa fa-file-text-o"></i> {{vote.bill.title}}</a>
 			<div class="spacing-10"></div>
 			<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-xs-6" ng-click="createVote(1, vote)">
 				<i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>

@@ -407,12 +407,3 @@ angular.module( 'voetr.committee', [
     });
 
 }]);
-
-
-
-
-
-
-
-
-

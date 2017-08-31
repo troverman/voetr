@@ -2,7 +2,7 @@
 	<div class="voteContainer container">
 		<div class="spacing-5"></div>
 		<h3>{{vote.title}}</h3>
-		<h5><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}">{{vote.bill.title}}</a></h5>
+		<h5><a href="bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}"><i class="fa fa-file-text-o"></i> {{vote.bill.title}}</a></h5>
 		<div class="spacing-10"></div>
 		<div class="row">
 			<button class="col-xs-6 btn btn-default upVote" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>

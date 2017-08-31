@@ -25,6 +25,28 @@
 
             <div class="spacing-15"></div>
 
+            <!--<h3>trending votes</h3>
+            <md-divider></md-divider>
+            <div class="spacing-5"></div>
+            <md-card ng-repeat="vote in votes">
+                <div class="card-container">
+                    <h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
+                    <div class="spacing-10"></div>
+                    <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+                    <div class="spacing-10"></div>
+                    <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-xs-6" ng-click="createVote(1, vote)">
+                        <i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>
+                    </button>
+                    <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote col-xs-6" ng-click="createVote(-1, vote)">
+                        <i class="fa fa-caret-down red-color"></i>  <b>{{vote.minusCount}}</b>
+                    </button>
+                </div>
+            </md-card>
+            <div class="spacing-10"></div>
+            <div ng-click="loadMoreVotes()" style="text-align:center">
+                <button class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
+            </div>-->
+
             
         </div>
         <div class="col-md-8">      
@@ -60,12 +82,12 @@
                                 {{post.user.username}}
                             </h4>
                         </a>
-                        <i ng-show="post.bill || post.committee || post.postModel || (post.profile && post.profile.id != post.user.id)" class="post-name fa fa-caret-right"></i>
+                        <i ng-show="post.bill || post.committee || (post.profile && post.profile.id != post.user.id)" class="post-name fa fa-caret-right"></i>
                         <a class="post-name" ng-show="post.bill" href="bill/{{post.bill.id}}/1"><h4>{{post.bill.title}}</h4></a>
                         <a class="post-name" ng-show="post.committee" href="committee/{{post.committee.urlTitle}}"><h4>{{post.committee.title}}</h4></a>
                         <a class="post-name" ng-show="post.profile && post.profile.id != post.user.id" href="member/{{post.profile.username}}"><h4>{{post.profile.username}}</h4></a>
                         <a ng-show="post.vote" href="vote/{{post.vote.id}}"><h4>{{post.vote.title}}</h4></a>
-                        <a ng-show="post.postModel" href="post/{{post.postModel.id}}"><h4>{{post.postModel.post}}</h4></a>
+                        <!--<a ng-show="post.postModel" href="post/{{post.postModel.id}}"><h4>{{post.postModel.post}}</h4></a>-->
 
                         <!--<span class="grey" am-time-ago="post.createdAt"></span>-->
 

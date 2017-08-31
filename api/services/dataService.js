@@ -824,6 +824,12 @@ module.exports = {
 									.exec(function(err, voteVoteModel) {
 										if (!err) {
 											VoteVote.publishCreate(voteVoteModel);
+											//userModel.-->twitter
+											//vote.bill
+											//vote
+											//
+											//
+
 											//break into positive and negative..!
 											VoteVote.count()
 											.where({vote:vote.id})

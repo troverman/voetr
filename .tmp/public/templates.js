@@ -181,7 +181,7 @@ angular.module("bill/index.tpl.html", []).run(["$templateCache", function ($temp
     "<div ui-view=\"bill\">\n" +
     "	<div class=\"container\">\n" +
     "		<div class=\"spacing-10\"></div>\n" +
-    "		<h4>{{bill.title}}</h4>\n" +
+    "		<h4><i class=\"fa fa-file-text-o\"></i> {{bill.title}}</h4>\n" +
     "		<div ng-repeat=\"committeeBill in committees\">\n" +
     "			<p><a href=\"committee/{{committeeBill.committee.urlTitle}}\" class=\"grey\">{{committeeBill.committee.title}}</a></p>\n" +
     "		</div>\n" +
@@ -447,14 +447,26 @@ angular.module("bills/index.tpl.html", []).run(["$templateCache", function ($tem
     "    <div class=\"spacing-10\"></div>\n" +
     "    <md-card ng-repeat=\"bill in bills\">\n" +
     "        <div class=\"card-container\">\n" +
-    "            <h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
-    "            <div class=\"post-action-container\">\n" +
-    "                <div class=\"pull-left\">\n" +
-    "                    <a href=\"#\" ng-click=\"createReaction(bill, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{bill.plusCount}} like </a> \n" +
-    "                    <a href=\"#\" ng-click=\"createReaction(bill, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{bill.minusCount}} dislike </a> \n" +
-    "                    <a href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "                </div>\n" +
+    "            <div>\n" +
+    "                <h4><a href=\"bill/{{bill.id}}/{{bill.title}}\"><i class=\"fa fa-file-text-o\"></i> {{bill.title}}</a></h4>\n" +
+    "                <!--<h4><a href=\"committee/{{bill.committee.urlTitle}}\">{{bill.committee.title}}</a></h4>-->\n" +
+    "                <!--vote count-->\n" +
+    "                <span class=\"grey\" am-time-ago=\"bill.updatedAt\"></span>\n" +
     "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{bill.plusCount}} like </a> \n" +
+    "            <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{bill.minusCount}} dislike </a> \n" +
+    "            <a style=\"padding:5px\" href=\"bill/{{bill.id}}/{{bill.title}}\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "            <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "        </div>\n" +
+    "        <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"fasle\">\n" +
+    "            <form role=\"form\">\n" +
+    "                <md-input-container class=\"md-block\">\n" +
+    "                    <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "                </md-input-container>\n" +
+    "                <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "            </form>\n" +
     "        </div>\n" +
     "    </md-card>\n" +
     "</div>\n" +
@@ -892,6 +904,28 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "\n" +
     "            <div class=\"spacing-15\"></div>\n" +
     "\n" +
+    "            <!--<h3>trending votes</h3>\n" +
+    "            <md-divider></md-divider>\n" +
+    "            <div class=\"spacing-5\"></div>\n" +
+    "            <md-card ng-repeat=\"vote in votes\">\n" +
+    "                <div class=\"card-container\">\n" +
+    "                    <h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
+    "                    <div class=\"spacing-10\"></div>\n" +
+    "                    <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "                    <div class=\"spacing-10\"></div>\n" +
+    "                    <button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\">\n" +
+    "                        <i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +
+    "                    </button>\n" +
+    "                    <button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\">\n" +
+    "                        <i class=\"fa fa-caret-down red-color\"></i>  <b>{{vote.minusCount}}</b>\n" +
+    "                    </button>\n" +
+    "                </div>\n" +
+    "            </md-card>\n" +
+    "            <div class=\"spacing-10\"></div>\n" +
+    "            <div ng-click=\"loadMoreVotes()\" style=\"text-align:center\">\n" +
+    "                <button class=\"btn btn-default col-xs-10 col-xs-offset-1\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
+    "            </div>-->\n" +
+    "\n" +
     "            \n" +
     "        </div>\n" +
     "        <div class=\"col-md-8\">      \n" +
@@ -927,12 +961,12 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                                {{post.user.username}}\n" +
     "                            </h4>\n" +
     "                        </a>\n" +
-    "                        <i ng-show=\"post.bill || post.committee || post.postModel || (post.profile && post.profile.id != post.user.id)\" class=\"post-name fa fa-caret-right\"></i>\n" +
+    "                        <i ng-show=\"post.bill || post.committee || (post.profile && post.profile.id != post.user.id)\" class=\"post-name fa fa-caret-right\"></i>\n" +
     "                        <a class=\"post-name\" ng-show=\"post.bill\" href=\"bill/{{post.bill.id}}/1\"><h4>{{post.bill.title}}</h4></a>\n" +
     "                        <a class=\"post-name\" ng-show=\"post.committee\" href=\"committee/{{post.committee.urlTitle}}\"><h4>{{post.committee.title}}</h4></a>\n" +
     "                        <a class=\"post-name\" ng-show=\"post.profile && post.profile.id != post.user.id\" href=\"member/{{post.profile.username}}\"><h4>{{post.profile.username}}</h4></a>\n" +
     "                        <a ng-show=\"post.vote\" href=\"vote/{{post.vote.id}}\"><h4>{{post.vote.title}}</h4></a>\n" +
-    "                        <a ng-show=\"post.postModel\" href=\"post/{{post.postModel.id}}\"><h4>{{post.postModel.post}}</h4></a>\n" +
+    "                        <!--<a ng-show=\"post.postModel\" href=\"post/{{post.postModel.id}}\"><h4>{{post.postModel.post}}</h4></a>-->\n" +
     "\n" +
     "                        <!--<span class=\"grey\" am-time-ago=\"post.createdAt\"></span>-->\n" +
     "\n" +
@@ -2053,16 +2087,9 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "							<div class=\"pull-right\">\n" +
     "								<span style=\"color:grey\" am-time-ago=\"result.updatedAt\"></span>\n" +
     "							</div>\n" +
-    "\n" +
+    "							<div class=\"spacing-5\"></div>\n" +
+    "							<a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\"><i class=\"fa fa-file-text-o\"></i> {{result.bill.title}}</a>\n" +
     "							<div class=\"spacing-10\"></div>\n" +
-    "							<a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{result.bill.title}}</a>\n" +
-    "							<div class=\"spacing-10\"></div>\n" +
-    "							<!--<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, result)\">\n" +
-    "								<i class=\"fa fa-caret-up vBlue\"></i> <b>{{result.plusCount}}</b>\n" +
-    "							</button>\n" +
-    "							<button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, result)\">\n" +
-    "								<i class=\"fa fa-caret-down red-color\"></i>  <b>{{result.minusCount}}</b>\n" +
-    "							</button>-->\n" +
     "						</div>\n" +
     "\n" +
     "				        <div ng-show=\"result.model=='post'\" class=\"card-container\">\n" +
@@ -2094,19 +2121,23 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "		                        </div>\n" +
     "		                        <p>{{result.post}}</p>\n" +
     "		                    </div>\n" +
-    "\n" +
-    "		                    <div class=\"post-action-container\">\n" +
-    "		                        <div class=\"pull-left\">\n" +
-    "		                            <a href=\"#\" ng-click=\"createReaction(result, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{result.plusCount}} like </a> \n" +
-    "		                            <a href=\"#\" ng-click=\"createReaction(result, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{result.minusCount}} dislike </a> \n" +
-    "		                            <a href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "		                        </div>\n" +
-    "		                        <div class=\"pull-right\">\n" +
-    "		                            <a href=\"post/{{result.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
-    "		                        </div>\n" +
-    "		                    </div>\n" +
-    "\n" +
     "						</div>\n" +
+    "						<div ng-show=\"result.model=='post'\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(result, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{result.plusCount}} like </a> \n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(result, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{result.minusCount}} dislike </a> \n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "		                    <a style=\"\" class=\"pull-right\" href=\"post/{{result.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "		                </div>\n" +
+    "		                <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"post.showReply\">\n" +
+    "		                    <form role=\"form\">\n" +
+    "		                        <md-input-container class=\"md-block\">\n" +
+    "		                            <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "		                        </md-input-container>\n" +
+    "		                        <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "		                    </form>\n" +
+    "		                </div>\n" +
+    "\n" +
     "					</md-card>\n" +
     "\n" +
     "    			</uib-tab>\n" +
@@ -2163,37 +2194,43 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "			                        </div>\n" +
     "			                        <p>{{post.post}}</p>\n" +
     "			                    </div>\n" +
-    "\n" +
-    "			                    <div class=\"post-action-container\">\n" +
-    "			                        <div class=\"pull-left\">\n" +
-    "			                            <a href=\"#\" ng-click=\"createReaction(result, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{result.plusCount}} like </a> \n" +
-    "			                            <a href=\"#\" ng-click=\"createReaction(result, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{result.minusCount}} dislike </a> \n" +
-    "			                            <a href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "			                        </div>\n" +
-    "			                        <div class=\"pull-right\">\n" +
-    "			                            <a href=\"post/{{result.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
-    "			                        </div>\n" +
-    "			                    </div>\n" +
     "							</div>\n" +
+    "							<div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "			                    <a style=\"\" class=\"pull-right\" href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "			                </div>\n" +
+    "			                <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"post.showReply\">\n" +
+    "			                    <form role=\"form\">\n" +
+    "			                        <md-input-container class=\"md-block\">\n" +
+    "			                            <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "			                        </md-input-container>\n" +
+    "			                        <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "			                    </form>\n" +
+    "			                </div>\n" +
     "						</md-card>\n" +
     "\n" +
     "						<md-card ng-show=\"result.model=='bill'\">\n" +
     "							<div class=\"card-container\">\n" +
     "				            	<h4><a href=\"/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}\">{{result.title}}</a></h4>\n" +
-    "\n" +
-    "				            	<div class=\"post-action-container\">\n" +
-    "			                        <div class=\"pull-left\">\n" +
-    "			                            <a href=\"#\" ng-click=\"createReaction(result, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{result.plusCount}} like </a> \n" +
-    "			                            <a href=\"#\" ng-click=\"createReaction(result, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{result.minusCount}} dislike </a> \n" +
-    "			                            <a href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "			                        </div>\n" +
-    "			                    </div>\n" +
-    "\n" +
-    "\n" +
-    "								<!--<div class=\"spacing-10\"></div>\n" +
-    "				            	<button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{result.plusCount}}</button>\n" +
-    "					            <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{result.minusCount}}</button>-->\n" +
     "					        </div>\n" +
+    "					        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(result, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{result.plusCount}} like </a> \n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(result, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{result.minusCount}} dislike </a> \n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "			                    <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "			                    <a style=\"\" class=\"pull-right\" href=\"post/{{result.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "			                </div>\n" +
+    "			                <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"post.showReply\">\n" +
+    "			                    <form role=\"form\">\n" +
+    "			                        <md-input-container class=\"md-block\">\n" +
+    "			                            <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "			                        </md-input-container>\n" +
+    "			                        <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "			                    </form>\n" +
+    "			                </div>\n" +
     "						</md-card>\n" +
     "\n" +
     "						<md-card ng-show=\"result.model=='committee'\">\n" +
@@ -2230,19 +2267,22 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "			    	<md-card ng-repeat=\"bill in bills\">\n" +
     "						<div class=\"card-container\">\n" +
     "			            	<h4><a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a></h4>\n" +
-    "\n" +
-    "							<div class=\"post-action-container\">\n" +
-    "		                        <div class=\"pull-left\">\n" +
-    "		                            <a href=\"#\" ng-click=\"createReaction(bill, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{result.plusCount}} like </a> \n" +
-    "		                            <a href=\"#\" ng-click=\"createReaction(bill, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{result.minusCount}} dislike </a> \n" +
-    "		                            <a href=\"#\" class=\"grey\" ng-click=\"reply(result)\"><i class=\"fa fa-reply\"></i> reply </a>\n" +
-    "		                        </div>\n" +
-    "		                    </div>\n" +
-    "\n" +
-    "							<!--<div class=\"spacing-10\"></div>\n" +
-    "			            	<button ng-class=\"{'upVoted': vote.class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{vote.plusCount}}</button>\n" +
-    "				            <button ng-class=\"{'downVoted': vote.class=='downVote'}\" class=\"btn btn-default downVote col-sm-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{vote.minusCount}}</button>-->\n" +
     "				        </div>\n" +
+    "				        <div class=\"\" style=\"padding: 8px 16px 8px;background-color: #f9f9f9\">\n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'like')\" class=\"grey\"><i class=\"fa fa-angle-up\"></i> {{post.plusCount}} like </a> \n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" ng-click=\"createReaction(post, 'dislike')\" class=\"grey\"><i class=\"fa fa-angle-down\"></i> {{post.minusCount}} dislike </a> \n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" class=\"grey\" ng-click=\"reply(post)\"><i class=\"fa fa-comment-o\"></i> comment </a>\n" +
+    "		                    <a style=\"padding:5px\" href=\"#\" class=\"grey\"><i class=\"fa fa-share\"></i> share </a>\n" +
+    "		                    <a style=\"\" class=\"pull-right\" href=\"post/{{post.id}}\"><i class=\"fa fa-link grey\"></i></a>\n" +
+    "		                </div>\n" +
+    "		                <div style=\"background-color: #f9f9f9;padding: 8px 16px 16px;\" ng-show=\"post.showReply\">\n" +
+    "		                    <form role=\"form\">\n" +
+    "		                        <md-input-container class=\"md-block\">\n" +
+    "		                            <textarea ng-model=\"post.newPost.post\" rows=\"5\" md-select-on-focus aria-label=\"new post\" placeholder=\"\"></textarea>\n" +
+    "		                        </md-input-container>\n" +
+    "		                        <button style=\"width:100%\" ng-click=\"createPost(post)\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "		                    </form>\n" +
+    "		                </div>\n" +
     "			        </md-card>\n" +
     "    			</uib-tab>\n" +
     "				<uib-tab heading=\"Committees\">\n" +
@@ -2296,8 +2336,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "					<md-card ng-repeat=\"vote in votes\">\n" +
     "				        <div style=\"padding:16px 16px 16px\">\n" +
     "							<h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
-    "							<div class=\"spacing-10\"></div>\n" +
-    "							<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "							<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\"><i class=\"fa fa-file-text-o\"></i>{{vote.bill.title}}</a>\n" +
     "							<div class=\"spacing-10\"></div>\n" +
     "							<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-sm-6\" ng-click=\"createVote(1, vote)\">\n" +
     "								<i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +
@@ -2450,7 +2489,7 @@ angular.module("search/index.tpl.html", []).run(["$templateCache", function ($te
     "	<div ng-click=\"loadMore()\" class=\"container\" style=\"text-align:center\">\n" +
     "	    <button style=\"width:100%\" class=\"btn btn-default\">MORE <i class=\"fa fa-angle-down\"></i></button>\n" +
     "	</div>\n" +
-    "	<div class=\"spacing-25\"></div>\n" +
+    "	<div class=\"spacing-50\"></div>\n" +
     "	<div ng-include=\"'footer/index.tpl.html'\"></div>\n" +
     "</div>\n" +
     "");
@@ -2462,7 +2501,7 @@ angular.module("vote/index.tpl.html", []).run(["$templateCache", function ($temp
     "	<div class=\"voteContainer container\">\n" +
     "		<div class=\"spacing-5\"></div>\n" +
     "		<h3>{{vote.title}}</h3>\n" +
-    "		<h5><a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\">{{vote.bill.title}}</a></h5>\n" +
+    "		<h5><a href=\"bill/{{vote.bill.id}}/{{vote.bill.urlTitle}}\"><i class=\"fa fa-file-text-o\"></i> {{vote.bill.title}}</a></h5>\n" +
     "		<div class=\"spacing-10\"></div>\n" +
     "		<div class=\"row\">\n" +
     "			<button class=\"col-xs-6 btn btn-default upVote\" ng-click=\"createVote(1)\"><i class=\"fa fa-caret-up\"></i> {{vote.plusCount}}</button>\n" +
@@ -2697,8 +2736,7 @@ angular.module("votes/index.tpl.html", []).run(["$templateCache", function ($tem
     "	<md-card ng-repeat=\"vote in votes\">\n" +
     "        <div style=\"padding:16px 16px 16px\">\n" +
     "			<h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
-    "			<div class=\"spacing-10\"></div>\n" +
-    "			<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "			<a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\"><i class=\"fa fa-file-text-o\"></i> {{vote.bill.title}}</a>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
     "			<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\">\n" +
     "				<i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +

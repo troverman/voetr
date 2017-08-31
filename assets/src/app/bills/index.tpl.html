@@ -21,14 +21,26 @@
     <div class="spacing-10"></div>
     <md-card ng-repeat="bill in bills">
         <div class="card-container">
-            <h4><a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}">{{bill.title}}</a></h4>
-            <div class="post-action-container">
-                <div class="pull-left">
-                    <a href="#" ng-click="createReaction(bill, 'like')" class="grey"><i class="fa fa-angle-up"></i> {{bill.plusCount}} like </a> 
-                    <a href="#" ng-click="createReaction(bill, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{bill.minusCount}} dislike </a> 
-                    <a href="#" class="grey" ng-click="reply(result)"><i class="fa fa-reply"></i> reply </a>
-                </div>
+            <div>
+                <h4><a href="bill/{{bill.id}}/{{bill.title}}"><i class="fa fa-file-text-o"></i> {{bill.title}}</a></h4>
+                <!--<h4><a href="committee/{{bill.committee.urlTitle}}">{{bill.committee.title}}</a></h4>-->
+                <!--vote count-->
+                <span class="grey" am-time-ago="bill.updatedAt"></span>
             </div>
+        </div>
+        <div class="" style="padding: 8px 16px 8px;background-color: #f9f9f9">
+            <a style="padding:5px" href="#" ng-click="createReaction(post, 'like')" class="grey"><i class="fa fa-angle-up"></i> {{bill.plusCount}} like </a> 
+            <a style="padding:5px" href="#" ng-click="createReaction(post, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{bill.minusCount}} dislike </a> 
+            <a style="padding:5px" href="bill/{{bill.id}}/{{bill.title}}" class="grey" ng-click="reply(post)"><i class="fa fa-comment-o"></i> comment </a>
+            <a style="padding:5px" href="#" class="grey"><i class="fa fa-share"></i> share </a>
+        </div>
+        <div style="background-color: #f9f9f9;padding: 8px 16px 16px;" ng-show="fasle">
+            <form role="form">
+                <md-input-container class="md-block">
+                    <textarea ng-model="post.newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
+                </md-input-container>
+                <button style="width:100%" ng-click="createPost(post)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+            </form>
         </div>
     </md-card>
 </div>
