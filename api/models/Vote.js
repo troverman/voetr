@@ -53,7 +53,9 @@ module.exports = {
         user: {
             model: 'user',
             required: true
-        }
+        },
+        //constituientArray
+        //voted for by ... -- populated constituent profiles
     },
 
     getOne: function(id) {
