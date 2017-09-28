@@ -12,7 +12,7 @@ angular.module("about/index.tpl.html", []).run(["$templateCache", function ($tem
     "	<video class='flexible' autoplay=\"autoplay\" muted=\"muted\" preload=\"auto\" loop=\"loop\"><source src=\"https://s3-us-west-2.amazonaws.com/voetr/washington.mp4\" type=\"video/mp4\" playsinline></video>\n" +
     "	<div class=\"imageContainerDiv container\">  \n" +
     "		<!--<h1>build empowerment, change consensus</h1>-->\n" +
-    "		<h1>build empowerment, create impact</h1>\n" +
+    "		<h1>build empowerment, create influence</h1>\n" +
     "	</div>\n" +
     "</div>\n" +
     "<div class=\"about-container\">\n" +
@@ -1280,7 +1280,7 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "			<md-input-container class=\"md-block\">\n" +
     "	        	<textarea ng-model=\"newPost.post\" placeholder=\"what's up?\" rows=\"5\" md-select-on-focus aria-label=\"new post\"></textarea>\n" +
     "			</md-input-container>\n" +
-    "			<button ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "			<button style=\"wdith:100%\" ng-click=\"createPost()\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
     "		</form>\n" +
     "	</div>\n" +
     "\n" +
@@ -1303,7 +1303,7 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "                        <!--need to be verified to send a physical letter-->\n" +
     "                        <button ng-click=\"\" type=\"submit\" class=\"btn btn-default\"><i class=\"fa fa-picture-o\"></i> letter</button>\n" +
     "                    </div>\n" +
-    "                    <button ng-click=\"\" type=\"submit\" class=\"btn btn-default pull-right\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
+    "                    <button style=\"wdith:100%\" ng-click=\"\" type=\"submit\" class=\"btn btn-default pull-right\"><i class=\"fa fa-paper-plane\"></i> Submit</button>\n" +
     "                </form>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -1338,8 +1338,8 @@ angular.module("member/templates/activity.tpl.html", []).run(["$templateCache", 
     "                <h4>{{result.voteString}}<span ng-show=\"member.constituentCount>0\"> for <a href=\"member/{{member.username}}/constituents\">{{member.constituentCount}} constituent<span ng-show=\"member.constituentCount!=1\">s</span></a></span></h4>\n" +
     "                <div class=\"clearfix\"></div>\n" +
     "                <a href=\"/vote/{{result.vote.id}}\"><h4>{{result.vote.title}}</h4></a>\n" +
-    "                <div class=\"spacing-10\"></div>\n" +
-    "                <a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{result.bill.title}}</a>\n" +
+    "                <!--<div class=\"spacing-10\"></div>-->\n" +
+    "                <a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\"><i class=\"fa fa-file-text-o\"></i> {{result.bill.title}}</a>\n" +
     "                <div class=\"spacing-10\"></div>\n" +
     "                <button ng-class=\"{'upVoted': result.voteString=='Yes' || result.voteString=='Yea'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{result.vote.plusCount}}</button>\n" +
     "                <button ng-class=\"{'downVoted': result.voteString=='No' || result.voteString=='Nay'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{result.vote.minusCount}}</button>\n" +
@@ -1649,7 +1649,7 @@ angular.module("member/templates/votes.tpl.html", []).run(["$templateCache", fun
     "			<div class=\"clearfix\"></div>\n" +
     "    		<a href=\"/vote/{{vote.vote.id}}\"><h4>{{vote.vote.title}}</h4></a>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
-    "			<a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "			<a href=\"/bill/{{result.bill.id}}/{{result.bill.title}}\"><i class=\"fa fa-file-text-o\"></i> {{vote.bill.title}}</a>\n" +
     "			<div class=\"spacing-10\"></div>\n" +
     "            <button ng-class=\"{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-angle-up\"></i>  {{vote.vote.plusCount}}</button>\n" +
     "            <button ng-class=\"{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}\" class=\"btn btn-default downVote col-xs-6\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-angle-down\"></i>  {{vote.vote.minusCount}}</button>\n" +
