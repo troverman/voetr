@@ -57,5 +57,4 @@
   },
   "author": "NOVO",
   "license": "",
-  "engines" : { "node" : "^7.0.0" }
 }
