@@ -56,6 +56,6 @@
     "url": "https://github.com/troverman/voetr.git"
   },
   "author": "NOVO",
-  "license": ""
-  { "engines" : { "node" : ">=7" } }
+  "license": "",
+  "engines" : { "node" : ">=7" }
 }
