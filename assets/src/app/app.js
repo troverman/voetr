@@ -47,7 +47,6 @@ angular.module( 'voetr', [
         if ($location.$$url === '/') {window.location = '/';}
         else {window.location = $location.$$absUrl;}
     });
-    $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode(true);
 }])
 .run( function run () {
