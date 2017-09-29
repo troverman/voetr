@@ -14,8 +14,8 @@ module.exports.http = {
 
   middleware: {
 
-     prerender: require('prerender-node').set('prerenderToken', 'V8W4l4iLL7BRD4pB8stg'),
-     //prerender: require('prerender-node').set('prerenderServiceUrl', 'http://localhost:1337/').set('prerenderToken', 'V8W4l4iLL7BRD4pB8stg'),
+     //prerender: require('prerender-node').set('prerenderToken', 'V8W4l4iLL7BRD4pB8stg'),
+     prerender: require('prerender-node').set('prerenderServiceUrl', 'http://localhost:1337/').set('prerenderToken', 'V8W4l4iLL7BRD4pB8stg'),
      order: [
        'startRequestTimer',
        'cookieParser',
