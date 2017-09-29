@@ -1,0 +1,33 @@
+<div class="container">
+    <h3 ng-show="votes.length == 0">{{member.username}} has not yet voted</h3>
+    <md-card ng-repeat="vote in votes">
+
+    	<div class="card-container">
+    		<!--account for users moving their votes- associated VoteVoteUser Model... hm-->
+    		<!--prob should be users that diverge??-->
+    		<!--one vote, 500k VoteVoteUser entries = bleh-->
+    		<div class="pull-left"><h4>{{vote.voteString}}<span ng-show="member.constituentCount>0"> for <a href="member/{{member.username}}/constituents">{{member.constituentCount}} constituent<span ng-show="member.constituentCount!=1">s</span></a></span></h4></div>
+    		<div class="pull-right">
+                <span style="color:grey" am-time-ago="vote.updatedAt"></span>
+                <a href="#" ng-click=""><i class="fa fa-angle-down grey"></i></a> 
+            </div>
+			<div class="clearfix"></div>
+    		<a href="/vote/{{vote.vote.id}}"><h4>{{vote.vote.title}}</h4></a>
+			<div class="spacing-10"></div>
+			<a href="/bill/{{result.bill.id}}/{{result.bill.title}}"><i class="fa fa-file-text-o"></i> {{vote.bill.title}}</a>
+			<div class="spacing-10"></div>
+            <button ng-class="{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}" class="btn btn-default upVote col-xs-6" ng-click="createVote(1, vote)"><i class="fa fa-angle-up"></i>  {{vote.vote.plusCount}}</button>
+            <button ng-class="{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}" class="btn btn-default downVote col-xs-6" ng-click="createVote(-1, vote)"><i class="fa fa-angle-down"></i>  {{vote.vote.minusCount}}</button>
+    	</div>
+
+	</md-card>
+</div>
+<div class="spacing-25"></div>
+<div ng-show="votes.length != voteCount" >
+	<md-divider></md-divider>
+	<div class="spacing-25"></div>
+	<div ng-click="loadMore()" class="container" style="text-align:center">
+	    <button style="width:100%" class="btn btn-default">MORE <i class="fa fa-angle-down"></i></button>
+	</div>
+</div>
+

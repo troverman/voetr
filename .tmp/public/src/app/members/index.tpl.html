@@ -1,0 +1,74 @@
+<div class="imageContainerSmall">
+	<video class='flexible' autoplay="autoplay" muted="muted" preload="auto" loop="loop"><source src="https://s3-us-west-2.amazonaws.com/voetr/washington.mp4" type="video/mp4" playsinline></video>
+	<div class="imageContainerSmallDiv container">  
+		<h1 style="text-align:left">members</h1>
+	</div>
+</div>
+<md-list class="container">
+    <div class="spacing-10"></div>
+	<div class="dropdown sort-dropdown noselect">
+		<a class="dropdown-toggle noselect" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <h4 class="noselect">{{sortText[sort]}}<span class="caret"></span></h4>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a class="sort-a" ng-click="selectSort('trendingScore DESC')"><h5>Trending</h5></a></li>
+			<hr class="sort-hr">
+			<li><a class="sort-a" ng-click="selectSort('createdAt DESC')"><h5>Most Recent</h5></a></li>
+			<hr class="sort-hr">
+			<li><a class="sort-a" ng-click="selectSort('voteCount DESC')"><h5>Most Votes</h5></a></li>
+		</ul>
+	</div>
+	<div class="spacing-10"></div>
+
+    <!--<md-card>
+		<md-card-title>
+			<input style="width:100%" ng-keyup="keyPress(searchValue)" ng-model="searchValue">
+		</md-card-title>
+	</md-card>-->
+
+	<button ng-click="getLatLng()" class="btn btn-default">find representatives</button>
+	<div class="spacing-10"></div>
+    <div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">
+        <div class="member-card">
+            <div class="image" style="background-image: url('{{user.coverUrl}}')">
+                <a href="member/{{user.username}}"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
+            </div>
+            <div class="info">
+                <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
+                <h5 class="position">{{user.title || 'voetr member'}}</h5>
+                <p>{{user.state}}</p>
+            </div>
+            <div class="social">
+                <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+                <a ng-show="user.socialAccounts.twitter.profileUrl" href="{{user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+                <a ng-show="user.socialAccounts.google.profileUrl" href="{{user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+            </div>
+        </div>
+    </div>
+	<div class="col-lg-4 col-sm-6" ng-repeat="user in users">
+        <div class="member-card">
+            <div class="image" style="background-image: url('{{user.coverUrl}}')">
+                <a href="member/{{user.username}}"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
+            </div>
+            <div class="info">
+                <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
+                <h5 class="position">{{user.title}}</h5>
+                <p>{{user.state}}</p>
+                <a href="member/{{user.username}}/constituents"><p>{{user.constituentCount}} constituents</p></a>
+            </div>
+            <div class="social">
+                <a ng-show="user.socialAccounts.facebook.profileUrl" href="{{user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+                <a ng-show="user.socialAccounts.twitter.profileUrl" href="{{user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+                <a ng-show="user.socialAccounts.google.profileUrl" href="{{user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+            </div>
+        </div>
+    </div>
+</md-list>
+<div class="spacing-25"></div>
+<md-divider></md-divider>
+<div class="spacing-25"></div>
+<div ng-click="loadMore()" class="container" style="text-align:center">
+    <button style="width:100%" class="btn btn-default">MORE <i class="fa fa-angle-down"></i></button>
+</div>
+<div class="spacing-25"></div>
+<div ng-include="'footer/index.tpl.html'"></div>

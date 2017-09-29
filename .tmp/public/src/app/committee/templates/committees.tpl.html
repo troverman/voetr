@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="committee-title">
+        <h2><a href="committee/{{committee.parent.urlTitle}}">{{committee.parent.title}}</a></h2>
+    </div>
+     <md-card ng-repeat="committee in committees">
+        <md-card-title>
+            <md-card-title-text>
+                <a href="/committee/{{committee.urlTitle}}/"><h3>{{committee.title}}</h3></a>
+                <h5 class="grey">{{committee.memberCount}} members</h5>
+            </md-card-title-text>
+        <md-card-title>
+    </md-card>
+</div>
