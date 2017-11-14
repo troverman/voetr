@@ -12,7 +12,7 @@ angular.module( 'voetr.votes', [
 		},
 		resolve: {
             votes: ['VoteModel', function(VoteModel) {
-				return VoteModel.getSome(20, 0, 'createdAt DESC');
+				return VoteModel.getSome(10, 0, 'createdAt DESC');
 				////BillVote
             }]
         }
@@ -53,10 +53,10 @@ angular.module( 'voetr.votes', [
 	};
 
     $scope.loadMore = function() {
-		$scope.skip = $scope.skip + 50;
+		$scope.skip = $scope.skip + 10;
 		$rootScope.stateIsLoading = true;
 		//BillVote
-		VoteModel.getSome(50,$scope.skip, $scope.sort).then(function(votes) {
+		VoteModel.getSome(10,$scope.skip, $scope.sort).then(function(votes) {
 			$rootScope.stateIsLoading = false;
 			Array.prototype.push.apply($scope.votes, votes);
 		});

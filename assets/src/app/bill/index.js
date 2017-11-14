@@ -36,7 +36,7 @@ angular.module( 'voetr.bill', [
             }],
             votes: ['bill', 'VoteModel', function(bill, VoteModel) {
                 return VoteModel.getByBill(bill.id);
-            }]
+            }],
          }
     });
 

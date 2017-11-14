@@ -151,14 +151,14 @@
 
 						<md-card ng-show="result.model=='bill'">
 							<div class="card-container">
-				            	<h4><a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{result.title}}</a></h4>
+				            	<h4><i class="fa fa-file-text-o"></i><a href="/bill/{{bill._id}}/{{bill.title.replace(' ','-')}}">{{result.title}}</a></h4>
 					        </div>
 					        <div class="" style="padding: 8px 16px 8px;background-color: #f9f9f9">
 			                    <a style="padding:5px" href="#" ng-click="createReaction(result, 'like')" class="grey"><i class="fa fa-angle-up"></i> {{result.plusCount}} like </a> 
 			                    <a style="padding:5px" href="#" ng-click="createReaction(result, 'dislike')" class="grey"><i class="fa fa-angle-down"></i> {{result.minusCount}} dislike </a> 
 			                    <a style="padding:5px" href="#" class="grey" ng-click="reply(result)"><i class="fa fa-comment-o"></i> comment </a>
 			                    <a style="padding:5px" href="#" class="grey"><i class="fa fa-share"></i> share </a>
-			                    <a style="" class="pull-right" href="post/{{result.id}}"><i class="fa fa-link grey"></i></a>
+			                    <!--<a style="" class="pull-right" href="post/{{result.id}}"><i class="fa fa-link grey"></i></a>-->
 			                </div>
 			                <div style="background-color: #f9f9f9;padding: 8px 16px 16px;" ng-show="post.showReply">
 			                    <form role="form">
@@ -296,25 +296,6 @@
 		</div>
 		<div class="container">
 
-
-			<!--
-			<uib-tabset>
-				<uib-tab heading="Top">
-    			</uib-tab>
- 			    <uib-tab heading="Bills">
-    			</uib-tab>
-				<uib-tab heading="Committees">
-    			</uib-tab>
-				<uib-tab heading="Discussion">
-    			</uib-tab>
-				<uib-tab heading="Members">
-    			</uib-tab>
-    			<uib-tab heading="Votes">
-    			</uib-tab>
-			</uib-tabset>
-			-->
-
-
 			<div class="spacing-15"></div>
 
 			<div ng-repeat="result in searchResults">
@@ -383,7 +364,7 @@
 
 				<md-card ng-show="result.model=='bill'">
 					<div class="card-container">
-		            	<h4><a href="/bill/{{result.id}}/{{result.title.replace(' ','-')}}">{{result.title}}</a></h4>
+		            	<h4><i class="fa fa-file-text-o"></i><a href="/bill/{{result.id}}/{{result.title.replace(' ','-')}}">{{result.title}}</a></h4>
 						<div class="spacing-10"></div>
 		            	<button ng-class="{'upVoted': vote.class=='upVote'}" class="btn btn-default upVote col-sm-6" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{result.plusCount}}</button>
 			            <button ng-class="{'downVoted': vote.class=='downVote'}" class="btn btn-default downVote col-sm-6" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{result.minusCount}}</button>
@@ -406,7 +387,7 @@
 						</div>
 						<div class="info">
 							<h4 class="name"><a href="member/{{result.username}}">{{result.username}}</a></h4>
-							<h5 class="position"><a href="memberresultuser.username}}">{{result.title}}</a></h5>
+							<h5 class="position"><a href="{{result.username}}">{{result.title}}</a></h5>
 							<p>{{result.state}}</p>
 						</div>
 						<div class="social">
@@ -417,7 +398,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 	<div class="spacing-15"></div>

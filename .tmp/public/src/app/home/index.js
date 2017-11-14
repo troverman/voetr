@@ -54,7 +54,7 @@ angular.module( 'voetr.home', [
 				return RepresentativeModel.getConstituents(config.currentUser);
             }],
 			posts: ['config', 'PostModel', function(config, PostModel) {
-    			return PostModel.getByUser(config.currentUser.id, 100, 0, 'createdAt DESC');
+    			return PostModel.getByUser(config.currentUser.id, 20, 0, 'createdAt DESC');
             }],
             representatives: ['config', 'RepresentativeModel', function(config, RepresentativeModel) {
 				return RepresentativeModel.getRepresentatives(config.currentUser);
@@ -67,7 +67,7 @@ angular.module( 'voetr.home', [
 				//slow?
         	}],
 			votes: ['config', 'VoteModel', function(config, VoteModel) {
-				return VoteModel.getSome(25, 0, 'createdAt DESC');
+				return VoteModel.getSome(10, 0, 'createdAt DESC');
             }],
         }
     })

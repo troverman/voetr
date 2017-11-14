@@ -211,14 +211,63 @@ function populateStateBills(){
 
 };
 
+function testGoogle(address){
+
+
+	//USE RECURSIVE OCDID to populate all city council members etc
+	//--do by state
+	//ocd-division/country:us/state:ut
+
+	var model = {
+		//url: 'https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyDuNNenJANprqe8vwdk_v6wuN38EEUkJPs&address=3516 Bluff Point Dr, Knoxville TN',
+		url: 'https://www.googleapis.com/civicinfo/v2/representatives/?key=AIzaSyDuNNenJANprqe8vwdk_v6wuN38EEUkJPs&address='+address,
+		json: true,
+	};
+	request(model, function (error, response, body) {
+		if(!error){
+			//COMMITTEES---
+
+			//console.log(body.divisions);
+			//OFFICES---TITLES
+			//console.log(body.offices);
+			//OFFICIALS -- MAINTAIN INDEX?
+
+			//console.log(body.officials);
+
+
+			for (x in body.offices){
+
+				var officialIndex = body.offices[x].officialIndices;
+				var official = {};
+				if (officialIndex.length == 1){official = body.officials[officialIndex]}
+				else{official = body.officials[officialIndex[0]]}
+				official.office = body.offices[x];
+				console.log(official.name, official.office.name)
+
+				//console.log(body.offices[x]);
+				//console.log(body.officials[body.offices[x].officialIndices]);
+
+			}
+
+
+		}
+	});
+
+};
+
 
 
 module.exports.intervalService = function(){
 
+	//testGoogle('3516 Bluff Point Dr, Knoxville TN');
+	//testGoogle('Moab Utah');
+	//testGoogle('35.974523999999995,-83.92462109999997')
+
 	for (x in Object.keys(states)){
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
 	}
-	//dataService.stateBills('nc', 1, 25);
+
+	dataService.stateBills('nc', 1, 25);
 
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
@@ -228,7 +277,8 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	dataService.federalBillsProPublica(0);	
+	dataService.federalBillsProPublica(0);
+		
 	/*dataService.federalBillsProPublica(20);
 	dataService.federalBillsProPublica(40);
 	dataService.federalBillsProPublica(60);
@@ -257,9 +307,9 @@ module.exports.intervalService = function(){
 	//uk
 	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5', -1);
 
-	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
+	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
-	populateBills();
+	//populateBills();
 	//populateStateBills();
 
 

@@ -13,7 +13,6 @@ angular.module( 'voetr.vote', [
 		resolve: {
             vote: ['$stateParams', 'VoteModel', function($stateParams, VoteModel) {
                 return VoteModel.getOne($stateParams.id);
-                //BillVoteModel.getOne($stateParams.id);
             }]
         }
 	})

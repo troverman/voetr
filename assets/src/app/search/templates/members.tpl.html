@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="col-lg-4 col-sm-6" ng-repeat="member in members">
+        <div class="member-card">
+            <div class="image" style="background-image: url('{{member.user.coverUrl}}')">
+                <img ng-src="{{member.user.avatarUrl}}" err-src="/images/avatar.png">
+            </div>
+            <div class="info">
+                <h4 class="name"><a href="member/{{member.user.username}}">{{member.user.username}}</a></h4>
+                <p>{{member.title}}</p>
+                <p>{{member.user.state}}</p>
+                <!--{{member.constituentCount}}-->
+            </div>
+            <div class="social">
+                <a ng-show="member.user.socialAccounts.facebook.profileUrl" href="{{member.user.socialAccounts.facebook.profileUrl}}"  target="_blank"><i class="fa fa-facebook facebook-icon"></i></a>
+                <a ng-show="member.user.socialAccounts.twitter.profileUrl" href="{{member.user.socialAccounts.twitter.profileUrl}}"  target="_blank"><i class="fa fa-twitter twitter-icon"></i></a>
+                <a ng-show="member.user.socialAccounts.google.profileUrl" href="{{member.user.socialAccounts.google.profileUrl}}"  target="_blank"><i class="fa fa-google google-icon"></i></a>
+            </div>
+        </div>
+    </div>
+    <button ng-show="members.length != memberCount" ng-click="loadMore()" class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-caret-down"></i></button>
+</div>

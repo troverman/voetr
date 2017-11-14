@@ -68,6 +68,8 @@ var states = {
 
 module.exports = {
 
+
+	//DOESNT WORK ANYMORE -- PROPUBLICA FXD IT UP -- SWITCH TO GOOGLE TO FIND VIA LAT LNG
 	getLegislators: function(lat, lng){
 		var lat = req.param('lat');
 		var lng = req.param('lng');
@@ -406,6 +408,7 @@ module.exports = {
 
 
 	//COMMITTEE IDS HERE LUL
+	//GOTTA REDO BC FUK
 	federalBills: function(pageStart, pageEnd){
 
 		for (var page = pageStart; page <= pageEnd; page++){
@@ -500,6 +503,7 @@ module.exports = {
 		}
 	},
 
+	//GOTTA REDO BC FUCK
 	federalCommittees: function(){
 		var model = {
 			url: 'https://congress.api.sunlightfoundation.com/committees?fields=chamber,committee_id,members,name,parent_committee_id&per_page=all&apikey=' + openCongressApiKey,
@@ -658,6 +662,7 @@ module.exports = {
 	},
 
 	//if dups --> resync to async
+	//REDO BC PROPUBLICA IS >:(
 	federalLegislators: function(){
 		var model = {
 			url: 'http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=' + openCongressApiKey,
@@ -737,6 +742,8 @@ module.exports = {
 		});
 	},
 
+	//GOTTA REDO BC FUK
+	//ALL NIGHTER TO FIX -- MM -- prob do a blockchain deal
 	federalVotes: function(bill){
 		var model = {
 			url: 'https://congress.api.sunlightfoundation.com/votes?bill_id=' + bill.officialId + '&fields=breakdown,question,required,result,roll_id,url,vote_type&apikey=' + openCongressApiKey,
@@ -793,6 +800,7 @@ module.exports = {
 		})(bill)	
 	},
 
+	//WHY!!!!!!!!
 	federalVoteVotes: function(vote){
 		var model = {
 			url: 'https://congress.api.sunlightfoundation.com/votes?roll_id=' + vote.officialId + '&fields=voters&apikey=' + openCongressApiKey,

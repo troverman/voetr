@@ -165,7 +165,7 @@ module.exports = {
 				//{userId: {contains: searchQuery}}
 			//]
 		})
-		.limit(25)
+		.limit(10)
 		.then(function(models) {
 			var CommitteeModels = models;
 			Committee.watch(req);
@@ -184,7 +184,7 @@ module.exports = {
 					{last_name: {contains: searchQuery}}
 				]
 			})
-			.limit(25)
+			.limit(10)
 			.then(function(models) {
 				models.map(function (obj) {
 					obj.model = 'user';
@@ -201,7 +201,7 @@ module.exports = {
 						{billContent: {contains: searchQuery}}
 					]
 				})
-				.limit(25)
+				.limit(10)
 				.then(function(models) {
 					models.map(function (obj) {
 						obj.model = 'bill';
@@ -216,7 +216,7 @@ module.exports = {
 							title: {contains: searchQuery},
 						//]
 					})
-					.limit(25)
+					.limit(10)
 					.then(function(models) {
 						models.map(function (obj) {
 							obj.model = 'vote';
