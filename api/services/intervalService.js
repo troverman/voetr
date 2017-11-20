@@ -211,13 +211,13 @@ function populateStateBills(){
 
 };
 
-function testGoogle(address){
 
-
+//get city council
+//get county council
+function getRepsByLocation(address){
 	//USE RECURSIVE OCDID to populate all city council members etc
 	//--do by state
 	//ocd-division/country:us/state:ut
-
 	var model = {
 		//url: 'https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyDuNNenJANprqe8vwdk_v6wuN38EEUkJPs&address=3516 Bluff Point Dr, Knoxville TN',
 		url: 'https://www.googleapis.com/civicinfo/v2/representatives/?key=AIzaSyDuNNenJANprqe8vwdk_v6wuN38EEUkJPs&address='+address,
@@ -226,48 +226,180 @@ function testGoogle(address){
 	request(model, function (error, response, body) {
 		if(!error){
 			//COMMITTEES---
-
 			//console.log(body.divisions);
 			//OFFICES---TITLES
 			//console.log(body.offices);
 			//OFFICIALS -- MAINTAIN INDEX?
-
 			//console.log(body.officials);
-
-
 			for (x in body.offices){
-
 				var officialIndex = body.offices[x].officialIndices;
 				var official = {};
 				if (officialIndex.length == 1){official = body.officials[officialIndex]}
 				else{official = body.officials[officialIndex[0]]}
 				official.office = body.offices[x];
 				console.log(official.name, official.office.name)
+				console.log(official);
+				//getRepsByGeo(official.office.divisionId)
+				//User.find({firstName:official.name.split(' ')[0],})
+				//console.log(body.offices[x]);
+				//console.log(body.officials[body.offices[x].officialIndices]);
+			}
+		}
+	});
+};
 
+function getRepsByGeo(OCDID, parent){
+	var model = {
+		url: 'https://www.googleapis.com/civicinfo/v2/representatives/'+encodeURIComponent(OCDID)+'?key=AIzaSyDuNNenJANprqe8vwdk_v6wuN38EEUkJPs&recursive=true',
+		json: true,
+	};
+	request(model, function (error, response, body) {
+		if(!error){
+			for (x in body.offices){
+				
+				//TOO MUCH!!!!!
+				//var ocdDivision = body.offices[x].divisionId;
+				//console.log(ocdDivision);
+				//ocd-division/country:us/state:nc/county:washington
+				//ocd-division/country:us/state:tn/place:knoxville
+				//var ocdStringCounty = ocdDivision.split('county:')[1];
+				//var ocdStringState = ocdDivision.split('state:')[1];
+				//console.log(ocdStringState)
+				//if (!parent.title.includes("county")){
+				//	var query = ocdStringCounty +' county';
+				//}
+				//else{
+				//	if (ocdStringState){
+				//		var query = ocdStringState.split(':')[1];
+				//	}
+				//}
+				//console.log(query);
+				/*(function(ocdDivision) {
+					//console.log(ocdDivision)
+					Committee.find({parent:parent.id, title:{contains:query}}).then(function(model){
+						if (model.length > 0){
+							console.log(ocdDivision, model);
+							//Committee.update({id:model[0].id}, {ocdDivision: ocdDivision}).then(function(model){console.log(model)});
+							//recursive in each county
+							getRepsByGeo('ocd-division/country:us/state:nc', model[0]);
+						}
+					});
+				})(ocdDivision)*/
+				
+				var officialIndex = body.offices[x].officialIndices;
+				var official = {};
+				if(officialIndex){
+					if (officialIndex.length == 1){official = body.officials[officialIndex]}
+					else{official = body.officials[officialIndex[0]]}
+				}
+				official.office = body.offices[x];
+				console.log(official.name, official.office.name);
+				//console.log(official)
+				//console.log(official.name)
+				var newMember = {}
+				if (official.name){
+					newMember.firstName = official.name.split(' ')[0];
+					newMember.lastName = official.name.split(' ')[official.name.split(' ').length-1];
+					//hack
+					if (newMember.lastName.length == 3){newMember.lastName = official.name.split(' ')[official.name.split(' ').length-2];}
+					newMember.username = newMember.firstName + '.' +  newMember.lastName;
+				}
+				if(official.emails){newMember.email = official.emails[0]}
+				else{newMember.email = newMember.username+'@voetr.com'}
+				newMember.title = official.office.name;
+				newMember.avatarUrl = official.photoUrl || 'images/avatar.png';
+				//newMember.socialAccounts = official.channels;
+
+				if(newMember.avatarUrl){console.log(newMember);}
+
+
+				//ADD COMMITTEE FINDING FEATURES RE DYNAMIC VS PARENTID
+
+				(function(newMember) {
+					User.find({username:newMember.username})
+					.then(function(userModel) {
+						if (userModel.length === 0){
+							User.create(newMember)
+							.then(function(userModel) {
+								console.log('USER CREATED');
+								User.publishCreate(userModel);
+								CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
+									console.log(committeeMemberModel)
+								});
+							});
+						}
+						else{
+							//User.update({username:newMember.username}, newMember)
+							//.then(function(userModel){
+								//console.log('USER UPDATED');
+								//console.log(userModel)
+								CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
+									console.log(committeeMemberModel)
+								});
+							});
+						}
+					});
+				})(newMember);
+
+
+				//ocdDivision
+				//Committee.find({title: {contains: OCDID.split(':')[OCDID.split(':').length-1]}}).then(function(model){console.log(model)})
+				//CommitteeMember.create({committee:committee.id, user:user.id})
+				//console.log(official);
 				//console.log(body.offices[x]);
 				//console.log(body.officials[body.offices[x].officialIndices]);
 
+
 			}
-
-
 		}
 	});
-
 };
 
 
 
 module.exports.intervalService = function(){
 
-	//testGoogle('3516 Bluff Point Dr, Knoxville TN');
-	//testGoogle('Moab Utah');
-	//testGoogle('35.974523999999995,-83.92462109999997')
+	//ocd-division/country:us/state:nc/county:orange
+	///place:charlotte
+	//Committee.find({title:'maryville'}).then(function(model){console.log(model)})
+	//county meck --> 59485ad892184ba71e1d8a58
+	//getRepsByGeo('ocd-division/country:us/state:tn/place:maryville', {id:'59486090ea08c19c1fb745f0'})
+	//getRepsByLocation('35.909907, -79.072057');
+	//getRepsByLocation('3516 Bluff Point Dr, Knoxville TN');
+	//getRepsByLocation('Moab Utah');
+	//getRepsByLocation('35.974523999999995,-83.92462109999997');
 
-	for (x in Object.keys(states)){
+	Committee.find({ocdDivision:{contains:'country:us/state:tn'}}).then(function(models){
+		//console.log(models)
+		for (x in models){
+			getRepsByGeo(models[x].ocdDivision, models[x]);
+		}
+	})
+
+	//getRepsByGeo('ocd-division/country:us/state:nc', {id:'589d7b59a3806e1100faa70d', title:'North Carolina'})
+
+	//gotta get child-parent relationship and store ocd-devision.. 
+	//Committee.update({title:'United States'}, {ocdDivision:'ocd-division/country:us'}).then(function(model){console.log(model)})
+	//might wanna do this via decentralization 
+
+	//for (x in Object.keys(states)){
+		//var string = 'ocd-division/country:us/state:'+Object.keys(states)[x].toLowerCase();
+		//(function(string) {
+		//	Committee.find({parent:'589d5cb5771e7fecb9300213', title:states[Object.keys(states)[x]]}).then(function(model){
+				//console.log(string);
+				//Committee.update({id:model[0].id}, {ocdDivision: string}).then(function(model){console.log(model)})
+		//		if (model.length > 0){
+					//console.log(string, model[0].id);
+					//getRepsByGeo(string, model[0]);
+		//		}
+		//	})
+		//})(string);
+		//getRepsByGeo(string)
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
-	}
+	//}
+	
 
-	dataService.stateBills('nc', 1, 25);
+	//dataService.stateBills('nc', 1, 25);
 
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
@@ -277,7 +409,7 @@ module.exports.intervalService = function(){
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
 
-	dataService.federalBillsProPublica(0);
+	//dataService.federalBillsProPublica(0);
 		
 	/*dataService.federalBillsProPublica(20);
 	dataService.federalBillsProPublica(40);

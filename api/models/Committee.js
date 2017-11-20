@@ -9,11 +9,6 @@ module.exports = {
         parent: {
             model: 'committee'
         },
-        //bills: {
-        //    collection: 'bill',
-        //    via: 'committee',
-        //    dominant: true
-        //},
         billCount: {
             type: 'integer',
             defaultsTo: 0
@@ -21,6 +16,9 @@ module.exports = {
         memberCount: {
             type: 'integer',
             defaultsTo: 0
+        },
+        ocdDivision: {
+            type: 'string',
         },
         officialId: {
             type: 'string',
