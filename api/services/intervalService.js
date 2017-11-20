@@ -336,7 +336,7 @@ function getRepsByGeo(OCDID, parent){
 								CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
 									console.log(committeeMemberModel)
 								});
-							});
+							//});
 						}
 					});
 				})(newMember);
