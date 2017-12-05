@@ -45,7 +45,7 @@ module.exports = {
         .where({user: model.user})
         .then(function(committeeMemberCount){
             User.update({id: model.user}, {committeeCount:committeeMemberCount}).exec(function afterwards(err, updated){
-                User.publishUpdate(model.user, updated[0]);
+                //User.publishUpdate(model.user, updated[0]);
             });
         });
         return next();

@@ -257,35 +257,6 @@ function getRepsByGeo(OCDID, parent){
 		if(!error){
 			for (x in body.offices){
 				
-				//TOO MUCH!!!!!
-				//var ocdDivision = body.offices[x].divisionId;
-				//console.log(ocdDivision);
-				//ocd-division/country:us/state:nc/county:washington
-				//ocd-division/country:us/state:tn/place:knoxville
-				//var ocdStringCounty = ocdDivision.split('county:')[1];
-				//var ocdStringState = ocdDivision.split('state:')[1];
-				//console.log(ocdStringState)
-				//if (!parent.title.includes("county")){
-				//	var query = ocdStringCounty +' county';
-				//}
-				//else{
-				//	if (ocdStringState){
-				//		var query = ocdStringState.split(':')[1];
-				//	}
-				//}
-				//console.log(query);
-				/*(function(ocdDivision) {
-					//console.log(ocdDivision)
-					Committee.find({parent:parent.id, title:{contains:query}}).then(function(model){
-						if (model.length > 0){
-							console.log(ocdDivision, model);
-							//Committee.update({id:model[0].id}, {ocdDivision: ocdDivision}).then(function(model){console.log(model)});
-							//recursive in each county
-							getRepsByGeo('ocd-division/country:us/state:nc', model[0]);
-						}
-					});
-				})(ocdDivision)*/
-				
 				var officialIndex = body.offices[x].officialIndices;
 				var official = {};
 				if(officialIndex){
@@ -294,8 +265,7 @@ function getRepsByGeo(OCDID, parent){
 				}
 				official.office = body.offices[x];
 				console.log(official.name, official.office.name);
-				//console.log(official)
-				//console.log(official.name)
+				
 				var newMember = {}
 				if (official.name){
 					newMember.firstName = official.name.split(' ')[0];
@@ -309,12 +279,11 @@ function getRepsByGeo(OCDID, parent){
 				newMember.title = official.office.name;
 				newMember.avatarUrl = official.photoUrl || 'images/avatar.png';
 				//newMember.socialAccounts = official.channels;
-
 				if(newMember.avatarUrl){console.log(newMember);}
 
+				console.log(newMember);
 
 				//ADD COMMITTEE FINDING FEATURES RE DYNAMIC VS PARENTID
-
 				(function(newMember) {
 					User.find({username:newMember.username})
 					.then(function(userModel) {
@@ -323,7 +292,8 @@ function getRepsByGeo(OCDID, parent){
 							.then(function(userModel) {
 								console.log('USER CREATED');
 								User.publishCreate(userModel);
-								CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
+								console.log(userModel)
+								CommitteeMember.findOrCreate({committee:parent.id, user:userModel.id, title:userModel.title}).then(function(committeeMemberModel){
 									console.log(committeeMemberModel)
 								});
 							});
@@ -333,6 +303,7 @@ function getRepsByGeo(OCDID, parent){
 							//.then(function(userModel){
 								//console.log('USER UPDATED');
 								//console.log(userModel)
+								//console.log(parent)
 								CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
 									console.log(committeeMemberModel)
 								});
@@ -358,23 +329,72 @@ function getRepsByGeo(OCDID, parent){
 
 
 module.exports.intervalService = function(){
+	//images/avatar.png
+	/*User.find({avatarUrl:{contains:'https://ui-avatars.com/api'}}).then(function(models){
+		for (x in models){
+			var colorArray = ['2ab996', '24242e', 'ff6a6a', 'ddbea8'];
+        	var randInt = Math.floor(Math.random() * (colorArray.length + 1));
+			var url = 'https://ui-avatars.com/api/?size=256&name='+models[x].firstName+'+'+models[x].lastName+'&color=fff&background='+colorArray[randInt];
+			User.update({id:models[x].id}, {avatarUrl:url}).then(function(model){console.log(model)});
+		}
+	})*/
+
+	//NEED TO DELETE USERS CREATED ON NOV 19TH -- NOV 20TH
+	//2017-11-20T03:22:27.545Z
+	/*
+	var now1 = new Date('2017-11-20T03:22:27.545Z');
+	var now = new Date(), start = new Date(now.getTime() - (24 * 12 * 60 * 60 * 1000));
+	CommitteeMember.find()
+    .where({createdAt: {'>': start}})
+    .exec(function (err, users) {
+    	console.log(users.length)
+    	console.log(users[0])
+    	for (x in users){
+    		//console.log(users[x])
+    		CommitteeMember.destroy({id:users[x].id}).then(function(model){console.log(model)});
+    	}
+    });
+
+	User.find()
+    .where({createdAt: {'>': start}})
+    .exec(function (err, users) {
+    	console.log(users.length)
+    	console.log(users[0])
+    	for (x in users){
+    		//console.log(users[x])
+    		User.destroy({id:users[x].id}).then(function(model){console.log(model)});
+    	}
+    });
+	*/
 
 	//ocd-division/country:us/state:nc/county:orange
 	///place:charlotte
 	//Committee.find({title:'maryville'}).then(function(model){console.log(model)})
 	//county meck --> 59485ad892184ba71e1d8a58
-	//getRepsByGeo('ocd-division/country:us/state:tn/place:maryville', {id:'59486090ea08c19c1fb745f0'})
+	//getRepsByGeo('ocd-division/country:us/state:nc/place:charlotte', {id:'59486064959d31941fc8c5e9'})
+	//getRepsByGeo('ocd-division/country:us/state:nc/county:mecklenburg', {id:'59485ad892184ba71e1d8a58'})
+	//getRepsByGeo('ocd-division/country:us/state:tn/county:knox', {id:'59485b06c0b6b2b11e13573f'})
+	//getRepsByGeo('ocd-division/country:us/state:tn/place:knoxville', {id:'59486093ea08c19c1fb7461c'})
+
+
 	//getRepsByLocation('35.909907, -79.072057');
 	//getRepsByLocation('3516 Bluff Point Dr, Knoxville TN');
 	//getRepsByLocation('Moab Utah');
 	//getRepsByLocation('35.974523999999995,-83.92462109999997');
 
-	Committee.find({ocdDivision:{contains:'country:us/state:tn'}}).then(function(models){
+	//Committee.find({ocdDivision:{contains:'country:us/state:tn'}}).then(function(models){
 		//console.log(models)
-		for (x in models){
-			getRepsByGeo(models[x].ocdDivision, models[x]);
-		}
-	})
+		//for (x in models){
+			//getRepsByGeo(models[x].ocdDivision, models[x]);
+		//}
+	//})
+
+	//Committee.find({title:'knox county'}).then(function(models){
+	//	console.log(models)
+		//for (x in models){
+			//getRepsByGeo(models[x].ocdDivision, models[x]);
+		//}
+	//})
 
 	//getRepsByGeo('ocd-division/country:us/state:nc', {id:'589d7b59a3806e1100faa70d', title:'North Carolina'})
 
@@ -382,40 +402,85 @@ module.exports.intervalService = function(){
 	//Committee.update({title:'United States'}, {ocdDivision:'ocd-division/country:us'}).then(function(model){console.log(model)})
 	//might wanna do this via decentralization 
 
-	//for (x in Object.keys(states)){
-		//var string = 'ocd-division/country:us/state:'+Object.keys(states)[x].toLowerCase();
-		//(function(string) {
-		//	Committee.find({parent:'589d5cb5771e7fecb9300213', title:states[Object.keys(states)[x]]}).then(function(model){
-				//console.log(string);
-				//Committee.update({id:model[0].id}, {ocdDivision: string}).then(function(model){console.log(model)})
-		//		if (model.length > 0){
-					//console.log(string, model[0].id);
+	//use to get counties and ocdDivision ish.. 
+	//--deeper than county, place
+
+	function recursive(model, string){
+		if (model && model.id){
+			Committee.find({parent:model.id}).then(function(models){
+				for (x in models){
+					if(models[x].title.includes("County")){models[x].ocdDivision = string + '/county:'+models[x].title.replace(" County","").toLowerCase();}
+					else{models[x].ocdDivision = string + '/place:'+models[x].title.toLowerCase().replace(" township","").replace("township of ","").replace("city of ","")}
+					if(models[x].geonameId){
+						Committee.update({id:models[x].id}, {ocdDivision: models[x].ocdDivision}).then(function(committeeModel){
+							//console.log(model[0]);
+							getRepsByGeo(committeeModel[0].ocdDivision, committeeModel[0]);
+							console.log(committeeModel[0].ocdDivision);
+							recursive(committeeModel[0], string);
+						});
+					}
+				}
+			});
+		}
+	};
+
+	Committee.find().then(function(model){
+		for (x in model){
+			//console.log(model[x])
+			if(model[x].ocdDivision){
+				//if(model[x].ocdDivision.includes("place")){
+					//console.log(model[x].ocdDivision);
+					//getRepsByGeo(model[x].ocdDivision, model[x])
+				//}
+			}
+		}
+	});
+
+	//all are being add to TN
+	for (x in Object.keys(states)){
+		var string = 'ocd-division/country:us/state:'+Object.keys(states)[x].toLowerCase();
+		(function(string, x) {
+			setTimeout(function() {
+				Committee.find({parent:'589d5cb5771e7fecb9300213', title:states[Object.keys(states)[x]]}).then(function(model){
+					//recursive(model[0], string);
+					//console.log(model);
 					//getRepsByGeo(string, model[0]);
-		//		}
-		//	})
-		//})(string);
+					//Committee.update({id:model[0].id}, {ocdDivision: string}).then(function(model){console.log(model)})
+					if (model.length > 0){
+						console.log(model[0])
+						//if(model[0].geonameId){dataService.getGeoNamesByParent(model[0].geonameId, model[0].id, 'troverman', -2);}
+						//console.log(string, model[0].id);
+						//getRepsByGeo(string, model[0]);
+					}
+				});
+			}, x*5000);
+		})(string, x);
 		//getRepsByGeo(string)
 		//dataService.stateBills(Object.keys(states)[x], 1, 25);
+	}
+		
+	//for(var i = 0; i < 3; i++) {
+	//    (function(index) {
+	//        setTimeout(function() { alert(index); }, index*5000);
+	//    })(i);
 	//}
+
+
 	
-
 	//dataService.stateBills('nc', 1, 25);
-
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();
 	//dataService.federalCommittees();
 	//dataService.nationalCommittees();
-
 	//dataService.stateLegislators();
 	//dataService.federalLegislators();
-
 	//dataService.federalBillsProPublica(0);
 		
-	/*dataService.federalBillsProPublica(20);
-	dataService.federalBillsProPublica(40);
-	dataService.federalBillsProPublica(60);
-	dataService.federalBillsProPublica(80);
-	dataService.federalBillsProPublica(100);*/
+	//dataService.federalBillsProPublica(20);
+	//dataService.federalBillsProPublica(40);
+	//dataService.federalBillsProPublica(60);
+	//dataService.federalBillsProPublica(80);
+	//dataService.federalBillsProPublica(100);
 
 	//world
 	//dangerous alg :|
@@ -439,11 +504,10 @@ module.exports.intervalService = function(){
 	//uk
 	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5', -1);
 
-	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
+	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 
 	//populateBills();
 	//populateStateBills();
-
 
     //multithreading...
     /*var cluster = require('cluster'),

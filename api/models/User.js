@@ -143,8 +143,16 @@ module.exports = {
     afterCreate: function(model,next){
 
         var coverUrlArray = ['images/congress.jpg', 'images/congress1.jpg', 'images/crowd.jpg', 'images/capitol.jpg', 'images/capitol1.jpg', 'images/bokeh.jpg', 'images/metro.jpg', 'images/natural.jpg' ,'images/nature.jpg'];
-        var randInt = Math.floor(Math.random() * (coverUrlArray.length + 1));
+        var randInt = Math.floor(Math.random() * (coverUrlArray.length));
         model.coverUrl = coverUrlArray[randInt];
+
+        if (model.avatarUrl == 'images/avatar.png'){
+            var colorArray = ['2ab996', '24242e', 'ff6a6a', 'ddbea8'];
+            var colorInt = Math.floor(Math.random() * (colorArray.length));
+            var avatarUrl = 'https://ui-avatars.com/api/?size=256&name='+model.firstName+'+'+model.lastName+'&color=fff&background='+colorArray[colorInt];
+            model.avatarUrl = avatarUrl;
+        }
+
         User.update({id: model.id}, model)
         .then(function(model){
             emailService.sendTemplate('welcome', model.email, 'Welcome To Voetr!', {username: model.username});

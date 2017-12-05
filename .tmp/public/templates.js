@@ -1302,7 +1302,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "    <div id=\"bills\">\n" +
     "        <div class=\"container\">\n" +
     "            <h2><a href=\"/bills\">{{billCount}} bills</a></h2>\n" +
-    "            <md-divider></md-divider><br>\n" +
+    "            <br><br>\n" +
     "            <md-card ng-repeat=\"bill in bills\">\n" +
     "                <md-card-title>\n" +
     "                    <md-card-title-text>\n" +
@@ -1323,7 +1323,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "    <div id=\"committees\">\n" +
     "        <div class=\"container\">\n" +
     "            <h2><a href=\"/committees\">{{committeeCount}} committees</a></h2>\n" +
-    "            <md-divider></md-divider><br>\n" +
+    "            <br><br>\n" +
     "            <md-card ng-repeat=\"committee in committees\" class=\"col-sm-12\">\n" +
     "                <md-card-title>\n" +
     "                    <md-card-title-text>\n" +
@@ -1340,8 +1340,8 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "    <div id=\"members\">\n" +
     "        <div class=\"container\">\n" +
     "            <h2><a href=\"/members\">{{userCount}} members</a></h2>\n" +
-    "            <md-divider></md-divider><br>\n" +
-    "            <button ng-show=\"!gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default\">find representatives</button><br>\n" +
+    "            <br><br>\n" +
+    "            <!--<button ng-show=\"!gettingRepresentatives\" ng-click=\"getLatLng()\" class=\"btn btn-default\">find representatives</button><br>-->\n" +
     "            <div class=\"col-lg-4 col-sm-6\" ng-repeat=\"user in officialRepresentatives\">\n" +
     "                <div class=\"member-card\">\n" +
     "                    <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
