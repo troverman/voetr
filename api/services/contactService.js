@@ -6,14 +6,18 @@ module.exports = {
 
 		console.log(data.user.id)
 
+		//rep by committee.
 		Representative.getRepresentatives(data.user.id).then(function(legislators){
 
 			//find if rep voted? 
 			console.log(legislators)
 			console.log(data.user)
 
+			var legislatorName = '';
+			if (legislators[0][0].representative){legislatorName = legislators[0][0].representative.firstName + ' ' + legislators[0][0].representative.lastName}
+			else{legislatorName = 'Whom it may concern'}
 			var templateModel = {
-				legislator: legislators[0][0].representative.firstName + ' ' + legislators[0][0].representative.lastName,
+				legislator: legislatorName,
 				bill: data.bill,
 				vote: data.vote,
 				user: data.user,
