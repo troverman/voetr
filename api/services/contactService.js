@@ -4,7 +4,7 @@ module.exports = {
 
 	sendEmail: function(data){
 
-		Representative.find({constituent:data.user.id}).then(function(legislators){
+		Representative.find({constitutent:data.user.id}).then(function(legislators){
 
 			console.log(legislators[0].firstName, legislators[0].lastName);
 			console.log(data.user)
