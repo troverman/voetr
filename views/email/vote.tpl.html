@@ -70,10 +70,10 @@ background-color: #f6f6f6;
 									<td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
 										<p>I, {{user.firstName}} {{user.lastName}}, your constituent, voted {{voteString}} on the question {{vote.title}} for the bill {{bill.title}}. As your constituent, you knowing this information allows us to build a relationship and engage in policy-based dialog.</p>
 										<br>
-										<p>Myself alongside with {{voteCount}} of your constituents with support of 20,723 of the general population agree the attached legislation is important.</p>
+										<p>Myself alongside {{voteCount}} of your constituents with support of 20,723 of the general population agree the attached legislation is important.</p>
 										<br>
 										<p>Please continue this conversation, I can be reached by mail at {{address}}, by email at {{email}}, and by phone at {{phone}}.</p>
-										<p>Once again, {{voteCount}} of your constituents support this legislation, and {{constitutents}} persons have given me permission to speak for them on behalf of this cause.</p>
+										<p>Once again, {{voteCount}} of your constituents support this legislation, and {{constituents}} persons have given me permission to speak for them on behalf of this cause.</p>
 										<p>I appreciate an open dialog.</p>
 										<p>{{user.firstName}} {{user.lastName}}</p>
 									</td>
@@ -93,7 +93,7 @@ background-color: #f6f6f6;
 										<br>
 										<hr>
 										<h4>Vote Information</h4>
-										<p><a href="{{bill.url}}">{{bill.title}}</a></p>
+										<p><a href="https://www.voetr.com/bill/{{bill.id}}/{{bill.urlTitle}}">{{bill.title}}</a></p>
 										<p>{{vote.title}}</p>
 										<br>
 										<p>Constituent vote</p>
@@ -101,7 +101,7 @@ background-color: #f6f6f6;
 										<p>Legislator's vote</p>
 										<p>{{voteString}}</p>
 										<p>Vote Statistics</p>
-										<p>total votes ( {{voteCount}} ), total constitutes vote ( {{constitutents}} ), support {{voteCount / constitutents}}%</p>
+										<p>total votes ( {{voteCount}} ), total constitutes vote ( {{constituents}} ), support {{voteCount / constituents}}%</p>
 										<p>Legislative vote sway – how far representative voting has an effect</p>
 									</td>
 								</tr>

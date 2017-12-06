@@ -4,7 +4,9 @@ module.exports = {
 
 	sendEmail: function(data){
 
-		Representative.find({constitutent:data.user.id}).then(function(legislators){
+		Representative.find({constituent:data.user.id}).then(function(legislators){
+
+			//find if rep voted? 
 
 			console.log(legislators[0].firstName, legislators[0].lastName);
 			console.log(data.user)
@@ -18,7 +20,7 @@ module.exports = {
 				address: data.user.address,
 				phone: '888-888-8888',
 				email: data.user.email,
-				constitutents: data.user.constitutentCount,
+				constituents: data.user.constituentCount,
 				voteString: data.voteString
 			};
 
