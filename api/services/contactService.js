@@ -4,28 +4,29 @@ module.exports = {
 
 	sendEmail: function(data){
 
-		Representative.find({constituent:data.user}).then(function(legislators){
+		Representative.find({constituent:data.user.id}).then(function(legislators){
 
-			console.log(legislators)
+			console.log(legislators[0].firstName, legislators[0].lastName);
+			console.log(data.user)
+
+			var templateModel = {
+				legislator: legislators[0].firstName + ' ' + legislators[0].lastName,
+				bill: data.bill,
+				vote: data.vote,
+				user: data.user,
+				voteCount: 888,
+				address: data.user.address,
+				phone: '888-888-8888',
+				email: data.user.email,
+				constitutents: data.user.constitutentCount,
+				voteString: data.voteString
+			};
+
+			emailService.sendTemplate('vote', 'troverman@gmail.com', 'A response to ' + data.vote.title, templateModel);
+
 
 		});
 
-		console.log(data.user)
-
-		var templateModel = {
-			legislator: 'Bill Hammond',
-			bill: data.bill,
-			vote: data.vote,
-			user: data.user,
-			voteCount: 888,
-			address: '123 Bluff Point',
-			phone: '888-888-8888',
-			email: 'cre8@voetr.com',
-			constitutents: 8888,
-			voteString: data.voteString
-		}
-
-		emailService.sendTemplate('vote', 'troverman@gmail.com', 'A response to ' + data.vote.title, templateModel);
 
 	},
 
@@ -34,7 +35,7 @@ module.exports = {
 		var url = 'http://www.fax2dc.com/api/fax';
 
 		var templateModel = {
-			legislator: 'Bill Hammond',
+			legislator: 'Bill Hammon',
 			bill: data.bill,
 			vote: data.vote,
 			user: data.user,
@@ -91,7 +92,7 @@ module.exports = {
 		var name = data.user.email;
 
 		var templateModel = {
-			legislator: 'Bill Hammond',
+			legislator: 'Bill Hammon',
 			bill: data.bill,
 			vote: data.vote,
 			user: data.user,
