@@ -10,11 +10,10 @@ module.exports = {
 
 			//find if rep voted? 
 			console.log(legislators)
-			console.log(legislators[0][0].firstName, legislators[0][0].lastName);
 			console.log(data.user)
 
 			var templateModel = {
-				legislator: legislators[0][0].firstName + ' ' + legislators[0][0].lastName,
+				legislator: legislators[0][0].representative.firstName + ' ' + legislators[0][0].representative.lastName,
 				bill: data.bill,
 				vote: data.vote,
 				user: data.user,

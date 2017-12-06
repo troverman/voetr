@@ -425,9 +425,15 @@ module.exports.intervalService = function(){
 	};
 
 	Committee.find().then(function(model){
+		var delay = 1;
 		for (x in model){
 			//console.log(model[x])
+			
 			if(model[x].ocdDivision){
+				delay++;
+				setTimeout(function() {
+					getRepsByGeo(model[x].ocdDivision, model[x])
+				}, delay*8000);
 				//if(model[x].ocdDivision.includes("place")){
 					//console.log(model[x].ocdDivision);
 					//getRepsByGeo(model[x].ocdDivision, model[x])
