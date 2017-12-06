@@ -82,10 +82,16 @@ background-color: #f6f6f6;
 										<p><a href="{{bill.url}}">{{bill.title}}</a></p>
 										<p>{{vote.title}}</p>
 										<hr>
-										<h4>Member information</h4>
+										<h4>Constituent Information</h4>
 										<p>Government Identification</p>
 										<img src="{{user.identificationUrl}}"></img>
-										<p>Member vote</p>
+										<p>Address</p>
+										{{address}}
+										<p>contact</p>
+										<p>phone: {{phone}}</p>
+										<p>email: {{email}}<p>
+										<br>
+										<p>Constituent vote</p>
 										<p>{{voteString}}</p>
 										<p>Legislator's vote</p>
 										<p>{{voteString}}</p>
