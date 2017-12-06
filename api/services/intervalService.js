@@ -447,7 +447,7 @@ module.exports.intervalService = function(){
 					//getRepsByGeo(string, model[0]);
 					//Committee.update({id:model[0].id}, {ocdDivision: string}).then(function(model){console.log(model)})
 					if (model.length > 0){
-						console.log(model[0])
+						//console.log(model[0])
 						//if(model[0].geonameId){dataService.getGeoNamesByParent(model[0].geonameId, model[0].id, 'troverman', -2);}
 						//console.log(string, model[0].id);
 						//getRepsByGeo(string, model[0]);

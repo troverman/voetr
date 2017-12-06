@@ -4,15 +4,17 @@ module.exports = {
 
 	sendEmail: function(data){
 
-		Representative.find({constituent:data.user.id}).then(function(legislators){
+		console.log(data.user.id)
+
+		Representative.getRepresentatives(data.user.id).then(function(legislators){
 
 			//find if rep voted? 
-
-			console.log(legislators[0].firstName, legislators[0].lastName);
+			console.log(legislators)
+			console.log(legislators[0][0].firstName, legislators[0][0].lastName);
 			console.log(data.user)
 
 			var templateModel = {
-				legislator: legislators[0].firstName + ' ' + legislators[0].lastName,
+				legislator: legislators[0][0].firstName + ' ' + legislators[0][0].lastName,
 				bill: data.bill,
 				vote: data.vote,
 				user: data.user,
