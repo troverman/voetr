@@ -31,9 +31,7 @@ module.exports = {
 
 			emailService.sendTemplate('vote', 'troverman@gmail.com', 'A response to ' + data.vote.title, templateModel);
 
-
 		});
-
 
 	},
 

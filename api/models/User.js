@@ -146,7 +146,7 @@ module.exports = {
         var randInt = Math.floor(Math.random() * (coverUrlArray.length));
         model.coverUrl = coverUrlArray[randInt];
 
-        if (model.avatarUrl == 'images/avatar.png'){
+        if (model.avatarUrl == 'images/avatar.png' && model.firstName){
             var colorArray = ['2ab996', '24242e', 'ff6a6a', 'ddbea8'];
             var colorInt = Math.floor(Math.random() * (colorArray.length));
             var avatarUrl = 'https://ui-avatars.com/api/?size=256&name='+model.firstName+'+'+model.lastName+'&color=fff&background='+colorArray[colorInt];
@@ -155,7 +155,8 @@ module.exports = {
 
         User.update({id: model.id}, model)
         .then(function(model){
-            emailService.sendTemplate('welcome', model.email, 'Welcome To Voetr!', {username: model.username});
+            console.log(model);
+            emailService.sendTemplate('welcome', model[0].email, 'Welcome To Voetr!', {username: model[0].username});
             return next(null, model);
         });
 
