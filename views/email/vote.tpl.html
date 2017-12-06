@@ -60,7 +60,7 @@ background-color: #f6f6f6;
 		<td class="container" width="600" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto;" valign="top">
 			<div class="content" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 20px;">
 				<table class="main" width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; background-color: #fff; margin: 0; border: 1px solid #e9e9e9;" bgcolor="#fff"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="alert alert-warning" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 16px; vertical-align: top; color: #fff; font-weight: 500; text-align: center; border-radius: 3px 3px 0 0; background-color: #bd1f2f; margin: 0; padding: 20px;" align="center" bgcolor="#bd1f2f" valign="top">
-							Dear, {{legislator}}
+							Dear {{legislator}}
 						</td>
 					</tr>
 					<tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
@@ -68,7 +68,7 @@ background-color: #f6f6f6;
 							<table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
 								<tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
 									<td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-										<p>I, {{user.firstName}} your constituent voted {{voteString}} on the question {{vote.title}} for the bill {{bill.title}}. As your constituent, you knowing this information allows us to build a relationship and engage in policy-based dialog.</p>
+										<p>I, {{user.firstName}} {{user.lastName}} your constituent voted {{voteString}} on the question {{vote.title}} for the bill {{bill.title}}. As your constituent, you knowing this information allows us to build a relationship and engage in policy-based dialog.</p>
 										<p>Myself alongside with {{voteCount}} of your constituents with support of 20,723 of the general population agree the attached legislation is important.</p>
 										<p>Please take the time to read.</p>
 										<p>Please continue this conversation, I can be reached by mail at {{address}}, by email at {{email}}, and by phone at {{phone}}.</p>
@@ -79,17 +79,18 @@ background-color: #f6f6f6;
 								</tr>
 								<tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
 									<td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+										<p><a href="{{bill.url}}">{{bill.title}}</a></p>
 										<p>{{vote.title}}</p>
 										<hr>
-										{{bill.url}}</p>
-										<p>Vote Info</p>
-										<p>Member information</p>
+										<h4>Member information</h4>
 										<p>Government Identification</p>
 										<img src="{{user.identificationUrl}}"></img>
 										<p>Member vote</p>
-										<p>Legislators vote</p>
+										<p>{{voteString}}</p>
+										<p>Legislator's vote</p>
+										<p>{{voteString}}</p>
 										<p>Vote statistics – total votes, total constitutes vote, support %</p>
-										<p>Legislative vote sway – how far representative voting has an effect</p>
+										<!--<p>Legislative vote sway – how far representative voting has an effect</p>-->
 									</td>
 								</tr>
 								
@@ -97,7 +98,7 @@ background-color: #f6f6f6;
 					</tr>
 				</table>
 				<div class="footer" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; clear: both; color: #999; margin: 0; padding: 20px;">
-					<table width="100%" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="aligncenter content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;" align="center" valign="top"><p style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;">it is a great privilege and our civic duty to create a citizen-fueled democracy. With service to our unity and to our nation we will prosper.</p> <a href="https://www.fax2dc.com/donate">donate</a></td>
+					<table width="100%" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="aligncenter content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;" align="center" valign="top"><p style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;">it is a great privilege and our civic duty to create a citizen-fueled democracy.<br> With service to our unity and to our nation we will prosper.</p> <!--<a href="https://www.fax2dc.com/donate">donate</a>--></td>
 						</tr></table></div></div>
 		</td>
 		<td style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;" valign="top"></td>
