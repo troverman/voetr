@@ -26,16 +26,18 @@ module.exports = {
 
     beforeCreate: function(model, next){
         //only one react per user per post or per votevote or bill or vote or committee member join
-        Reaction.find({user: model.user, postModel:model.postModel, voteVote:model.voteVote})
+        Reaction.find({user: model.user, postModel:model.postModel})//, voteVote:model.voteVote})
         .then(function(reactionModel){
+            console.log(reactionModel)
             if (reactionModel.length == 0){
                 return next(null, reactionModel);
             }
             else{
                 if(reactionModel[0].reaction != model.reaction){  
                     Reaction.update({id: reactionModel[0].id}, model)
-                    .then(function(model){
-                        Reaction.publishUpdate(reactionModel[0].id, model);
+                    .then(function(updatedModel){
+                        Reaction.publishUpdate(reactionModel[0].id, updatedModel);
+                        //åreturn next(null, updatedModel);
                     });
                 }
             }

@@ -3,7 +3,6 @@
     <div class="row">
         <div class="col-md-4">
 
-
             <div class="member-card">
                 <div class="image" style="background-image: url('{{user.coverUrl}}')">
                     <a href="member/{{user.username}}"><img style="top:5%" ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
@@ -135,7 +134,7 @@
                 <div class="card-container">
                     <h4><a href="/vote/{{vote.id}}">{{vote.title}}</a></h4>
                     <div class="spacing-10"></div>
-                    <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}">{{vote.bill.title}}</a>
+                    <a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}"><i class="fa fa-file-text-o"></i> {{vote.bill.title}}</a>
                     <div class="spacing-10"></div>
                     <button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote col-xs-6" ng-click="createVote(1, vote)">
                         <i class="fa fa-caret-up vBlue"></i> <b>{{vote.plusCount}}</b>

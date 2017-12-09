@@ -1107,7 +1107,6 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "    <div class=\"row\">\n" +
     "        <div class=\"col-md-4\">\n" +
     "\n" +
-    "\n" +
     "            <div class=\"member-card\">\n" +
     "                <div class=\"image\" style=\"background-image: url('{{user.coverUrl}}')\">\n" +
     "                    <a href=\"member/{{user.username}}\"><img style=\"top:5%\" ng-src=\"{{user.avatarUrl}}\" err-src=\"/images/avatar.png\"></a>\n" +
@@ -1239,7 +1238,7 @@ angular.module("home/templates/feed.tpl.html", []).run(["$templateCache", functi
     "                <div class=\"card-container\">\n" +
     "                    <h4><a href=\"/vote/{{vote.id}}\">{{vote.title}}</a></h4>\n" +
     "                    <div class=\"spacing-10\"></div>\n" +
-    "                    <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\">{{vote.bill.title}}</a>\n" +
+    "                    <a href=\"/bill/{{vote.bill.id}}/{{vote.bill.title}}\"><i class=\"fa fa-file-text-o\"></i> {{vote.bill.title}}</a>\n" +
     "                    <div class=\"spacing-10\"></div>\n" +
     "                    <button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote col-xs-6\" ng-click=\"createVote(1, vote)\">\n" +
     "                        <i class=\"fa fa-caret-up vBlue\"></i> <b>{{vote.plusCount}}</b>\n" +
@@ -1309,7 +1308,7 @@ angular.module("home/templates/intro.tpl.html", []).run(["$templateCache", funct
     "                    <h4>\n" +
     "                        <!--<button ng-class=\"{'upVoted': class=='upVote'}\" class=\"btn btn-default upVote\" ng-click=\"createVote(1, vote)\"><i class=\"fa fa-caret-up\"></i>  {{plusCount}}</button>\n" +
     "                        <button ng-class=\"{'downVoted': class=='downVote'}\" class=\"btn btn-default downVote\" ng-click=\"createVote(-1, vote)\"><i class=\"fa fa-caret-down\"></i>  {{minusCount}}</button>-->\n" +
-    "                        <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\">{{bill.title}}</a>\n" +
+    "                        <a href=\"/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}\"><i class=\"fa fa-file-text-o\"></i> {{bill.title}}</a>\n" +
     "                    </h4>\n" +
     "                    </md-card-title-text>\n" +
     "                </md-card-title>\n" +

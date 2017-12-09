@@ -16,7 +16,7 @@ module.exports = {
         },
         coverUrl: {
             type: 'string',
-            defaultsTo: 'images/congress.png',
+            defaultsTo: 'images/congress.jpg',
         },
         following: {
             type: 'string',
@@ -146,17 +146,19 @@ module.exports = {
         var randInt = Math.floor(Math.random() * (coverUrlArray.length));
         model.coverUrl = coverUrlArray[randInt];
 
-        if (model.avatarUrl == 'images/avatar.png' && model.firstName){
-            var colorArray = ['2ab996', '24242e', 'ff6a6a', 'ddbea8'];
-            var colorInt = Math.floor(Math.random() * (colorArray.length));
-            var avatarUrl = 'https://ui-avatars.com/api/?size=256&name='+model.firstName+'+'+model.lastName+'&color=fff&background='+colorArray[colorInt];
-            model.avatarUrl = avatarUrl;
+        if (model.avatarUrl == 'images/avatar.png'){
+            if(model.firstName){
+                var colorArray = ['2ab996', '24242e', 'ff6a6a', 'ddbea8'];
+                var colorInt = Math.floor(Math.random() * (colorArray.length));
+                var avatarUrl = 'https://ui-avatars.com/api/?size=256&name='+model.firstName+'+'+model.lastName+'&color=fff&background='+colorArray[colorInt];
+                model.avatarUrl = avatarUrl;
+            }
         }
 
         User.update({id: model.id}, model)
         .then(function(model){
             console.log(model);
-            emailService.sendTemplate('welcome', model[0].email, 'Welcome To Voetr!', {username: model[0].username});
+            //emailService.sendTemplate('welcome', model[0].email, 'Welcome To Voetr!', {username: model[0].username});
             return next(null, model);
         });
 

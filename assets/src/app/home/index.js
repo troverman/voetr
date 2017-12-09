@@ -248,7 +248,6 @@ angular.module( 'voetr.home', [
 		$scope.newPost.post = $scope.newPost.post || post.newPost.post // new post or post reply
 		PostModel.create($scope.newPost)//.then(function(model){
 		$scope.newPost = {};
-		$scope.newPost.post= {};
 		//});
 	};
 
