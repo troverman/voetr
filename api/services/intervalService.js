@@ -257,61 +257,85 @@ function getRepsByGeo(OCDID, parent){
 		if(!error){
 			for (x in body.offices){
 				
+				//CLT 4 at large councilmen - only getting the 1st
+				//REDO THIS BLOCK
+				//for loop though official vs offices
+				//use array as astandard and loops though it for duplicates 
 				var officialIndex = body.offices[x].officialIndices;
-				var official = {};
+				//var official = {};
+				var officialList = [];
 				if(officialIndex){
-					if (officialIndex.length == 1){official = body.officials[officialIndex]}
-					else{official = body.officials[officialIndex[0]]}
-				}
-				official.office = body.offices[x];
-				console.log(official.name, official.office.name);
-				
-				var newMember = {}
-				if (official.name){
-					newMember.firstName = official.name.split(' ')[0];
-					newMember.lastName = official.name.split(' ')[official.name.split(' ').length-1];
-					//hack
-					if (newMember.lastName.length == 3){newMember.lastName = official.name.split(' ')[official.name.split(' ').length-2];}
-					newMember.username = newMember.firstName + '.' +  newMember.lastName;
-				}
-				if(official.emails){newMember.email = official.emails[0]}
-				else{newMember.email = newMember.username+'@voetr.com'}
-				newMember.title = official.office.name;
-				newMember.avatarUrl = official.photoUrl || 'images/avatar.png';
-				//newMember.socialAccounts = official.channels;
-				if(newMember.avatarUrl){console.log(newMember);}
-
-				console.log(newMember);
-
-				//ADD COMMITTEE FINDING FEATURES RE DYNAMIC VS PARENTID
-				(function(newMember) {
-					User.find({username:newMember.username})
-					.then(function(userModel) {
-						if (userModel.length === 0){
-							User.create(newMember)
-							.then(function(userModel) {
-								console.log('USER CREATED');
-								User.publishCreate(userModel);
-								console.log(userModel)
-								CommitteeMember.findOrCreate({committee:parent.id, user:userModel.id, title:userModel.title}).then(function(committeeMemberModel){
-									console.log(committeeMemberModel)
-								});
-							});
+					if (officialIndex.length == 1){
+						officialList.push(body.officials[officialIndex])
+						officialList[0].office = body.offices[x];
+					}
+					if (officialIndex.length > 1){
+						for (y in officialIndex){
+							officialList.push(body.officials[officialIndex[y]]);
+							officialList[y].office = body.offices[x];
 						}
-						else{
-							//User.update({username:newMember.username}, newMember)
-							//.then(function(userModel){
-								//console.log('USER UPDATED');
-								//console.log(userModel)
-								//console.log(parent)
-								CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
-									console.log(committeeMemberModel)
-								});
-							//});
-						}
-					});
-				})(newMember);
+					}
+					else{
+						officialList.push(body.officials[0]);
+						officialList[0].office = body.offices[x];
+					}
+				}
+				//official.office = body.offices[x];
+				console.log(officialList)
+				async.eachSeries(officialList, function (official, nextIteration){ 
+				//for (x in officialList){
+					//console.log(officialList[x].name, officialList[x].office.name);
+					var newMember = {}
+					if (official.name){
+						newMember.firstName = official.name.split(' ')[0];
+						newMember.lastName = official.name.split(' ')[official.name.split(' ').length-1];
+						//hack
+						if (newMember.lastName.length == 3){newMember.lastName = official.name.split(' ')[official.name.split(' ').length-2];}
+						newMember.username = newMember.firstName + '.' +  newMember.lastName;
+					}
+					if(official.emails){newMember.email = official.emails[0]}
+					else{newMember.email = newMember.username+'@voetr.com'}
+					newMember.title = official.office.name;
+					newMember.avatarUrl = official.photoUrl || 'images/avatar.png';
+					//newMember.socialAccounts = official.channels;
+					//if(newMember.avatarUrl){console.log(newMember);}
+					//REDO THIS BLOCK
 
+					//console.log(newMember);
+
+					//ADD COMMITTEE FINDING FEATURES RE DYNAMIC VS PARENTID
+					(function(newMember) {
+						User.find({username:newMember.username})
+						.then(function(userModel) {
+							if (userModel.length === 0){
+								User.create(newMember)
+								.then(function(userModel) {
+									console.log('USER CREATED');
+									User.publishCreate(userModel);
+									console.log(userModel)
+									CommitteeMember.findOrCreate({committee:parent.id, user:userModel.id, title:userModel.title}).then(function(committeeMemberModel){
+										console.log(committeeMemberModel);
+										process.nextTick(nextIteration);
+									});
+								});
+							}
+							else{
+								//User.update({username:newMember.username}, newMember)
+								//.then(function(userModel){
+									//console.log('USER UPDATED');
+									//console.log(userModel)
+									//console.log(parent)
+									CommitteeMember.findOrCreate({committee:parent.id, user:userModel[0].id, title:userModel[0].title}).then(function(committeeMemberModel){
+										console.log(committeeMemberModel);
+										process.nextTick(nextIteration);
+									});
+								//});
+							}
+						});
+					})(newMember);
+				//}
+				})
+	
 
 				//ocdDivision
 				//Committee.find({title: {contains: OCDID.split(':')[OCDID.split(':').length-1]}}).then(function(model){console.log(model)})
@@ -341,8 +365,8 @@ module.exports.intervalService = function(){
 
 	//NEED TO DELETE USERS CREATED ON NOV 19TH -- NOV 20TH
 	//2017-11-20T03:22:27.545Z
-	/*
-	var now1 = new Date('2017-11-20T03:22:27.545Z');
+	//2017-11-20T03:22:27.545Z
+	/*var now1 = new Date('2017-12-08T03:22:27.545Z');
 	var now = new Date(), start = new Date(now.getTime() - (24 * 12 * 60 * 60 * 1000));
 	CommitteeMember.find()
     .where({createdAt: {'>': start}})
@@ -364,8 +388,8 @@ module.exports.intervalService = function(){
     		//console.log(users[x])
     		User.destroy({id:users[x].id}).then(function(model){console.log(model)});
     	}
-    });
-	*/
+    });*/
+	
 
 	//ocd-division/country:us/state:nc/county:orange
 	///place:charlotte
@@ -433,7 +457,7 @@ module.exports.intervalService = function(){
 				delay++;
 				setTimeout(function() {
 					getRepsByGeo(model[x].ocdDivision, model[x])
-				}, delay*8000);
+				}, delay*10000);
 				//if(model[x].ocdDivision.includes("place")){
 					//console.log(model[x].ocdDivision);
 					//getRepsByGeo(model[x].ocdDivision, model[x])

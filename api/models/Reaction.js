@@ -24,23 +24,23 @@ module.exports = {
         },
     },
 
-    /*beforeCreate: function(model, next){
+    beforeCreate: function(model, next){
         //only one react per user per post or per votevote or bill or vote or committee member join
-        BillVote.find({user: model.user, bill:model.bill, vote:model.vote})
-        .then(function(billVote){
-            if (billVote.length == 0){
-                return next(null, billVote);
+        Reaction.find({user: model.user, postModel:model.postModel, voteVote:model.voteVote})
+        .then(function(reactionModel){
+            if (reactionModel.length == 0){
+                return next(null, reactionModel);
             }
             else{
-                if(billVote[0].voteInteger != model.voteInteger){  
-                    VoteVote.update({id: billVote[0].id}, model)
+                if(reactionModel[0].reaction != model.reaction){  
+                    Reaction.update({id: reactionModel[0].id}, model)
                     .then(function(model){
-                        BillVote.publishUpdate(model[0].id, model);
+                        Reaction.publishUpdate(reactionModel[0].id, model);
                     });
                 }
             }
         });
-    },*/
+    },
 
     afterCreate: function(model, next){
 
