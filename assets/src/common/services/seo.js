@@ -8,6 +8,9 @@ angular.module('services.seo', [])
     },
     setKeywords: function(keywords) {
       return $window.document.getElementsByName('keywords')[0].content = keywords;
-    }
+    },
+    //setImage: function(imageUrl) {
+    //  $window.document.getElementsByName('twitter:image')[0].content = imageUrl;
+    //}
   };
 }]);

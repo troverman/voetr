@@ -30,7 +30,7 @@
                         <!--need to be verified to send a physical letter-->
                         <button ng-click="" type="submit" class="btn btn-default"><i class="fa fa-picture-o"></i> letter</button>
                     </div>
-                    <button style="wdith:100%" ng-click="" type="submit" class="btn btn-default pull-right"><i class="fa fa-paper-plane"></i> Submit</button>
+                    <button style="width:100%" ng-click="createPost()" type="submit" class="btn btn-default pull-right"><i class="fa fa-paper-plane"></i> Submit</button>
                 </form>
             </div>
         </div>
@@ -89,7 +89,7 @@
                     <md-input-container class="md-block">
                         <textarea ng-model="result.newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
                     </md-input-container>
-                    <button ng-click="createPost(result)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+                    <button style="width:100%" ng-click="createPost(result)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
                 </form>
             </div>
         </div>
@@ -139,7 +139,7 @@
                     <md-input-container class="md-block">
                         <textarea ng-model="result.newPost.post" rows="5" md-select-on-focus aria-label="new post" placeholder=""></textarea>
                     </md-input-container>
-                    <button ng-click="createPost(result)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
+                    <button style="width:100%" ng-click="createPost(result)" type="submit" class="btn btn-default"><i class="fa fa-paper-plane"></i> Submit</button>
                 </form>
             </div>
 

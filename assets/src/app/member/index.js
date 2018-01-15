@@ -207,8 +207,9 @@ angular.module( 'voetr.member', [
     $scope.user = user;
 
     $scope.reply = function(result){
+        console.log(result, $scope.results)
         var index = $scope.results.map(function(obj){return obj.id}).indexOf(result.id);
-        $scope.results[index].showReply = !$scope.posts[index].showReply
+        $scope.results[index].showReply = !$scope.results[index].showReply;
     };
 
 
@@ -217,9 +218,24 @@ angular.module( 'voetr.member', [
     $scope.createPost = function(){
         if($scope.currentUser){
             $scope.newPost.user = $scope.currentUser.id;
-            $scope.newPost.profile = $scope.member.id
+            $scope.newPost.profile = $scope.member.id;
+            console.log($scope.newPost);
             PostModel.create($scope.newPost).then(function(model){
                 $scope.newPost = {};
+            });
+        }
+        else{$location.path('/login')}
+    };
+
+
+    $scope.createReaction = function(post, reaction){
+        if($scope.currentUser){
+            $scope.newReaction.postModel = post.id;
+            $scope.newReaction.reaction = reaction;
+            $scope.newReaction.user = $scope.currentUser.id;
+            console.log($scope.newReaction)
+            ReactionModel.create($scope.newReaction).then(function(){
+                $scope.newReaction = {};
             });
         }
         else{$location.path('/login')}

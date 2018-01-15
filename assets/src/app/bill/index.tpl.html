@@ -5,11 +5,12 @@
 		<div ng-repeat="committeeBill in committees">
 			<p><a href="committee/{{committeeBill.committee.urlTitle}}" class="grey">{{committeeBill.committee.title}}</a></p>
 		</div>
-		<!--<div class="row">
+		<br>
+		<div class="row">
 			<button class="col-xs-6 btn btn-default upVote" ng-click="createVote(1)"><i class="fa fa-caret-up"></i> {{vote.plusCount}}</button>
         	<button class="col-xs-6 btn btn-default downVote" ng-click="createVote(-1)"><i class="fa fa-caret-down"></i> {{vote.minusCount}}</button>
     	</div>
-    	<div class="spacing-10"></div>-->
+    	<div class="spacing-10"></div>
 		<uib-tabset>
 			<uib-tab heading="Info" active="active">
 			    <div class="spacing-10"></div>

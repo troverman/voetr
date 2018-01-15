@@ -37,7 +37,8 @@ angular.module( 'voetr.search', [
                 return UserModel.getCount();
             }],
             votes: ['VoteModel', function(VoteModel){
-                return VoteModel.getSome(10, 0, 'voteCount DESC');
+                return [];
+                //return VoteModel.getSome(10, 0, 'voteCount DESC');
             }],
         }
     })

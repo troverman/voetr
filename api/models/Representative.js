@@ -18,7 +18,6 @@ module.exports = {
         },
         committee: {
             model: 'committee',
-            //required: true
         }
     },
 
@@ -54,6 +53,7 @@ module.exports = {
         return Representative.findOne(id)
         .populate('representative')
         .populate('constituent')
+        .populate('committee')
         .then(function (model) {
             return [model];
         });
@@ -64,6 +64,7 @@ module.exports = {
         .sort({createdAt: 'desc'})
         .populate('representative')
         .populate('constituent')
+        .populate('committee')
         .where({constituent: constituent})
         .then(function (model) {
             return [model];
@@ -75,6 +76,7 @@ module.exports = {
         .sort({createdAt: 'desc'})
         .populate('representative')
         .populate('constituent')
+        .populate('committee')
         .where({representative: representative})
         .then(function (model) {
             return [model];

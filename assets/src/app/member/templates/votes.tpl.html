@@ -14,7 +14,7 @@
 			<div class="clearfix"></div>
     		<a href="/vote/{{vote.vote.id}}"><h4>{{vote.vote.title}}</h4></a>
 			<div class="spacing-10"></div>
-			<a href="/bill/{{result.bill.id}}/{{result.bill.title}}"><i class="fa fa-file-text-o"></i> {{vote.bill.title}}</a>
+			<a href="/bill/{{vote.bill.id}}/{{vote.bill.title}}"><i class="fa fa-file-text-o"></i> {{vote.bill.title}}</a>
 			<div class="spacing-10"></div>
             <button ng-class="{'upVoted': vote.voteString=='Yes' || vote.voteString=='Yea'}" class="btn btn-default upVote col-xs-6" ng-click="createVote(1, vote)"><i class="fa fa-angle-up"></i>  {{vote.vote.plusCount}}</button>
             <button ng-class="{'downVoted': vote.voteString=='No' || vote.voteString=='Nay'}" class="btn btn-default downVote col-xs-6" ng-click="createVote(-1, vote)"><i class="fa fa-angle-down"></i>  {{vote.vote.minusCount}}</button>

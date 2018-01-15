@@ -456,7 +456,7 @@ module.exports.intervalService = function(){
 			if(model[x].ocdDivision){
 				delay++;
 				setTimeout(function() {
-					getRepsByGeo(model[x].ocdDivision, model[x])
+					//getRepsByGeo(model[x].ocdDivision, model[x])
 				}, delay*10000);
 				//if(model[x].ocdDivision.includes("place")){
 					//console.log(model[x].ocdDivision);
@@ -472,7 +472,7 @@ module.exports.intervalService = function(){
 		(function(string, x) {
 			setTimeout(function() {
 				Committee.find({parent:'589d5cb5771e7fecb9300213', title:states[Object.keys(states)[x]]}).then(function(model){
-					recursive(model[0], string);
+					//recursive(model[0], string);
 					//console.log(model);
 					//getRepsByGeo(string, model[0]);
 					//Committee.update({id:model[0].id}, {ocdDivision: string}).then(function(model){console.log(model)})
