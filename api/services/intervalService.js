@@ -534,8 +534,7 @@ module.exports.intervalService = function(){
 	//uk
 	//dataService.getGeoNamesByParent(2635167, '589d5eecccfbd7ecba2937f0', 'voetr5', -1);
 
-	//setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
-
+	setInterval(dataService.federalBillsProPublica.bind(null, 0), 14400000);
 	//populateBills();
 	//populateStateBills();
 
