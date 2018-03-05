@@ -1,8 +1,0 @@
-<div class="container">
-	<h3 ng-show="bills.length == 0">{{member.username}} has not submitted any bills</h3>
-    <md-card ng-repeat="bill in bills">
-    	{{bill.title}}
-    </md-card>
-    <div class="spacing-10"></div>
-	<button ng-show="bills.length != billCount" ng-click="loadMore()" class="btn btn-default col-xs-10 col-xs-offset-1">MORE <i class="fa fa-angle-down"></i></button>
-</div>
