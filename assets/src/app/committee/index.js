@@ -134,7 +134,7 @@ angular.module( 'voetr.committee', [
 .controller( 'CommitteeCtrl', ['$location', '$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'titleService', function CommitteeCtrl( $location, $sailsSocket, $scope, committee, CommitteeMemberModel, config, titleService) {
     $scope.committee = committee;
     $scope.currentUser = config.currentUser;
-    titleService.setTitle(committee.title + ' - voetr');
+    titleService.setTitle(committee.title + ' | voetr');
     if (committee == undefined){$location.url('committees')};
     $scope.editCommitteeToggle = false;
     $scope.billCount = 0;
@@ -345,7 +345,7 @@ angular.module( 'voetr.committee', [
 }])
 
 .controller( 'CommitteeMemberCtrl', ['$sailsSocket', '$scope', 'committee', 'CommitteeMemberModel', 'config', 'memberCount', 'members', 'titleService', function CommitteeMemberCtrl( $sailsSocket, $scope, committee, CommitteeMemberModel, config, memberCount, members, titleService) {
-    titleService.setTitle(committee.title + ' Members - voetr');
+    titleService.setTitle(committee.title + ' Members | voetr');
     $scope.currentUser = config.currentUser;
     $scope.committee = committee;
     $scope.memberCount = memberCount.committeeMemberCount;

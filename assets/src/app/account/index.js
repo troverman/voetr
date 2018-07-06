@@ -19,7 +19,7 @@ angular.module( 'voetr.account', [
 }])
 
 .controller( 'AccountCtrl', ['$location', '$rootScope', '$scope', 'config', 'titleService', 'user', 'UserModel', 'Upload', function AccountController( $location, $rootScope, $scope, config, titleService, user, UserModel, Upload ) {
-	titleService.setTitle('account - voetr');
+	titleService.setTitle('account | voetr');
 	$scope.currentUser = config.currentUser;
     if (!$scope.currentUser){$location.path('/')};
 

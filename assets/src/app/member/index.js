@@ -200,7 +200,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberActivityCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'PostModel', 'RepresentativeModel', 'results', 'SearchModel', 'titleService', 'user', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, PostModel, RepresentativeModel, results, SearchModel, titleService, user) {
-	titleService.setTitle(member.username + ' - voetr');
+	titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
 	$scope.member = member;
     $scope.results = results;
@@ -279,7 +279,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberBillsCtrl', ['$rootScope', '$sailsSocket', '$scope', 'BillModel', 'bills', 'CommitteeMemberModel', 'config', 'member', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, CommitteeMemberModel, bills, CommitteeMemberModel, config, member, titleService ) {
-    titleService.setTitle(member.username + ' - voetr');
+    titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.bills = bills;
@@ -307,7 +307,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberCommitteesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'committeeCount', 'CommitteeMemberModel', 'committees', 'config', 'member', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, committeeCount, CommitteeMemberModel, committees, config, member, titleService ) {
-    titleService.setTitle(member.username + ' - voetr');
+    titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.committeeCount = committeeCount.committeeMemberCount;
@@ -337,7 +337,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberConstituentsCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'constituentCount', 'constituents', 'member', 'RepresentativeModel', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, config, constituentCount, constituents, member, RepresentativeModel, titleService ) {
-    titleService.setTitle(member.username + ' - voetr');
+    titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.constituentCount = constituentCount.constituentCount;
@@ -372,7 +372,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberEditCtrl', ['$location', '$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'titleService', 'Upload', 'user', 'UserModel', function MemberController( $location, $rootScope, $sailsSocket, $scope, config, member, titleService, Upload, user, UserModel ) {
-    titleService.setTitle(member.username + ' - voetr');
+    titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
 
@@ -489,7 +489,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberRepresentativesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'representativeCount', 'RepresentativeModel', 'representatives', 'titleService', function MemberController( $rootScope, $sailsSocket, $scope, config, member, representativeCount, RepresentativeModel, representatives, titleService ) {
-    titleService.setTitle(member.username + ' - voetr');
+    titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.representativeCount = representativeCount.representativeCount;
@@ -523,7 +523,7 @@ angular.module( 'voetr.member', [
 }])
 
 .controller( 'MemberVotesCtrl', ['$rootScope', '$sailsSocket', '$scope', 'config', 'member', 'titleService', 'voteCount', 'votes', 'VoteVoteModel', function MemberController( $rootScope, $sailsSocket, $scope, config, member, titleService, voteCount, votes, VoteVoteModel ) {
-    titleService.setTitle(member.username + ' - voetr');
+    titleService.setTitle(member.username + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.member = member;
     $scope.voteCount = voteCount.voteCount;
@@ -540,7 +540,7 @@ angular.module( 'voetr.member', [
     };
 
     //not final
-     $sailsSocket.subscribe('votevote', function (envelope) {
+    $sailsSocket.subscribe('votevote', function (envelope) {
         console.log(envelope)
         switch(envelope.verb) {
             case 'created':

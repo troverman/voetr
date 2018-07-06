@@ -22,7 +22,7 @@ angular.module( 'voetr.members', [
 }])
 
 .controller( 'MembersCtrl', ['$location', '$rootScope', '$scope', '$sailsSocket', 'config', 'RepresentativeModel', 'titleService', 'UserModel', 'users', function MembersCtrl( $location, $rootScope, $scope, $sailsSocket, config, RepresentativeModel, titleService, UserModel, users) {
-	titleService.setTitle('members - voetr');
+	titleService.setTitle('members | voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.skip = 0;
     $scope.users = users;

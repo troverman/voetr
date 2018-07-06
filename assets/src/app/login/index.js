@@ -14,7 +14,7 @@ angular.module( 'voetr.login', [
 }])
 
 .controller( 'LoginCtrl', ['$location', '$scope', 'config', 'titleService', function LoginController( $location, $scope, config, titleService ) {
-	titleService.setTitle('login - voetr');
+	titleService.setTitle('login | voetr');
 	$scope.currentUser = config.currentUser;
 	if ($scope.currentUser){$location.path('/')};
 }]);

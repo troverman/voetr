@@ -13,6 +13,61 @@ module.exports = {
 		var startDate = new Date();
 		var endDate = new Date();
 
+		//sails.getDatastore();
+		//var db = Pet.getDatastore().manager;
+		//Now we can do anything we could do with a Mongo `db` instance:
+		//var rawMongoCollection = db.collection(Pet.tableName);
+
+		/*
+		db.doc1.aggregate([
+		    { $match: { _id: ObjectId("5901a4c63541b7d5d3293766") } },
+		    {
+		        $lookup:
+		        {
+		            from: "doc2",
+		            localField: "_id",
+		            foreignField: "userId",
+		            as: "address"
+		        }
+		    },
+		    {
+		        $unwind: "$address"
+		    },
+		    {
+		        $project: {
+		            __v: 0,
+		            "address.__v": 0,
+		            "address._id": 0,
+		            "address.userId": 0,
+		            "address.mob": 0
+		        }
+		    },
+		    {
+		        $lookup:
+		        {
+		            from: "doc3",
+		            localField: "_id",
+		            foreignField: "userId",
+		            as: "social"
+		        }
+		    },
+		    {
+		        $unwind: "$social"
+		    },
+
+		  {   
+		    $project: {      
+		           __v: 0,      
+		           "social.__v": 0,      
+		           "social._id": 0,      
+		           "social.userId": 0
+		       }
+		 }
+
+		]).pretty();
+		*/
+
+
 		//startDate.setMonth(startDate.getDay() - 7);
 		//var createdAt = { '>': startDate, '<': endDate };
 		//limit date -

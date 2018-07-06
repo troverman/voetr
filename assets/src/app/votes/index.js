@@ -20,7 +20,7 @@ angular.module( 'voetr.votes', [
 }])
 
 .controller( 'VotesCtrl', ['$location', '$rootScope', '$scope', '$sailsSocket', 'config', 'titleService', 'VoteModel', 'votes', 'VoteVoteModel', function VotesCtrl( $location, $rootScope, $scope, $sailsSocket, config, titleService, VoteModel, votes, VoteVoteModel) {
-	titleService.setTitle('votes - voetr');
+	titleService.setTitle('votes | voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.newVote = {};
 	$scope.skip = 0;

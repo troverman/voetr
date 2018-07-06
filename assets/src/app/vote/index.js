@@ -47,7 +47,7 @@ angular.module( 'voetr.vote', [
 }])
 
 .controller( 'VoteCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'lodash', 'myRepresentatives', 'PostModel', 'posts', 'results', 'titleService', 'user', 'vote', 'votes', 'VoteVoteModel', function VoteController( $location, $sailsSocket, $scope, config, lodash, myRepresentatives, PostModel, posts, results, titleService, user, vote, votes, VoteVoteModel) {
-	titleService.setTitle(vote.title + '- voetr');
+	titleService.setTitle(vote.title + ' | voetr');
     $scope.currentUser = config.currentUser;
     $scope.noVotes = votes.filter(function(obj){return obj.voteInteger == -1});
     $scope.myRepresentatives = myRepresentatives;

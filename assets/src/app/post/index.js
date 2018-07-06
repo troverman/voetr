@@ -23,7 +23,7 @@ angular.module( 'voetr.post', [
 }])
 
 .controller( 'PostCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'post', 'postChildren', 'PostModel', 'ReactionModel', 'titleService', function PostController( $location, $sailsSocket, $scope, config, post, postChildren, PostModel, ReactionModel, titleService ) {
-	titleService.setTitle('post - voetr');
+	titleService.setTitle('post | voetr');
 	$scope.currentUser = config.currentUser;
 	$scope.newReaction = {};
 	$scope.post = post;

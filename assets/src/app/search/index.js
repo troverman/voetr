@@ -19,6 +19,7 @@ angular.module( 'voetr.search', [
                 templateUrl: 'search/index.tpl.html'
             }
         },
+        //TODO: LOL!
         resolve: {
             searchResults: ['SearchModel', function(SearchModel) {
                 return SearchModel.getTrending();
@@ -50,6 +51,7 @@ angular.module( 'voetr.search', [
                 templateUrl: 'search/index.tpl.html'
             }
         },
+        //TODO: LOL!
         resolve: {
             //restructure to commitee search, bill search, memeber search etccccc
             searchResults: ['$stateParams', 'SearchModel', function($stateParams, SearchModel) {
@@ -78,7 +80,7 @@ angular.module( 'voetr.search', [
 .controller( 'SearchController', ['$rootScope', '$scope', '$stateParams', 'bills', 'committees', 'config', 'lodash', 'RepresentativeModel', 'searchResults', 'SearchModel', 'titleService', 'userCount', 'users', 'votes', function SearchController( $rootScope, $scope, $stateParams, bills, committees, config, lodash, RepresentativeModel, searchResults, SearchModel, titleService, userCount, users, votes ) {
     $scope.searchQuery = $stateParams.searchQuery;
     if (typeof $scope.searchQuery != "undefined" && $scope.searchQuery != ''){titleService.setTitle($scope.searchQuery + ' - voetr');}
-    else{titleService.setTitle('search - voetr');}
+    else{titleService.setTitle('search | voetr');}
     $scope.bills = bills;
     $scope.committees = committees;
     $scope.searchResults = searchResults;

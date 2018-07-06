@@ -48,7 +48,7 @@ angular.module( 'voetr.votevote', [
 }])
 
 .controller( 'VoteVoteCtrl', ['$location', '$sailsSocket', '$scope', 'config', 'lodash', 'myRepresentatives', 'PostModel', 'posts', 'results', 'titleService', 'user', 'vote', 'votes', 'VoteVoteModel', function VoteController( $location, $sailsSocket, $scope, config, lodash, myRepresentatives, PostModel, posts, results, titleService, user, vote, votes, VoteVoteModel) {
-	titleService.setTitle(vote.title + '- voetr');
+	titleService.setTitle(vote.title + ' | voetr');
 
     $sailsSocket.subscribe('votevote', function (envelope) {
         switch(envelope.verb) {

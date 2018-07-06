@@ -19,7 +19,7 @@ angular.module( 'voetr.committees', [
 }])
 
 .controller( 'CommitteesCtrl', ['$rootScope', '$scope', '$sailsSocket', 'CommitteeModel', 'committees', 'config', 'lodash', 'titleService', function CommitteesController( $rootScope, $scope, $sailsSocket, CommitteeModel, committees, config, lodash, titleService) {
-	titleService.setTitle('committees - voetr');
+	titleService.setTitle('committees | voetr');
     $scope.committees = committees;
     $scope.currentUser = config.currentUser;
     $scope.newCommittee = {};

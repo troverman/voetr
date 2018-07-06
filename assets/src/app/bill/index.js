@@ -43,7 +43,7 @@ angular.module( 'voetr.bill', [
 }])
 
 .controller( 'BillCtrl', ['$location', '$sailsSocket', '$sce', '$scope', 'bill', 'BillModel', 'committees', 'config', 'lodash', 'PostModel', 'posts', 'ReactionModel', 'seoService', 'titleService', 'user', 'VoteModel', 'votes', 'VoteVoteModel', function BillController( $location, $sailsSocket, $sce, $scope, bill, BillModel, committees, config, lodash, PostModel, posts, ReactionModel, seoService, titleService, user, VoteModel, votes, VoteVoteModel ) {
-	titleService.setTitle(bill.title + ' - voetr');
+	titleService.setTitle(bill.title + ' | voetr');
     seoService.setDescription(bill.title);
     seoService.setKeywords('bill, voetr, votes, legislation');
 

@@ -19,7 +19,7 @@ angular.module( 'voetr.bills', [
 }])
 
 .controller( 'BillsCtrl', ['$rootScope', '$scope', '$sailsSocket', 'BillModel', 'bills', 'config', 'titleService',  function BillsCtrl( $rootScope, $scope, $sailsSocket, BillModel, bills, config, titleService) {
-	titleService.setTitle('bills - voetr');
+	titleService.setTitle('bills | voetr');
 	$scope.currentUser = config.currentUser;
     $scope.bills = bills;
 	$scope.skip = 0;
