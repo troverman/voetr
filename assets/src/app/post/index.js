@@ -67,10 +67,6 @@ angular.module( 'voetr.post', [
 					//postModel[x]--childId
 					//post--parentid
 
-					//var lol = function(){
-						//lol()
-					//}
-
 					//$scope.posts[index].children[index1].children[index2].children....
 
 					$scope.postChildren[index].children = [];

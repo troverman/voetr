@@ -69,6 +69,10 @@ var AuthController = {
    */
   logout: function (req, res) {
     req.logout();
+    
+    // mark the user as logged out for auth purposes
+    req.session.authenticated = false;
+    
     res.redirect('/');
   },
 
@@ -151,18 +155,21 @@ var AuthController = {
       }
     }
 
-    passport.callback(req, res, function (err, user) {
-      if (err) {
-        return tryAgain();
+    passport.callback(req, res, function (err, user, challenges, statuses) {
+      if (err || !user) {
+        return tryAgain(challenges);
       }
 
       req.login(user, function (err) {
         if (err) {
-          return tryAgain();
+          return tryAgain(err);
         }
-
+        
+        // Mark the session as authenticated to work with default Sails sessionAuth.js policy
+        req.session.authenticated = true
+        
         // Upon successful login, send the user to the homepage were req.user
-        // will available.
+        // will be available.
         res.redirect('/');
       });
     });

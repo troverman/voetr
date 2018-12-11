@@ -73,7 +73,6 @@ angular.module( 'voetr.home', [
     })
 
 }])
-
 .controller( 'HomeCtrl', ['$scope', '$state', 'config', 'titleService', function HomeController( $scope, $state, config, titleService ) {
 	titleService.setTitle('voetr');
 	$scope.currentUser = config.currentUser;

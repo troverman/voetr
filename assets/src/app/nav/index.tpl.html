@@ -1,62 +1,153 @@
 <style>
+
+
     .nav{font-family: sans-serif;font-size:18px;}
     .navbar-brand{font-family: sans-serif;font-size:18px;}
-    .navbar-inverse{background-color:rgba(255,255,255,1);border-color:#e1e1e1;}
-    .navbar-inverse .navbar-nav > li >a, .navbar-inverse .navbar-text{color:#424242}
-    .navbar-inverse .navbar-nav > li > a:focus{color:#424242}
-    .navbar-inverse .navbar-brand{color:#424242}
-    .navbar-inverse .navbar-brand:focus{color:#424242}
-    .navbar-inverse .navbar-toggle {border-color: white;}
-    .navbar-inverse .navbar-toggle .icon-bar{background-color:#424242;}
-    .navbar-inverse .navbar-toggle:hover .icon-bar{background-color:#fff;}
-    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {color:#717171; background-color:#e1e1e1;}
+    .navbar-custom{background-color:rgba(255,255,255,1);border-color:#e1e1e1;}
+    .navbar-custom .navbar-nav > li >a, .navbar-custom .navbar-text{color:#424242}
+    .navbar-custom .navbar-nav > li > a:focus{color:#424242}
+    .navbar-custom .navbar-brand{color:#424242}
+    .navbar-custom .navbar-brand:focus{color:#424242}
+    .navbar-custom .navbar-toggle {border-color: white;}
+    .navbar-custom .navbar-toggle .icon-bar{background-color:#424242;}
+    .navbar-custom .navbar-toggle:hover .icon-bar{background-color:#000;}
+
+
+    .navbar-toggle{border-radius:0px;}
+    .navbar-custom .navbar-toggle{border-color:white;}
+
+    .navbar-custom .navbar-nav > .open > a, .navbar-custom .navbar-nav>.open>a:focus, .navbar-custom .navbar-nav>.open>a:hover {color:#717171; background-color:#e1e1e1;}
+    .nav-links{font-size:22px;}
     md-progress-linear .md-container {background-color: #e1e1e1!important;}
     .container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse{margin-right:0px!important;margin-left:0px!important}
+
+
 </style>
-<div ng-controller="NavCtrl" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="margin-right:0px;padding:9px 15px">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><i style="color:#2ab996" class="fa fa-check"></i>oetr</a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li ng-show="!currentUser"><a href="/about">about</a></li>
-                <li><a href="/search">discover</a></li>
-                <form class="navbar-form pull-left" role="search" action="/search/" onSubmit=" location.href = 'search/' + document.getElementById('search-link').value; return false;">
-                    <div class="form-group" style="font-size:20px">
-                        <input ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
+<div ng-controller="NavCtrl" role="navigation">
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="nav" md-is-locked-open="false" style="position:fixed;background-color:white">
+        <div class="md-list-item-text" layout="column" style="height:100%;">
+            <div style="text-align:center">
+
+                <div class="spacing-25"></div>
+
+                <form style="padding:15px;" role="search" action="/search/" onSubmit="location.href = 'search/' + document.getElementById('search-link').value; return false;">
+                    <div class="form-group">
+                        <input class="form-control" style="margin-top:3px;border-radius:3px;" ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
                     </div>
                 </form>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" ng-show="currentUser">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        {{currentUser.username}} <span class="fa fa-angle-down"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="/member/{{currentUser.username}}">
-                                <img style="height:32px;width:32px;border-radius:3px" src="{{currentUser.avatarUrl}}"/> {{currentUser.username}}
-                            </a>
-                        </li>
-                        <li><a href="/account">account</a></li>
-                        <li><a href="#">0 notifications</a></li>
-                        <li><a href="#">settings</a></li>
 
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/logout">log out</a></li>
-                    </ul>
-                </li>
-                <li ng-show="!currentUser"><a href="/register">register</a></li>
-                <li ng-show="!currentUser"><a href="/login">login</a></li>
-            </ul>
+                <h2 ng-show="!currentUser" class="nav-links" style="padding:16px;"><a href="/about">About</a></h2>
+                <h2 class="nav-links" ng-show="currentUser" style="padding:16px;"><a href="member/{{currentUser.username}}">{{currentUser.username}}</a></h2>
+                <h2 class="nav-links" style="padding:16px;"><a href="/search">Discover</a></h2>
+                <h2 class="nav-links" style="padding:16px;"><a href="/bills">Bills</a></h2>
+                <h2 class="nav-links" style="padding:16px;"><a href="/committees">Committees</a></h2>
+                <h2 class="nav-links" style="padding:16px;"><a href="/votes">Votes</a></h2>
+                <h2 ng-show="currentUser" class="nav-links" style="padding:16px;"><a href="/notifications">Notifications</a></h2>
+                <h2 ng-show="currentUser" class="nav-links" style="padding:16px;"><a href="/account">Settings</a></h2>
+                <h2 ng-show="currentUser" class="nav-links" style="padding:16px;"><a href="/logout">Logout</a></h2>
+                <h2 ng-show="!currentUser" class="nav-links" style="padding:16px;"><a href="/login">Login</a></h2>
+                <h2 ng-show="!currentUser" class="nav-links" style="padding:16px;"><a href="/register">Register</a></h2>
+
+                <h2 class="nav-links" style="padding:16px;"><a href="/"><i style="color:#2ab996;font-size:50px" class="fa fa-check"></i></a></h2>
+
+            </div>
         </div>
+    </md-sidenav>
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="login" md-is-locked-open="false" style="position:fixed;background-color:white;width:70%;max-width:100%">
+        <div class="md-list-item-text" layout="column" style="height:100%;">
+            <div class="spacing-25"></div>
+            <!--<div class="page-heading" style="background:#24242e;color:white;text-align:center">
+                <div class="spacing-25"></div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <h1>Login | Welcome back!</h1>
+                    </div>
+                </div>
+                <div class="spacing-25"></div>
+            </div>-->
+            <div class="imageContainerSmall">
+                <video class='flexible' autoplay="autoplay" muted="muted" preload="auto" loop="loop"><source src="https://s3-us-west-2.amazonaws.com/voetr/washington.mp4" type="video/mp4" playsinline></video>
+                <div class="imageContainerSmallDiv">  
+                    <h1 style="text-align:center">Login | Welcome back!</h1>
+                </div>
+            </div>
+            <div class="spacing-25"></div>
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="login-form">
+                        <form role="form" method="post" action="/auth/local">
+                            <div class="form-group">
+                                <input class="form-control" name="identifier" placeholder="Email or Username" title="Username" type="text"> 
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="form-group log-status">
+                                <input class="form-control" type="password" name="password" placeholder="Password" title="password"> 
+                                <i class="fa fa-lock"></i>
+                            </div>
+                            <div class="align-right">
+                                <button class="btn btn-default log-btn" type="submit" value="submit">Sign in</button>
+                            </div>
+                            <br><br>
+                            <div class="social-log">
+                                <a style="text-align:center" href="/register"><h4>Need an Account?</h4></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-sidenav>
+    
+    <div class="navbar navbar-custom navbar-fixed-top header" role="navigation">
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-click="navToggle()" style="margin-right:0px;padding:9px 15px">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><i style="color:#2ab996" class="fa fa-check"></i>oetr</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-show="!currentUser"><a href="/about">about</a></li>
+                    <li><a href="/search">discover</a></li>
+                    <form class="navbar-form pull-left" role="search" action="/search/" onSubmit=" location.href = 'search/' + document.getElementById('search-link').value; return false;">
+                        <div class="form-group" style="font-size:20px">
+                            <input ng-keyup="keyPress(searchValue)" ng-model="searchValue" id="search-link" size="40" type="text" placeholder="">
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" ng-show="currentUser">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{currentUser.username}} <span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/member/{{currentUser.username}}">
+                                    <img style="height:32px;width:32px;border-radius:3px" src="{{currentUser.avatarUrl}}"/> {{currentUser.username}}
+                                </a>
+                            </li>
+                            <li><a href="/account">account</a></li>
+                            <li><a href="#">0 notifications</a></li>
+                            <li><a href="#">settings</a></li>
+
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">log out</a></li>
+                        </ul>
+                    </li>
+                    <li ng-show="!currentUser"><a href="/register">register</a></li>
+                    <li ng-show="!currentUser" ng-click="loginToggle()" ><a>login</a></li>
+                </ul>
+            </div>
+        </div>
+
     </div>
+
     <md-progress-linear ng-if="stateIsLoading" md-mode="indeterminate"></md-progress-linear>
 </div>
