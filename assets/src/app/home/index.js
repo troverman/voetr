@@ -28,7 +28,7 @@ angular.module( 'voetr.home', [
             }],
             users: ['userCount', 'UserModel', function(userCount, UserModel){
             	var rand = Math.floor(Math.random() * (userCount.userCount + 1));
-				return UserModel.getSome(33, rand);
+				return UserModel.getSome(21, rand);
             }],
             userCount: ['UserModel', function(UserModel){
 				return UserModel.getCount();

@@ -4,37 +4,33 @@
         <h1 style="">Create Empowerment, Change Consensus</h1>
     </div>
 </div>
+
 <div id="about">
+    
     <div id="information">
         <div class="container">
-
             <div class="">
-
                 <div class="col-md-12">
                     <div class="spacing-100"></div>
                 </div>
-
                 <div class="col-md-6">
                     <i style="font-size:256px;" class="fa fa-bullhorn"></i>
                 </div>
                 <div class="col-md-6">
-                    <h1>Be Part of the Movement</h1>
+                    <h2>Be Part of the Movement</h2>
                     <h4>Direct your impact though input on policy</h4>
                     <h4>Create Constituent Coalitions</h4>
                     <br><br>
-                    <a style="width:100%" href="/about" class="btn btn-default">Learn More</a>
+                    <a style="width:100%" href="/about" ui-sref="about" class="btn btn-default log-btn">Learn More</a>
                 </div>
-
                 <div class="col-md-12">
                     <div class="spacing-100"></div>
                 </div>
-
             </div>
         </div>
     </div>
 
     <div id="register">
-            
         <div class="log-background">
             <div class="log-form">
                 <h2><span class="inline-logo"><i style="color:#2ab996" class="fa fa-check"></i>oetr</span></h2>
@@ -57,99 +53,97 @@
                         </div>
                         <br><br>
                         <div class="social-log">
-                            <a style="text-align:center" href="/login"><h4>Already Have an Account?</h4></a>
+                            <a style="text-align:center" href="/login" ui-sref="login"><h4>Already Have an Account?</h4></a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div id="bills">
         <div class="container">
-
-            <h2><a href="/bills">Bills</a></h2>
-            <p>{{billCount}}</p>
+            <div style="background:url('https://source.unsplash.com/1600x900/?code,law,legal,legislation,legislator,senate,congress')" class="imageContainerSmall">
+                <div style="background:rgba(0,0,0,0.75)" class="imageContainerSmallDiv">  
+                    <div class="container" style="margin-top: auto;margin-bottom: auto;">
+                        <h1 style="text-align:left;font-size:35px;color:rgba(255,255,255,0.9);font-weight:400;"><a style="color:white" href="/bills" ui-sref="bills">Bills</a></h1>
+                        <h5><a style="color:white" href="/bills" ui-sref="bills"> {{billCount}}</a></h5>
+                    </div>
+                </div>
+            </div>
             <br><br>
-
-            <div class="row">
-
+            <div>
                 <md-card ng-repeat="bill in bills">
-
                     <md-card-title>
                         <md-card-title-text>
                         <h4>
                             <!--<button ng-class="{'upVoted': class=='upVote'}" class="btn btn-default upVote" ng-click="createVote(1, vote)"><i class="fa fa-caret-up"></i>  {{plusCount}}</button>
                             <button ng-class="{'downVoted': class=='downVote'}" class="btn btn-default downVote" ng-click="createVote(-1, vote)"><i class="fa fa-caret-down"></i>  {{minusCount}}</button>-->
-                            <a href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}"><i class="fa fa-file-text-o"></i> {{bill.title}}</a>
+                            <a href="bill/{{bill.id}}/{{bill.title.replace(' ','-')}}"><i class="fa fa-file-text-o"></i> {{bill.title}}</a>
                         </h4>
                         </md-card-title-text>
                     </md-card-title>
-
                     <div class="" style="padding: 8px 16px 8px;background-color: #f9f9f9">
                         <a style="padding:5px" href="#" class="grey"><i class="fa fa-angle-up"></i> {{post.plusCount}} like </a> 
                         <a style="padding:5px" href="#" class="grey"><i class="fa fa-angle-down"></i> {{post.minusCount}} dislike </a> 
                         <a style="padding:5px" href="#" class="grey"><i class="fa fa-comment-o"></i> comment </a>
                         <a style="padding:5px" href="#" class="grey"><i class="fa fa-share"></i> share </a>
-                        <a style="" class="pull-right" href="/bill/{{bill.id}}/{{bill.title.replace(' ','-')}}"><i class="fa fa-link grey"></i></a>
+                        <a style="" class="pull-right" href="bill/{{bill.id}}/{{bill.title.replace(' ','-')}}"><i class="fa fa-link grey"></i></a>
                     </div>
-
                 </md-card> 
-
             </div>
-
-            <div ng-click="loadMoreBills()" style="text-align:center">
-                <button style="margin-top:25px;" class="btn btn-default col-xs-12">MORE <i class="fa fa-angle-down"></i></button>
+            <div ng-click="loadMoreBills()" style="text-align:center" class="row">
+                <button style="margin-top:25px;" class="btn btn-default log-btn">MORE <i class="fa fa-angle-down"></i></button>
             </div>
-
         </div>
     </div>
 
     <div id="committees">
         <div class="container">
-
-            <h2><a href="/committees">Committees</a></h2>
-            <p>{{committeeCount}}</p>
+            <div style="background:url('https://source.unsplash.com/1600x900/?committee,code,government,congress,politics')" class="imageContainerSmall">
+                <div style="background:rgba(0,0,0,0.75)" class="imageContainerSmallDiv">  
+                    <div class="container" style="margin-top: auto;margin-bottom: auto;">
+                        <h1 style="text-align:left;font-size:35px;color:rgba(255,255,255,0.9);font-weight:400;"><a style="color:white" href="/committees" ui-sref="committees">Committees</a></h1>
+                        <h5><a style="color:white" href="/committees" ui-sref="committees"> {{committeeCount}}</a></h5>
+                    </div>
+                </div>
+            </div>     
             <br><br>
-
-            <div class="row">
-
-                <md-card ng-repeat="committee in committees" class="col-sm-12">
+            <div>
+                <md-card ng-repeat="committee in committees">
                     <md-card-title>
                         <md-card-title-text>
-                            <h4><a href="/committee/{{committee.urlTitle}}"><i class="fa fa-users" aria-hidden="true"></i> <span class="">{{committee.title}}</span></a></h4>
+                            <h4><a href="committee/{{committee.urlTitle}}" ui-sref="committee.activity({path:committee:urlTitle})"><i class="fa fa-users" aria-hidden="true"></i> <span class="">{{committee.title}}</span></a></h4>
                         </md-card-title-text>
                     </md-card-title>
                 </md-card>
-
             </div>
-
-            <div ng-click="loadMoreCommittees()" style="text-align:center">
-                <button style="margin-top:25px;" class="btn btn-default col-xs-12">MORE <i class="fa fa-angle-down"></i></button>
+            <div ng-click="loadMoreCommittees()" style="text-align:center" class="row">
+                <button style="margin-top:25px;" class="btn btn-default log-btn">MORE <i class="fa fa-angle-down"></i></button>
             </div>
-
         </div>
     </div>
 
     <div id="members">
         <div class="container">
-
-            <h2><a href="/members">Members</a></h2>
-            <p>{{userCount}}</p>
-            <br><br>
-
+            <div style="background:url('https://source.unsplash.com/1600x900/?congress,senate.people,code,government')" class="imageContainerSmall">
+                <div style="background:rgba(0,0,0,0.75)" class="imageContainerSmallDiv">  
+                    <div class="container" style="margin-top: auto;margin-bottom: auto;">
+                        <h1 style="text-align:left;font-size:35px;color:rgba(255,255,255,0.9);font-weight:400;"><a style="color:white" href="/members" ui-sref="members">Members</a></h1>
+                        <h5><a style="color:white" href="/members" ui-sref="members"> {{userCount}}</a></h5>
+                    </div>
+                </div>
+            </div>
+            <br>
             <div class="row">
-
                 <!--<button ng-show="!gettingRepresentatives" ng-click="getLatLng()" class="btn btn-default">find representatives</button><br>-->
-
                 <div class="col-lg-4 col-sm-6" ng-repeat="user in officialRepresentatives">
                     <div class="member-card">
                         <div class="image" style="background-image: url('{{user.coverUrl}}')">
-                            <a href="member/{{user.username}}"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
+                            <a href="member/{{user.username}}" ui-sref="member.activity({path:user.username})"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
                         </div>
                         <div class="info">
-                            <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
+                            <h4 class="name"><a href="member/{{user.username}}" ui-sref="member.activity({path:user.username})">{{user.username}}</a></h4>
                             <h5 class="position">{{user.title || 'voetr member'}}</h5>
                             <p>{{user.state}}</p>
                         </div>
@@ -161,15 +155,14 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-lg-4 col-sm-6" ng-repeat="user in users">
                     <div class="member-card">
                         <div class="image" style="background-image: url('{{user.coverUrl}}')">
-                            <a href="member/{{user.username}}"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
+                            <a href="member/{{user.username}}" ui-sref="member.activity({path:user.username})"><img ng-src="{{user.avatarUrl}}" err-src="/images/avatar.png"></a>
                         </div>
                         <div class="info">
-                            <h4 class="name"><a href="member/{{user.username}}">{{user.username}}</a></h4>
+                            <h4 class="name"><a href="member/{{user.username}}" ui-sref="member.activity({path:user.username})">{{user.username}}</a></h4>
                             <h5 class="position">{{user.title}}</h5>
                             <p>{{user.state}}</p>
                         </div>
@@ -180,15 +173,15 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            <div ng-click="loadMoreMembers()" style="text-align:center">
-                <button style="margin-top:25px;" class="btn btn-default col-xs-12">MORE <i class="fa fa-angle-down"></i></button>
+            <div ng-click="loadMoreMembers()" style="text-align:center" class="row">
+                <button style="margin-top:25px;" class="btn btn-default log-btn">MORE <i class="fa fa-angle-down"></i></button>
             </div>
-
         </div>
     </div>
+
 </div>
+
 <div class="spacing-15"></div>
+
 <div ng-include="'footer/index.tpl.html'"></div>

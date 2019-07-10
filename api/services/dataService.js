@@ -298,7 +298,7 @@ module.exports = {
 										var urlTitle = title.replace(/ /g,"-").replace(/,/g,"").replace(/"/g,"").replace(/'/g,"").replace(/\./g,"").toLowerCase();
 										var fullTextLink = 'https://api.fdsys.gov/link?collection=bills&billtype=' + type + '&billnum=' + number + '&congress=' + congress + '&link-type=html';
 										//https://www.congress.gov/115/bills/hr2810/BILLS-115hr2810enr.xml 
-										https://www.congress.gov/bill/115th-congress/house-bill/2810/committees
+										//https://www.congress.gov/bill/115th-congress/house-bill/2810/committees
 											
 										//https://www.gpo.gov/fdsys/pkg/BILLS-115sres37is/html/BILLS-115sres37is.htm
 										//'https://www.gpo.gov/fdsys/pkg/BILLS-'+congress+type+'/html/BILLS-'+congress+type+'.htm'

@@ -34,12 +34,8 @@ angular.module( 'voetr.search', [
                 var rand = Math.floor(Math.random() * (userCount.userCount + 1));
                 return UserModel.getSome(33, 0, 'constituentCount DESC');
             }],
-            userCount: ['UserModel', function(UserModel){
-                return UserModel.getCount();
-            }],
             votes: ['VoteModel', function(VoteModel){
                 return [];
-                //return VoteModel.getSome(10, 0, 'voteCount DESC');
             }],
         }
     })
@@ -53,7 +49,6 @@ angular.module( 'voetr.search', [
         },
         //TODO: LOL!
         resolve: {
-            //restructure to commitee search, bill search, memeber search etccccc
             searchResults: ['$stateParams', 'SearchModel', function($stateParams, SearchModel) {
                 return SearchModel.search($stateParams.searchQuery);
             }],
@@ -67,9 +62,9 @@ angular.module( 'voetr.search', [
                 var rand = Math.floor(Math.random() * (userCount.userCount + 1));
                 return UserModel.getSome(33, rand);
             }],
-            userCount: ['UserModel', function(UserModel){
-                return UserModel.getCount();
-            }],
+            //userCount: ['UserModel', function(UserModel){
+            //    return UserModel.getCount();
+            //}],
             votes: ['VoteModel', function(VoteModel){
                 return VoteModel.getSome(10, 0, 'createdAt DESC');
             }],
@@ -77,7 +72,8 @@ angular.module( 'voetr.search', [
     });
 }])
 
-.controller( 'SearchController', ['$rootScope', '$scope', '$stateParams', 'bills', 'committees', 'config', 'lodash', 'RepresentativeModel', 'searchResults', 'SearchModel', 'titleService', 'userCount', 'users', 'votes', function SearchController( $rootScope, $scope, $stateParams, bills, committees, config, lodash, RepresentativeModel, searchResults, SearchModel, titleService, userCount, users, votes ) {
+.controller( 'SearchController', ['$rootScope', '$scope', '$stateParams', 'bills', 'committees', 'config', 'lodash', 'RepresentativeModel', 'searchResults', 'SearchModel', 'titleService', 'users', 'votes', function SearchController( $rootScope, $scope, $stateParams, bills, committees, config, lodash, RepresentativeModel, searchResults, SearchModel, titleService, users, votes ) {
+   
     $scope.searchQuery = $stateParams.searchQuery;
     if (typeof $scope.searchQuery != "undefined" && $scope.searchQuery != ''){titleService.setTitle($scope.searchQuery + ' - voetr');}
     else{titleService.setTitle('search | voetr');}
@@ -86,10 +82,8 @@ angular.module( 'voetr.search', [
     $scope.searchResults = searchResults;
     $scope.gettingRepresentatives = false;
     $scope.officialRepresentatives = {};
-    $scope.userCount = userCount.userCount;
     $scope.users = users;
     $scope.votes = votes;
-
 
     $scope.keyPress = function(searchValue){
         $rootScope.stateIsLoading = true;
