@@ -1,6 +1,9 @@
-const request = require('request');
+const rp = require('request-promise');
 const openCongressApiKey = 'f6907ad0-1af4-4656-add7-657931b439ef';
 const propublicaApiKey = 'hkxQrlrF0ba6dZdSxJMIC4B60JxKMtmm8GR5YuRx';
+
+//TODO: REGISTERY OF CONSTANTS APP
+	//VOTE BY VALIDATION MAPS AND SUCH
 const states = {
     "AL": "Alabama",
     "AK": "Alaska",
@@ -62,6 +65,10 @@ const states = {
     "WI": "Wisconsin",
     "WY": "Wyoming"
 };
+
+//TODO: VOETR APP
+//TODO: OPEN FINANCE RE PROJECTS ~ 
+	//MAP APPROPIATE CONNECTIONS FOR VOTE-VOTES
 
 module.exports = {
 
@@ -1203,14 +1210,11 @@ module.exports = {
 					//userModel.-->twitter
 					//vote.bill
 					//vote
-					//
-					//
 					//break into positive and negative..!
 					var voteCount = await VoteVote.count().where({vote:vote.id});
 					console.log(voteCount)
 					//Bill--Vote
 					var billVote = await Vote.update({id: vote.id}, {voteCount:voteCount});
-
 				}
 			}
     	}      	

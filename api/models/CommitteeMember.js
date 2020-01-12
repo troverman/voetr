@@ -1,27 +1,9 @@
-/**
-* CommitteeMember.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
-
 module.exports = {
-
 	attributes: {
-        title: {
-            type: 'string',
-            required: true
-        },
-        committee: {
-            model: 'committee',
-            required: true
-        },
-        user: {
-            model: 'user',
-            required: true
-        }
+        title: {type: 'string',required: true},
+        committee: {model: 'committee', required: true},
+        user: {model: 'user', required: true}
     },
-
     beforeCreate: function(model, next){
         CommitteeMember.find({committee: model.committee, user:model.user})
         .then(function(committeeMember){
@@ -30,7 +12,6 @@ module.exports = {
             }
         });
     },
-
     afterCreate: function(model, next){
         CommitteeMember.count()
         .where({committee: model.committee})
@@ -50,26 +31,12 @@ module.exports = {
         });
         return next();
     },
-
     getOne: function(id) {
         return CommitteeMember.findOne(id)
-        .then(function (model) {
-            return model;
-        });
+        .then(function (model) {return model;});
     },
-
     getSome: function(filter, limit, skip, sort){
-        return CommitteeMember.find(filter)
-        .limit(limit)
-        .skip(skip)
-        .sort(sort)
-        .populate('committee')
-        .populate('user')
-        .then(function (model) {
-            return model;
-        });
+        return CommitteeMember.find(filter).limit(limit).skip(skip).sort(sort).populate('committee').populate('user')
+        .then(function (model) {return model;});
     },
-
 };
-
- 

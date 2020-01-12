@@ -1,144 +1,38 @@
-/**
- * VoteVoteController
- * @description :: Server-side logic for managing VoteVotes
- */
-
 module.exports = {
-
-	getSome: function(req, res) {
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		var filter = req.query.filter;
-		VoteVote.getSome(limit, skip, sort, filter)
-		.then(function(model) {
-			VoteVote.watch(req);
-			VoteVote.subscribe(req, model);
-			res.json(model);
-		});
+	get: async function(req, res){
+		var limit = req.query.limit || 1;
+		var skip = req.query.skip || 0;
+		var sort = req.query.sort || 'createdAt DESC';
+		var query = {};
+		if (req.query.id){query={id:req.query.id}}
+		if (req.query.bill){query={bill:req.query.bill}}
+		if (req.query.user){query={user:req.query.user}}
+		if (req.query.vote){query={vote:req.query.vote}}
+		if (req.query.filter){query = JSON.parse(JSON.stringify(req.query.filter))}
+		var models = await VoteVote.find(query).limit(limit).skip(skip).sort(sort);
+		res.json(models);
 	},
-
-	//getVote: function(req, res) {
-	//	VoteVote.find({vote:req.query.vote, bill:req.query.vote, user:req.query.vote})
-	//	.then(function(model) {
-	//		res.json(model);
-	//	});
-	//},
-
-	getByBill: function(req, res) {
-		//if req.query.bill...., if req.query.vote
-		var bill = req.query.bill
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		VoteVote.getByBill(bill)
-		.then(function(model) {
-			VoteVote.watch(req);
-			VoteVote.subscribe(req, model);
-			res.json(model);
-		})
-		.fail(function(err) {
-			res.send(404);
-		});
+	//FACTOR
+	getUserCount: async function(req, res) {
+		var voteCount = await VoteVote.count().where({user:req.param('id')})
+		res.json({ voteCount: voteCount });
 	},
-
-	getByVote: function(req, res) {
-		var vote = req.query.vote
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		console.log(vote)
-		VoteVote.getByVote(vote)
-		.then(function(model) {
-			VoteVote.watch(req);
-			VoteVote.subscribe(req, model);
-			res.json(model);
-		})
-		.fail(function(err) {
-			res.send(404);
-		});
-	},
-
-	getByUser: function(req, res) {
-		var user = req.query.user
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
-		VoteVote.getByUser(limit, skip, sort, user)
-		.then(function(model) {
-			VoteVote.watch(req);
-			VoteVote.subscribe(req, model);
-			res.json(model);
-		})
-		.fail(function(err) {
-			res.send(404);
-		});
-	},
-
-	getOne: function(req, res) {
-		VoteVote.getOne(req.param('id'))
-		.spread(function(model) {
-			VoteVote.subscribe(req, model);
-			res.json(model);
-		})
-		.fail(function(err) {
-			res.send(404);
-		});
-	},
-
-	getUserCount: function(req, res) {
-		VoteVote.count()
-		.where({user:req.param('id')})
-		.exec(function(err, voteCount) {
-			if (err) {return console.log(err);}
-			else{res.json({ voteCount: voteCount });}
-		});
-	},
-
-	create: function (req, res) {
+	create: async function (req, res) {
 		var model = {
 			bill: req.param('bill'),
 			user: req.param('user'),
 			vote: req.param('vote'),
 			voteInteger: req.param('voteInteger'),
 		};
-
 		if (req.param('voteInteger') == 1){model.voteString = "Yes"}
 		if (req.param('voteInteger') == -1){model.voteString = "No"}
-
-		VoteVote.create(model)
-		.exec(function(err, model) {
-			if (err) {return console.log(err);}
-			else {
-
-				VoteVote.getOne(model.id).then(function(votevote){
-					VoteVote.publishCreate(votevote[0]);
-					contactService.sendEmail(votevote[0]);
-					contactService.sendFax(votevote[0]);
-					contactService.sendMail(votevote[0])
-					res.json(votevote[0]);
-				});
-			}
-		});
-
-	},
-
-	update: function (req, res) {},
-
-	destroy: function (req, res) {
-		var id = req.param('id');
-		if (!id) {return res.badRequest('No id provided.');}
-		// Otherwise, find and destroy the model in question
-		VoteVote.findOne(id).exec(function(err, model) {
-			if (err) {return res.serverError(err);}
-			if (!model) {return res.notFound();}
-			VoteVote.destroy(id, function(err) {
-				if (err) {return res.serverError(err);}
-				VoteVote.publishDestroy(model.id);
-				return res.json(model);
-			});
-		});
-	}
-	
+		var newVoteVote = await VoteVote.create(model)
+		var voteVote = await VoteVote.getOne(newVoteVote.id);
+		VoteVote.publishCreate(voteVote[0]);
+		contactService.sendEmail(voteVote[0]);
+		contactService.sendFax(voteVote[0]);
+		contactService.sendMail(voteVote[0])
+		res.json(voteVote[0]);
+	},	
 };
 

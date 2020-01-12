@@ -1,9 +1,9 @@
 {
-  "name": "1.0.0",
+  "name": "VOETR",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "voetr LLC",
-  "keywords": [],
+  "keywords": ["PLURALIST","DIRECT DEMOCRACY","GOVERNANCE", "REPRESENTATIVE","GOVERNMENT PROCEDURE"],
   "dependencies": {
     "bcryptjs": "~2.1.0",
     "ejs": "~2.5.5",
@@ -38,11 +38,9 @@
     "rc": "~0.5.0",
     "request": "^2.88.0",
     "request-promise": "^4.1.1",
-    "sails": "~0.11.0",
+    "sails": "^1.2.3",
     "sails-disk": "~0.10.0",
-    "sails-generate-auth": "^0.3.1",
     "sails-mongo": "^0.11.0",
-    "skipper-s3": "^0.5.11",
     "stringstream": "^1.0.0",
     "validator": "~3.28.0",
     "web3": "github:ethereum/web3.js"
@@ -56,6 +54,6 @@
     "type": "git",
     "url": "https://github.com/troverman/voetr.git"
   },
-  "author": "NOVO",
+  "author": "Trevor Overman | NOVO | CRE8",
   "license": ""
 }

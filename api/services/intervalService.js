@@ -3,7 +3,6 @@ var request = require('request');
 var govTrack = require('govtrack-node');
 var Q = require('q');
 var _ = require('lodash');
-
 var states = {
     "AL": "Alabama",
     "AK": "Alaska",
@@ -187,7 +186,6 @@ function recentBills(){
 };
 
 function populateBills(){
-
 	var billCount = 0;
 	async.eachSeries(Object.keys(states), function (iterator, nextIteration){ 
 		setTimeout(function () {
@@ -197,20 +195,16 @@ function populateBills(){
 			process.nextTick(nextIteration);
 		}, 300000);
 	});	
-
 };
 
 function populateStateBills(){
-
 	async.eachSeries(Object.keys(states), function (iterator, nextIteration){ 
 		setTimeout(function () {
 			dataService.stateBills(iterator, 1, 50);
 			process.nextTick(nextIteration);
 		}, 180000);
 	});	
-
 };
-
 
 //get city council
 //get county council
@@ -349,9 +343,6 @@ function getRepsByGeo(OCDID, parent){
 		}
 	});
 };
-
-
-
 module.exports.intervalService = function(){
 
 
@@ -497,8 +488,6 @@ module.exports.intervalService = function(){
 	//    })(i);
 	//}
 
-
-	
 	//dataService.stateBills('nc', 1, 25);
 	//dataService.cityCommittees();
 	//dataService.stateCommittees();

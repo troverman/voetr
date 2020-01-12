@@ -1,46 +1,16 @@
-/**
-* Committee.js
-*
-*/
-
 module.exports = {
-
 	attributes: {
-        parent: {
-            model: 'committee'
-        },
-        billCount: {
-            type: 'integer',
-            defaultsTo: 0
-        },
-        memberCount: {
-            type: 'integer',
-            defaultsTo: 0
-        },
-        ocdDivision: {
-            type: 'string',
-        },
-        officialId: {
-            type: 'string',
-        },
-        title: {
-            type: 'string',
-            required: true,
-            unique: true
-        },
-        urlTitle: {
-            type: 'string',
-            required: true,
-            unique: true
-        },
+        parent: {model: 'committee'},
+        billCount: {type: 'integer', defaultsTo: 0},
+        memberCount: {type: 'integer', defaultsTo: 0},
+        ocdDivision: {type: 'string'},
+        officialId: {type: 'string'},
+        title: {type: 'string', required: true, unique: true},
+        urlTitle: {type: 'string', required: true, unique: true},
     },
-
     beforeCreate: function(values, cb) {
-        console.log(values)
         Committee.find({urlTitle:values.urlTitle}).then(function(committeeModel){
-            if (committeeModel.length === 0){
-                cb();
-            }
+            if (committeeModel.length === 0){cb();}
             else{
                 Committee.find({id:values.parent}).then(function(committeeModel){
                     if (committeeModel.length === 0){
@@ -59,25 +29,14 @@ module.exports = {
             }
         });
     },
-
     getOne: function(id) {
-        return Committee.findOne(id)
-        .populate('parent')
-        .then(function (model) {
-            return [model];
-        });
+        return Committee.findOne(id).populate('parent')
+        .then(function (model) {return [model];});
     },
-
     getSome: function(limiting, skipping, sort) {
-        return Committee.find()
-        .sort(sort)
-        .limit(limiting)
-        .skip(skipping)
-        .then(function (models) {
-            return models;
-        });
+        return Committee.find().sort(sort).limit(limiting).skip(skipping)
+        .then(function (models) {return models;});
     },
-
 };
 
  

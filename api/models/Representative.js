@@ -1,26 +1,9 @@
-/**
-* Representative.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
-
 module.exports = {
-
 	attributes: {
-        representative: {
-            model: 'user',
-            required: true
-        },
-        constituent: {
-            model: 'user',
-            required: true
-        },
-        committee: {
-            model: 'committee',
-        }
+        representative: {model: 'user', required: true},
+        constituent: {model: 'user', required: true},
+        committee: {model: 'committee'}
     },
-
     beforeCreate: function(model, next){
         Representative.find({constituent: model.constituent, representative:model.representative})
         .then(function(representative){
@@ -29,7 +12,6 @@ module.exports = {
             }
         });
     },
-
     afterCreate: function(model, next){
         Representative.count()
         .where({constituent: model.constituent})
@@ -47,41 +29,19 @@ module.exports = {
         });
         return next();
     },
-
-
     getOne: function(id) {
-        return Representative.findOne(id)
-        .populate('representative')
-        .populate('constituent')
-        .populate('committee')
+        return Representative.findOne(id).populate('representative').populate('constituent').populate('committee')
         .then(function (model) {
             return [model];
         });
     },
-
     getRepresentatives: function(constituent) {
-        return Representative.find()
-        .sort({createdAt: 'desc'})
-        .populate('representative')
-        .populate('constituent')
-        .populate('committee')
-        .where({constituent: constituent})
-        .then(function (model) {
-            return [model];
-        });
+        return Representative.find().sort({createdAt: 'desc'}).populate('representative').populate('constituent').populate('committee').where({constituent: constituent})
+        .then(function (model) {return [model];});
     },
-
     getConstituents: function(representative) {
-        return Representative.find()
-        .sort({createdAt: 'desc'})
-        .populate('representative')
-        .populate('constituent')
-        .populate('committee')
-        .where({representative: representative})
-        .then(function (model) {
-            return [model];
-        });
+        return Representative.find().sort({createdAt: 'desc'}).populate('representative').populate('constituent').populate('committee').where({representative: representative})
+        .then(function (model) {return [model];});
     }
-
 };
 
