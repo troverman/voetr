@@ -8,9 +8,9 @@ module.exports = {
 	},
 	getByCommittee: function(req, res) {
 		var committee = req.query.committee;
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
+		var limit = req.query.limit || 1;
+		var skip = req.query.skip || 0 ;
+		var sort = req.query.sort || 'createdAt DESC';
 		/*Committee.find({id:id})
         .then(function(committees){
 			console.log(committees)

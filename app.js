@@ -1,33 +1,17 @@
-/**
- * app.js
- *
- */
-// Ensure we're in the project directory, so relative paths work as expected
-// no matter where we actually lift from.
+//TODO: INIT
 process.chdir(__dirname);
 
-// Ensure a "sails" can be located:
-(function() {
-  var sails;
-  try {
-    sails = require('sails');
-  } catch (e) {
-    console.log(e)
-    return;
-  }
+//TODO: FROM SAILS TO ROCKETS ; something something
+var peer = require('sails');
+var rc = require('rc');
 
-  // Try to get `rc` dependency
-  var rc;
-  try {
-    rc = require('rc');
-  } catch (e0) {
-    try {
-      rc = require('sails/node_modules/rc');
-    } catch (e1) {
-      rc = function () { return {}; };
-    }
-  }
+peer.lift(rc('sails'));
 
-  // Start server
-  sails.lift(rc('sails'));
-})();
+//require init
+
+//peer.lift({
+//hooks:{foo: false}, // if you want to disable some of them
+//  paths: { views: 'mydir/views' }, // relative to appDir
+//}, function(err, server) {});
+
+

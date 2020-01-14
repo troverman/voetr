@@ -7,9 +7,9 @@ module.exports = {
 		});
 	},
 	getByCommittee: function(req, res) {
-		var limit = req.query.limit;
-		var skip = req.query.skip;
-		var sort = req.query.sort;
+		var limit = req.query.limit || 1;
+		var skip = req.query.skip || 0 ;
+		var sort = req.query.sort || 'createdAt DESC';
 		var committee = req.query.committee;
 		//--> needs to go n deep? filter by children
 		/*Committee.find({id:id})
