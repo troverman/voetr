@@ -8,7 +8,6 @@ module.exports = {
     beforeCreate: async function(model, next){
         //only one react per user per post or per votevote or bill or vote or committee member join
         var reactionModel = await Reaction.find({user: model.user, postModel:model.postModel})//, voteVote:model.voteVote})
-        console.log(reactionModel)
         if (reactionModel.length == 0){return next(null, reactionModel);}
         else{
             if(reactionModel[0].reaction != model.reaction){  

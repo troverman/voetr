@@ -54,16 +54,7 @@ module.exports = {
             }
         }
         var model = await User.update({id: model.id}, model)
-        console.log(model);
         //emailService.sendTemplate('welcome', model[0].email, 'Welcome To Voetr!', {username: model[0].username});
         return next(null, model);
-    },
-    getOne: function(id) {
-        return User.findOne(id)
-        .then(function (model) {return [model];});
-    },
-    getSome: function(limiting, skipping, sort) {
-        return User.find().sort(sort).limit(limiting).skip(skipping)
-        .then(function (models) {return models;});
-    },
+    }
 };

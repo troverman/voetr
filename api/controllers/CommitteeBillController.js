@@ -1,11 +1,5 @@
+//TODO: REFACTOR TO ASSOCIATION
 module.exports = {
-	getSome: async function(req, res) {
-		var models = await CommitteeBill.getSome(req.query.limit, req.query.skip, req.query.sort, req.query.filter)
-		console.log(models)
-		CommitteeBill.watch(req);
-		CommitteeBill.subscribe(req, models);
-		res.json(models);
-	},
 	getByCommiteeAndChildren: function(req, res) {
 		//need to get only the most recent limit - skip...... 
 		//by sort with multiple models.. --> gotaa solve this deyud. 
@@ -30,12 +24,18 @@ module.exports = {
 		recursiveCommittee(req.query.committee)
 		res.json([]);
 	},
-	//TODO: ASSOCIAIONS...
+	get: async function(req, res) {
+		var limit = req.query.limit || 1;
+		var skip = req.query.skip || 0;
+		var sort = req.query.sort || 'createdAt DESC';
+		var filter = req.query.filter || {};
+		var models = await CommitteeBill.find(filter).limit(limit).skip(skip).sort(sort);
+		//CommitteeBill.watch(req);
+		//CommitteeBill.subscribe(req, model);
+		res.json(models);
+	},
 	create: async function (req, res) {
-		var model = {
-			bill: req.param('bill'),
-			committee: req.param('committee'),
-		};
+		var model = {bill: req.param('bill'), committee: req.param('committee')};
 		var commiteeBillModel = await CommitteeBill.create(model)
 		CommitteeBill.publishCreate(committeeBillModel);
 		res.json(committeeBillModel);

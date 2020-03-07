@@ -14,7 +14,7 @@ module.exports = {
 	},
 	//FACTOR
 	getUserCount: async function(req, res) {
-		var voteCount = await VoteVote.count().where({user:req.param('id')})
+		var voteCount = await VoteVote.count().where({user:req.param('id')});
 		res.json({ voteCount: voteCount });
 	},
 	create: async function (req, res) {
@@ -27,7 +27,7 @@ module.exports = {
 		if (req.param('voteInteger') == 1){model.voteString = "Yes"}
 		if (req.param('voteInteger') == -1){model.voteString = "No"}
 		var newVoteVote = await VoteVote.create(model)
-		var voteVote = await VoteVote.getOne(newVoteVote.id);
+		var voteVote = await VoteVote.find({id:newVoteVote.id});
 		VoteVote.publishCreate(voteVote[0]);
 		contactService.sendEmail(voteVote[0]);
 		contactService.sendFax(voteVote[0]);

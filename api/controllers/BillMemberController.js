@@ -1,5 +1,5 @@
 module.exports = {
-	getOne: function(req, res) {
+	get: function(req, res) {
 		Bill.getOne(req.param('id'))
 		.spread(function(model) {
 			Bill.subscribe(req, model);
@@ -49,7 +49,7 @@ module.exports = {
 		res.json(models);
 	
 	},
-	create: function (req, res) {
+	create: async function (req, res) {
 		var billContent = req.param('billContent');
 		var committee = req.param('committee');
 		var title = req.param('title');

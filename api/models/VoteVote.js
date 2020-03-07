@@ -29,7 +29,7 @@ module.exports = {
             }
         }
     },
-    afterCreate: function(model, next){
+    afterCreate: async function(model, next){
         var voteVoteCount = await VoteVote.count().where({vote:model.vote})
         var voteModel = await Vote.find({id: model.vote});
         if (model.voteInteger == 1){voteModel[0].plusCount = voteModel[0].plusCount + 1;}

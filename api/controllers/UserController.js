@@ -26,12 +26,7 @@ module.exports = {
 		res.json({ userCount: userCount });
 	},
 	create: async function (req, res) {
-		var model = {
-			username: req.param('username'),
-			email: req.param('email'),
-			firstName: req.param('firstName'),
-			avatarUrl: req.param('avatarUrl')
-		};
+		var model = {username: req.param('username'), email: req.param('email'), firstName: req.param('firstName'), avatarUrl: req.param('avatarUrl')};
 		var model = await User.create(model)
 		User.publishCreate(model.toJSON());
 		res.json(model);	
@@ -52,25 +47,21 @@ module.exports = {
 		User.publishUpdate(id, model);
 		res.json(model);
 	},
+	//TODO: S3 APP
 	upload: function(req,res){
 		res.setTimeout(0)
-		var options = {
-			adapter: require("skipper-s3"),
-			key: 'AKIAJWRI5PIDP5OGKGLQ',
-		 	secret: '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',
-		 	bucket: 'voetr',
-		}
+		var options = {adapter: require("skipper-s3"), key: 'AKIAJWRI5PIDP5OGKGLQ', secret: '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', bucket: 'voetr'};
 		var byteCount = req.file('picture')._files[0].stream.byteCount
 		req.file('picture')
 		.on('progress', function (event){
-			var percentageUploaded = event.written/byteCount
-			console.log(percentageUploaded)
+			var percentageUploaded = event.written/byteCount;
+			console.log(percentageUploaded);
 		})
 		.upload(options, function response(err,uploadedFiles){
 			console.log('we are in the code')
 			if (err) {return res.negotiate(err);}
 		    if (uploadedFiles.length === 0){return res.badRequest('No file was uploaded');}
-		    console.log(uploadedFiles)
+		    console.log(uploadedFiles);
 		    var amazonUrl = uploadedFiles[0].extra.Location;
 		    return res.json({amazonUrl: amazonUrl});
 		});
@@ -84,14 +75,11 @@ module.exports = {
 		await User.update({id:id}, model);
 		res.json(passport);
 	},
-	reset: function(req,res){
+	reset: async function(req,res){
 		var token = req.param("token");
 		var newPassword = req.param("password");
 		var user = await User.find({passwordResetToken: token, resetTokenExpiresAfter: {">": Date.now() }}).populate("passports")
-		if (!user.length){
-			req.flash("error", "Reset token is invalid or expired");
-			res.redirect("/reset/" + token);
-		}
+		if (!user.length){req.flash("error", "Reset token is invalid or expired"); res.redirect("/reset/" + token);}
 		/*shouldnt have to throw an error here but make sure only users who have
 		local auth setup can get here*/
 		var localPassport = user[0].passports.filter(function(passport){return passport.protocol == "local";})[0];

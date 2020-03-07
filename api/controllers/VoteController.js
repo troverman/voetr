@@ -25,11 +25,7 @@ module.exports = {
 		res.json(models);
 	},
 	create: async function (req, res) {
-		var model = {
-			vote: req.param('vote'),
-			bill: req.param('bill'),
-			user: req.param('user')
-		};
+		var model = {vote: req.param('vote'), bill: req.param('bill'), user: req.param('user')};
 		var newVote = await Vote.create(model);
 		//this is total not up plus down
 		var voteCount = await Vote.count().where({bill: req.param('bill')})
