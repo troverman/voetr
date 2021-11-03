@@ -42,7 +42,7 @@
     "sails-hook-sockets": "^2.0.0",
     "sails-mongo": "^1.0.1",
     "stringstream": "^1.0.0",
-    "validator": "~3.28.0",
+    "validator": "~13.7.0",
     "web3": "github:ethereum/web3.js"
   },
   "scripts": {
